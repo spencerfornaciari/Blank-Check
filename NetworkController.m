@@ -10,6 +10,7 @@
 
 #define LINKEDIN_OAUTH_URL @"https://www.linkedin.com/uas/oauth2/authorization?response_type=code"
 #define LINKEDIN_TOKEN_URL @"https://www.linkedin.com/uas/oauth2/accessToken?grant_type=authorization_code"
+
 #define LINKEDIN_REDIRECT @"http://MacGuff.in"
 //#define LINKEDIN_REDIRECT @"blankcheck://linkedin_callback"
 
@@ -52,7 +53,7 @@
 //    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:myURL]];
 }
 
--(void)handleCallbackURL:(NSURL *)url
+-(NSString *)handleCallbackURL:(NSString *)code
 {
 //    //YOUR_REDIRECT_URI/?code=AUTHORIZATION_CODE&state=STATE
 //    
@@ -64,8 +65,12 @@
 //    
 //    [self convertURLToCode:url];
 //    
-//    NSString *tokenURL = [NSString stringWithFormat:@"%@&code=%@&redirect_uri=%@&client_id=%@&&client_secret=%@", LINKEDIN_TOKEN_URL, authorizationCode, LINKEDIN_REDIRECT, kLINKEDIN_API_KEY, kLINKEDIN_SECRET_KEY];
-//                          
+    NSString *tokenURL = [NSString stringWithFormat:@"%@&code=%@&redirect_uri=%@&client_id=%@&&client_secret=%@", LINKEDIN_TOKEN_URL, code, LINKEDIN_REDIRECT, kLINKEDIN_API_KEY, kLINKEDIN_SECRET_KEY];
+    
+//    NSLog(@"Token URL: %@", tokenURL);
+    
+    return tokenURL;
+//
 //                          &client_id=%@&scope=%@&state=%@&redirect_uri=%@", LINKEDIN_OAUTH_URL, kLINKEDIN_API_KEY, kLINKEDIN_STATE, LINKEDIN_SCOPE, LINKEDIN_REDIRECT];
 //    
 //    NSString *code = [self convertURLToCode:url];
@@ -100,10 +105,27 @@
 -(NSString *)convertURLToCode:(NSURL *)url
 {
     NSString *query = [url query];
-    NSArray *components = [query componentsSeparatedByString:@"="];
-    NSLog(@"%@", components);
-    NSString *code = [components lastObject];
-    return code;
+    NSArray *components = [query componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"=&"]];
+    NSMutableArray *mutCom = [components mutableCopy];
+    
+    
+    if ([mutCom[0]  isEqual: @"code"]) {
+        [mutCom removeObjectAtIndex:0];
+        authorizationCode = mutCom[0];
+        
+        return mutCom[0];
+//        [self handleCallbackURL:mutCom[0]];
+    }
+    
+    
+    
+    
+    
+//    
+//    NSLog(@"%@", mutCom[0]);
+//    
+//    NSString *code = [components lastObject];
+    return nil;
 }
 
 

@@ -13,6 +13,8 @@
 @property (nonatomic) NSString *accessToken;
 
 -(NSString *)beginOAuthAccess;
--(void)handleCallbackURL:(NSURL *)url;
+-(NSString *)handleCallbackURL:(NSString *)code;
+-(NSString *)convertURLToCode:(NSURL *)url;
+
 
 @end

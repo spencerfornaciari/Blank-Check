@@ -47,7 +47,15 @@
 -(void)webViewDidFinishLoad:(UIWebView *)webView{
     NSURLRequest *currentRequest = [self.webView request];
     NSURL *currentURL = [currentRequest URL];
-    NSLog(@"Current URL is %@", currentURL.absoluteString);
+//    NSLog(@"Current URL is %@", currentURL.absoluteString);
+    
+    NSString *string = [self.controller convertURLToCode:currentURL];
+    
+    if ([self.controller convertURLToCode:currentURL]) {
+        NSString *url = [self.controller handleCallbackURL:string];
+        NSLog(@"TOKEN: %@", url);
+    }
+
 }
 
 -(void)newURL
