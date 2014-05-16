@@ -13,6 +13,15 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    self.networkController = [NetworkController new];
+    
+    return YES;
+}
+
+-(BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
+{
+    NSString *string  = [NSString stringWithFormat:@"Callback: %@", url];
+    NSLog(@"Callback: %@", string);
     return YES;
 }
 							

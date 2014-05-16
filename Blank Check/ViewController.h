@@ -7,7 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AppDelegate.h"
+#import "NetworkController.h"
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController <UIWebViewDelegate>
+
+@property (nonatomic) AppDelegate *appDelegate;
+@property (nonatomic) NetworkController *controller;
+@property (strong, nonatomic) IBOutlet UILabel *urlLabel;
 
 @end
