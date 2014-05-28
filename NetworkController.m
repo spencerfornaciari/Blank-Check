@@ -53,7 +53,7 @@
 //    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:myURL]];
 }
 
--(NSString *)handleCallbackURL:(NSString *)code
+-(void)handleCallbackURL:(NSString *)code
 {
 //    //YOUR_REDIRECT_URI/?code=AUTHORIZATION_CODE&state=STATE
 //    
@@ -65,41 +65,51 @@
 //    
 //    [self convertURLToCode:url];
 //    
-    NSString *tokenURL = [NSString stringWithFormat:@"%@&code=%@&redirect_uri=%@&client_id=%@&&client_secret=%@", LINKEDIN_TOKEN_URL, code, LINKEDIN_REDIRECT, kLINKEDIN_API_KEY, kLINKEDIN_SECRET_KEY];
-    
+    NSString *tokenURL = [NSString stringWithFormat:@"%@&code=%@&redirect_uri=%@&client_id=%@&client_secret=%@", LINKEDIN_TOKEN_URL, code, LINKEDIN_REDIRECT, kLINKEDIN_API_KEY, kLINKEDIN_SECRET_KEY];
+    NSString *token = [NSString stringWithFormat:@"&code=%@&redirect_uri=%@&client_id=%@&client_secret=%@", code, LINKEDIN_REDIRECT, kLINKEDIN_API_KEY, kLINKEDIN_SECRET_KEY];
+    NSLog(@"Token URL: %@", tokenURL);
+    NSLog(@"Token: %@", token);
 //    NSLog(@"Token URL: %@", tokenURL);
     
-    return tokenURL;
 //
-//                          &client_id=%@&scope=%@&state=%@&redirect_uri=%@", LINKEDIN_OAUTH_URL, kLINKEDIN_API_KEY, kLINKEDIN_STATE, LINKEDIN_SCOPE, LINKEDIN_REDIRECT];
-//    
-//    NSString *code = [self convertURLToCode:url];
-//    
-//    NSString *post = [NSString stringWithFormat:@"client_id=%@&client_secret=%@&code=%@&redirect_uri=%@", GITHUB_CLIENT_ID, GITHUB_SECRET_ID, code, GITHUB_REDIRECT];
-//    
-//    NSData *postData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
+//
+    
+//    NSData *postData = [tokenURL dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
 //    NSString *postLength = [NSString stringWithFormat:@"%lu",(unsigned long)[postData length]];
-//    
-//    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
-//    [request setURL:[NSURL URLWithString:GITHUB_POST_URL]];
-//    [request setHTTPMethod:@"POST"];
+    
+//
+    NSURL *url = [NSURL URLWithString:LINKEDIN_TOKEN_URL];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+//    [request setURL:[NSURL URLWithString:tokenURL]];
+    [request setHTTPMethod:@"POST"];
+    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    [request setHTTPBody:[token dataUsingEncoding:NSUTF8StringEncoding]];
+    [request setValue:@"json" forHTTPHeaderField:@"x-li-format"]; // per Linkedin API: https://developer.linkedin.com/documents/api-requests-json
+    
 //    [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
 //    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
 //    [request setHTTPBody:postData];
-//    
-//    NSURLResponse *response;
-//    NSError *error;
-//    
-//    NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-//    
-//    self.accessToken = [self convertResponseIntoToken:responseData];
-//    NSLog(@"%@", self.accessToken);
-//    
-//    [self fetchUsersReposWithAccessToken:self.accessToken];
-//    
+//
+    NSURLResponse *response;
+    NSError *error;
+    
+    NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+    
+//    NSString *tokenResponse = [[NSString alloc] initWithData:responseData encoding:NSASCIIStringEncoding];
+    
+    NSDictionary *jsonObject=[NSJSONSerialization
+                              JSONObjectWithData:responseData
+                              options:NSJSONReadingMutableLeaves
+                              error:nil];
+//    NSLog(@"jsonObject is %@",jsonObject);
+    self.accessToken = [jsonObject objectForKey:@"access_token"];
+    NSLog(@"Access: %@", self.accessToken);
+
+    
 //    [[NSUserDefaults standardUserDefaults] setObject:self.accessToken forKey:@"accessToken"];
 //    [[NSUserDefaults standardUserDefaults] synchronize];
-//    
+    
+//
 }
 
 -(NSString *)convertURLToCode:(NSURL *)url
