@@ -15,6 +15,12 @@
     // Override point for customization after application launch.
     self.networkController = [NetworkController new];
     
+    if (![[NSUserDefaults standardUserDefaults] stringForKey:@"accessToken"]) {
+        NSLog(@"No Token");
+    } else {
+        NSLog(@"Token available");
+    }
+    
     return YES;
 }
 

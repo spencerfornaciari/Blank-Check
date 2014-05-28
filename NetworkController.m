@@ -53,64 +53,6 @@
 //    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:myURL]];
 }
 
--(void)handleCallbackURL:(NSString *)code
-{
-//    //YOUR_REDIRECT_URI/?code=AUTHORIZATION_CODE&state=STATE
-//    
-//    /*https://www.linkedin.com/uas/oauth2/accessToken?grant_type=authorization_code
-//     &code=AUTHORIZATION_CODE
-//     &redirect_uri=YOUR_REDIRECT_URI
-//     &client_id=YOUR_API_KEY
-//     &client_secret=YOUR_SECRET_KEY*/
-//    
-//    [self convertURLToCode:url];
-//    
-    NSString *tokenURL = [NSString stringWithFormat:@"%@&code=%@&redirect_uri=%@&client_id=%@&client_secret=%@", LINKEDIN_TOKEN_URL, code, LINKEDIN_REDIRECT, kLINKEDIN_API_KEY, kLINKEDIN_SECRET_KEY];
-    NSString *token = [NSString stringWithFormat:@"&code=%@&redirect_uri=%@&client_id=%@&client_secret=%@", code, LINKEDIN_REDIRECT, kLINKEDIN_API_KEY, kLINKEDIN_SECRET_KEY];
-    NSLog(@"Token URL: %@", tokenURL);
-    NSLog(@"Token: %@", token);
-//    NSLog(@"Token URL: %@", tokenURL);
-    
-//
-//
-    
-//    NSData *postData = [tokenURL dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
-//    NSString *postLength = [NSString stringWithFormat:@"%lu",(unsigned long)[postData length]];
-    
-//
-    NSURL *url = [NSURL URLWithString:LINKEDIN_TOKEN_URL];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-//    [request setURL:[NSURL URLWithString:tokenURL]];
-    [request setHTTPMethod:@"POST"];
-    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-    [request setHTTPBody:[token dataUsingEncoding:NSUTF8StringEncoding]];
-    [request setValue:@"json" forHTTPHeaderField:@"x-li-format"]; // per Linkedin API: https://developer.linkedin.com/documents/api-requests-json
-    
-//    [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
-//    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-//    [request setHTTPBody:postData];
-//
-    NSURLResponse *response;
-    NSError *error;
-    
-    NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-    
-//    NSString *tokenResponse = [[NSString alloc] initWithData:responseData encoding:NSASCIIStringEncoding];
-    
-    NSDictionary *jsonObject=[NSJSONSerialization
-                              JSONObjectWithData:responseData
-                              options:NSJSONReadingMutableLeaves
-                              error:nil];
-//    NSLog(@"jsonObject is %@",jsonObject);
-    self.accessToken = [jsonObject objectForKey:@"access_token"];
-    NSLog(@"Access: %@", self.accessToken);
-
-    
-//    [[NSUserDefaults standardUserDefaults] setObject:self.accessToken forKey:@"accessToken"];
-//    [[NSUserDefaults standardUserDefaults] synchronize];
-    
-//
-}
 
 -(NSString *)convertURLToCode:(NSURL *)url
 {
@@ -136,6 +78,52 @@
 //    
 //    NSString *code = [components lastObject];
     return nil;
+}
+
+-(void)handleCallbackURL:(NSString *)code
+{
+
+    //
+    //    [self convertURLToCode:url];
+    //
+//    NSString *tokenURL = [NSString stringWithFormat:@"%@&code=%@&redirect_uri=%@&client_id=%@&client_secret=%@", LINKEDIN_TOKEN_URL, code, LINKEDIN_REDIRECT, kLINKEDIN_API_KEY, kLINKEDIN_SECRET_KEY];
+    
+    
+    //Generating data for token extension
+    NSString *token = [NSString stringWithFormat:@"&code=%@&redirect_uri=%@&client_id=%@&client_secret=%@", code, LINKEDIN_REDIRECT, kLINKEDIN_API_KEY, kLINKEDIN_SECRET_KEY];
+    NSLog(@"Token: %@", token);
+
+    //Generating the NSMutableURLRequest with the base LinkedIN URL with token extension in the HTTP Body
+    NSURL *url = [NSURL URLWithString:LINKEDIN_TOKEN_URL];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    [request setHTTPMethod:@"POST"];
+    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    [request setHTTPBody:[token dataUsingEncoding:NSUTF8StringEncoding]];
+    [request setValue:@"json" forHTTPHeaderField:@"x-li-format"]; // per Linkedin API: https://developer.linkedin.com/documents/api-requests-json
+    
+    //    [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
+    //    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    //    [request setHTTPBody:postData];
+    //
+    NSURLResponse *response;
+    NSError *error;
+    
+    NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+    
+    //    NSString *tokenResponse = [[NSString alloc] initWithData:responseData encoding:NSASCIIStringEncoding];
+    
+    NSDictionary *jsonObject=[NSJSONSerialization
+                              JSONObjectWithData:responseData
+                              options:NSJSONReadingMutableLeaves
+                              error:nil];
+    //    NSLog(@"jsonObject is %@",jsonObject);
+    self.accessToken = [jsonObject objectForKey:@"access_token"];
+    NSLog(@"Access: %@", self.accessToken);
+    
+    
+    [[NSUserDefaults standardUserDefaults] setObject:self.accessToken forKey:@"accessToken"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
 }
 
 

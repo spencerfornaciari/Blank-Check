@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8910F22219367D1B00955812 /* Gamer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8910F22119367D1B00955812 /* Gamer.m */; };
+		8910F22519367FF600955812 /* Recommendation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8910F22419367FF600955812 /* Recommendation.m */; };
+		8910F2281936803A00955812 /* Groups.m in Sources */ = {isa = PBXBuildFile; fileRef = 8910F2271936803A00955812 /* Groups.m */; };
 		89C973AF192564AF00EC6004 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89C973AE192564AF00EC6004 /* Foundation.framework */; };
 		89C973B1192564AF00EC6004 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89C973B0192564AF00EC6004 /* CoreGraphics.framework */; };
 		89C973B3192564AF00EC6004 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89C973B2192564AF00EC6004 /* UIKit.framework */; };
@@ -24,13 +27,10 @@
 		89C973DD192564AF00EC6004 /* Blank_CheckTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C973DC192564AF00EC6004 /* Blank_CheckTests.m */; };
 		89C973E81925650C00EC6004 /* NetworkController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C973E71925650C00EC6004 /* NetworkController.m */; };
 		89C973EB192565D800EC6004 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C973EA192565D800EC6004 /* Constants.m */; };
-		89C973EE1925796E00EC6004 /* gamer.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C973ED1925796D00EC6004 /* gamer.m */; };
 		89C973F519257B6100EC6004 /* level.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C973F419257B6100EC6004 /* level.m */; };
 		89C973F819257E0500EC6004 /* badge.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C973F719257E0500EC6004 /* badge.m */; };
 		89C973FE1925866D00EC6004 /* housename.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C973FD1925866D00EC6004 /* housename.m */; };
 		89C974011925878700EC6004 /* languages.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C974001925878700EC6004 /* languages.m */; };
-		89C97404192589EB00EC6004 /* groups.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C97403192589EB00EC6004 /* groups.m */; };
-		89C9740719258A7700EC6004 /* recommendation.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C9740619258A7700EC6004 /* recommendation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +44,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8910F22019367D1B00955812 /* Gamer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Gamer.h; path = ../Gamer.h; sourceTree = "<group>"; };
+		8910F22119367D1B00955812 /* Gamer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Gamer.m; path = ../Gamer.m; sourceTree = "<group>"; };
+		8910F22319367FF600955812 /* Recommendation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Recommendation.h; path = ../Recommendation.h; sourceTree = "<group>"; };
+		8910F22419367FF600955812 /* Recommendation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Recommendation.m; path = ../Recommendation.m; sourceTree = "<group>"; };
+		8910F2261936803A00955812 /* Groups.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Groups.h; path = ../Groups.h; sourceTree = "<group>"; };
+		8910F2271936803A00955812 /* Groups.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Groups.m; path = ../Groups.m; sourceTree = "<group>"; };
 		89C973AB192564AF00EC6004 /* Blank Check.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Blank Check.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		89C973AE192564AF00EC6004 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		89C973B0192564AF00EC6004 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -68,8 +74,6 @@
 		89C973E71925650C00EC6004 /* NetworkController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NetworkController.m; path = ../NetworkController.m; sourceTree = "<group>"; };
 		89C973E9192565D800EC6004 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Constants.h; path = ../Constants.h; sourceTree = "<group>"; };
 		89C973EA192565D800EC6004 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Constants.m; path = ../Constants.m; sourceTree = "<group>"; };
-		89C973EC1925796D00EC6004 /* gamer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = gamer.h; path = ../gamer.h; sourceTree = "<group>"; };
-		89C973ED1925796D00EC6004 /* gamer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = gamer.m; path = ../gamer.m; sourceTree = "<group>"; };
 		89C973F319257B6100EC6004 /* level.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = level.h; sourceTree = "<group>"; };
 		89C973F419257B6100EC6004 /* level.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = level.m; sourceTree = "<group>"; };
 		89C973F619257E0500EC6004 /* badge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = badge.h; sourceTree = "<group>"; };
@@ -78,10 +82,6 @@
 		89C973FD1925866D00EC6004 /* housename.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = housename.m; path = ../housename.m; sourceTree = "<group>"; };
 		89C973FF1925878700EC6004 /* languages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = languages.h; path = ../languages.h; sourceTree = "<group>"; };
 		89C974001925878700EC6004 /* languages.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = languages.m; path = ../languages.m; sourceTree = "<group>"; };
-		89C97402192589EB00EC6004 /* groups.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = groups.h; path = ../groups.h; sourceTree = "<group>"; };
-		89C97403192589EB00EC6004 /* groups.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = groups.m; path = ../groups.m; sourceTree = "<group>"; };
-		89C9740519258A7700EC6004 /* recommendation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = recommendation.h; path = ../recommendation.h; sourceTree = "<group>"; };
-		89C9740619258A7700EC6004 /* recommendation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = recommendation.m; path = ../recommendation.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -189,16 +189,16 @@
 		89C973EF1925797100EC6004 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				89C9740519258A7700EC6004 /* recommendation.h */,
-				89C9740619258A7700EC6004 /* recommendation.m */,
-				89C97402192589EB00EC6004 /* groups.h */,
-				89C97403192589EB00EC6004 /* groups.m */,
+				8910F2261936803A00955812 /* Groups.h */,
+				8910F2271936803A00955812 /* Groups.m */,
+				8910F22319367FF600955812 /* Recommendation.h */,
+				8910F22419367FF600955812 /* Recommendation.m */,
+				8910F22019367D1B00955812 /* Gamer.h */,
+				8910F22119367D1B00955812 /* Gamer.m */,
 				89C973FF1925878700EC6004 /* languages.h */,
 				89C974001925878700EC6004 /* languages.m */,
 				89C973FC1925866D00EC6004 /* housename.h */,
 				89C973FD1925866D00EC6004 /* housename.m */,
-				89C973EC1925796D00EC6004 /* gamer.h */,
-				89C973ED1925796D00EC6004 /* gamer.m */,
 				89C973F319257B6100EC6004 /* level.h */,
 				89C973F419257B6100EC6004 /* level.m */,
 				89C973F619257E0500EC6004 /* badge.h */,
@@ -330,18 +330,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				89C973EE1925796E00EC6004 /* gamer.m in Sources */,
+				8910F22519367FF600955812 /* Recommendation.m in Sources */,
 				89C973EB192565D800EC6004 /* Constants.m in Sources */,
 				89C973FE1925866D00EC6004 /* housename.m in Sources */,
 				89C973E81925650C00EC6004 /* NetworkController.m in Sources */,
-				89C9740719258A7700EC6004 /* recommendation.m in Sources */,
 				89C973F519257B6100EC6004 /* level.m in Sources */,
 				89C973C8192564AF00EC6004 /* ViewController.m in Sources */,
+				8910F22219367D1B00955812 /* Gamer.m in Sources */,
 				89C973F819257E0500EC6004 /* badge.m in Sources */,
 				89C974011925878700EC6004 /* languages.m in Sources */,
 				89C973BF192564AF00EC6004 /* AppDelegate.m in Sources */,
-				89C97404192589EB00EC6004 /* groups.m in Sources */,
 				89C973BB192564AF00EC6004 /* main.m in Sources */,
+				8910F2281936803A00955812 /* Groups.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -556,6 +556,7 @@
 				89C973E2192564AF00EC6004 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		89C973E3192564AF00EC6004 /* Build configuration list for PBXNativeTarget "Blank CheckTests" */ = {
 			isa = XCConfigurationList;
@@ -564,6 +565,7 @@
 				89C973E5192564AF00EC6004 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

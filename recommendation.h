@@ -1,14 +1,14 @@
 //
-//  recommendation.h
+//  Recommendation.h
 //  Blank Check
 //
-//  Created by Spencer Fornaciari on 5/15/14.
+//  Created by Spencer Fornaciari on 5/28/14.
 //  Copyright (c) 2014 Blank Check Labs. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 
-@interface recommendation : NSObject
+@interface Recommendation : NSObject
 
 @property (nonatomic) NSString *recommendationText;
 @property (nonatomic) NSString *recommendationType;
