@@ -41,14 +41,15 @@
     }
     
     self.webView = [[UIWebView alloc] initWithFrame:self.view.frame];
-    self.webView.layer.zPosition = 3;
+    self.webView.layer.zPosition = 0;
     self.webView.delegate = self;
     [self.view addSubview:self.webView];
     
     self.appDelegate = [[UIApplication sharedApplication] delegate];
     self.controller = self.appDelegate.networkController;
     
-//    self.urlLabel.text = @"Hello";
+    [self.view addSubview:self.urlLabel];
+    self.urlLabel.text = @"Hello";
     
     
     
@@ -105,7 +106,7 @@
     //Generating the NSMutableURLRequest with the base LinkedIN URL with token extension in the HTTP Body
 //    NSString *string = [NSString stringWithFormat:@"https://api.linkedin.com/v1/people/~"]
     
-    NSURL *url = [NSURL URLWithString:@"https://api.linkedin.com/v1/people/id=kvjFrOuozB:(id,first-name,last-name,industry,headline,num-connections,picture-url,email-address,last-modified-timestamp,interests,languages,skills,certifications,three-current-positions)?oauth2_access_token=AQWlBgoqxdW9OLFOg1UUEGFt_Re-vnQLw7F9lTHXM6QzPBiT0iWzXOQQHP49hfmfm21N2n7LGhAnDRB3tsYdnfoQK9sG8KMDjrVVeTp5Psld5VAkE0ACHcd0MDrdT0_VOfVXLbDIc4wfqL3tlrnvGuqHcs2TeRwxTL4nzL_oVTM8e9NVeE8&format=json"];
+    NSURL *url = [NSURL URLWithString:@"https://api.linkedin.com/v1/people/id=kvjFrOuozB:(id,first-name,last-name,industry,headline,location:(name),num-connections,picture-url,email-address,last-modified-timestamp,interests,languages,skills,certifications,three-current-positions)?oauth2_access_token=AQWlBgoqxdW9OLFOg1UUEGFt_Re-vnQLw7F9lTHXM6QzPBiT0iWzXOQQHP49hfmfm21N2n7LGhAnDRB3tsYdnfoQK9sG8KMDjrVVeTp5Psld5VAkE0ACHcd0MDrdT0_VOfVXLbDIc4wfqL3tlrnvGuqHcs2TeRwxTL4nzL_oVTM8e9NVeE8&format=json"];
     
     NSData *data = [NSData dataWithContentsOfURL:url];
     
@@ -117,8 +118,23 @@
     self.currentGamer.lastName = dictionary[@"lastName"];
     self.currentGamer.gamerID = dictionary[@"id"];
     self.currentGamer.gamerEmail = dictionary[@"emailAddress"];
+    self.currentGamer.location = dictionary[@"location:(name)"];
     
-    NSLog(@"%@", [NSString stringWithFormat:@"%@ %@", self.currentGamer.firstName, self.currentGamer.lastName]);
+    NSURL *imageURL = [NSURL URLWithString:@"https://api.linkedin.com/v1/people/~/picture-urls::(original)?oauth2_access_token=AQWlBgoqxdW9OLFOg1UUEGFt_Re-vnQLw7F9lTHXM6QzPBiT0iWzXOQQHP49hfmfm21N2n7LGhAnDRB3tsYdnfoQK9sG8KMDjrVVeTp5Psld5VAkE0ACHcd0MDrdT0_VOfVXLbDIc4wfqL3tlrnvGuqHcs2TeRwxTL4nzL_oVTM8e9NVeE8&format=json"];
+    
+    NSData *imageData = [NSData dataWithContentsOfURL:imageURL];
+    
+    NSDictionary *dictionary2 = [NSJSONSerialization JSONObjectWithData:imageData
+                                                               options:NSJSONReadingMutableLeaves
+                                                                 error:nil];
+    
+    
+    NSArray *array = dictionary2[@"values"];
+    self.currentGamer.imageURL = array[0];
+
+//    NSString *stringTheory = [dictionary2 valueForKey:@"value"][0];
+    
+//    self.urlLabel.text = [NSString stringWithFormat:@"%@ %@", self.currentGamer.firstName, self.currentGamer.lastName];
 //    [self.urlLabel setNeedsDisplay];
     
 //    NSLog(@"%@",dictionary);

@@ -11,7 +11,8 @@
 @interface Gamer : NSObject
 
 //Gamer Information
-@property (nonatomic) NSInteger *zipCode;
+@property (nonatomic) NSInteger *zipCode; //Not part of LinkedIn API
+@property (nonatomic) NSString *location;
 @property (nonatomic) NSString *firstName;
 @property (nonatomic) NSString *lastName;
 @property (nonatomic) NSString *desiredPosition;
