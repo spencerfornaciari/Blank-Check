@@ -9,6 +9,9 @@
 #import "ViewController.h"
 #import "NetworkController.h"
 #import "Gamer.h"
+#import "Position.h"
+#import "Education.h"
+#import "Language.h"
 
 @interface ViewController ()
 
@@ -47,13 +50,6 @@
     
     self.appDelegate = [[UIApplication sharedApplication] delegate];
     self.controller = self.appDelegate.networkController;
-    
-    [self.view addSubview:self.urlLabel];
-    self.urlLabel.text = @"Hello";
-    
-    
-    
-//    NSOperationQueue *queue = [NSOperationQueue new];
     
 
     
@@ -106,7 +102,7 @@
     //Generating the NSMutableURLRequest with the base LinkedIN URL with token extension in the HTTP Body
 //    NSString *string = [NSString stringWithFormat:@"https://api.linkedin.com/v1/people/~"]
     
-    NSURL *url = [NSURL URLWithString:@"https://api.linkedin.com/v1/people/id=kvjFrOuozB:(id,first-name,last-name,industry,headline,location:(name),num-connections,picture-url,email-address,last-modified-timestamp,interests,languages,skills,certifications,three-current-positions)?oauth2_access_token=AQWlBgoqxdW9OLFOg1UUEGFt_Re-vnQLw7F9lTHXM6QzPBiT0iWzXOQQHP49hfmfm21N2n7LGhAnDRB3tsYdnfoQK9sG8KMDjrVVeTp5Psld5VAkE0ACHcd0MDrdT0_VOfVXLbDIc4wfqL3tlrnvGuqHcs2TeRwxTL4nzL_oVTM8e9NVeE8&format=json"];
+    NSURL *url = [NSURL URLWithString:@"https://api.linkedin.com/v1/people/~:(id,first-name,last-name,industry,headline,location:(name),num-connections,picture-url,email-address,last-modified-timestamp,interests,languages,skills,certifications,three-current-positions,public-profile-url,educations)?oauth2_access_token=AQWlBgoqxdW9OLFOg1UUEGFt_Re-vnQLw7F9lTHXM6QzPBiT0iWzXOQQHP49hfmfm21N2n7LGhAnDRB3tsYdnfoQK9sG8KMDjrVVeTp5Psld5VAkE0ACHcd0MDrdT0_VOfVXLbDIc4wfqL3tlrnvGuqHcs2TeRwxTL4nzL_oVTM8e9NVeE8&format=json"];
     
     NSData *data = [NSData dataWithContentsOfURL:url];
     
@@ -118,8 +114,111 @@
     self.currentGamer.lastName = dictionary[@"lastName"];
     self.currentGamer.gamerID = dictionary[@"id"];
     self.currentGamer.gamerEmail = dictionary[@"emailAddress"];
-    self.currentGamer.location = dictionary[@"location:(name)"];
+    self.currentGamer.location = [dictionary valueForKeyPath:@"location.name"];
+    self.currentGamer.linkedinURL = dictionary[@"publicProfileUrl"];
     
+    //Working on parsing current positions
+    NSMutableArray *tempArray = [NSMutableArray new];
+//    NSLog(@"%@", postArray[0]);
+    NSArray *positionArray = [dictionary valueForKeyPath:@"threeCurrentPositions.values"];
+    
+    for (NSDictionary *positionDictionary in positionArray) {
+        Position *position = [Position new];
+        position.isCurrent = TRUE;
+        position.companyName = [positionDictionary valueForKeyPath:@"company.name"];
+        position.idNumber = [positionDictionary valueForKeyPath:@"company.id"];
+        position.industry = [positionDictionary valueForKeyPath:@"company.industry"];
+        position.title = [positionDictionary valueForKey:@"title"];
+        
+        //Parse start date
+        NSString *startDate = [NSString stringWithFormat:@"%@/%@", [positionDictionary valueForKeyPath:@"startDate.month"], [positionDictionary valueForKeyPath:@"startDate.year"]];
+        NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+        [formatter setDateFormat:@"MM/yyyy"];
+        position.startDate = [formatter dateFromString:startDate];
+        
+        [tempArray addObject:position];
+    }
+    
+    self.currentGamer.currentPositionArray = tempArray;
+    
+//    NSLog(@"%@", positionArray[0]);
+    
+    //Parsing skills
+    self.currentGamer.gamerSkills = [NSMutableArray new];
+    NSArray *skillsArray = [dictionary valueForKeyPath:@"skills.values"];
+    
+    for (NSDictionary *skillsDictionary in skillsArray) {
+        NSString *skill = [skillsDictionary valueForKeyPath:@"skill.name"];
+        [self.currentGamer.gamerSkills addObject:skill];
+    }
+    
+    
+    //Parsing Educational Institutions
+    self.currentGamer.educationArray = [NSMutableArray new];
+    
+    NSArray *educationArray = [dictionary valueForKeyPath:@"educations.values"];
+    
+    for (NSDictionary *educationDictionary in educationArray) {
+        Education *institution = [Education new];
+        institution.schoolID = [educationDictionary valueForKey:@"id"];
+        institution.schoolName = [educationDictionary valueForKey:@"schoolName"];
+        institution.degree = [educationDictionary valueForKey:@"degree"];
+        institution.fieldOfStudy = [educationDictionary valueForKey:@"fieldOfStudy"];
+        
+        NSString *startDate = [NSString stringWithFormat:@"%@", [educationDictionary valueForKeyPath:@"startDate.year"]];
+        NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+        [formatter setDateFormat:@"yyyy"];
+        institution.startYear = [formatter dateFromString:startDate];
+        
+        NSString *endDate = [NSString stringWithFormat:@"%@", [educationDictionary valueForKeyPath:@"endDate.year"]];
+        institution.endYear = [formatter dateFromString:endDate];
+        
+        [self.currentGamer.educationArray addObject:institution];
+        
+    }
+    
+    //Parsing languages
+    self.currentGamer.languages = [NSMutableArray new];
+    
+    NSArray *languageArray = [dictionary valueForKeyPath:@"languages.values"];
+    
+    for (NSDictionary *languageDictionary in languageArray) {
+        Language *language = [Language new];
+        language.languageID = [languageDictionary valueForKey:@"id"];
+        language.languageName = [languageDictionary valueForKeyPath:@"language.name"];
+        
+        [self.currentGamer.languages addObject:language];
+    }
+    /*languages: {
+     _total: 3,
+     values: [
+     {
+     id: 15,
+     language: {
+     name: "Spanish"
+     }
+     },
+     {
+     id: 44,
+     language: {
+     name: "French"
+     }
+     },
+     {
+     id: 45,
+     language: {
+     name: "Italian"
+     }
+     }
+     ]*/
+    
+    //Parsing last updated time (and millisecond conversion)
+    NSNumber *date = [dictionary valueForKey:@"lastModifiedTimestamp"];
+    float newDate = [date floatValue] / 1000;
+    self.currentGamer.lastLinkedinUpdate = [NSDate dateWithTimeIntervalSince1970:newDate];
+
+    
+    //Grabbing the original image link
     NSURL *imageURL = [NSURL URLWithString:@"https://api.linkedin.com/v1/people/~/picture-urls::(original)?oauth2_access_token=AQWlBgoqxdW9OLFOg1UUEGFt_Re-vnQLw7F9lTHXM6QzPBiT0iWzXOQQHP49hfmfm21N2n7LGhAnDRB3tsYdnfoQK9sG8KMDjrVVeTp5Psld5VAkE0ACHcd0MDrdT0_VOfVXLbDIc4wfqL3tlrnvGuqHcs2TeRwxTL4nzL_oVTM8e9NVeE8&format=json"];
     
     NSData *imageData = [NSData dataWithContentsOfURL:imageURL];
@@ -131,6 +230,11 @@
     
     NSArray *array = dictionary2[@"values"];
     self.currentGamer.imageURL = array[0];
+    
+    UILabel *newLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 200, 320, 40)];
+    newLabel.text = [NSString stringWithFormat:@"%@ %@", self.currentGamer.firstName, self.currentGamer.lastName];
+    [self.view addSubview:newLabel];
+    newLabel.layer.zPosition = 3;
 
 //    NSString *stringTheory = [dictionary2 valueForKey:@"value"][0];
     

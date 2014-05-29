@@ -1,13 +1,15 @@
 //
-//  Groups.h
+//  Position.m
 //  Blank Check
 //
 //  Created by Spencer Fornaciari on 5/28/14.
 //  Copyright (c) 2014 Blank Check Labs. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "Position.h"
 
-@interface Groups : NSObject
+@implementation Position
+
+
 
 @end

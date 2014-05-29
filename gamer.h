@@ -22,7 +22,7 @@
 @property (nonatomic) NSString *linkedinUsername;
 @property (nonatomic) NSString *gamerEmail;
 @property (nonatomic) NSURL *linkedinURL;
-@property (nonatomic) NSDate *lastLinkedinLogin;
+@property (nonatomic) NSDate *lastLinkedinUpdate;
 
 //Gamer photo information
 @property (nonatomic) NSURL *imageURL;
@@ -34,13 +34,13 @@
 @property (nonatomic) NSArray *currentPositionArray;
 
 @property (nonatomic) NSArray *gamerCertifications; //Linkedin Certifications <-- use natural language
-@property (nonatomic) NSArray *gamerSkills; //Linkedin Skills <-- use natural language
+@property (nonatomic) NSMutableArray *gamerSkills; //Linkedin Skills <-- use natural language
 
 @property (nonatomic) NSArray *connectionIDArray; //Array of Connections's Linkedin IDs
 @property (nonatomic) NSMutableArray *followingIDs; //Create individual graphic experiences
-@property (nonatomic) NSArray *educationArray; //Array of educational experience
+@property (nonatomic) NSMutableArray *educationArray; //Array of educational experience
 
-@property (nonatomic) NSArray *languages;
+@property (nonatomic) NSMutableArray *languages;
 @property (nonatomic) NSArray *groups;
 @property (nonatomic) NSArray *recommendations;
 

@@ -7,9 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8910F22219367D1B00955812 /* Gamer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8910F22119367D1B00955812 /* Gamer.m */; };
-		8910F22519367FF600955812 /* Recommendation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8910F22419367FF600955812 /* Recommendation.m */; };
-		8910F2281936803A00955812 /* Groups.m in Sources */ = {isa = PBXBuildFile; fileRef = 8910F2271936803A00955812 /* Groups.m */; };
+		8910F3261937AD8200955812 /* Gamer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8910F3251937AD8200955812 /* Gamer.m */; };
+		8910F3291937ADB700955812 /* Education.m in Sources */ = {isa = PBXBuildFile; fileRef = 8910F3281937ADB700955812 /* Education.m */; };
+		8910F32C1937ADC700955812 /* Position.m in Sources */ = {isa = PBXBuildFile; fileRef = 8910F32B1937ADC700955812 /* Position.m */; };
+		8910F32F1937ADEA00955812 /* Recommendation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8910F32E1937ADEA00955812 /* Recommendation.m */; };
+		8910F3321937AE3400955812 /* Language.m in Sources */ = {isa = PBXBuildFile; fileRef = 8910F3311937AE3400955812 /* Language.m */; };
 		89C973AF192564AF00EC6004 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89C973AE192564AF00EC6004 /* Foundation.framework */; };
 		89C973B1192564AF00EC6004 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89C973B0192564AF00EC6004 /* CoreGraphics.framework */; };
 		89C973B3192564AF00EC6004 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89C973B2192564AF00EC6004 /* UIKit.framework */; };
@@ -27,10 +29,6 @@
 		89C973DD192564AF00EC6004 /* Blank_CheckTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C973DC192564AF00EC6004 /* Blank_CheckTests.m */; };
 		89C973E81925650C00EC6004 /* NetworkController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C973E71925650C00EC6004 /* NetworkController.m */; };
 		89C973EB192565D800EC6004 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C973EA192565D800EC6004 /* Constants.m */; };
-		89C973F519257B6100EC6004 /* level.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C973F419257B6100EC6004 /* level.m */; };
-		89C973F819257E0500EC6004 /* badge.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C973F719257E0500EC6004 /* badge.m */; };
-		89C973FE1925866D00EC6004 /* housename.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C973FD1925866D00EC6004 /* housename.m */; };
-		89C974011925878700EC6004 /* languages.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C974001925878700EC6004 /* languages.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,12 +42,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		8910F22019367D1B00955812 /* Gamer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Gamer.h; path = ../Gamer.h; sourceTree = "<group>"; };
-		8910F22119367D1B00955812 /* Gamer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Gamer.m; path = ../Gamer.m; sourceTree = "<group>"; };
-		8910F22319367FF600955812 /* Recommendation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Recommendation.h; path = ../Recommendation.h; sourceTree = "<group>"; };
-		8910F22419367FF600955812 /* Recommendation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Recommendation.m; path = ../Recommendation.m; sourceTree = "<group>"; };
-		8910F2261936803A00955812 /* Groups.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Groups.h; path = ../Groups.h; sourceTree = "<group>"; };
-		8910F2271936803A00955812 /* Groups.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Groups.m; path = ../Groups.m; sourceTree = "<group>"; };
+		8910F3241937AD8200955812 /* Gamer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Gamer.h; sourceTree = "<group>"; };
+		8910F3251937AD8200955812 /* Gamer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Gamer.m; sourceTree = "<group>"; };
+		8910F3271937ADB700955812 /* Education.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Education.h; sourceTree = "<group>"; };
+		8910F3281937ADB700955812 /* Education.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Education.m; sourceTree = "<group>"; };
+		8910F32A1937ADC700955812 /* Position.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Position.h; sourceTree = "<group>"; };
+		8910F32B1937ADC700955812 /* Position.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Position.m; sourceTree = "<group>"; };
+		8910F32D1937ADEA00955812 /* Recommendation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Recommendation.h; sourceTree = "<group>"; };
+		8910F32E1937ADEA00955812 /* Recommendation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Recommendation.m; sourceTree = "<group>"; };
+		8910F3301937AE3400955812 /* Language.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Language.h; sourceTree = "<group>"; };
+		8910F3311937AE3400955812 /* Language.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Language.m; sourceTree = "<group>"; };
 		89C973AB192564AF00EC6004 /* Blank Check.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Blank Check.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		89C973AE192564AF00EC6004 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		89C973B0192564AF00EC6004 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -74,14 +76,6 @@
 		89C973E71925650C00EC6004 /* NetworkController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NetworkController.m; path = ../NetworkController.m; sourceTree = "<group>"; };
 		89C973E9192565D800EC6004 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Constants.h; path = ../Constants.h; sourceTree = "<group>"; };
 		89C973EA192565D800EC6004 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Constants.m; path = ../Constants.m; sourceTree = "<group>"; };
-		89C973F319257B6100EC6004 /* level.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = level.h; sourceTree = "<group>"; };
-		89C973F419257B6100EC6004 /* level.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = level.m; sourceTree = "<group>"; };
-		89C973F619257E0500EC6004 /* badge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = badge.h; sourceTree = "<group>"; };
-		89C973F719257E0500EC6004 /* badge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = badge.m; sourceTree = "<group>"; };
-		89C973FC1925866D00EC6004 /* housename.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = housename.h; path = ../housename.h; sourceTree = "<group>"; };
-		89C973FD1925866D00EC6004 /* housename.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = housename.m; path = ../housename.m; sourceTree = "<group>"; };
-		89C973FF1925878700EC6004 /* languages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = languages.h; path = ../languages.h; sourceTree = "<group>"; };
-		89C974001925878700EC6004 /* languages.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = languages.m; path = ../languages.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +102,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8910F3201937AD1300955812 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8910F3301937AE3400955812 /* Language.h */,
+				8910F3311937AE3400955812 /* Language.m */,
+				8910F32D1937ADEA00955812 /* Recommendation.h */,
+				8910F32E1937ADEA00955812 /* Recommendation.m */,
+				8910F32A1937ADC700955812 /* Position.h */,
+				8910F32B1937ADC700955812 /* Position.m */,
+				8910F3271937ADB700955812 /* Education.h */,
+				8910F3281937ADB700955812 /* Education.m */,
+				8910F3241937AD8200955812 /* Gamer.h */,
+				8910F3251937AD8200955812 /* Gamer.m */,
+			);
+			name = Model;
+			path = ..;
+			sourceTree = "<group>";
+		};
 		89C973A2192564AF00EC6004 = {
 			isa = PBXGroup;
 			children = (
@@ -141,10 +153,10 @@
 		89C973B4192564AF00EC6004 /* Blank Check */ = {
 			isa = PBXGroup;
 			children = (
+				8910F3201937AD1300955812 /* Model */,
 				89C973F21925797F00EC6004 /* Misc */,
 				89C973F11925797B00EC6004 /* Controller */,
 				89C973F01925797700EC6004 /* View */,
-				89C973EF1925797100EC6004 /* Model */,
 				89C973E9192565D800EC6004 /* Constants.h */,
 				89C973EA192565D800EC6004 /* Constants.m */,
 				89C973BD192564AF00EC6004 /* AppDelegate.h */,
@@ -184,27 +196,6 @@
 				89C973D9192564AF00EC6004 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		89C973EF1925797100EC6004 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				8910F2261936803A00955812 /* Groups.h */,
-				8910F2271936803A00955812 /* Groups.m */,
-				8910F22319367FF600955812 /* Recommendation.h */,
-				8910F22419367FF600955812 /* Recommendation.m */,
-				8910F22019367D1B00955812 /* Gamer.h */,
-				8910F22119367D1B00955812 /* Gamer.m */,
-				89C973FF1925878700EC6004 /* languages.h */,
-				89C974001925878700EC6004 /* languages.m */,
-				89C973FC1925866D00EC6004 /* housename.h */,
-				89C973FD1925866D00EC6004 /* housename.m */,
-				89C973F319257B6100EC6004 /* level.h */,
-				89C973F419257B6100EC6004 /* level.m */,
-				89C973F619257E0500EC6004 /* badge.h */,
-				89C973F719257E0500EC6004 /* badge.m */,
-			);
-			name = Model;
 			sourceTree = "<group>";
 		};
 		89C973F01925797700EC6004 /* View */ = {
@@ -330,18 +321,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8910F22519367FF600955812 /* Recommendation.m in Sources */,
+				8910F3261937AD8200955812 /* Gamer.m in Sources */,
 				89C973EB192565D800EC6004 /* Constants.m in Sources */,
-				89C973FE1925866D00EC6004 /* housename.m in Sources */,
+				8910F32C1937ADC700955812 /* Position.m in Sources */,
 				89C973E81925650C00EC6004 /* NetworkController.m in Sources */,
-				89C973F519257B6100EC6004 /* level.m in Sources */,
 				89C973C8192564AF00EC6004 /* ViewController.m in Sources */,
-				8910F22219367D1B00955812 /* Gamer.m in Sources */,
-				89C973F819257E0500EC6004 /* badge.m in Sources */,
-				89C974011925878700EC6004 /* languages.m in Sources */,
 				89C973BF192564AF00EC6004 /* AppDelegate.m in Sources */,
+				8910F32F1937ADEA00955812 /* Recommendation.m in Sources */,
+				8910F3321937AE3400955812 /* Language.m in Sources */,
 				89C973BB192564AF00EC6004 /* main.m in Sources */,
-				8910F2281936803A00955812 /* Groups.m in Sources */,
+				8910F3291937ADB700955812 /* Education.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

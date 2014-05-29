@@ -14,6 +14,5 @@
 
 @property (nonatomic) AppDelegate *appDelegate;
 @property (nonatomic) NetworkController *controller;
-@property (strong, nonatomic) IBOutlet UILabel *urlLabel;
 
 @end
