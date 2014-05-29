@@ -10,8 +10,11 @@
 
 @interface Recommendation : NSObject
 
+@property (nonatomic) NSString *recommendationID;
 @property (nonatomic) NSString *recommendationText;
 @property (nonatomic) NSString *recommendationType;
-@property (nonatomic) NSString *recommender; //Ideally we might be able to get the ID # here
+@property (nonatomic) NSString *recommenderID;
+@property (nonatomic) NSString *firstName;
+@property (nonatomic) NSString *lastName;
 
 @end

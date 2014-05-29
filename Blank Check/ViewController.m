@@ -12,6 +12,7 @@
 #import "Position.h"
 #import "Education.h"
 #import "Language.h"
+#import "Recommendation.h"
 
 @interface ViewController ()
 
@@ -102,7 +103,7 @@
     //Generating the NSMutableURLRequest with the base LinkedIN URL with token extension in the HTTP Body
 //    NSString *string = [NSString stringWithFormat:@"https://api.linkedin.com/v1/people/~"]
     
-    NSURL *url = [NSURL URLWithString:@"https://api.linkedin.com/v1/people/~:(id,first-name,last-name,industry,headline,location:(name),num-connections,picture-url,email-address,last-modified-timestamp,interests,languages,skills,certifications,three-current-positions,public-profile-url,educations)?oauth2_access_token=AQWlBgoqxdW9OLFOg1UUEGFt_Re-vnQLw7F9lTHXM6QzPBiT0iWzXOQQHP49hfmfm21N2n7LGhAnDRB3tsYdnfoQK9sG8KMDjrVVeTp5Psld5VAkE0ACHcd0MDrdT0_VOfVXLbDIc4wfqL3tlrnvGuqHcs2TeRwxTL4nzL_oVTM8e9NVeE8&format=json"];
+    NSURL *url = [NSURL URLWithString:@"https://api.linkedin.com/v1/people/~:(id,first-name,last-name,industry,headline,location:(name),num-connections,picture-url,email-address,last-modified-timestamp,interests,languages,skills,certifications,three-current-positions,public-profile-url,educations,num-recommenders,recommendations-received)?oauth2_access_token=AQWlBgoqxdW9OLFOg1UUEGFt_Re-vnQLw7F9lTHXM6QzPBiT0iWzXOQQHP49hfmfm21N2n7LGhAnDRB3tsYdnfoQK9sG8KMDjrVVeTp5Psld5VAkE0ACHcd0MDrdT0_VOfVXLbDIc4wfqL3tlrnvGuqHcs2TeRwxTL4nzL_oVTM8e9NVeE8&format=json"];
     
     NSData *data = [NSData dataWithContentsOfURL:url];
     
@@ -116,6 +117,8 @@
     self.currentGamer.gamerEmail = dictionary[@"emailAddress"];
     self.currentGamer.location = [dictionary valueForKeyPath:@"location.name"];
     self.currentGamer.linkedinURL = dictionary[@"publicProfileUrl"];
+    self.currentGamer.numConnections = dictionary[@"numConnections"];
+    self.currentGamer.numRecommenders = dictionary[@"numRecommenders"];
     
     //Working on parsing current positions
     NSMutableArray *tempArray = [NSMutableArray new];
@@ -177,8 +180,8 @@
         
     }
     
-    //Parsing languages
-    self.currentGamer.languages = [NSMutableArray new];
+    //Parsing Languages
+    self.currentGamer.GamerLanguages = [NSMutableArray new];
     
     NSArray *languageArray = [dictionary valueForKeyPath:@"languages.values"];
     
@@ -187,30 +190,25 @@
         language.languageID = [languageDictionary valueForKey:@"id"];
         language.languageName = [languageDictionary valueForKeyPath:@"language.name"];
         
-        [self.currentGamer.languages addObject:language];
+        [self.currentGamer.gamerLanguages addObject:language];
     }
-    /*languages: {
-     _total: 3,
-     values: [
-     {
-     id: 15,
-     language: {
-     name: "Spanish"
-     }
-     },
-     {
-     id: 44,
-     language: {
-     name: "French"
-     }
-     },
-     {
-     id: 45,
-     language: {
-     name: "Italian"
-     }
-     }
-     ]*/
+
+    //Parsing Recommendations
+    self.currentGamer.gamerRecommendations = [NSMutableArray new];
+    
+    NSArray *recommendationArray = [dictionary valueForKeyPath:@"recommendationsReceived.values"];
+    
+    for (NSDictionary *recommendationDictionary in recommendationArray) {
+        Recommendation *recommendation = [Recommendation new];
+        recommendation.recommendationID = [recommendationDictionary valueForKey:@"id"];
+        recommendation.recommendationText = [recommendationDictionary valueForKey:@"recommendationText"];
+        recommendation.recommendationType = [recommendationDictionary valueForKeyPath:@"recommendationType.code"];
+        recommendation.recommenderID = [recommendationDictionary valueForKeyPath:@"recommender.id"];
+        recommendation.firstName = [recommendationDictionary valueForKeyPath:@"recommender.firstName"];
+        recommendation.lastName = [recommendationDictionary valueForKeyPath:@"recommender.lastName"];
+        
+        [self.currentGamer.gamerRecommendations addObject:recommendation];
+    }
     
     //Parsing last updated time (and millisecond conversion)
     NSNumber *date = [dictionary valueForKey:@"lastModifiedTimestamp"];
@@ -230,6 +228,27 @@
     
     NSArray *array = dictionary2[@"values"];
     self.currentGamer.imageURL = array[0];
+    
+    //Parsing Connection info
+    self.currentGamer.connectionIDArray = [NSMutableArray new];
+    
+    NSURL *connectionURL = [NSURL URLWithString:@"https://api.linkedin.com/v1/people/~/connections?oauth2_access_token=AQWlBgoqxdW9OLFOg1UUEGFt_Re-vnQLw7F9lTHXM6QzPBiT0iWzXOQQHP49hfmfm21N2n7LGhAnDRB3tsYdnfoQK9sG8KMDjrVVeTp5Psld5VAkE0ACHcd0MDrdT0_VOfVXLbDIc4wfqL3tlrnvGuqHcs2TeRwxTL4nzL_oVTM8e9NVeE8&format=json"];
+    
+    NSData *connectionData = [NSData dataWithContentsOfURL:connectionURL];
+    NSDictionary *connectionDictionary = [NSJSONSerialization JSONObjectWithData:connectionData
+                                                                         options:NSJSONReadingMutableLeaves
+                                                                           error:nil];
+    NSArray *connectionArray = connectionDictionary[@"values"];
+    
+    for (NSDictionary *connection in connectionArray) {
+        Gamer *gamer = [Gamer new];
+        gamer.firstName = connection[@"firstName"];
+        gamer.lastName = connection[@"lastName"];
+        gamer.gamerID = connection[@"id"];
+        
+        [self.currentGamer.connectionIDArray addObject:gamer];
+    }
+    
     
     UILabel *newLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 200, 320, 40)];
     newLabel.text = [NSString stringWithFormat:@"%@ %@", self.currentGamer.firstName, self.currentGamer.lastName];
