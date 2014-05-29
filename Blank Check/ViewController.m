@@ -28,6 +28,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.title = @"Blank Check";
     
     self.tokenBOOL = FALSE;
     
@@ -216,7 +217,9 @@
     self.currentGamer.lastLinkedinUpdate = [NSDate dateWithTimeIntervalSince1970:newDate];
 
     
-    //Grabbing the original image link
+    //Grabbing the original image link ----> needs to be refactored so we don't have to download it everytime
+
+    
     NSURL *imageURL = [NSURL URLWithString:@"https://api.linkedin.com/v1/people/~/picture-urls::(original)?oauth2_access_token=AQWlBgoqxdW9OLFOg1UUEGFt_Re-vnQLw7F9lTHXM6QzPBiT0iWzXOQQHP49hfmfm21N2n7LGhAnDRB3tsYdnfoQK9sG8KMDjrVVeTp5Psld5VAkE0ACHcd0MDrdT0_VOfVXLbDIc4wfqL3tlrnvGuqHcs2TeRwxTL4nzL_oVTM8e9NVeE8&format=json"];
     
     NSData *imageData = [NSData dataWithContentsOfURL:imageURL];
@@ -227,7 +230,22 @@
     
     
     NSArray *array = dictionary2[@"values"];
-    self.currentGamer.imageURL = array[0];
+    self.currentGamer.imageURL = [NSURL URLWithString:array[0]];
+    NSString *fullName = [NSString stringWithFormat:@"%@%@", self.currentGamer.firstName, self.currentGamer.lastName];
+    self.currentGamer.imageLocalLocation = [NSString stringWithFormat:@"%@/%@.jpg", [self documentsDirectoryPath], fullName];
+    
+    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:self.currentGamer.imageLocalLocation];
+    
+    if (!fileExists) {
+        NSData *profilePicData = [NSData dataWithContentsOfURL:self.currentGamer.imageURL];
+        [profilePicData writeToFile:self.currentGamer.imageLocalLocation atomically:YES];
+        self.currentGamer.profileImage = [UIImage imageWithData:profilePicData];
+    } else {
+        self.currentGamer.profileImage = [UIImage imageWithData:[NSData dataWithContentsOfMappedFile:self.currentGamer.imageLocalLocation]];
+    }
+   
+    
+    
     
     //Parsing Connection info
     self.currentGamer.connectionIDArray = [NSMutableArray new];
@@ -250,11 +268,19 @@
     }
     
     
-    UILabel *newLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 200, 320, 40)];
+    UILabel *newLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 65, 320, 40)];
     newLabel.text = [NSString stringWithFormat:@"%@ %@", self.currentGamer.firstName, self.currentGamer.lastName];
     [self.view addSubview:newLabel];
     newLabel.layer.zPosition = 3;
-
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 100, 160, 160)];
+    imageView.contentMode = UIViewContentModeScaleAspectFit;
+    imageView.layer.cornerRadius = 80.f;
+    imageView.layer.masksToBounds = TRUE;
+    imageView.layer.zPosition = 4;
+    
+    imageView.image = self.currentGamer.profileImage;
+    [self.view addSubview:imageView];
 //    NSString *stringTheory = [dictionary2 valueForKey:@"value"][0];
     
 //    self.urlLabel.text = [NSString stringWithFormat:@"%@ %@", self.currentGamer.firstName, self.currentGamer.lastName];
@@ -269,6 +295,12 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (NSString *)documentsDirectoryPath
+{
+    NSURL *documentsURL = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+    return [documentsURL path];
 }
 
 @end
