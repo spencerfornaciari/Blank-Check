@@ -10,13 +10,13 @@
 
 @implementation Constants
 
-//NSString * const kLINKEDIN_API_KEY = @"7586usec2zya46";
+NSString * const kLINKEDIN_API_KEY = @"7586usec2zya46";
 
-NSString * const kLINKEDIN_API_KEY = @"75tzhyg0n6ujh8"; //MacGuffin
+//NSString * const kLINKEDIN_API_KEY = @"75tzhyg0n6ujh8"; //MacGuffin
 
-//NSString * const kLINKEDIN_SECRET_KEY = @"EwwwT9dMYjVgPIX5";
+NSString * const kLINKEDIN_SECRET_KEY = @"EwwwT9dMYjVgPIX5";
 
-NSString * const kLINKEDIN_SECRET_KEY = @"BzE8aNiqqeBgamkk"; //MacGuffin
+//NSString * const kLINKEDIN_SECRET_KEY = @"BzE8aNiqqeBgamkk"; //MacGuffin
 
 NSString * const kLINKEDIN_STATE = @"haT0kE7omp5Ye";
 

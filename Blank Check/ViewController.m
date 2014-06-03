@@ -36,10 +36,12 @@
     self.currentGamer = [Gamer new];
     self.controller = [(AppDelegate *)[[UIApplication sharedApplication] delegate] networkController];
     
+    //Check to see if there is an access token already, otherwise get a new one
     if ([[NSUserDefaults standardUserDefaults] stringForKey:@"accessToken"]) {
         self.tokenStatus = [self.controller checkTokenIsCurrent];
         NSLog(@"Boolean status: %d", self.tokenStatus);
         
+        //Check to see if existing access token is still valid, otherwise get a new one
         if (self.tokenStatus){
             self.accessToken = [[NSUserDefaults standardUserDefaults] stringForKey:@"accessToken"];
             
@@ -48,35 +50,12 @@
             
             [self newOAuth];
         }
-        
-       
-        
     } 
     
     else {
         
         [self newOAuth];
     }
-    
-//    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-//        NSURL *url = [NSURL URLWithString:string];
-//        NSURLRequest *request = [NSURLRequest requestWithURL:url];
-//        [self.webView loadRequest:request];
-//    }];
-    
-//    if ([[NSUserDefaults standardUserDefaults] stringForKey:@"accessToken"]){
-//        self.accessToken = [[NSUserDefaults standardUserDefaults] stringForKey:@"accessToken"];
-//        
-//        [self testJSON];
-//    } else {
-//        
-//        NSString *string = [self.controller beginOAuthAccess];
-//        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-//            NSURL *url = [NSURL URLWithString:string];
-//            NSURLRequest *request = [NSURLRequest requestWithURL:url];
-//            [self.webView loadRequest:request];
-//        }];
-//    }
     
     self.webView = [[UIWebView alloc] initWithFrame:self.view.frame];
     self.webView.layer.zPosition = 0;

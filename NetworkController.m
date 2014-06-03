@@ -11,8 +11,8 @@
 #define LINKEDIN_OAUTH_URL @"https://www.linkedin.com/uas/oauth2/authorization?response_type=code"
 #define LINKEDIN_TOKEN_URL @"https://www.linkedin.com/uas/oauth2/accessToken?grant_type=authorization_code"
 
-#define LINKEDIN_REDIRECT @"http://MacGuff.in"
-//#define LINKEDIN_REDIRECT @"blankcheck://linkedin_callback"
+//#define LINKEDIN_REDIRECT @"http://MacGuff.in"
+#define LINKEDIN_REDIRECT @"http://comingsoon.blankchecklabs.com"
 
 #define LINKEDIN_SCOPE @"r_fullprofile%20r_emailaddress%20r_network%20r_contactinfo"
 
