@@ -15,6 +15,6 @@
 -(NSString *)beginOAuthAccess;
 -(void)handleCallbackURL:(NSString *)code;
 -(NSString *)convertURLToCode:(NSURL *)url;
-
+-(BOOL)checkTokenIsCurrent;
 
 @end

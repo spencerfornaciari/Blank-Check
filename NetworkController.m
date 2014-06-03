@@ -42,7 +42,7 @@
     
     NSString *authorizationURL = [NSString stringWithFormat:@"%@&client_id=%@&scope=%@&state=%@&redirect_uri=%@", LINKEDIN_OAUTH_URL, kLINKEDIN_API_KEY, LINKEDIN_SCOPE, kLINKEDIN_STATE, LINKEDIN_REDIRECT];
     
-//    NSLog(@"%@", authorizationURL);
+    NSLog(@"%@", authorizationURL);
     
     return authorizationURL;
     
@@ -123,6 +123,32 @@
     
     [[NSUserDefaults standardUserDefaults] setObject:self.accessToken forKey:@"accessToken"];
     [[NSUserDefaults standardUserDefaults] synchronize];
+    
+}
+
+-(BOOL)checkTokenIsCurrent
+{
+//    NSLog(@"Token: %@",[[NSUserDefaults standardUserDefaults] stringForKey:@"accessToken"]);
+    
+    NSString *accessURL = [NSString stringWithFormat:@"%@%@&format=json", @"https://api.linkedin.com/v1/people/~:(id,first-name,last-name,industry,headline,location:(name),num-connections,picture-url,email-address,last-modified-timestamp,interests,languages,skills,certifications,three-current-positions,public-profile-url,educations,num-recommenders,recommendations-received)?oauth2_access_token=", [[NSUserDefaults standardUserDefaults] stringForKey:@"accessToken"]];
+
+    NSURL *url = [NSURL URLWithString:accessURL];
+    
+    NSData *data = [NSData dataWithContentsOfURL:url];
+    
+    NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
+    
+    NSNumber *status = dictionary[@"status"];
+    
+
+    
+    if ([[status stringValue] isEqualToString:@"401"]) {
+        return FALSE;
+    } else {
+        return TRUE;
+
+    }
+ 
     
 }
 

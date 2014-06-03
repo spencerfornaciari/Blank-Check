@@ -17,8 +17,8 @@
 @interface ViewController ()
 
 @property (nonatomic) UIWebView *webView;
-@property (nonatomic) NSString *authorizationString;
-@property (nonatomic) BOOL tokenBOOL;
+@property (nonatomic) NSString *authorizationString, *accessToken;
+@property (nonatomic) BOOL tokenBOOL, tokenStatus, haveRunJSON;
 @property (nonatomic) Gamer *currentGamer;
 
 @end
@@ -31,19 +31,52 @@
     self.title = @"Blank Check";
     
     self.tokenBOOL = FALSE;
+    self.haveRunJSON = FALSE;
     
     self.currentGamer = [Gamer new];
+    self.controller = [(AppDelegate *)[[UIApplication sharedApplication] delegate] networkController];
     
     if ([[NSUserDefaults standardUserDefaults] stringForKey:@"accessToken"]) {
-        [self testJSON];
-    } else {
-        NSString *string = [self.controller beginOAuthAccess];
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            NSURL *url = [NSURL URLWithString:string];
-            NSURLRequest *request = [NSURLRequest requestWithURL:url];
-            [self.webView loadRequest:request];
-        }];
+        self.tokenStatus = [self.controller checkTokenIsCurrent];
+        NSLog(@"Boolean status: %d", self.tokenStatus);
+        
+        if (self.tokenStatus){
+            self.accessToken = [[NSUserDefaults standardUserDefaults] stringForKey:@"accessToken"];
+            
+            [self testJSON];
+        } else {
+            
+            [self newOAuth];
+        }
+        
+       
+        
+    } 
+    
+    else {
+        
+        [self newOAuth];
     }
+    
+//    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+//        NSURL *url = [NSURL URLWithString:string];
+//        NSURLRequest *request = [NSURLRequest requestWithURL:url];
+//        [self.webView loadRequest:request];
+//    }];
+    
+//    if ([[NSUserDefaults standardUserDefaults] stringForKey:@"accessToken"]){
+//        self.accessToken = [[NSUserDefaults standardUserDefaults] stringForKey:@"accessToken"];
+//        
+//        [self testJSON];
+//    } else {
+//        
+//        NSString *string = [self.controller beginOAuthAccess];
+//        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+//            NSURL *url = [NSURL URLWithString:string];
+//            NSURLRequest *request = [NSURLRequest requestWithURL:url];
+//            [self.webView loadRequest:request];
+//        }];
+//    }
     
     self.webView = [[UIWebView alloc] initWithFrame:self.view.frame];
     self.webView.layer.zPosition = 0;
@@ -66,6 +99,16 @@
 	// Do any additional setup after loading the view, typically from a nib.
 }
 
+-(void)newOAuth
+{
+    NSString *string = [self.controller beginOAuthAccess];
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            NSURL *url = [NSURL URLWithString:string];
+            NSURLRequest *request = [NSURLRequest requestWithURL:url];
+            [self.webView loadRequest:request];
+    }];
+}
+
 -(void)webViewDidFinishLoad:(UIWebView *)webView{
     NSURLRequest *currentRequest = [self.webView request];
     NSURL *currentURL = [currentRequest URL];
@@ -79,15 +122,20 @@
         self.tokenBOOL = TRUE;
     }
     
-    if (self.tokenBOOL) {
-        
+    if (self.tokenBOOL && self.haveRunJSON == FALSE) {
+        NSLog(@"We have an auth token");
+        [self testJSON];
+        [self.webView removeFromSuperview];
+        self.haveRunJSON = TRUE;
     }
     
-    if ([[NSUserDefaults standardUserDefaults] stringForKey:@"accessToken"]) {
+
+    
+//    if ([[NSUserDefaults standardUserDefaults] stringForKey:@"accessToken"]) {
 //        NSString *string = [NSString stringWithFormat:@"https://api.linkedin.com/v1/people/~?oauth2_access_token=%@&%@", [[NSUserDefaults standardUserDefaults] stringForKey:@"accessToken"], @"format=json"];
 //        NSLog(@"String: %@", string);
         
-    }
+//    }
 
 //    NSLog(@"Default Access Token: %@", [[NSUserDefaults standardUserDefaults] stringForKey:@"accessToken"]);
 //    NSLog(@"TOKEN: %@", url);
@@ -95,7 +143,7 @@
 //        NSString *url = [self.controller handleCallbackURL:string];
 //        NSLog(@"TOKEN: %@", url);
 //    }
-
+    
 }
 
 -(void)testJSON
@@ -103,8 +151,13 @@
     
     //Generating the NSMutableURLRequest with the base LinkedIN URL with token extension in the HTTP Body
 //    NSString *string = [NSString stringWithFormat:@"https://api.linkedin.com/v1/people/~"]
+    [self.webView removeFromSuperview];
     
-    NSURL *url = [NSURL URLWithString:@"https://api.linkedin.com/v1/people/~:(id,first-name,last-name,industry,headline,location:(name),num-connections,picture-url,email-address,last-modified-timestamp,interests,languages,skills,certifications,three-current-positions,public-profile-url,educations,num-recommenders,recommendations-received)?oauth2_access_token=AQWlBgoqxdW9OLFOg1UUEGFt_Re-vnQLw7F9lTHXM6QzPBiT0iWzXOQQHP49hfmfm21N2n7LGhAnDRB3tsYdnfoQK9sG8KMDjrVVeTp5Psld5VAkE0ACHcd0MDrdT0_VOfVXLbDIc4wfqL3tlrnvGuqHcs2TeRwxTL4nzL_oVTM8e9NVeE8&format=json"];
+    NSString *accessURL = [NSString stringWithFormat:@"%@%@&format=json", @"https://api.linkedin.com/v1/people/~:(id,first-name,last-name,industry,headline,location:(name),num-connections,picture-url,email-address,last-modified-timestamp,interests,languages,skills,certifications,three-current-positions,public-profile-url,educations,num-recommenders,recommendations-received)?oauth2_access_token=", self.accessToken];
+    
+    /*NSURL *url = [NSURL URLWithString:@"https://api.linkedin.com/v1/people/~:(id,first-name,last-name,industry,headline,location:(name),num-connections,picture-url,email-address,last-modified-timestamp,interests,languages,skills,certifications,three-current-positions,public-profile-url,educations,num-recommenders,recommendations-received)?oauth2_access_token=AQWlBgoqxdW9OLFOg1UUEGFt_Re-vnQLw7F9lTHXM6QzPBiT0iWzXOQQHP49hfmfm21N2n7LGhAnDRB3tsYdnfoQK9sG8KMDjrVVeTp5Psld5VAkE0ACHcd0MDrdT0_VOfVXLbDIc4wfqL3tlrnvGuqHcs2TeRwxTL4nzL_oVTM8e9NVeE8&format=json"];*/
+    
+    NSURL *url = [NSURL URLWithString:accessURL];
     
     NSData *data = [NSData dataWithContentsOfURL:url];
     
@@ -218,9 +271,11 @@
 
     
     //Grabbing the original image link ----> needs to be refactored so we don't have to download it everytime
-
+    NSString *imageString = [NSString stringWithFormat:@"%@%@&format=json", @"https://api.linkedin.com/v1/people/~/picture-urls::(original)?oauth2_access_token=", self.accessToken];
     
-    NSURL *imageURL = [NSURL URLWithString:@"https://api.linkedin.com/v1/people/~/picture-urls::(original)?oauth2_access_token=AQWlBgoqxdW9OLFOg1UUEGFt_Re-vnQLw7F9lTHXM6QzPBiT0iWzXOQQHP49hfmfm21N2n7LGhAnDRB3tsYdnfoQK9sG8KMDjrVVeTp5Psld5VAkE0ACHcd0MDrdT0_VOfVXLbDIc4wfqL3tlrnvGuqHcs2TeRwxTL4nzL_oVTM8e9NVeE8&format=json"];
+    /*NSURL *imageURL = [NSURL URLWithString:@"https://api.linkedin.com/v1/people/~/picture-urls::(original)?oauth2_access_token=AQWlBgoqxdW9OLFOg1UUEGFt_Re-vnQLw7F9lTHXM6QzPBiT0iWzXOQQHP49hfmfm21N2n7LGhAnDRB3tsYdnfoQK9sG8KMDjrVVeTp5Psld5VAkE0ACHcd0MDrdT0_VOfVXLbDIc4wfqL3tlrnvGuqHcs2TeRwxTL4nzL_oVTM8e9NVeE8&format=json"];*/
+    
+    NSURL *imageURL = [NSURL URLWithString:imageString];
     
     NSData *imageData = [NSData dataWithContentsOfURL:imageURL];
     
@@ -250,7 +305,11 @@
     //Parsing Connection info
     self.currentGamer.connectionIDArray = [NSMutableArray new];
     
-    NSURL *connectionURL = [NSURL URLWithString:@"https://api.linkedin.com/v1/people/~/connections?oauth2_access_token=AQWlBgoqxdW9OLFOg1UUEGFt_Re-vnQLw7F9lTHXM6QzPBiT0iWzXOQQHP49hfmfm21N2n7LGhAnDRB3tsYdnfoQK9sG8KMDjrVVeTp5Psld5VAkE0ACHcd0MDrdT0_VOfVXLbDIc4wfqL3tlrnvGuqHcs2TeRwxTL4nzL_oVTM8e9NVeE8&format=json"];
+    NSString *connectionAccess = [NSString stringWithFormat:@"%@%@&format=json", @"https://api.linkedin.com/v1/people/~/connections?oauth2_access_token=", self.accessToken];
+    
+    NSURL *connectionURL = [NSURL URLWithString:connectionAccess];
+    
+    /*NSURL *connectionURL = [NSURL URLWithString:@"https://api.linkedin.com/v1/people/~/connections?oauth2_access_token=AQWlBgoqxdW9OLFOg1UUEGFt_Re-vnQLw7F9lTHXM6QzPBiT0iWzXOQQHP49hfmfm21N2n7LGhAnDRB3tsYdnfoQK9sG8KMDjrVVeTp5Psld5VAkE0ACHcd0MDrdT0_VOfVXLbDIc4wfqL3tlrnvGuqHcs2TeRwxTL4nzL_oVTM8e9NVeE8&format=json"];*/
     
     NSData *connectionData = [NSData dataWithContentsOfURL:connectionURL];
     NSDictionary *connectionDictionary = [NSJSONSerialization JSONObjectWithData:connectionData
