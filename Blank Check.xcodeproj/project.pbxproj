@@ -12,6 +12,7 @@
 		8910F32C1937ADC700955812 /* Position.m in Sources */ = {isa = PBXBuildFile; fileRef = 8910F32B1937ADC700955812 /* Position.m */; };
 		8910F32F1937ADEA00955812 /* Recommendation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8910F32E1937ADEA00955812 /* Recommendation.m */; };
 		8910F3321937AE3400955812 /* Language.m in Sources */ = {isa = PBXBuildFile; fileRef = 8910F3311937AE3400955812 /* Language.m */; };
+		8978FBCB193E562600BF0921 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8978FBCA193E562600BF0921 /* SearchViewController.m */; };
 		89C973AF192564AF00EC6004 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89C973AE192564AF00EC6004 /* Foundation.framework */; };
 		89C973B1192564AF00EC6004 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89C973B0192564AF00EC6004 /* CoreGraphics.framework */; };
 		89C973B3192564AF00EC6004 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89C973B2192564AF00EC6004 /* UIKit.framework */; };
@@ -52,6 +53,8 @@
 		8910F32E1937ADEA00955812 /* Recommendation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Recommendation.m; sourceTree = "<group>"; };
 		8910F3301937AE3400955812 /* Language.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Language.h; sourceTree = "<group>"; };
 		8910F3311937AE3400955812 /* Language.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Language.m; sourceTree = "<group>"; };
+		8978FBC9193E562600BF0921 /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchViewController.h; path = ../SearchViewController.h; sourceTree = "<group>"; };
+		8978FBCA193E562600BF0921 /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchViewController.m; path = ../SearchViewController.m; sourceTree = "<group>"; };
 		89C973AB192564AF00EC6004 /* Blank Check.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Blank Check.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		89C973AE192564AF00EC6004 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		89C973B0192564AF00EC6004 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -208,6 +211,8 @@
 		89C973F11925797B00EC6004 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				8978FBC9193E562600BF0921 /* SearchViewController.h */,
+				8978FBCA193E562600BF0921 /* SearchViewController.m */,
 				89C973C6192564AF00EC6004 /* ViewController.h */,
 				89C973C7192564AF00EC6004 /* ViewController.m */,
 				89C973E61925650C00EC6004 /* NetworkController.h */,
@@ -329,6 +334,7 @@
 				89C973BF192564AF00EC6004 /* AppDelegate.m in Sources */,
 				8910F32F1937ADEA00955812 /* Recommendation.m in Sources */,
 				8910F3321937AE3400955812 /* Language.m in Sources */,
+				8978FBCB193E562600BF0921 /* SearchViewController.m in Sources */,
 				89C973BB192564AF00EC6004 /* main.m in Sources */,
 				8910F3291937ADB700955812 /* Education.m in Sources */,
 			);
