@@ -321,20 +321,18 @@
     yourValueLabel.layer.zPosition = 3;
     
     UILabel *currentValue = [[UILabel alloc] initWithFrame:CGRectMake(200, 180, 80, 20)];
-    currentValue.text = @"1,000,000";
+    currentValue.text = @"$1,000,000";
     currentValue.textAlignment = NSTextAlignmentRight;
 //    [currentValue sizeToFit];
     [self.view addSubview:currentValue];
     currentValue.layer.zPosition = 3;
     
     UILabel *currentValueChange = [[UILabel alloc] initWithFrame:CGRectMake(200, 200, 80, 20)];
-    currentValueChange.text = [NSString stringWithFormat:@"Change since last visit\n +50,000"];
-    
-//    @"+50,000";
+    currentValueChange.text = [NSString stringWithFormat:@"+$50,000"];
+    currentValueChange.numberOfLines = 1;
     currentValueChange.textColor = [UIColor whiteColor];
     currentValueChange.backgroundColor = [UIColor redColor];
     currentValueChange.textAlignment = NSTextAlignmentRight;
-//    [currentValueChange sizeToFit];
     [self.view addSubview:currentValueChange];
     currentValueChange.layer.zPosition = 3;
     
@@ -347,13 +345,9 @@
     
     imageView.image = self.currentGamer.profileImage;
     [self.view addSubview:imageView];
-//    NSString *stringTheory = [dictionary2 valueForKey:@"value"][0];
     
-//    self.urlLabel.text = [NSString stringWithFormat:@"%@ %@", self.currentGamer.firstName, self.currentGamer.lastName];
-//    [self.urlLabel setNeedsDisplay];
-    
-//    NSLog(@"%@",dictionary);
-    UIImageView *graph = [[UIImageView alloc] initWithFrame:CGRectMake(20, 268, 280, 280)];
+    //Block off space for graph
+    UIImageView *graph = [[UIImageView alloc] initWithFrame:CGRectMake(20, self.view.frame.size.height-(self.view.frame.size.width-20), self.view.frame.size.width-40, self.view.frame.size.width-40)];
     graph.backgroundColor = [UIColor blueColor];
     [self.view addSubview:graph];
     graph.layer.zPosition = 3;
