@@ -16,7 +16,8 @@
     [[UINavigationBar appearance] setBarTintColor:[UIColor blankCheckBlue]];
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
-    
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+
     
     self.networkController = [NetworkController new];
     

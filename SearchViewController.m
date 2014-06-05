@@ -7,12 +7,14 @@
 //
 
 #import "SearchViewController.h"
+#import "UIColor+BlankCheckColors.h"
 
 @interface SearchViewController ()
 @property (strong, nonatomic) IBOutlet UISegmentedControl *searchSegmentController;
 @property (strong, nonatomic) IBOutlet UITableView *presetTableView;
 @property (nonatomic) NSArray *peopleArray, *titleArray, *locationArray, *listArray;
 - (IBAction)changeSegment:(id)sender;
+@property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
 
 @end
 
@@ -33,6 +35,12 @@
     self.title = @"Search";
     self.presetTableView.dataSource = self;
     self.presetTableView.delegate = self;
+    self.searchBar.delegate = self;
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+
+    
+    self.searchBar.barTintColor = [UIColor blankCheckBlue];
+    
     self.searchSegmentController.selectedSegmentIndex = 0;
     
     self.peopleArray = [NSArray arrayWithObjects:@"Steve Ballmer", @"Mark Zuckerberg", @"Tom Brady", @"Martha Steward", @"Brad Pitt", @"Oprah Winfrey", @"Beyonce Knowles", @"Lebron James", @"Kobe Bryant", @"Someone Else", nil];
@@ -122,4 +130,17 @@
 
     }
 }
+
+-(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
+    NSLog(@"Text: %@", searchText);
+}
+
+-(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
+    NSLog(@"Search Button Clicked");
+    NSLog(@"Search Bar Text: %@", searchBar.text);
+    
+    [searchBar resignFirstResponder];
+}
+
+
 @end

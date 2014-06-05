@@ -29,6 +29,8 @@
 {
     [super viewDidLoad];
     self.title = @"Blank Check";
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+
     
     self.tokenBOOL = FALSE;
     self.haveRunJSON = FALSE;
@@ -371,6 +373,10 @@
 {
     NSURL *documentsURL = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
     return [documentsURL path];
+}
+
+-(UIStatusBarStyle)preferredStatusBarStyle{
+    return UIStatusBarStyleLightContent;
 }
 
 @end

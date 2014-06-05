@@ -37,6 +37,8 @@
 	<true/>
 	<key>UIMainStoryboardFile</key>
 	<string>Main_iPhone</string>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
 	<key>UIMainStoryboardFile~ipad</key>
 	<string>Main_iPad</string>
 	<key>UIRequiredDeviceCapabilities</key>

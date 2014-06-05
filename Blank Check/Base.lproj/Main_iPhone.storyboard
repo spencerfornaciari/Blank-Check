@@ -89,6 +89,7 @@
                     <navigationItem key="navigationItem" id="MC5-lW-Cbm"/>
                     <connections>
                         <outlet property="presetTableView" destination="vg8-mS-f1R" id="EWu-t7-rdC"/>
+                        <outlet property="searchBar" destination="WA3-ba-nsB" id="Aqf-mS-c8d"/>
                         <outlet property="searchSegmentController" destination="2DK-Hm-Wy5" id="vRZ-pU-fLQ"/>
                     </connections>
                 </viewController>
