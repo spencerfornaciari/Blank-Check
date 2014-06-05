@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "AppDelegate.h"
 #import "NetworkController.h"
+#import "UIColor+BlankCheckColors.h"
 
 @interface ViewController : UIViewController <UIWebViewDelegate>
 

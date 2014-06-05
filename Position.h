@@ -16,6 +16,7 @@
 @property (nonatomic) NSString *summary;
 @property (nonatomic) NSDate *startDate;
 @property (nonatomic) NSDate *endDate;
+@property (nonatomic) float monthsInCurrentJob;
 @property (nonatomic) BOOL isCurrent;
 @property (nonatomic) NSString *companyName;
 

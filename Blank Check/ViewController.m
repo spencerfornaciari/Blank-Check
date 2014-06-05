@@ -171,6 +171,12 @@
         NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
         [formatter setDateFormat:@"MM/yyyy"];
         position.startDate = [formatter dateFromString:startDate];
+        NSLog(@"Start Date: %@", position.startDate);
+        
+        NSDate *date = [NSDate date];
+        NSTimeInterval employmentLength = [date timeIntervalSinceDate:position.startDate];
+        //Conversion from seconds to months
+        position.monthsInCurrentJob = (employmentLength / 60 / 60 / 24 / 365) * 12;
         
         [tempArray addObject:position];
     }
@@ -348,7 +354,7 @@
     
     //Block off space for graph
     UIImageView *graph = [[UIImageView alloc] initWithFrame:CGRectMake(20, self.view.frame.size.height-(self.view.frame.size.width-20), self.view.frame.size.width-40, self.view.frame.size.width-40)];
-    graph.backgroundColor = [UIColor blueColor];
+    graph.backgroundColor = [UIColor blankCheckBlue];
     [self.view addSubview:graph];
     graph.layer.zPosition = 3;
     

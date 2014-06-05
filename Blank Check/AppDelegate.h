@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "NetworkController.h"
+#import "UIColor+BlankCheckColors.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
