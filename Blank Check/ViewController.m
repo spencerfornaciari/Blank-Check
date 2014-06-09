@@ -328,7 +328,7 @@
     [self.view addSubview:yourValueLabel];
     yourValueLabel.layer.zPosition = 3;
     
-    UILabel *currentValue = [[UILabel alloc] initWithFrame:CGRectMake(200, 180, 80, 20)];
+    UILabel *currentValue = [[UILabel alloc] initWithFrame:CGRectMake(180, 180, 100, 20)];
     currentValue.text = @"$1,000,000";
     currentValue.textAlignment = NSTextAlignmentRight;
 //    [currentValue sizeToFit];
@@ -375,8 +375,6 @@
     return [documentsURL path];
 }
 
--(UIStatusBarStyle)preferredStatusBarStyle{
-    return UIStatusBarStyleLightContent;
-}
+
 
 @end

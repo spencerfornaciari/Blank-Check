@@ -13,6 +13,7 @@
 		8910F32F1937ADEA00955812 /* Recommendation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8910F32E1937ADEA00955812 /* Recommendation.m */; };
 		8910F3321937AE3400955812 /* Language.m in Sources */ = {isa = PBXBuildFile; fileRef = 8910F3311937AE3400955812 /* Language.m */; };
 		8978FBCB193E562600BF0921 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8978FBCA193E562600BF0921 /* SearchViewController.m */; };
+		899616B619461E3100C75B99 /* PresetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 899616B519461E3100C75B99 /* PresetViewController.m */; };
 		89A1433B193FCCF300FDEC4F /* SideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A1433A193FCCF300FDEC4F /* SideViewController.m */; };
 		89A143901940E65700FDEC4F /* UIColor+BlankCheckColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A1438F1940E65700FDEC4F /* UIColor+BlankCheckColors.m */; };
 		89C973AF192564AF00EC6004 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89C973AE192564AF00EC6004 /* Foundation.framework */; };
@@ -57,6 +58,8 @@
 		8910F3311937AE3400955812 /* Language.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Language.m; sourceTree = "<group>"; };
 		8978FBC9193E562600BF0921 /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchViewController.h; path = ../SearchViewController.h; sourceTree = "<group>"; };
 		8978FBCA193E562600BF0921 /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchViewController.m; path = ../SearchViewController.m; sourceTree = "<group>"; };
+		899616B419461E3100C75B99 /* PresetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PresetViewController.h; path = ../PresetViewController.h; sourceTree = "<group>"; };
+		899616B519461E3100C75B99 /* PresetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PresetViewController.m; path = ../PresetViewController.m; sourceTree = "<group>"; };
 		89A14339193FCCF300FDEC4F /* SideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SideViewController.h; path = ../SideViewController.h; sourceTree = "<group>"; };
 		89A1433A193FCCF300FDEC4F /* SideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SideViewController.m; path = ../SideViewController.m; sourceTree = "<group>"; };
 		89A1438E1940E65700FDEC4F /* UIColor+BlankCheckColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIColor+BlankCheckColors.h"; path = "../UIColor+BlankCheckColors.h"; sourceTree = "<group>"; };
@@ -217,6 +220,8 @@
 		89C973F11925797B00EC6004 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				899616B419461E3100C75B99 /* PresetViewController.h */,
+				899616B519461E3100C75B99 /* PresetViewController.m */,
 				89A14339193FCCF300FDEC4F /* SideViewController.h */,
 				89A1433A193FCCF300FDEC4F /* SideViewController.m */,
 				8978FBC9193E562600BF0921 /* SearchViewController.h */,
@@ -347,6 +352,7 @@
 				8910F3321937AE3400955812 /* Language.m in Sources */,
 				8978FBCB193E562600BF0921 /* SearchViewController.m in Sources */,
 				89C973BB192564AF00EC6004 /* main.m in Sources */,
+				899616B619461E3100C75B99 /* PresetViewController.m in Sources */,
 				8910F3291937ADB700955812 /* Education.m in Sources */,
 				89A1433B193FCCF300FDEC4F /* SideViewController.m in Sources */,
 			);

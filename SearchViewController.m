@@ -7,6 +7,7 @@
 //
 
 #import "SearchViewController.h"
+#import "PresetViewController.h"
 #import "UIColor+BlankCheckColors.h"
 
 @interface SearchViewController ()
@@ -140,6 +141,26 @@
     NSLog(@"Search Bar Text: %@", searchBar.text);
     
     [searchBar resignFirstResponder];
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    
+    
+    if (self.searchSegmentController.selectedSegmentIndex == 0) {
+        NSIndexPath *indexPath = [self.presetTableView indexPathForSelectedRow];
+        
+        PresetViewController *preset = segue.destinationViewController;
+        preset.pageTitle = self.listArray[indexPath.row];
+        preset.category = @"Person";
+    } else if (self.searchSegmentController.selectedSegmentIndex == 1) {
+        NSLog(@"Segment Controller #2");
+    } else {
+        NSLog(@"Segment Controller #3");
+
+    }
+    
+    
+    
 }
 
 

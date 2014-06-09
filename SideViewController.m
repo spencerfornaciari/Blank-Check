@@ -12,22 +12,19 @@
 
 @property (nonatomic) ViewController *mainViewController, *topViewController;
 
+@property (nonatomic) BOOL menuButtonBool;
+- (IBAction)menuButton:(id)sender;
+
+
 @end
 
 @implementation SideViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.menuButtonBool = FALSE;
     
     self.mainViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"mainViewController"];
     [self addChildViewController:self.mainViewController];
@@ -137,4 +134,14 @@
 }
 */
 
+- (IBAction)menuButton:(id)sender {
+    if (self.menuButtonBool == FALSE) {
+        [self openMenu];
+        self.menuButtonBool = TRUE;
+    } else {
+        [self closeMenu];
+        self.menuButtonBool = FALSE;
+    }
+    
+}
 @end
