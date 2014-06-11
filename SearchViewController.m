@@ -8,12 +8,15 @@
 
 #import "SearchViewController.h"
 #import "PresetViewController.h"
+#import "Gamer.h"
+#import "Position.h"
 #import "UIColor+BlankCheckColors.h"
 
 @interface SearchViewController ()
 @property (strong, nonatomic) IBOutlet UISegmentedControl *searchSegmentController;
 @property (strong, nonatomic) IBOutlet UITableView *presetTableView;
 @property (nonatomic) NSArray *peopleArray, *titleArray, *locationArray, *listArray;
+
 - (IBAction)changeSegment:(id)sender;
 @property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
 
@@ -38,7 +41,6 @@
     self.presetTableView.delegate = self;
     self.searchBar.delegate = self;
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-
     
     self.searchBar.barTintColor = [UIColor blankCheckBlue];
     
@@ -134,6 +136,32 @@
 
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
     NSLog(@"Text: %@", searchText);
+
+    //Full Name Predicate
+//    NSPredicate *fullNamePredicate = [NSPredicate predicateWithFormat:@"fullName CONTAINS[cd] %@", searchText];
+//    NSArray *predicateArray = [NSArray arrayWithArray:[self.searchArray filteredArrayUsingPredicate:fullNamePredicate]];
+    
+    //Location Predicate
+//    NSPredicate *locationPredicate = [NSPredicate predicateWithFormat:@"location CONTAINS[cd] %@", searchText];
+//    NSArray *predicateArray = [NSArray arrayWithArray:[self.searchArray filteredArrayUsingPredicate:locationPredicate]];
+    
+    //Industry Predicate
+//    NSPredicate *industryPredicate = [NSPredicate predicateWithFormat:@"industry CONTAINS[cd] %@", searchText];
+//    NSArray *predicateArray = [NSArray arrayWithArray:[self.searchArray filteredArrayUsingPredicate:industryPredicate]];
+    
+    //Headline Predicate
+//    NSPredicate *headlinePredicate = [NSPredicate predicateWithFormat:@"headline CONTAINS[cd] %@", searchText];
+//    NSArray *predicateArray = [NSArray arrayWithArray:[self.searchArray filteredArrayUsingPredicate:headlinePredicate]];
+    
+    //Job Title Predicate
+    NSPredicate *jobTitlePredicate = [NSPredicate predicateWithFormat:@"ANY SELF.currentPositionArray.title CONTAINS[cd] %@", searchText];
+    NSArray *predicateArray = [NSArray arrayWithArray:[self.searchArray filteredArrayUsingPredicate:jobTitlePredicate]];
+    
+    for (Gamer *gamer in predicateArray) {
+        NSLog(@"%@", gamer.fullName);
+    }
+    
+    NSLog(@"Name Count: %d", predicateArray.count);
 }
 
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{

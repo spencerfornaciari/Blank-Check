@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "NetworkController.h"
+#import "SearchViewController.h"
 #import "Gamer.h"
 #import "Position.h"
 #import "Education.h"
@@ -30,7 +31,6 @@
     [super viewDidLoad];
     self.title = @"Blank Check";
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-
     
     self.tokenBOOL = FALSE;
     self.haveRunJSON = FALSE;
@@ -59,10 +59,10 @@
         [self newOAuth];
     }
     
-    self.webView = [[UIWebView alloc] initWithFrame:self.view.frame];
-    self.webView.layer.zPosition = 0;
-    self.webView.delegate = self;
-    [self.view addSubview:self.webView];
+//    self.webView = [[UIWebView alloc] initWithFrame:self.view.frame];
+//    self.webView.layer.zPosition = 0;
+//    self.webView.delegate = self;
+//    [self.view addSubview:self.webView];
     
     self.appDelegate = [[UIApplication sharedApplication] delegate];
     self.controller = self.appDelegate.networkController;
@@ -134,7 +134,7 @@
 //    NSString *string = [NSString stringWithFormat:@"https://api.linkedin.com/v1/people/~"]
     [self.webView removeFromSuperview];
     
-    NSString *accessURL = [NSString stringWithFormat:@"%@%@&format=json", @"https://api.linkedin.com/v1/people/~:(id,first-name,last-name,industry,headline,location:(name),num-connections,picture-url,email-address,last-modified-timestamp,interests,languages,skills,certifications,three-current-positions,public-profile-url,educations,num-recommenders,recommendations-received)?oauth2_access_token=", self.accessToken];
+    NSString *accessURL = [NSString stringWithFormat:@"%@%@&format=json", @"https://api.linkedin.com/v1/people/~:(id,first-name,last-name,industry,headline,location:(name),num-connections,picture-urls::(original),email-address,last-modified-timestamp,interests,languages,skills,certifications,three-current-positions,public-profile-url,educations,num-recommenders,recommendations-received)?oauth2_access_token=", self.accessToken];
     
     /*NSURL *url = [NSURL URLWithString:@"https://api.linkedin.com/v1/people/~:(id,first-name,last-name,industry,headline,location:(name),num-connections,picture-url,email-address,last-modified-timestamp,interests,languages,skills,certifications,three-current-positions,public-profile-url,educations,num-recommenders,recommendations-received)?oauth2_access_token=AQWlBgoqxdW9OLFOg1UUEGFt_Re-vnQLw7F9lTHXM6QzPBiT0iWzXOQQHP49hfmfm21N2n7LGhAnDRB3tsYdnfoQK9sG8KMDjrVVeTp5Psld5VAkE0ACHcd0MDrdT0_VOfVXLbDIc4wfqL3tlrnvGuqHcs2TeRwxTL4nzL_oVTM8e9NVeE8&format=json"];*/
     
@@ -148,6 +148,7 @@
     
     self.currentGamer.firstName = dictionary[@"firstName"];
     self.currentGamer.lastName = dictionary[@"lastName"];
+    self.currentGamer.fullName = [NSString stringWithFormat:@"%@ %@", self.currentGamer.firstName, self.currentGamer.lastName];
     self.currentGamer.gamerID = dictionary[@"id"];
     self.currentGamer.gamerEmail = dictionary[@"emailAddress"];
     self.currentGamer.location = [dictionary valueForKeyPath:@"location.name"];
@@ -173,7 +174,6 @@
         NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
         [formatter setDateFormat:@"MM/yyyy"];
         position.startDate = [formatter dateFromString:startDate];
-        NSLog(@"Start Date: %@", position.startDate);
         
         NSDate *date = [NSDate date];
         NSTimeInterval employmentLength = [date timeIntervalSinceDate:position.startDate];
@@ -257,22 +257,9 @@
     self.currentGamer.lastLinkedinUpdate = [NSDate dateWithTimeIntervalSince1970:newDate];
 
     
-    //Grabbing the original image link ----> needs to be refactored so we don't have to download it everytime
-    NSString *imageString = [NSString stringWithFormat:@"%@%@&format=json", @"https://api.linkedin.com/v1/people/~/picture-urls::(original)?oauth2_access_token=", self.accessToken];
+    //Grabbing the image URL
+    self.currentGamer.imageURL = [NSURL URLWithString:[dictionary valueForKeyPath:@"pictureUrls.values"][0]];
     
-    /*NSURL *imageURL = [NSURL URLWithString:@"https://api.linkedin.com/v1/people/~/picture-urls::(original)?oauth2_access_token=AQWlBgoqxdW9OLFOg1UUEGFt_Re-vnQLw7F9lTHXM6QzPBiT0iWzXOQQHP49hfmfm21N2n7LGhAnDRB3tsYdnfoQK9sG8KMDjrVVeTp5Psld5VAkE0ACHcd0MDrdT0_VOfVXLbDIc4wfqL3tlrnvGuqHcs2TeRwxTL4nzL_oVTM8e9NVeE8&format=json"];*/
-    
-    NSURL *imageURL = [NSURL URLWithString:imageString];
-    
-    NSData *imageData = [NSData dataWithContentsOfURL:imageURL];
-    
-    NSDictionary *dictionary2 = [NSJSONSerialization JSONObjectWithData:imageData
-                                                               options:NSJSONReadingMutableLeaves
-                                                                 error:nil];
-    
-    
-    NSArray *array = dictionary2[@"values"];
-    self.currentGamer.imageURL = [NSURL URLWithString:array[0]];
     NSString *fullName = [NSString stringWithFormat:@"%@%@", self.currentGamer.firstName, self.currentGamer.lastName];
     self.currentGamer.imageLocalLocation = [NSString stringWithFormat:@"%@/%@.jpg", [self documentsDirectoryPath], fullName];
     
@@ -287,12 +274,10 @@
     }
    
     
-    
-    
     //Parsing Connection info
     self.currentGamer.connectionIDArray = [NSMutableArray new];
     
-    NSString *connectionAccess = [NSString stringWithFormat:@"%@%@&format=json", @"https://api.linkedin.com/v1/people/~/connections?oauth2_access_token=", self.accessToken];
+    NSString *connectionAccess = [NSString stringWithFormat:@"%@%@&format=json", @"https://api.linkedin.com/v1/people/~/connections:(id,first-name,last-name,num-connections,num-connections-capped,positions,public-profile-url,headline,industry,location,picture-urls::(original))?oauth2_access_token=", self.accessToken];
     
     NSURL *connectionURL = [NSURL URLWithString:connectionAccess];
     
@@ -306,9 +291,50 @@
     
     for (NSDictionary *connection in connectionArray) {
         Gamer *gamer = [Gamer new];
+        gamer.gamerID = connection[@"id"];
         gamer.firstName = connection[@"firstName"];
         gamer.lastName = connection[@"lastName"];
-        gamer.gamerID = connection[@"id"];
+        gamer.fullName = [NSString stringWithFormat:@"%@ %@", gamer.firstName, gamer.lastName];
+        gamer.headline = connection[@"headline"];
+        gamer.industry = connection[@"industry"];
+        gamer.numConnections = connection[@"numConnections"];
+        gamer.imageURL = [NSURL URLWithString:[connection valueForKeyPath:@"pictureUrls.values"][0]];
+        gamer.location = [connection valueForKeyPath:@"location.name"];
+        gamer.linkedinURL = [NSURL URLWithString:connection[@"publicProfileUrl"]];
+        
+        NSMutableArray *tempConnectionArray = [NSMutableArray new];
+        NSArray *connectionPositionArray = [connection valueForKeyPath:@"positions.values"];
+//        NSDictionary *connectDictoinary = [dictionary valueForKeyPath:@"positions"];
+        
+        for (NSDictionary *positionDictionary in connectionPositionArray) {
+            Position *position = [Position new];
+            
+            
+            position.isCurrent = [positionDictionary[@"isCurrent"] integerValue];
+            
+            NSDictionary *company = positionDictionary[@"company"];
+            
+            position.idNumber = [company objectForKey:@"id"];
+            position.companyName = [company objectForKey:@"name"];
+            position.industry = [company objectForKey:@"industry"];
+            
+            position.title = [positionDictionary valueForKey:@"title"];
+            
+            //Parse start date
+            NSString *startDate = [NSString stringWithFormat:@"%@/%@", [positionDictionary valueForKeyPath:@"startDate.month"], [positionDictionary valueForKeyPath:@"startDate.year"]];
+            NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+            [formatter setDateFormat:@"MM/yyyy"];
+            position.startDate = [formatter dateFromString:startDate];
+            
+            NSDate *date = [NSDate date];
+            NSTimeInterval employmentLength = [date timeIntervalSinceDate:position.startDate];
+            //Conversion from seconds to months
+            position.monthsInCurrentJob = (employmentLength / 60 / 60 / 24 / 365) * 12;
+            
+            [tempConnectionArray addObject:position];
+        }
+        
+        gamer.currentPositionArray = tempConnectionArray;
         
         [self.currentGamer.connectionIDArray addObject:gamer];
     }
@@ -319,21 +345,21 @@
     newLabel.font =[UIFont fontWithName:@"Avenir" size:33.0];
     newLabel.textAlignment = NSTextAlignmentLeft;
     [self.view addSubview:newLabel];
-    newLabel.layer.zPosition = 3;
+    newLabel.layer.zPosition = 1;
     
     UILabel *yourValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(200, 160, 80, 20)];
     yourValueLabel.text = @"Your value";
     yourValueLabel.textAlignment = NSTextAlignmentRight;
 //    [yourValueLabel sizeToFit];
     [self.view addSubview:yourValueLabel];
-    yourValueLabel.layer.zPosition = 3;
+    yourValueLabel.layer.zPosition = 1;
     
     UILabel *currentValue = [[UILabel alloc] initWithFrame:CGRectMake(180, 180, 100, 20)];
     currentValue.text = @"$1,000,000";
     currentValue.textAlignment = NSTextAlignmentRight;
 //    [currentValue sizeToFit];
     [self.view addSubview:currentValue];
-    currentValue.layer.zPosition = 3;
+    currentValue.layer.zPosition = 1;
     
     UILabel *currentValueChange = [[UILabel alloc] initWithFrame:CGRectMake(200, 200, 80, 20)];
     currentValueChange.text = [NSString stringWithFormat:@"+$50,000"];
@@ -342,14 +368,14 @@
     currentValueChange.backgroundColor = [UIColor redColor];
     currentValueChange.textAlignment = NSTextAlignmentRight;
     [self.view addSubview:currentValueChange];
-    currentValueChange.layer.zPosition = 3;
+    currentValueChange.layer.zPosition = 1;
     
     //Add profile picture
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(20, 120, 120, 120)];
     imageView.contentMode = UIViewContentModeScaleAspectFit;
     imageView.layer.cornerRadius = 60.f;
     imageView.layer.masksToBounds = TRUE;
-    imageView.layer.zPosition = 4;
+    imageView.layer.zPosition = 1;
     
     imageView.image = self.currentGamer.profileImage;
     [self.view addSubview:imageView];
@@ -358,8 +384,19 @@
     UIImageView *graph = [[UIImageView alloc] initWithFrame:CGRectMake(20, self.view.frame.size.height-(self.view.frame.size.width-20), self.view.frame.size.width-40, self.view.frame.size.width-40)];
     graph.backgroundColor = [UIColor blankCheckBlue];
     [self.view addSubview:graph];
-    graph.layer.zPosition = 3;
+    graph.layer.zPosition = 1;
     
+    UIButton *socialButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    [socialButton setFrame:CGRectMake(260, 140, 20, 20)];
+    [self.view addSubview:socialButton];
+    socialButton.layer.zPosition = 2;
+
+    [socialButton setBackgroundImage:[UIImage imageNamed:@"Social-Share"] forState:UIControlStateNormal];
+    [socialButton addTarget:self action:@selector(buttonPress) forControlEvents:UIControlEventTouchDown];
+    
+    
+    
+
 }
 
 
@@ -375,6 +412,18 @@
     return [documentsURL path];
 }
 
+-(void)buttonPress {
+    NSLog(@"Button Press");
+
+   
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    SearchViewController *searchView = segue.destinationViewController;
+    searchView.searchArray = self.currentGamer.connectionIDArray;
+    
+}
 
 
 @end

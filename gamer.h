@@ -15,9 +15,14 @@
 @property (nonatomic) NSString *location;
 @property (nonatomic) NSString *firstName;
 @property (nonatomic) NSString *lastName;
+@property (nonatomic) NSString *fullName;
 @property (nonatomic) NSString *desiredPosition;
 @property (nonatomic) NSNumber *numConnections;
 @property (nonatomic) NSNumber *numRecommenders;
+
+//For connections
+@property (nonatomic) NSString *headline;
+@property (nonatomic) NSString *industry;
 
 //Linkedin User Information
 @property (nonatomic) NSString *gamerID; //Linkedin ID number

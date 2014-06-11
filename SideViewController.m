@@ -24,6 +24,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.title = @"Blank Check Labs";
     self.menuButtonBool = FALSE;
     
     self.mainViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"mainViewController"];
