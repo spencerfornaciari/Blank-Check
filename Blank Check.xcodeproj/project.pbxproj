@@ -12,6 +12,8 @@
 		8910F32C1937ADC700955812 /* Position.m in Sources */ = {isa = PBXBuildFile; fileRef = 8910F32B1937ADC700955812 /* Position.m */; };
 		8910F32F1937ADEA00955812 /* Recommendation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8910F32E1937ADEA00955812 /* Recommendation.m */; };
 		8910F3321937AE3400955812 /* Language.m in Sources */ = {isa = PBXBuildFile; fileRef = 8910F3311937AE3400955812 /* Language.m */; };
+		891B94631948C84600BEAEC9 /* FeedControllerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 891B94621948C84600BEAEC9 /* FeedControllerViewController.m */; };
+		891B94661948C9FF00BEAEC9 /* BlankCheckViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 891B94651948C9FF00BEAEC9 /* BlankCheckViewCell.m */; };
 		8978FBCB193E562600BF0921 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8978FBCA193E562600BF0921 /* SearchViewController.m */; };
 		899616B619461E3100C75B99 /* PresetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 899616B519461E3100C75B99 /* PresetViewController.m */; };
 		899616B919464DF600C75B99 /* LanguageProcessing.m in Sources */ = {isa = PBXBuildFile; fileRef = 899616B819464DF600C75B99 /* LanguageProcessing.m */; };
@@ -58,6 +60,10 @@
 		8910F32E1937ADEA00955812 /* Recommendation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Recommendation.m; sourceTree = "<group>"; };
 		8910F3301937AE3400955812 /* Language.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Language.h; sourceTree = "<group>"; };
 		8910F3311937AE3400955812 /* Language.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Language.m; sourceTree = "<group>"; };
+		891B94611948C84600BEAEC9 /* FeedControllerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedControllerViewController.h; path = ../FeedControllerViewController.h; sourceTree = "<group>"; };
+		891B94621948C84600BEAEC9 /* FeedControllerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedControllerViewController.m; path = ../FeedControllerViewController.m; sourceTree = "<group>"; };
+		891B94641948C9FF00BEAEC9 /* BlankCheckViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BlankCheckViewCell.h; path = ../BlankCheckViewCell.h; sourceTree = "<group>"; };
+		891B94651948C9FF00BEAEC9 /* BlankCheckViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BlankCheckViewCell.m; path = ../BlankCheckViewCell.m; sourceTree = "<group>"; };
 		8978FBC9193E562600BF0921 /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchViewController.h; path = ../SearchViewController.h; sourceTree = "<group>"; };
 		8978FBCA193E562600BF0921 /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchViewController.m; path = ../SearchViewController.m; sourceTree = "<group>"; };
 		899616B419461E3100C75B99 /* PresetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PresetViewController.h; path = ../PresetViewController.h; sourceTree = "<group>"; };
@@ -219,6 +225,8 @@
 		89C973F01925797700EC6004 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				891B94641948C9FF00BEAEC9 /* BlankCheckViewCell.h */,
+				891B94651948C9FF00BEAEC9 /* BlankCheckViewCell.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -226,6 +234,8 @@
 		89C973F11925797B00EC6004 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				891B94611948C84600BEAEC9 /* FeedControllerViewController.h */,
+				891B94621948C84600BEAEC9 /* FeedControllerViewController.m */,
 				899616B419461E3100C75B99 /* PresetViewController.h */,
 				899616B519461E3100C75B99 /* PresetViewController.m */,
 				89A14339193FCCF300FDEC4F /* SideViewController.h */,
@@ -361,8 +371,10 @@
 				89C973BF192564AF00EC6004 /* AppDelegate.m in Sources */,
 				8910F32F1937ADEA00955812 /* Recommendation.m in Sources */,
 				8910F3321937AE3400955812 /* Language.m in Sources */,
+				891B94661948C9FF00BEAEC9 /* BlankCheckViewCell.m in Sources */,
 				8978FBCB193E562600BF0921 /* SearchViewController.m in Sources */,
 				89C973BB192564AF00EC6004 /* main.m in Sources */,
+				891B94631948C84600BEAEC9 /* FeedControllerViewController.m in Sources */,
 				899616B619461E3100C75B99 /* PresetViewController.m in Sources */,
 				8910F3291937ADB700955812 /* Education.m in Sources */,
 				89A1433B193FCCF300FDEC4F /* SideViewController.m in Sources */,
