@@ -12,8 +12,8 @@
 
 @interface SocialController : NSObject
 
-+(SLComposeViewController *)shareOnFacebook:(Gamer *)gamer;
-+(SLComposeViewController *)shareOnTwitter:(Gamer *)gamer;
--(void)shareOnLinkedin;
++(SLComposeViewController *)shareOnFacebook:(id)sender;
++(SLComposeViewController *)shareOnTwitter:(id)sender;
++(void)shareOnLinkedin:(id)sender;
 
 @end

@@ -128,6 +128,7 @@
         case 0:
         {
             NSLog(@"LinkedIn");
+            [SocialController shareOnLinkedin:self.one];;
             //            [socialController shareOnFacebook:<#(Gamer *)#>]
             
         }    //            SLComposeViewController *viewController = [SocialController shareOnFacebook:gamer];

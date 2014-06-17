@@ -50,6 +50,7 @@
 //    return authorizationURL;
                        //LINKED_CLIENT_ID, GITHUB_REDIRECT, @"user,repo"];
 //    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:myURL]];
+    
 }
 
 
@@ -419,8 +420,49 @@
     NSLog(@"%@", stringResponse);
 }
 
+-(void)shareOnLinkedin{
+    
+    NSString *accessToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"accessToken"];
+    NSString *urlString = [NSString stringWithFormat:@"https://api.linkedin.com/v1/people/~/shares?oauth2_access_token=%@", accessToken];
+    
+    NSURL *url = [NSURL URLWithString:urlString];
+    
+    
+    NSDictionary *contentDictionary = @{@"title":@"UI Action Sheet",
+                                        @"description":@"Posting from the share menu",
+                                        @"submitted-url":@"http://www..blankchecklabs.com/"};
+    
+    NSDictionary *visibilityDictionary = @{@"code":@"anyone"};
+                                        
+    
+    NSDictionary *shareDictionary = @{@"comment":@"Testing out the LinkedIn Share API",
+                                      @"content":contentDictionary,
+                                      @"visibility":visibilityDictionary};
+    
+    NSError *jsonError;
+    
+    NSData *shareData = [NSJSONSerialization dataWithJSONObject:shareDictionary options:NSJSONWritingPrettyPrinted error:&jsonError];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest new];
+    [request setURL:url];
+    [request setHTTPBody:shareData];
+    [request setHTTPMethod:@"POST"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setValue:@"json" forHTTPHeaderField:@"x-li-format"];
+    
+    NSURLResponse *response;
+    NSError *error;
+    
+    NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+    NSString *stringResponse = [[NSString alloc] initWithData:responseData encoding:NSASCIIStringEncoding];
+    
+    NSLog(@"%@", stringResponse);
+    
+}
+
 -(NSArray *)commonConnectionsWithUser:(NSString *)userID
 {
+    
     NSString *urlString = [NSString stringWithFormat:@"https://api.linkedin.com/v1/people/id=%@:(relation-to-viewer:(related-connections:(id,first-name,last-name,positions,location:(name),industry,num-connections)))?oauth2_access_token=AQW4krK0LXeaRN7-hFLju5dDQB-gFvnt8R65Mqi-2qBoh17xSpHR_xT7e-KoEG94hQMVgMuanKCj4XL27ApcXIJO85S6QYuFqPjCJSTkaNsQ9KqZEXh-InhN-yPTt8UhMzTY4kPMaJKqGW7zPlYnERVbAi-QOLSIcHMavjglQkVKoICcPrA&format=json", userID];
     
     NSURL *url = [NSURL URLWithString:urlString];

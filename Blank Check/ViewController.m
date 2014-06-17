@@ -15,6 +15,8 @@
 #import "Language.h"
 #import "Recommendation.h"
 
+#define TEST_UPDATE FALSE
+
 @interface ViewController ()
 
 @property (nonatomic) UIWebView *webView;
@@ -38,27 +40,53 @@
     self.currentGamer = [Gamer new];
     self.controller = [(AppDelegate *)[[UIApplication sharedApplication] delegate] networkController];
     
-    
-    //Check to see if there is an access token already, otherwise get a new one
-    if ([[NSUserDefaults standardUserDefaults] stringForKey:@"accessToken"]) {
-        self.tokenStatus = [self.controller checkTokenIsCurrent];
-        NSLog(@"Boolean status: %d", self.tokenStatus);
-        
-        //Check to see if existing access token is still valid, otherwise get a new one
-        if (self.tokenStatus){
-            self.accessToken = [[NSUserDefaults standardUserDefaults] stringForKey:@"accessToken"];
+    if (TEST_UPDATE) {
+        NSLog(@"Updating Token");
+        [self newOAuth];
+    } else {
+        NSLog(@"Using Existing Token");
+        //Check to see if there is an access token already, otherwise get a new one
+        if ([[NSUserDefaults standardUserDefaults] stringForKey:@"accessToken"]) {
+            self.tokenStatus = [self.controller checkTokenIsCurrent];
+            NSLog(@"Boolean status: %d", self.tokenStatus);
             
-            [self testJSON];
-        } else {
+            //Check to see if existing access token is still valid, otherwise get a new one
+            if (self.tokenStatus){
+                self.accessToken = [[NSUserDefaults standardUserDefaults] stringForKey:@"accessToken"];
+                
+                [self testJSON];
+            } else {
+                
+                [self newOAuth];
+            }
+        }
+        
+        else {
             
             [self newOAuth];
         }
-    } 
-    
-    else {
-        
-        [self newOAuth];
     }
+    
+    //Check to see if there is an access token already, otherwise get a new one
+//    if ([[NSUserDefaults standardUserDefaults] stringForKey:@"accessToken"]) {
+//        self.tokenStatus = [self.controller checkTokenIsCurrent];
+//        NSLog(@"Boolean status: %d", self.tokenStatus);
+//        
+//        //Check to see if existing access token is still valid, otherwise get a new one
+//        if (self.tokenStatus){
+//            self.accessToken = [[NSUserDefaults standardUserDefaults] stringForKey:@"accessToken"];
+//            
+//            [self testJSON];
+//        } else {
+//            
+//            [self newOAuth];
+//        }
+//    }
+//    
+//    else {
+//        
+//        [self newOAuth];
+//    }
     
 //    self.webView = [[UIWebView alloc] initWithFrame:self.view.frame];
 //    self.webView.layer.zPosition = 0;

@@ -7,13 +7,17 @@
 //
 
 #import "SocialController.h"
+#import "NetworkController.h"
+#import "AppDelegate.h"
 
 @implementation SocialController
 
-+(SLComposeViewController *)shareOnFacebook:(Gamer *)gamer {
++(SLComposeViewController *)shareOnFacebook:(id)sender {
     
     if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook]) {
         SLComposeViewController *facebookView = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
+        
+        Gamer *gamer = (Gamer *)sender;
         
         [facebookView setInitialText:@"Come check out my value!"];
         [facebookView addImage:gamer.profileImage];
@@ -25,10 +29,12 @@
     return nil;
 }
 
-+(SLComposeViewController *)shareOnTwitter:(Gamer *)gamer {
++(SLComposeViewController *)shareOnTwitter:(id)sender {
     
     if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter]) {
         SLComposeViewController *twitterView = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
+        
+        Gamer *gamer = (Gamer *)sender;
         
         [twitterView setInitialText:@"Come check out my value!"];
         [twitterView addImage:gamer.profileImage];
@@ -40,8 +46,10 @@
     return nil;
 }
 
--(void)shareOnLinkedin {
++(void)shareOnLinkedin:(id)sender {
+    NetworkController *networkController = [(AppDelegate *)[[UIApplication sharedApplication] delegate] networkController];
     
+    [networkController shareOnLinkedin];
 }
 
 @end

@@ -24,6 +24,7 @@
 
 -(void)loadCurrentUserData:(Gamer *)gamer;
 -(void)sendInvitationToUserID:(NSString *)userID;
+-(void)shareOnLinkedin;
 -(NSArray *)commonConnectionsWithUser:(NSString *)userID;
 
 @end
