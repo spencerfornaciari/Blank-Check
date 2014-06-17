@@ -20,6 +20,7 @@
 		899616BC1947836300C75B99 /* SearchDisplayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 899616BB1947836300C75B99 /* SearchDisplayController.m */; };
 		89A1433B193FCCF300FDEC4F /* SideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A1433A193FCCF300FDEC4F /* SideViewController.m */; };
 		89A143901940E65700FDEC4F /* UIColor+BlankCheckColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A1438F1940E65700FDEC4F /* UIColor+BlankCheckColors.m */; };
+		89B06FCB1950AD6100ACC733 /* SocialController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B06FCA1950AD6100ACC733 /* SocialController.m */; };
 		89C973AF192564AF00EC6004 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89C973AE192564AF00EC6004 /* Foundation.framework */; };
 		89C973B1192564AF00EC6004 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89C973B0192564AF00EC6004 /* CoreGraphics.framework */; };
 		89C973B3192564AF00EC6004 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89C973B2192564AF00EC6004 /* UIKit.framework */; };
@@ -63,7 +64,7 @@
 		891B94611948C84600BEAEC9 /* FeedControllerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedControllerViewController.h; path = ../FeedControllerViewController.h; sourceTree = "<group>"; };
 		891B94621948C84600BEAEC9 /* FeedControllerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedControllerViewController.m; path = ../FeedControllerViewController.m; sourceTree = "<group>"; };
 		891B94641948C9FF00BEAEC9 /* BlankCheckViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BlankCheckViewCell.h; path = ../BlankCheckViewCell.h; sourceTree = "<group>"; };
-		891B94651948C9FF00BEAEC9 /* BlankCheckViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BlankCheckViewCell.m; path = ../BlankCheckViewCell.m; sourceTree = "<group>"; };
+		891B94651948C9FF00BEAEC9 /* BlankCheckViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BlankCheckViewCell.m; path = ../BlankCheckViewCell.m; sourceTree = "<group>"; wrapsLines = 0; };
 		8978FBC9193E562600BF0921 /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchViewController.h; path = ../SearchViewController.h; sourceTree = "<group>"; };
 		8978FBCA193E562600BF0921 /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchViewController.m; path = ../SearchViewController.m; sourceTree = "<group>"; };
 		899616B419461E3100C75B99 /* PresetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PresetViewController.h; path = ../PresetViewController.h; sourceTree = "<group>"; };
@@ -76,6 +77,8 @@
 		89A1433A193FCCF300FDEC4F /* SideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SideViewController.m; path = ../SideViewController.m; sourceTree = "<group>"; };
 		89A1438E1940E65700FDEC4F /* UIColor+BlankCheckColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIColor+BlankCheckColors.h"; path = "../UIColor+BlankCheckColors.h"; sourceTree = "<group>"; };
 		89A1438F1940E65700FDEC4F /* UIColor+BlankCheckColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIColor+BlankCheckColors.m"; path = "../UIColor+BlankCheckColors.m"; sourceTree = "<group>"; };
+		89B06FC91950AD6100ACC733 /* SocialController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SocialController.h; path = ../SocialController.h; sourceTree = "<group>"; };
+		89B06FCA1950AD6100ACC733 /* SocialController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SocialController.m; path = ../SocialController.m; sourceTree = "<group>"; };
 		89C973AB192564AF00EC6004 /* Blank Check.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Blank Check.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		89C973AE192564AF00EC6004 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		89C973B0192564AF00EC6004 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -180,9 +183,7 @@
 				8910F3201937AD1300955812 /* Model */,
 				89C973F21925797F00EC6004 /* Misc */,
 				89C973F11925797B00EC6004 /* Controller */,
-				89C973E9192565D800EC6004 /* Constants.h */,
 				89C973F01925797700EC6004 /* View */,
-				89C973EA192565D800EC6004 /* Constants.m */,
 				89C973BD192564AF00EC6004 /* AppDelegate.h */,
 				89C973BE192564AF00EC6004 /* AppDelegate.m */,
 				89C973C0192564AF00EC6004 /* Main_iPhone.storyboard */,
@@ -234,6 +235,8 @@
 		89C973F11925797B00EC6004 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				89B06FC91950AD6100ACC733 /* SocialController.h */,
+				89B06FCA1950AD6100ACC733 /* SocialController.m */,
 				891B94611948C84600BEAEC9 /* FeedControllerViewController.h */,
 				891B94621948C84600BEAEC9 /* FeedControllerViewController.m */,
 				899616B419461E3100C75B99 /* PresetViewController.h */,
@@ -253,6 +256,8 @@
 		89C973F21925797F00EC6004 /* Misc */ = {
 			isa = PBXGroup;
 			children = (
+				89C973E9192565D800EC6004 /* Constants.h */,
+				89C973EA192565D800EC6004 /* Constants.m */,
 				899616BA1947836300C75B99 /* SearchDisplayController.h */,
 				899616BB1947836300C75B99 /* SearchDisplayController.m */,
 				899616B719464DF600C75B99 /* LanguageProcessing.h */,
@@ -376,6 +381,7 @@
 				89C973BB192564AF00EC6004 /* main.m in Sources */,
 				891B94631948C84600BEAEC9 /* FeedControllerViewController.m in Sources */,
 				899616B619461E3100C75B99 /* PresetViewController.m in Sources */,
+				89B06FCB1950AD6100ACC733 /* SocialController.m in Sources */,
 				8910F3291937ADB700955812 /* Education.m in Sources */,
 				89A1433B193FCCF300FDEC4F /* SideViewController.m in Sources */,
 				899616B919464DF600C75B99 /* LanguageProcessing.m in Sources */,

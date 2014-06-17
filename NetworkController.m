@@ -13,7 +13,7 @@
 
 #define LINKEDIN_REDIRECT @"http://comingsoon.blankchecklabs.com"
 
-#define LINKEDIN_SCOPE @"r_fullprofile%20r_emailaddress%20r_network%20r_contactinfo%20w_messages"
+#define LINKEDIN_SCOPE @"r_fullprofile%20r_emailaddress%20r_network%20r_contactinfo%20w_messages%20rw_nus"
 
 @implementation NetworkController{
     NSString *authorizationCode;

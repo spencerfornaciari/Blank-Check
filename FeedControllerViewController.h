@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "AppDelegate.h"
 
-@interface FeedControllerViewController : UICollectionViewController <UICollectionViewDelegate, UICollectionViewDataSource>
+@interface FeedControllerViewController : UICollectionViewController <UICollectionViewDelegate, UICollectionViewDataSource, UIActionSheetDelegate>
 
 @end

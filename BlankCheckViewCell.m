@@ -71,6 +71,7 @@
     [socialButton setBackgroundImage:[UIImage imageNamed:@"Social-Share"] forState:UIControlStateNormal];
     [socialButton addTarget:self action:@selector(buttonPress) forControlEvents:UIControlEventTouchDown];
     
+    
 }
 /*
 // Only override drawRect: if you perform custom drawing.
@@ -81,14 +82,6 @@
 }
 */
 
--(void)buttonPress {
-    NSLog(@"Button Press");
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Share this profile"
-                                                             delegate:self
-                                                    cancelButtonTitle:@"Cancel"
-                                               destructiveButtonTitle:nil otherButtonTitles:@"LinkedIn", @"Twitter", @"Facebook", nil];
-    
-    [actionSheet showInView:self];
-}
+
 
 @end

@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Social/Social.h>
 #import "Gamer.h"
+#import "SocialController.h"
 #import "UIColor+BlankCheckColors.h"
 
 @interface BlankCheckViewCell : UICollectionViewCell <UIActionSheetDelegate>
@@ -15,6 +17,8 @@
 @property (strong, nonatomic) IBOutlet UILabel *nameLabel;
 @property (strong, nonatomic) IBOutlet UIImageView *profileImage;
 @property (strong, nonatomic) IBOutlet UIImageView *graphImage;
+
+@property (nonatomic) UIButton *socialButton;
 
 @property (nonatomic) Gamer *gamer;
 
