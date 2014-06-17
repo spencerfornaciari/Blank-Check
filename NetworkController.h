@@ -7,6 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Gamer.h"
+#import "Position.h"
+#import "Education.h"
+#import "Language.h"
+#import "Recommendation.h"
 
 @interface NetworkController : NSObject
 
@@ -16,5 +21,9 @@
 -(void)handleCallbackURL:(NSString *)code;
 -(NSString *)convertURLToCode:(NSURL *)url;
 -(BOOL)checkTokenIsCurrent;
+
+-(void)loadCurrentUserData:(Gamer *)gamer;
+-(void)sendInvitationToUserID:(NSString *)userID;
+-(NSArray *)commonConnectionsWithUser:(NSString *)userID;
 
 @end

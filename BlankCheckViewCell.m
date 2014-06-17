@@ -57,7 +57,7 @@
     imageView.layer.cornerRadius = 60.f;
     imageView.layer.masksToBounds = TRUE;
     
-    imageView.backgroundColor = [UIColor blankCheckBrown];
+    imageView.image = gamer.profileImage;
     [self addSubview:imageView];
     
     //Block off space for graph

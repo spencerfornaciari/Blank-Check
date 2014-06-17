@@ -161,7 +161,7 @@
         NSLog(@"%@", gamer.fullName);
     }
     
-    NSLog(@"Name Count: %d", predicateArray.count);
+    NSLog(@"Name Count: %lu", (unsigned long)predicateArray.count);
 }
 
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{

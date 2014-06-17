@@ -7,6 +7,7 @@
 //
 
 #import "FeedControllerViewController.h"
+#import "NetworkController.h"
 #import "BlankCheckViewCell.h"
 #import "Gamer.h"
 
@@ -17,37 +18,30 @@
 @property (nonatomic) Gamer *one, *two, *three;
 @property (nonatomic) NSMutableArray *feedArray;
 
+@property (nonatomic) NetworkController *networkController;
+
 @end
 
 @implementation FeedControllerViewController
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.title = @"Blank Check Labs";
     
-    self.feedArray = [NSMutableArray new];
+    self.networkController = [(AppDelegate *)[[UIApplication sharedApplication] delegate] networkController];
     
     self.one = [Gamer new];
-    self.one.fullName = @"Spencer Fornaciari";
+    [self.networkController loadCurrentUserData:self.one];
+    
+    [self.networkController sendInvitationToUserID:self.one.gamerID];
+    NSArray *array = [self.networkController commonConnectionsWithUser:@"mXtsRDLoyK"];
+    NSLog(@"%@", array);
+    NSLog(@"Count: %lu", (unsigned long)array.count);
+    
+    self.feedArray = [NSMutableArray new];
+    
     [self.feedArray addObject:self.one];
-    
-    self.two = [Gamer new];
-    self.two.fullName = @"Lewis Lin";
-    [self.feedArray addObject:self.two];
-    
-    self.three = [Gamer new];
-    self.three.fullName = @"Bill Gates";
-    [self.feedArray addObject:self.three];
     
     
     self.blankCheckCollectionView.delegate = self;
