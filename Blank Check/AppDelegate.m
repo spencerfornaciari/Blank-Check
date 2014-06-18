@@ -27,6 +27,8 @@
         NSLog(@"Token available");
     }
     
+    self.blankQueue = [NSOperationQueue new];
+    
     return YES;
 }
 

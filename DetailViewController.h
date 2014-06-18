@@ -1,5 +1,5 @@
 //
-//  FeedTableViewCell.h
+//  DetailViewController.h
 //  Blank Check
 //
 //  Created by Spencer Fornaciari on 6/18/14.
@@ -7,16 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "AppDelegate.h"
 #import "Gamer.h"
 
-@interface FeedTableViewCell : UITableViewCell
+@interface DetailViewController : UIViewController
 
 @property (strong, nonatomic) IBOutlet UIImageView *profileImage;
 
-@property (strong, nonatomic) IBOutlet UILabel *userNameLabel;
-@property (strong, nonatomic) IBOutlet UILabel *scoreLabel;
-
--(void)setCell:(Gamer *)gamer;
+@property (nonatomic) Gamer *gamer;
 
 @end

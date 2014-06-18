@@ -7,6 +7,7 @@
 //
 
 #import "FeedBrowserTableViewController.h"
+#import "DetailViewController.h"
 #import "AppDelegate.h"
 #import "FeedTableViewCell.h"
 #import "NetworkController.h"
@@ -92,6 +93,16 @@
     [cell setCell:gamer];
     
     return cell;
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+    
+    Gamer *gamer = self.feedArray[indexPath.row];
+    
+    DetailViewController *viewController = segue.destinationViewController;
+    viewController.gamer = gamer;
+    viewController.profileImage.image = gamer.profileImage;
 }
 
 /*

@@ -215,6 +215,7 @@
                                     <outlet property="profileImage" destination="3aW-C7-QWy" id="K14-jK-axg"/>
                                     <outlet property="scoreLabel" destination="3ot-X8-VUu" id="B8k-dr-gdF"/>
                                     <outlet property="userNameLabel" destination="khr-tD-yqH" id="WO3-aQ-3NN"/>
+                                    <segue destination="Bsz-Ld-m8F" kind="push" id="NA9-jt-XFp"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -230,6 +231,34 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gI9-W3-zdX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="681" y="1433"/>
+        </scene>
+        <!--Detail View Controller-->
+        <scene sceneID="boL-ao-kF7">
+            <objects>
+                <viewController id="Bsz-Ld-m8F" customClass="DetailViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="7ld-Fc-izn"/>
+                        <viewControllerLayoutGuide type="bottom" id="irs-wr-bND"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="I9e-sX-WJc">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7FG-Mr-mhN">
+                                <rect key="frame" x="20" y="120" width="120" height="120"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="fcJ-yh-qKW"/>
+                    <connections>
+                        <outlet property="profileImage" destination="7FG-Mr-mhN" id="oV9-BE-2II"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2tK-kS-AMC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1204" y="1514"/>
         </scene>
         <!--Feed Controller View Controller-->
         <scene sceneID="sXi-WV-bLg">
@@ -335,6 +364,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="KEp-65-3vv"/>
+        <segue reference="3Ry-Ch-7Hc"/>
     </inferredMetricsTieBreakers>
 </document>
