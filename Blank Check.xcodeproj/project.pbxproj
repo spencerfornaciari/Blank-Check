@@ -14,6 +14,8 @@
 		8910F3321937AE3400955812 /* Language.m in Sources */ = {isa = PBXBuildFile; fileRef = 8910F3311937AE3400955812 /* Language.m */; };
 		891B94631948C84600BEAEC9 /* FeedControllerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 891B94621948C84600BEAEC9 /* FeedControllerViewController.m */; };
 		891B94661948C9FF00BEAEC9 /* BlankCheckViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 891B94651948C9FF00BEAEC9 /* BlankCheckViewCell.m */; };
+		895AF662195235A700B20DA6 /* FeedBrowserTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 895AF661195235A700B20DA6 /* FeedBrowserTableViewController.m */; };
+		895AF665195235FD00B20DA6 /* FeedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 895AF664195235FD00B20DA6 /* FeedTableViewCell.m */; };
 		8978FBCB193E562600BF0921 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8978FBCA193E562600BF0921 /* SearchViewController.m */; };
 		899616B619461E3100C75B99 /* PresetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 899616B519461E3100C75B99 /* PresetViewController.m */; };
 		899616B919464DF600C75B99 /* LanguageProcessing.m in Sources */ = {isa = PBXBuildFile; fileRef = 899616B819464DF600C75B99 /* LanguageProcessing.m */; };
@@ -65,6 +67,10 @@
 		891B94621948C84600BEAEC9 /* FeedControllerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedControllerViewController.m; path = ../FeedControllerViewController.m; sourceTree = "<group>"; };
 		891B94641948C9FF00BEAEC9 /* BlankCheckViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BlankCheckViewCell.h; path = ../BlankCheckViewCell.h; sourceTree = "<group>"; };
 		891B94651948C9FF00BEAEC9 /* BlankCheckViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BlankCheckViewCell.m; path = ../BlankCheckViewCell.m; sourceTree = "<group>"; wrapsLines = 0; };
+		895AF660195235A700B20DA6 /* FeedBrowserTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedBrowserTableViewController.h; path = ../FeedBrowserTableViewController.h; sourceTree = "<group>"; };
+		895AF661195235A700B20DA6 /* FeedBrowserTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedBrowserTableViewController.m; path = ../FeedBrowserTableViewController.m; sourceTree = "<group>"; };
+		895AF663195235FD00B20DA6 /* FeedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedTableViewCell.h; path = ../FeedTableViewCell.h; sourceTree = "<group>"; };
+		895AF664195235FD00B20DA6 /* FeedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedTableViewCell.m; path = ../FeedTableViewCell.m; sourceTree = "<group>"; };
 		8978FBC9193E562600BF0921 /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchViewController.h; path = ../SearchViewController.h; sourceTree = "<group>"; };
 		8978FBCA193E562600BF0921 /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchViewController.m; path = ../SearchViewController.m; sourceTree = "<group>"; };
 		899616B419461E3100C75B99 /* PresetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PresetViewController.h; path = ../PresetViewController.h; sourceTree = "<group>"; };
@@ -226,6 +232,8 @@
 		89C973F01925797700EC6004 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				895AF663195235FD00B20DA6 /* FeedTableViewCell.h */,
+				895AF664195235FD00B20DA6 /* FeedTableViewCell.m */,
 				891B94641948C9FF00BEAEC9 /* BlankCheckViewCell.h */,
 				891B94651948C9FF00BEAEC9 /* BlankCheckViewCell.m */,
 			);
@@ -235,6 +243,8 @@
 		89C973F11925797B00EC6004 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				895AF660195235A700B20DA6 /* FeedBrowserTableViewController.h */,
+				895AF661195235A700B20DA6 /* FeedBrowserTableViewController.m */,
 				89B06FC91950AD6100ACC733 /* SocialController.h */,
 				89B06FCA1950AD6100ACC733 /* SocialController.m */,
 				891B94611948C84600BEAEC9 /* FeedControllerViewController.h */,
@@ -370,6 +380,8 @@
 				89C973EB192565D800EC6004 /* Constants.m in Sources */,
 				8910F32C1937ADC700955812 /* Position.m in Sources */,
 				89C973E81925650C00EC6004 /* NetworkController.m in Sources */,
+				895AF665195235FD00B20DA6 /* FeedTableViewCell.m in Sources */,
+				895AF662195235A700B20DA6 /* FeedBrowserTableViewController.m in Sources */,
 				899616BC1947836300C75B99 /* SearchDisplayController.m in Sources */,
 				89C973C8192564AF00EC6004 /* ViewController.m in Sources */,
 				89A143901940E65700FDEC4F /* UIColor+BlankCheckColors.m in Sources */,

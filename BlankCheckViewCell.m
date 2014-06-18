@@ -63,14 +63,7 @@
     //Block off space for graph
     UIImageView *graph = [[UIImageView alloc] initWithFrame:CGRectMake(20, self.frame.size.height-(self.frame.size.width-60), self.frame.size.width-40, self.frame.size.width-40)];
     graph.backgroundColor = [UIColor blankCheckBlue];
-    [self addSubview:graph];
-    
-    UIButton *socialButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    [socialButton setFrame:CGRectMake(260, 100, 20, 20)];
-    [self addSubview:socialButton];
-    [socialButton setBackgroundImage:[UIImage imageNamed:@"Social-Share"] forState:UIControlStateNormal];
-    [socialButton addTarget:self action:@selector(buttonPress) forControlEvents:UIControlEventTouchDown];
-    
+    [self addSubview:graph];    
     
 }
 /*

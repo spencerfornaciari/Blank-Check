@@ -7,6 +7,7 @@
 //
 
 #import "NetworkController.h"
+#import "Gamer.h"
 
 #define LINKEDIN_OAUTH_URL @"https://www.linkedin.com/uas/oauth2/authorization?response_type=code"
 #define LINKEDIN_TOKEN_URL @"https://www.linkedin.com/uas/oauth2/accessToken?grant_type=authorization_code"
@@ -420,7 +421,7 @@
     NSLog(@"%@", stringResponse);
 }
 
--(void)shareOnLinkedin{
+-(void)shareOnLinkedin:(Gamer *)gamer {
     
     NSString *accessToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"accessToken"];
     NSString *urlString = [NSString stringWithFormat:@"https://api.linkedin.com/v1/people/~/shares?oauth2_access_token=%@", accessToken];
@@ -428,14 +429,14 @@
     NSURL *url = [NSURL URLWithString:urlString];
     
     
-    NSDictionary *contentDictionary = @{@"title":@"UI Action Sheet",
-                                        @"description":@"Posting from the share menu",
-                                        @"submitted-url":@"http://www..blankchecklabs.com/"};
+    NSDictionary *contentDictionary = @{@"title":@"Utilize Blank Check Labs to see my value...and YOURS!",
+                                        @"description":@"New app utilizing Linkedin's API to determine job value",
+                                        @"submitted-url":@"http://www.BlankCheckLabs.com"};
     
     NSDictionary *visibilityDictionary = @{@"code":@"anyone"};
                                         
     
-    NSDictionary *shareDictionary = @{@"comment":@"Testing out the LinkedIn Share API",
+    NSDictionary *shareDictionary = @{@"comment":@"Check out my value!",
                                       @"content":contentDictionary,
                                       @"visibility":visibilityDictionary};
     

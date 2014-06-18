@@ -37,7 +37,14 @@
     self.one = [Gamer new];
     [self.networkController loadCurrentUserData:self.one];
     
+    self.two = [Gamer new];
+    self.three = [Gamer new];
     
+    self.two.firstName = @"Lewis";
+    self.two.lastName = @"Lin";
+    
+    self.three.firstName = @"Johnny";
+    self.three.lastName = @"Appleseed";
     
     
 //    [self.networkController sendInvitationToUserID:self.one.gamerID];
@@ -48,7 +55,8 @@
     self.feedArray = [NSMutableArray new];
     
     [self.feedArray addObject:self.one];
-    
+    [self.feedArray addObject:self.two];
+    [self.feedArray addObject:self.three];
     
     
     self.blankCheckCollectionView.delegate = self;
