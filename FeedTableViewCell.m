@@ -33,6 +33,8 @@
 
 -(void)setCell:(Gamer *)gamer {
     self.userNameLabel.text = gamer.fullName;
+    self.scoreLabel.text = [NSString stringWithFormat:@"$%@", [gamer.valueArray lastObject]];
+    NSLog(@"Score: %@", [gamer.valueArray firstObject]);
     
     BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:gamer.imageLocalLocation];
     

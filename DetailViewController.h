@@ -12,6 +12,8 @@
 @interface DetailViewController : UIViewController
 
 @property (strong, nonatomic) IBOutlet UIImageView *profileImage;
+@property (strong, nonatomic) IBOutlet UILabel *userNameLabel;
+@property (strong, nonatomic) IBOutlet UILabel *valueLabel;
 
 @property (nonatomic) Gamer *gamer;
 

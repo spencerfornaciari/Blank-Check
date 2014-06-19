@@ -102,7 +102,6 @@
     
     DetailViewController *viewController = segue.destinationViewController;
     viewController.gamer = gamer;
-    viewController.profileImage.image = gamer.profileImage;
 }
 
 /*

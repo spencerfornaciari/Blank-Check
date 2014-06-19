@@ -323,6 +323,11 @@
         gamerConnection.firstName = connection[@"firstName"];
         gamerConnection.lastName = connection[@"lastName"];
         gamerConnection.fullName = [NSString stringWithFormat:@"%@ %@", gamerConnection.firstName, gamerConnection.lastName];
+        
+        //Add a base value
+        gamerConnection.valueArray = [NSMutableArray new];
+        [gamerConnection.valueArray addObject:@"1,000,000"];
+        
         gamerConnection.headline = connection[@"headline"];
         gamerConnection.industry = connection[@"industry"];
         gamerConnection.numConnections = connection[@"numConnections"];
@@ -359,12 +364,18 @@
             //Conversion from seconds to months
             position.monthsInCurrentJob = (employmentLength / 60 / 60 / 24 / 365) * 12;
             
+            
             [tempConnectionArray addObject:position];
         }
         
         gamerConnection.currentPositionArray = tempConnectionArray;
         
-        [gamer.connectionIDArray addObject:gamerConnection];
+        if ([gamerConnection.firstName isEqualToString:@"private"]) {
+            NSLog(@"Private User");
+        } else {
+            [gamer.connectionIDArray addObject:gamerConnection];
+        }
+        
     }
     
 }
