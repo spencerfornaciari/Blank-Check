@@ -233,6 +233,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="Ehg-cw-on2">
+                        <barButtonItem key="leftBarButtonItem" image="menu" id="G1C-B9-nLJ"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="search" id="B7e-Sx-IPH"/>
                     </navigationItem>
                 </tableViewController>
@@ -273,7 +274,9 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="fcJ-yh-qKW"/>
+                    <navigationItem key="navigationItem" id="fcJ-yh-qKW">
+                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="l7e-aD-8fc"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="profileImage" destination="7FG-Mr-mhN" id="oV9-BE-2II"/>
                         <outlet property="userNameLabel" destination="6MY-ey-7d7" id="R1W-GU-PbY"/>

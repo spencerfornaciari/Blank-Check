@@ -27,6 +27,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.title = @"Blank Check Labs";
 //    NSLog(@"Name: %@\n File Location: %@", self.gamer.fullName, self.gamer.profileImage);
     self.profileImage.image = self.gamer.profileImage;
     self.profileImage.layer.cornerRadius = 60.f;
