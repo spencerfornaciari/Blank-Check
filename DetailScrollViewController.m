@@ -80,10 +80,50 @@
     [followButton setImage:[UIImage imageNamed:@"Social-Share"] forState:UIControlStateNormal];
     [followButton addTarget:self action:@selector(followAction) forControlEvents:UIControlEventTouchUpInside];
     [scrollView addSubview:followButton];
+    
+    UIButton *outButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    outButton.frame = CGRectMake(76, 500, 56, 56);
+    [outButton setImage:[UIImage imageNamed:@"Social-Share"] forState:UIControlStateNormal];
+    [outButton addTarget:self action:@selector(outAction) forControlEvents:UIControlEventTouchUpInside];
+    [scrollView addSubview:outButton];
+    
+    UIButton *noteButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    noteButton.frame = CGRectMake(132, 500, 56, 56);
+    [noteButton setImage:[UIImage imageNamed:@"Social-Share"] forState:UIControlStateNormal];
+    [noteButton addTarget:self action:@selector(noteAction) forControlEvents:UIControlEventTouchUpInside];
+    [scrollView addSubview:noteButton];
+    
+    UIButton *shareButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    shareButton.frame = CGRectMake(188, 500, 56, 56);
+    [shareButton setImage:[UIImage imageNamed:@"Social-Share"] forState:UIControlStateNormal];
+    [shareButton addTarget:self action:@selector(shareAction) forControlEvents:UIControlEventTouchUpInside];
+    [scrollView addSubview:shareButton];
+    
+    UIButton *findSimilarButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    findSimilarButton.frame = CGRectMake(244, 500, 56, 56);
+    [findSimilarButton setImage:[UIImage imageNamed:@"Social-Share"] forState:UIControlStateNormal];
+    [findSimilarButton addTarget:self action:@selector(findSimilarAction) forControlEvents:UIControlEventTouchUpInside];
+    [scrollView addSubview:findSimilarButton];
 }
 
 -(void)followAction {
     NSLog(@"Follow Action");
+}
+
+-(void)outAction {
+    NSLog(@"Out Action");
+}
+
+-(void)noteAction {
+    NSLog(@"Note Action");
+}
+
+-(void)shareAction {
+    NSLog(@"Share Action");
+}
+
+-(void)findSimilarAction {
+    NSLog(@"Find Similar Aciton");
 }
 
 @end
