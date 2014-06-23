@@ -14,6 +14,14 @@
     IBOutlet UIImageView *profileImage;
     IBOutlet UILabel *userNameLabel;
     IBOutlet UILabel *valueLabel;
+    
+    
+
+    
+    IBOutlet UILabel *workExpLabel;
+    IBOutlet UILabel *educationExpLabel;
+    
+    
 }
 
 @property (nonatomic) Gamer *gamer;

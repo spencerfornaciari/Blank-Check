@@ -20,6 +20,10 @@
     [super viewDidLoad];
     self.title = @"Blank Check Labs";
     
+    [self addButtonMenu];
+    
+    scrollView.delegate = self;
+    
     [scrollView setScrollEnabled:YES];
     [scrollView setContentSize:CGSizeMake(320, 1000)];
     
@@ -39,6 +43,9 @@
     graph.backgroundColor = [UIColor blankCheckBlue];
     [scrollView addSubview:graph];
     
+    workExpLabel.text = [NSString stringWithFormat:@"Work Exp: Top 10%%"];
+    educationExpLabel.text = [NSString stringWithFormat:@"Education Exp: Top 5%%"];
+    
     // Do any additional setup after loading the view.
 }
 
@@ -51,7 +58,6 @@
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     
-    NSLog(@"Look ma, I'm scrolling");
 }
 
 /*
@@ -64,5 +70,20 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+#pragma mark - Button creation/actions
+
+-(void)addButtonMenu {
+    
+    UIButton *followButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    followButton.frame = CGRectMake(20, 500, 56, 56);
+    [followButton setImage:[UIImage imageNamed:@"Social-Share"] forState:UIControlStateNormal];
+    [followButton addTarget:self action:@selector(followAction) forControlEvents:UIControlEventTouchUpInside];
+    [scrollView addSubview:followButton];
+}
+
+-(void)followAction {
+    NSLog(@"Follow Action");
+}
 
 @end

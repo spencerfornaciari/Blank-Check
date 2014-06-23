@@ -46,12 +46,12 @@
     self.one = [self.networkController loadCurrentUserData];
 
     
-    [self.operationQueue addOperationWithBlock:^{
-        
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            [self.tableView reloadData];
-        }];
-    }];
+//    [self.operationQueue addOperationWithBlock:^{
+//        
+//        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+//            [self.tableView reloadData];
+//        }];
+//    }];
     
 //    [self.networkController loadCurrentUserData:self.one];
     
