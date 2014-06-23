@@ -34,8 +34,7 @@
     
     self.networkController = [(AppDelegate *)[[UIApplication sharedApplication] delegate] networkController];
     
-    self.one = [Gamer new];
-    [self.networkController loadCurrentUserData:self.one];
+    self.one = [self.networkController loadCurrentUserData];
     
     self.two = [Gamer new];
     self.three = [Gamer new];

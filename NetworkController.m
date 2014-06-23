@@ -7,6 +7,7 @@
 //
 
 #import "NetworkController.h"
+#import "AppDelegate.h"
 #import "Gamer.h"
 
 #define LINKEDIN_OAUTH_URL @"https://www.linkedin.com/uas/oauth2/authorization?response_type=code"
@@ -155,8 +156,12 @@
 
 #pragma mark - Load current user data
 
--(void)loadCurrentUserData:(Gamer *)gamer
+-(Gamer *)loadCurrentUserData
 {
+    Gamer *gamer = [Gamer new];
+    
+//    [operationQueue addOperationWithBlock:^{
+    
     
     NSString *accessToken = [[NSUserDefaults standardUserDefaults] stringForKey:@"accessToken"];
     //Generating the NSMutableURLRequest with the base LinkedIN URL with token extension in the HTTP Body
@@ -366,6 +371,7 @@
             
             
             [tempConnectionArray addObject:position];
+            
         }
         
         gamerConnection.currentPositionArray = tempConnectionArray;
@@ -375,9 +381,17 @@
         } else {
             [gamer.connectionIDArray addObject:gamerConnection];
         }
-        
     }
     
+    NSSortDescriptor *nameDescriptor = [[NSSortDescriptor alloc] initWithKey:@"lastName" ascending:YES];
+    NSArray *sortDescriptors = [NSArray arrayWithObject:nameDescriptor];
+    NSArray *sortedArray = [gamer.connectionIDArray sortedArrayUsingDescriptors:sortDescriptors];
+        
+//  NSArray *sortedArray = [NSArray arrayWithArray:[gamer.connectionIDArray sortUsingDescriptors:@[sortDescriptor]]];
+    
+    gamer.connectionIDArray = [sortedArray mutableCopy];
+            
+    return gamer;
 }
 
 
@@ -399,7 +413,6 @@
     NSArray *array = [NSArray arrayWithObjects:recipientDictionary, nil];
     
     NSDictionary *recipients = @{@"values":array};
-//    [recipients setValue:array forKey:@"values"];
     
     NSURL *linkURL = [NSURL URLWithString:@"http://comingsoon.blankchecklabs.com/"];
     

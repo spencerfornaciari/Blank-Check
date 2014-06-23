@@ -16,8 +16,8 @@
 		891B94661948C9FF00BEAEC9 /* BlankCheckViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 891B94651948C9FF00BEAEC9 /* BlankCheckViewCell.m */; };
 		895AF662195235A700B20DA6 /* FeedBrowserTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 895AF661195235A700B20DA6 /* FeedBrowserTableViewController.m */; };
 		895AF665195235FD00B20DA6 /* FeedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 895AF664195235FD00B20DA6 /* FeedTableViewCell.m */; };
-		895AF66819523EBA00B20DA6 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 895AF66719523EBA00B20DA6 /* DetailViewController.m */; };
 		8978FBCB193E562600BF0921 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8978FBCA193E562600BF0921 /* SearchViewController.m */; };
+		897F02321958A4B200A770A6 /* DetailScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 897F02311958A4B200A770A6 /* DetailScrollViewController.m */; };
 		899616B619461E3100C75B99 /* PresetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 899616B519461E3100C75B99 /* PresetViewController.m */; };
 		899616B919464DF600C75B99 /* LanguageProcessing.m in Sources */ = {isa = PBXBuildFile; fileRef = 899616B819464DF600C75B99 /* LanguageProcessing.m */; };
 		899616BC1947836300C75B99 /* SearchDisplayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 899616BB1947836300C75B99 /* SearchDisplayController.m */; };
@@ -72,10 +72,10 @@
 		895AF661195235A700B20DA6 /* FeedBrowserTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedBrowserTableViewController.m; path = ../FeedBrowserTableViewController.m; sourceTree = "<group>"; };
 		895AF663195235FD00B20DA6 /* FeedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedTableViewCell.h; path = ../FeedTableViewCell.h; sourceTree = "<group>"; };
 		895AF664195235FD00B20DA6 /* FeedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedTableViewCell.m; path = ../FeedTableViewCell.m; sourceTree = "<group>"; };
-		895AF66619523EBA00B20DA6 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DetailViewController.h; path = ../DetailViewController.h; sourceTree = "<group>"; };
-		895AF66719523EBA00B20DA6 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DetailViewController.m; path = ../DetailViewController.m; sourceTree = "<group>"; };
 		8978FBC9193E562600BF0921 /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchViewController.h; path = ../SearchViewController.h; sourceTree = "<group>"; };
 		8978FBCA193E562600BF0921 /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchViewController.m; path = ../SearchViewController.m; sourceTree = "<group>"; };
+		897F02301958A4B200A770A6 /* DetailScrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DetailScrollViewController.h; path = ../DetailScrollViewController.h; sourceTree = "<group>"; };
+		897F02311958A4B200A770A6 /* DetailScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DetailScrollViewController.m; path = ../DetailScrollViewController.m; sourceTree = "<group>"; };
 		899616B419461E3100C75B99 /* PresetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PresetViewController.h; path = ../PresetViewController.h; sourceTree = "<group>"; };
 		899616B519461E3100C75B99 /* PresetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PresetViewController.m; path = ../PresetViewController.m; sourceTree = "<group>"; };
 		899616B719464DF600C75B99 /* LanguageProcessing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LanguageProcessing.h; path = ../LanguageProcessing.h; sourceTree = "<group>"; };
@@ -246,8 +246,8 @@
 		89C973F11925797B00EC6004 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				895AF66619523EBA00B20DA6 /* DetailViewController.h */,
-				895AF66719523EBA00B20DA6 /* DetailViewController.m */,
+				897F02301958A4B200A770A6 /* DetailScrollViewController.h */,
+				897F02311958A4B200A770A6 /* DetailScrollViewController.m */,
 				895AF660195235A700B20DA6 /* FeedBrowserTableViewController.h */,
 				895AF661195235A700B20DA6 /* FeedBrowserTableViewController.m */,
 				89B06FC91950AD6100ACC733 /* SocialController.h */,
@@ -388,7 +388,6 @@
 				895AF665195235FD00B20DA6 /* FeedTableViewCell.m in Sources */,
 				895AF662195235A700B20DA6 /* FeedBrowserTableViewController.m in Sources */,
 				899616BC1947836300C75B99 /* SearchDisplayController.m in Sources */,
-				895AF66819523EBA00B20DA6 /* DetailViewController.m in Sources */,
 				89C973C8192564AF00EC6004 /* ViewController.m in Sources */,
 				89A143901940E65700FDEC4F /* UIColor+BlankCheckColors.m in Sources */,
 				89C973BF192564AF00EC6004 /* AppDelegate.m in Sources */,
@@ -399,6 +398,7 @@
 				89C973BB192564AF00EC6004 /* main.m in Sources */,
 				891B94631948C84600BEAEC9 /* FeedControllerViewController.m in Sources */,
 				899616B619461E3100C75B99 /* PresetViewController.m in Sources */,
+				897F02321958A4B200A770A6 /* DetailScrollViewController.m in Sources */,
 				89B06FCB1950AD6100ACC733 /* SocialController.m in Sources */,
 				8910F3291937ADB700955812 /* Education.m in Sources */,
 				89A1433B193FCCF300FDEC4F /* SideViewController.m in Sources */,

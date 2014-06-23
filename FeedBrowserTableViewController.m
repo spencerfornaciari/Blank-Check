@@ -7,7 +7,7 @@
 //
 
 #import "FeedBrowserTableViewController.h"
-#import "DetailViewController.h"
+#import "DetailScrollViewController.h"
 #import "AppDelegate.h"
 #import "FeedTableViewCell.h"
 #import "NetworkController.h"
@@ -19,6 +19,7 @@
 @property (nonatomic) NSMutableArray *feedArray;
 
 @property (nonatomic) NetworkController *networkController;
+@property (nonatomic) NSOperationQueue *operationQueue;
 
 @end
 
@@ -40,9 +41,19 @@
     self.title = @"Blank Check Labs";
     
     self.networkController = [(AppDelegate *)[[UIApplication sharedApplication] delegate] networkController];
+    self.operationQueue = [(AppDelegate *)[[UIApplication sharedApplication] delegate] blankQueue];
     
-    self.one = [Gamer new];
-    [self.networkController loadCurrentUserData:self.one];
+    self.one = [self.networkController loadCurrentUserData];
+
+    
+    [self.operationQueue addOperationWithBlock:^{
+        
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            [self.tableView reloadData];
+        }];
+    }];
+    
+//    [self.networkController loadCurrentUserData:self.one];
     
     
     //    [self.networkController sendInvitationToUserID:self.one.gamerID];
@@ -100,7 +111,7 @@
     
     Gamer *gamer = self.feedArray[indexPath.row];
     
-    DetailViewController *viewController = segue.destinationViewController;
+    DetailScrollViewController *viewController = segue.destinationViewController;
     viewController.gamer = gamer;
 }
 

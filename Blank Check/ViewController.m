@@ -160,7 +160,9 @@
 //    NSString *string = [NSString stringWithFormat:@"https://api.linkedin.com/v1/people/~"]
     [self.webView removeFromSuperview];
     
-    [self.controller loadCurrentUserData:self.currentGamer];
+    
+    //CHANGED
+//    [self.controller loadCurrentUserData:self.currentGamer];
     
 //    NSString *accessURL = [NSString stringWithFormat:@"%@%@&format=json", @"https://api.linkedin.com/v1/people/~:(id,first-name,last-name,industry,headline,location:(name),num-connections,picture-urls::(original),email-address,last-modified-timestamp,interests,languages,skills,certifications,three-current-positions,public-profile-url,educations,num-recommenders,recommendations-received)?oauth2_access_token=", self.accessToken];
 //    

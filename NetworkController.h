@@ -22,7 +22,7 @@
 -(NSString *)convertURLToCode:(NSURL *)url;
 -(BOOL)checkTokenIsCurrent;
 
--(void)loadCurrentUserData:(Gamer *)gamer;
+-(Gamer *)loadCurrentUserData;
 -(void)sendInvitationToUserID:(NSString *)userID;
 -(void)shareOnLinkedin:(Gamer *)gamer;
 -(NSArray *)commonConnectionsWithUser:(NSString *)userID;

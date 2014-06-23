@@ -65,8 +65,14 @@
         gamer.imageLocalLocation = [NSString stringWithFormat:@"%@/%@.jpg", [self documentsDirectoryPath], fullName];
         [data writeToFile:gamer.imageLocalLocation atomically:YES];
         
+        BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:gamer.imageLocalLocation];
+        
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            self.profileImage.image = gamer.profileImage;
+            if (!fileExists) {
+                self.profileImage.image = [UIImage imageNamed:@"default-user"];
+            } else {
+                self.profileImage.image = gamer.profileImage;
+            }
         }];
     }];
         
