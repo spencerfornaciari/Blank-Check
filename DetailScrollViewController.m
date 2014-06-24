@@ -35,79 +35,50 @@
     //Add UIView over info to promote connection
     UIView *overView = [[UIView alloc] initWithFrame:CGRectMake(20, 210, scrollView.frame.size.width - 40, 1000)];
     overView.backgroundColor = [UIColor blankCheckBlue];
-    overView.alpha = 0.7;
+    overView.alpha = 1;
     overView.layer.zPosition = 2;
     [scrollView addSubview:overView];
     
-    UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, overView.frame.size.width, 40)];
+    NSLog(@"Width: %f", overView.frame.size.width);
+    
+    UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, overView.frame.size.width - 40, 40)];
+    nameLabel.textAlignment = NSTextAlignmentCenter;
     nameLabel.text = [NSString stringWithFormat:@"%@ has picked up the Blank Check yet.", self.gamer.firstName];
     nameLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0];
     nameLabel.numberOfLines = 0;
     [nameLabel sizeToFit];
-    nameLabel.textAlignment = NSTextAlignmentCenter;
     nameLabel.textColor = [UIColor whiteColor];
     nameLabel.alpha = 1;
-//    CGPoint centerPoint = CGPointMake(overView.center.x, 20);
-//    [nameLabel setCenter:centerPoint];
+    nameLabel.center = CGPointMake(overView.frame.size.width / 2, 50);
     [overView addSubview:nameLabel];
     
-    
-    UILabel *descriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, nameLabel.frame.origin.y + 100, overView.frame.size.width, 60)];
+    UILabel *descriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 200, overView.frame.size.width - 40, 60)];
+    descriptionLabel.textAlignment = NSTextAlignmentCenter;
     descriptionLabel.text = @"We provide better estimates when friends use Blank Check.";
     descriptionLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0];
     descriptionLabel.numberOfLines = 0;
     [descriptionLabel sizeToFit];
-    descriptionLabel.textAlignment = NSTextAlignmentCenter;
     descriptionLabel.textColor = [UIColor whiteColor];
-    CGPoint descriptionCenterPoint = CGPointMake(overView.center.x, 200);
-    [nameLabel setCenter:descriptionCenterPoint];
+    descriptionLabel.center = CGPointMake(overView.frame.size.width / 2, nameLabel.center.y + 80);
     [overView addSubview:descriptionLabel];
     
-    NSLog(@"Overview center: %@", NSStringFromCGPoint(overView.center));
     
     UIButton *inviteButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    inviteButton.frame = CGRectMake(0, 0, 60, 60);
-    inviteButton.center = CGPointMake(overView.center.x, 50);
+    inviteButton.frame = CGRectMake(0, descriptionLabel.frame.origin.y + 100, 200, 60);
+    inviteButton.center = CGPointMake(overView.frame.size.width / 2, descriptionLabel.center.y + 100);
     [inviteButton setTitle:[NSString stringWithFormat:@"Invite %@", self.gamer.firstName] forState:UIControlStateNormal];
     [inviteButton addTarget:self action:@selector(inviteTarget:) forControlEvents:UIControlEventTouchUpInside];
     [inviteButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     inviteButton.backgroundColor = [UIColor whiteColor];
     [overView addSubview:inviteButton];
     
-    NSLog(@"Button center: %@", NSStringFromCGPoint(inviteButton.center));
-    NSLog(@"Button center: %@", NSStringFromCGPoint(inviteButton.frame.origin));
+
     
     
     NSString *fullName = [NSString stringWithFormat:@"%@%@", self.gamer.firstName, self.gamer.lastName];
     self.gamer.imageLocalLocation = [NSString stringWithFormat:@"%@/%@.jpg", [self documentsDirectoryPath], fullName];
     
     BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:self.gamer.imageLocalLocation];
-    
-
-    
-
-    
-//    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:self.gamer.imageLocalLocation];
-//    
-//    NSLog(@"File Exists: %d", fileExists);
-//    
-//    if (fileExists) {
-//        UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfMappedFile:self.gamer.imageLocalLocation]];
-//        
-//        profileImage.image = image;
-//        [profileImage setNeedsDisplay];
-//    } else {
-//        NSURL *url = self.gamer.imageURL;
-//        NSData *data = [NSData dataWithContentsOfURL:url];
-//        UIImage *image = [UIImage imageWithData:data];
-//        self.gamer.profileImage = image;
-//        [data writeToFile:self.gamer.imageLocalLocation atomically:YES];
-//        profileImage.image = self.gamer.profileImage;
-//    
-//        [profileImage setNeedsDisplay];
-//
-//    }
-
     
     profileImage.image = self.gamer.profileImage;
     profileImage.layer.cornerRadius = 60.f;
@@ -132,8 +103,6 @@
     
     NSURL *url = self.gamer.imageURL;
     
-    //    profileImage.backgroundColor = [UIColor blackColor];
-    
     if (url) {
         NSData *data = [NSData dataWithContentsOfURL:url];
         UIImage *image = [UIImage imageWithData:data];
@@ -143,19 +112,6 @@
         profileImage.image = self.gamer.profileImage;
         [profileImage setNeedsDisplay];
     }
-    
-    //        NSLog(@"False");
-    //
-    //        UIImage *image2 = [UIImage imageNamed:@"default-user"];
-    //
-    //        if (image2) {
-    //            NSLog(@"True");
-    //        }
-    //
-    //        [profileImage setImage:image2];
-    //        
-    ////        [profileImage setNeedsDisplay];
-    //    }
     
 }
 
