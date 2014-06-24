@@ -10,15 +10,6 @@
 
 @implementation FeedTableViewCell
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
-{
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-        // Initialization code
-    }
-    return self;
-}
-
 - (void)awakeFromNib
 {
     // Initialization code
@@ -34,15 +25,24 @@
 -(void)setCell:(Gamer *)gamer {
     self.userNameLabel.text = gamer.fullName;
     self.scoreLabel.text = [NSString stringWithFormat:@"$%@", [gamer.valueArray lastObject]];
-    NSLog(@"Score: %@", [gamer.valueArray firstObject]);
     
-    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:gamer.imageLocalLocation];
+    NSURL *url = gamer.smallImageURL;
+    NSData *data = [NSData dataWithContentsOfURL:url];
+    UIImage *image = [UIImage imageWithData:data];
+    gamer.smallProfileImage = image;
+    
+//    NSString *fullName = [NSString stringWithFormat:@"%@%@", gamer.firstName, gamer.lastName];
+//    gamer.smallImageLocalLocation = [NSString stringWithFormat:@"%@/%@_small.jpg", [self documentsDirectoryPath], fullName];
+//    [data writeToFile:gamer.smallImageLocalLocation atomically:YES];
+//    self.profileImage.image = gamer.smallProfileImage;
+    
+    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:gamer.smallImageLocalLocation];
     
     if (!fileExists) {
         [self downloadProfileImage:gamer];
     } else {
-        gamer.profileImage = [UIImage imageWithData:[NSData dataWithContentsOfMappedFile:gamer.imageLocalLocation]];
-        self.profileImage.image = gamer.profileImage;
+        gamer.smallProfileImage = [UIImage imageWithData:[NSData dataWithContentsOfMappedFile:gamer.smallImageLocalLocation]];
+        self.profileImage.image = gamer.smallProfileImage;
     }
     
     self.profileImage.contentMode = UIViewContentModeScaleAspectFit;
@@ -52,37 +52,30 @@
 
 -(void)downloadProfileImage:(Gamer *)gamer {
     
-    NSURL *url = gamer.imageURL;
-    NSLog(@"URL: %@", url);
+    
+    //Loggin image URL
+    NSURL *url = gamer.smallImageURL;
     
     NSOperationQueue *operationQueue = [(AppDelegate *)[[UIApplication sharedApplication] delegate] blankQueue];
     [operationQueue addOperationWithBlock:^{
         NSData *data = [NSData dataWithContentsOfURL:url];
         UIImage *image = [UIImage imageWithData:data];
-        gamer.profileImage = image;
+        gamer.smallProfileImage = image;
         
         NSString *fullName = [NSString stringWithFormat:@"%@%@", gamer.firstName, gamer.lastName];
-        gamer.imageLocalLocation = [NSString stringWithFormat:@"%@/%@.jpg", [self documentsDirectoryPath], fullName];
-        [data writeToFile:gamer.imageLocalLocation atomically:YES];
+        gamer.smallImageLocalLocation = [NSString stringWithFormat:@"%@/%@_small.jpg", [self documentsDirectoryPath], fullName];
+        [data writeToFile:gamer.smallImageLocalLocation atomically:YES];
         
-        BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:gamer.imageLocalLocation];
+        BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:gamer.smallImageLocalLocation];
         
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
             if (!fileExists) {
                 self.profileImage.image = [UIImage imageNamed:@"default-user"];
             } else {
-                self.profileImage.image = gamer.profileImage;
+                self.profileImage.image = gamer.smallProfileImage;
             }
         }];
     }];
-        
-//        NSString *str=[here Your image link for download];
-//        
-//        UIImage *img = [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:str]]];
-//        
-//        [dicImages_msg setObject:img forKey:[[msg_array objectAtIndex:path.row] valueForKey:@"image name or image link same as cell for row"]];
-//        
-//        [tableview performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
 
 }
 

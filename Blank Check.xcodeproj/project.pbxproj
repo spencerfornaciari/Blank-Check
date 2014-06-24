@@ -18,6 +18,7 @@
 		895AF665195235FD00B20DA6 /* FeedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 895AF664195235FD00B20DA6 /* FeedTableViewCell.m */; };
 		8978FBCB193E562600BF0921 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8978FBCA193E562600BF0921 /* SearchViewController.m */; };
 		897F02321958A4B200A770A6 /* DetailScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 897F02311958A4B200A770A6 /* DetailScrollViewController.m */; };
+		897F02351958E8D000A770A6 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 897F02341958E8D000A770A6 /* LoginViewController.m */; };
 		899616B619461E3100C75B99 /* PresetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 899616B519461E3100C75B99 /* PresetViewController.m */; };
 		899616B919464DF600C75B99 /* LanguageProcessing.m in Sources */ = {isa = PBXBuildFile; fileRef = 899616B819464DF600C75B99 /* LanguageProcessing.m */; };
 		899616BC1947836300C75B99 /* SearchDisplayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 899616BB1947836300C75B99 /* SearchDisplayController.m */; };
@@ -76,6 +77,8 @@
 		8978FBCA193E562600BF0921 /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchViewController.m; path = ../SearchViewController.m; sourceTree = "<group>"; };
 		897F02301958A4B200A770A6 /* DetailScrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DetailScrollViewController.h; path = ../DetailScrollViewController.h; sourceTree = "<group>"; };
 		897F02311958A4B200A770A6 /* DetailScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DetailScrollViewController.m; path = ../DetailScrollViewController.m; sourceTree = "<group>"; };
+		897F02331958E8D000A770A6 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginViewController.h; path = ../LoginViewController.h; sourceTree = "<group>"; };
+		897F02341958E8D000A770A6 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginViewController.m; path = ../LoginViewController.m; sourceTree = "<group>"; };
 		899616B419461E3100C75B99 /* PresetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PresetViewController.h; path = ../PresetViewController.h; sourceTree = "<group>"; };
 		899616B519461E3100C75B99 /* PresetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PresetViewController.m; path = ../PresetViewController.m; sourceTree = "<group>"; };
 		899616B719464DF600C75B99 /* LanguageProcessing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LanguageProcessing.h; path = ../LanguageProcessing.h; sourceTree = "<group>"; };
@@ -246,6 +249,8 @@
 		89C973F11925797B00EC6004 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				897F02331958E8D000A770A6 /* LoginViewController.h */,
+				897F02341958E8D000A770A6 /* LoginViewController.m */,
 				897F02301958A4B200A770A6 /* DetailScrollViewController.h */,
 				897F02311958A4B200A770A6 /* DetailScrollViewController.m */,
 				895AF660195235A700B20DA6 /* FeedBrowserTableViewController.h */,
@@ -382,6 +387,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8910F3261937AD8200955812 /* Gamer.m in Sources */,
+				897F02351958E8D000A770A6 /* LoginViewController.m in Sources */,
 				89C973EB192565D800EC6004 /* Constants.m in Sources */,
 				8910F32C1937ADC700955812 /* Position.m in Sources */,
 				89C973E81925650C00EC6004 /* NetworkController.m in Sources */,

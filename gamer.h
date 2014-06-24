@@ -33,8 +33,11 @@
 
 //Gamer photo information
 @property (nonatomic) NSURL *imageURL;
+@property (nonatomic) NSURL *smallImageURL;
 @property (nonatomic) NSString *imageLocalLocation;
+@property (nonatomic) NSString *smallImageLocalLocation;
 @property (nonatomic) UIImage *profileImage;
+@property (nonatomic) UIImage *smallProfileImage;
 
 //Gamer's job (level) information
 @property (nonatomic) NSMutableArray *valueArray;

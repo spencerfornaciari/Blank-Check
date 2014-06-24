@@ -166,7 +166,7 @@
     NSString *accessToken = [[NSUserDefaults standardUserDefaults] stringForKey:@"accessToken"];
     //Generating the NSMutableURLRequest with the base LinkedIN URL with token extension in the HTTP Body
     //    NSString *string = [NSString stringWithFormat:@"https://api.linkedin.com/v1/people/~"]
-    NSString *accessURL = [NSString stringWithFormat:@"%@%@&format=json", @"https://api.linkedin.com/v1/people/~:(id,first-name,last-name,industry,headline,location:(name),num-connections,picture-urls::(original),email-address,last-modified-timestamp,interests,languages,skills,certifications,three-current-positions,public-profile-url,educations,num-recommenders,recommendations-received)?oauth2_access_token=", accessToken];
+    NSString *accessURL = [NSString stringWithFormat:@"%@%@&format=json", @"https://api.linkedin.com/v1/people/~:(id,first-name,last-name,industry,headline,location:(name),num-connections,picture-url,picture-urls::(original),email-address,last-modified-timestamp,interests,languages,skills,certifications,three-current-positions,public-profile-url,educations,num-recommenders,recommendations-received)?oauth2_access_token=", accessToken];
     
     /*NSURL *url = [NSURL URLWithString:@"https://api.linkedin.com/v1/people/~:(id,first-name,last-name,industry,headline,location:(name),num-connections,picture-url,email-address,last-modified-timestamp,interests,languages,skills,certifications,three-current-positions,public-profile-url,educations,num-recommenders,recommendations-received)?oauth2_access_token=AQWlBgoqxdW9OLFOg1UUEGFt_Re-vnQLw7F9lTHXM6QzPBiT0iWzXOQQHP49hfmfm21N2n7LGhAnDRB3tsYdnfoQK9sG8KMDjrVVeTp5Psld5VAkE0ACHcd0MDrdT0_VOfVXLbDIc4wfqL3tlrnvGuqHcs2TeRwxTL4nzL_oVTM8e9NVeE8&format=json"];*/
     
@@ -292,25 +292,41 @@
     
     //Grabbing the image URL
     gamer.imageURL = [NSURL URLWithString:[dictionary valueForKeyPath:@"pictureUrls.values"][0]];
+    gamer.smallImageURL = [NSURL URLWithString:[dictionary valueForKey:@"pictureUrl"]];
     
     NSString *fullName = [NSString stringWithFormat:@"%@%@", gamer.firstName, gamer.lastName];
     gamer.imageLocalLocation = [NSString stringWithFormat:@"%@/%@.jpg", [self documentsDirectoryPath], fullName];
+    gamer.smallImageLocalLocation = [NSString stringWithFormat:@"%@/%@_small.jpg", [self documentsDirectoryPath], fullName];
     
     BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:gamer.imageLocalLocation];
+    BOOL smalllFileExists = [[NSFileManager defaultManager] fileExistsAtPath:gamer.smallImageLocalLocation];
     
-    if (!fileExists) {
-        NSData *profilePicData = [NSData dataWithContentsOfURL:gamer.imageURL];
-        [profilePicData writeToFile:gamer.imageLocalLocation atomically:YES];
-        gamer.profileImage = [UIImage imageWithData:profilePicData];
-    } else {
+    if (fileExists) {
         gamer.profileImage = [UIImage imageWithData:[NSData dataWithContentsOfMappedFile:gamer.imageLocalLocation]];
     }
     
+    //Check for full-size image
+//    if (!fileExists) {
+//        NSData *profilePicData = [NSData dataWithContentsOfURL:gamer.imageURL];
+//        [profilePicData writeToFile:gamer.imageLocalLocation atomically:YES];
+//        gamer.profileImage = [UIImage imageWithData:profilePicData];
+//    } else {
+//        gamer.profileImage = [UIImage imageWithData:[NSData dataWithContentsOfMappedFile:gamer.imageLocalLocation]];
+//    }
+    
+    //Check for small image
+//    if (!smalllFileExists) {
+//        NSData *profilePicData = [NSData dataWithContentsOfURL:gamer.smallImageURL];
+//        [profilePicData writeToFile:gamer.smallImageLocalLocation atomically:YES];
+//        gamer.smallProfileImage = [UIImage imageWithData:profilePicData];
+//    } else {
+//        gamer.smallProfileImage = [UIImage imageWithData:[NSData dataWithContentsOfMappedFile:gamer.smallImageLocalLocation]];
+//    }
     
     //Parsing Connection info
     gamer.connectionIDArray = [NSMutableArray new];
     
-    NSString *connectionAccess = [NSString stringWithFormat:@"%@%@&format=json", @"https://api.linkedin.com/v1/people/~/connections:(id,first-name,last-name,num-connections,num-connections-capped,positions,public-profile-url,headline,industry,location,picture-urls::(original))?oauth2_access_token=", accessToken];
+    NSString *connectionAccess = [NSString stringWithFormat:@"%@%@&format=json", @"https://api.linkedin.com/v1/people/~/connections:(id,first-name,last-name,num-connections,num-connections-capped,positions,public-profile-url,headline,industry,location,pictureUrl,picture-urls::(original))?oauth2_access_token=", accessToken];
     
     NSURL *connectionURL = [NSURL URLWithString:connectionAccess];
     
@@ -337,6 +353,7 @@
         gamerConnection.industry = connection[@"industry"];
         gamerConnection.numConnections = connection[@"numConnections"];
         gamerConnection.imageURL = [NSURL URLWithString:[connection valueForKeyPath:@"pictureUrls.values"][0]];
+        gamerConnection.smallImageURL = [NSURL URLWithString:[connection valueForKey:@"pictureUrl"]];
         gamerConnection.location = [connection valueForKeyPath:@"location.name"];
         gamerConnection.linkedinURL = [NSURL URLWithString:connection[@"publicProfileUrl"]];
         

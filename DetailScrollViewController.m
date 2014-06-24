@@ -20,15 +20,95 @@
     [super viewDidLoad];
     self.title = @"Blank Check Labs";
     
-    [self addButtonMenu];
-    
     scrollView.delegate = self;
     
     [scrollView setScrollEnabled:YES];
     [scrollView setContentSize:CGSizeMake(320, 1000)];
     
+    [self addButtonMenu];
     
-    //    NSLog(@"Name: %@\n File Location: %@", self.gamer.fullName, self.gamer.profileImage);
+    UIImageView *graph = [[UIImageView alloc] initWithFrame:CGRectMake(20, 210, self.view.frame.size.width-40, self.view.frame.size.width-40)];
+    graph.backgroundColor = [UIColor blankCheckBlue];
+    [scrollView addSubview:graph];
+    
+    
+    //Add UIView over info to promote connection
+    UIView *overView = [[UIView alloc] initWithFrame:CGRectMake(20, 210, scrollView.frame.size.width - 40, 1000)];
+    overView.backgroundColor = [UIColor blankCheckBlue];
+    overView.alpha = 0.7;
+    overView.layer.zPosition = 2;
+    [scrollView addSubview:overView];
+    
+    UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, overView.frame.size.width, 40)];
+    nameLabel.text = [NSString stringWithFormat:@"%@ has picked up the Blank Check yet.", self.gamer.firstName];
+    nameLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0];
+    nameLabel.numberOfLines = 0;
+    [nameLabel sizeToFit];
+    nameLabel.textAlignment = NSTextAlignmentCenter;
+    nameLabel.textColor = [UIColor whiteColor];
+    nameLabel.alpha = 1;
+//    CGPoint centerPoint = CGPointMake(overView.center.x, 20);
+//    [nameLabel setCenter:centerPoint];
+    [overView addSubview:nameLabel];
+    
+    
+    UILabel *descriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, nameLabel.frame.origin.y + 100, overView.frame.size.width, 60)];
+    descriptionLabel.text = @"We provide better estimates when friends use Blank Check.";
+    descriptionLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0];
+    descriptionLabel.numberOfLines = 0;
+    [descriptionLabel sizeToFit];
+    descriptionLabel.textAlignment = NSTextAlignmentCenter;
+    descriptionLabel.textColor = [UIColor whiteColor];
+    CGPoint descriptionCenterPoint = CGPointMake(overView.center.x, 200);
+    [nameLabel setCenter:descriptionCenterPoint];
+    [overView addSubview:descriptionLabel];
+    
+    NSLog(@"Overview center: %@", NSStringFromCGPoint(overView.center));
+    
+    UIButton *inviteButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    inviteButton.frame = CGRectMake(0, 0, 60, 60);
+    inviteButton.center = CGPointMake(overView.center.x, 50);
+    [inviteButton setTitle:[NSString stringWithFormat:@"Invite %@", self.gamer.firstName] forState:UIControlStateNormal];
+    [inviteButton addTarget:self action:@selector(inviteTarget:) forControlEvents:UIControlEventTouchUpInside];
+    [inviteButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    inviteButton.backgroundColor = [UIColor whiteColor];
+    [overView addSubview:inviteButton];
+    
+    NSLog(@"Button center: %@", NSStringFromCGPoint(inviteButton.center));
+    NSLog(@"Button center: %@", NSStringFromCGPoint(inviteButton.frame.origin));
+    
+    
+    NSString *fullName = [NSString stringWithFormat:@"%@%@", self.gamer.firstName, self.gamer.lastName];
+    self.gamer.imageLocalLocation = [NSString stringWithFormat:@"%@/%@.jpg", [self documentsDirectoryPath], fullName];
+    
+    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:self.gamer.imageLocalLocation];
+    
+
+    
+
+    
+//    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:self.gamer.imageLocalLocation];
+//    
+//    NSLog(@"File Exists: %d", fileExists);
+//    
+//    if (fileExists) {
+//        UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfMappedFile:self.gamer.imageLocalLocation]];
+//        
+//        profileImage.image = image;
+//        [profileImage setNeedsDisplay];
+//    } else {
+//        NSURL *url = self.gamer.imageURL;
+//        NSData *data = [NSData dataWithContentsOfURL:url];
+//        UIImage *image = [UIImage imageWithData:data];
+//        self.gamer.profileImage = image;
+//        [data writeToFile:self.gamer.imageLocalLocation atomically:YES];
+//        profileImage.image = self.gamer.profileImage;
+//    
+//        [profileImage setNeedsDisplay];
+//
+//    }
+
+    
     profileImage.image = self.gamer.profileImage;
     profileImage.layer.cornerRadius = 60.f;
     profileImage.layer.masksToBounds = TRUE;
@@ -39,14 +119,44 @@
     
     valueLabel.text = [NSString stringWithFormat:@"$%@", [self.gamer.valueArray lastObject]];
     
-    UIImageView *graph = [[UIImageView alloc] initWithFrame:CGRectMake(20, 210, self.view.frame.size.width-40, self.view.frame.size.width-40)];
-    graph.backgroundColor = [UIColor blankCheckBlue];
-    [scrollView addSubview:graph];
-    
     workExpLabel.text = [NSString stringWithFormat:@"Work Exp: Top 10%%"];
     educationExpLabel.text = [NSString stringWithFormat:@"Education Exp: Top 5%%"];
     
     // Do any additional setup after loading the view.
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    profileImage.image = [UIImage imageNamed:@"default-user"];
+    
+    NSURL *url = self.gamer.imageURL;
+    
+    //    profileImage.backgroundColor = [UIColor blackColor];
+    
+    if (url) {
+        NSData *data = [NSData dataWithContentsOfURL:url];
+        UIImage *image = [UIImage imageWithData:data];
+        self.gamer.profileImage = image;
+        //
+        [data writeToFile:self.gamer.imageLocalLocation atomically:YES];
+        profileImage.image = self.gamer.profileImage;
+        [profileImage setNeedsDisplay];
+    }
+    
+    //        NSLog(@"False");
+    //
+    //        UIImage *image2 = [UIImage imageNamed:@"default-user"];
+    //
+    //        if (image2) {
+    //            NSLog(@"True");
+    //        }
+    //
+    //        [profileImage setImage:image2];
+    //        
+    ////        [profileImage setNeedsDisplay];
+    //    }
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -123,7 +233,18 @@
 }
 
 -(void)findSimilarAction {
-    NSLog(@"Find Similar Aciton");
+    NSLog(@"Find Similar Action");
 }
+
+-(void)inviteTarget:(Gamer *)gamer {
+    NSLog(@"Invite Action");
+}
+
+- (NSString *)documentsDirectoryPath
+{
+    NSURL *documentsURL = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+    return [documentsURL path];
+}
+
 
 @end
