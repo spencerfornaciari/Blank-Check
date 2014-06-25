@@ -71,14 +71,6 @@
 //        [self handleCallbackURL:mutCom[0]];
     }
     
-    
-    
-    
-    
-//    
-//    NSLog(@"%@", mutCom[0]);
-//    
-//    NSString *code = [components lastObject];
     return nil;
 }
 

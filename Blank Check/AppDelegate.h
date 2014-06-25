@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "NetworkController.h"
+#import "Gamer.h"
 #import "UIColor+BlankCheckColors.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
@@ -15,5 +16,7 @@
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) NetworkController *networkController;
 @property (strong, nonatomic) NSOperationQueue *blankQueue;
+
+@property (nonatomic) Gamer *gamer;
 
 @end

@@ -31,49 +31,7 @@
     graph.backgroundColor = [UIColor blankCheckBlue];
     [scrollView addSubview:graph];
     
-    
-    //Add UIView over info to promote connection
-    UIView *overView = [[UIView alloc] initWithFrame:CGRectMake(20, 210, scrollView.frame.size.width - 40, 1000)];
-    overView.backgroundColor = [UIColor blankCheckBlue];
-    overView.alpha = 1;
-    overView.layer.zPosition = 2;
-    [scrollView addSubview:overView];
-    
-    NSLog(@"Width: %f", overView.frame.size.width);
-    
-    UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, overView.frame.size.width - 40, 40)];
-    nameLabel.textAlignment = NSTextAlignmentCenter;
-    nameLabel.text = [NSString stringWithFormat:@"%@ has picked up the Blank Check yet.", self.gamer.firstName];
-    nameLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0];
-    nameLabel.numberOfLines = 0;
-    [nameLabel sizeToFit];
-    nameLabel.textColor = [UIColor whiteColor];
-    nameLabel.alpha = 1;
-    nameLabel.center = CGPointMake(overView.frame.size.width / 2, 50);
-    [overView addSubview:nameLabel];
-    
-    UILabel *descriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 200, overView.frame.size.width - 40, 60)];
-    descriptionLabel.textAlignment = NSTextAlignmentCenter;
-    descriptionLabel.text = @"We provide better estimates when friends use Blank Check.";
-    descriptionLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0];
-    descriptionLabel.numberOfLines = 0;
-    [descriptionLabel sizeToFit];
-    descriptionLabel.textColor = [UIColor whiteColor];
-    descriptionLabel.center = CGPointMake(overView.frame.size.width / 2, nameLabel.center.y + 80);
-    [overView addSubview:descriptionLabel];
-    
-    
-    UIButton *inviteButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    inviteButton.frame = CGRectMake(0, descriptionLabel.frame.origin.y + 100, 200, 60);
-    inviteButton.center = CGPointMake(overView.frame.size.width / 2, descriptionLabel.center.y + 100);
-    [inviteButton setTitle:[NSString stringWithFormat:@"Invite %@", self.gamer.firstName] forState:UIControlStateNormal];
-    [inviteButton addTarget:self action:@selector(inviteTarget:) forControlEvents:UIControlEventTouchUpInside];
-    [inviteButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    inviteButton.backgroundColor = [UIColor whiteColor];
-    [overView addSubview:inviteButton];
-    
-
-    
+    [self loadInviteView];
     
     NSString *fullName = [NSString stringWithFormat:@"%@%@", self.gamer.firstName, self.gamer.lastName];
     self.gamer.imageLocalLocation = [NSString stringWithFormat:@"%@/%@.jpg", [self documentsDirectoryPath], fullName];
@@ -200,6 +158,49 @@
 {
     NSURL *documentsURL = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
     return [documentsURL path];
+}
+
+-(void)loadInviteView {
+    //Add UIView over info to promote connection
+    UIView *overView = [[UIView alloc] initWithFrame:CGRectMake(20, 210, scrollView.frame.size.width - 40, 1000)];
+    overView.backgroundColor = [UIColor blankCheckBlue];
+    overView.alpha = .8;
+    overView.layer.zPosition = 2;
+    [scrollView addSubview:overView];
+    
+    NSLog(@"Width: %f", overView.frame.size.width);
+    
+    UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, overView.frame.size.width - 40, 40)];
+    nameLabel.textAlignment = NSTextAlignmentCenter;
+    nameLabel.text = [NSString stringWithFormat:@"%@ has picked up the Blank Check yet.", self.gamer.firstName];
+    nameLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0];
+    nameLabel.numberOfLines = 0;
+    [nameLabel sizeToFit];
+    nameLabel.textColor = [UIColor whiteColor];
+    nameLabel.alpha = 1;
+    nameLabel.center = CGPointMake(overView.frame.size.width / 2, 50);
+    [overView addSubview:nameLabel];
+    
+    UILabel *descriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 200, overView.frame.size.width - 40, 60)];
+    descriptionLabel.textAlignment = NSTextAlignmentCenter;
+    descriptionLabel.text = @"We provide better estimates when friends use Blank Check.";
+    descriptionLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0];
+    descriptionLabel.numberOfLines = 0;
+    [descriptionLabel sizeToFit];
+    descriptionLabel.textColor = [UIColor whiteColor];
+    descriptionLabel.alpha = 1;
+    descriptionLabel.center = CGPointMake(overView.frame.size.width / 2, nameLabel.center.y + 80);
+    [overView addSubview:descriptionLabel];
+    
+    
+    UIButton *inviteButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    inviteButton.frame = CGRectMake(0, descriptionLabel.frame.origin.y + 100, 200, 60);
+    inviteButton.center = CGPointMake(overView.frame.size.width / 2, descriptionLabel.center.y + 100);
+    [inviteButton setTitle:[NSString stringWithFormat:@"Invite %@", self.gamer.firstName] forState:UIControlStateNormal];
+    [inviteButton addTarget:self action:@selector(inviteTarget:) forControlEvents:UIControlEventTouchUpInside];
+    [inviteButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    inviteButton.backgroundColor = [UIColor whiteColor];
+    [overView addSubview:inviteButton];
 }
 
 

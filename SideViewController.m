@@ -7,6 +7,8 @@
 //
 
 #import "SideViewController.h"
+#import "SearchViewController.h"
+#import "AppDelegate.h"
 
 @interface SideViewController ()
 
@@ -135,6 +137,18 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    
+    if ([segue.identifier isEqualToString:@"search"]) {
+        SearchViewController *viewController = segue.destinationViewController;
+        viewController.string = @"Boogie Mills";
+    }
+    
+    
+    
+}
 
 - (IBAction)menuButton:(id)sender {
     if (self.menuButtonBool == FALSE) {

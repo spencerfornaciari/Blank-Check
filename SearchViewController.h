@@ -11,5 +11,6 @@
 @interface SearchViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
 
 @property (nonatomic) NSArray *searchArray;
+@property (nonatomic) NSString *string;
 
 @end

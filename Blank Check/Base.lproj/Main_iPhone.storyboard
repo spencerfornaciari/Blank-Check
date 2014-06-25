@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="lVw-e3-P8W">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="eIG-O4-5Zc">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -111,7 +111,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="search" id="2T6-NL-e5L">
                             <connections>
-                                <segue destination="vrJ-fc-Nmc" kind="push" id="KEp-65-3vv"/>
+                                <segue destination="vrJ-fc-Nmc" kind="push" identifier="search" id="KEp-65-3vv"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -245,6 +245,12 @@
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="EXPERT INSIGHT" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="SdR-Mu-EJa" userLabel="Label - EXPERT INSIGHTS">
+                                        <rect key="frame" x="20" y="677" width="206" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="18"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <inset key="contentInset" minX="0.0" minY="-65" maxX="0.0" maxY="0.0"/>
                             </scrollView>
@@ -270,7 +276,7 @@
         <!--Navigation Controller-->
         <scene sceneID="sTv-Ql-qbt">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="lVw-e3-P8W" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="sideView" automaticallyAdjustsScrollViewInsets="NO" id="lVw-e3-P8W" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="7ed-6A-QQU">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -288,7 +294,7 @@
         <!--Login View Controller-->
         <scene sceneID="RsP-qC-ke5">
             <objects>
-                <viewController id="eIG-O4-5Zc" customClass="LoginViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="loginView" id="eIG-O4-5Zc" customClass="LoginViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="UmH-ah-bq7">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -307,7 +313,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sO3-OH-YHl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-395" y="-250"/>
+            <point key="canvasLocation" x="-279" y="-230"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="EyE-y9-yxw">

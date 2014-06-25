@@ -24,15 +24,6 @@
 
 @implementation SearchViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -41,6 +32,8 @@
     self.presetTableView.delegate = self;
     self.searchBar.delegate = self;
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    
+    NSLog(@"Search: %@", self.string);
     
     self.searchBar.barTintColor = [UIColor blankCheckBlue];
     
@@ -138,8 +131,8 @@
     NSLog(@"Text: %@", searchText);
 
     //Full Name Predicate
-//    NSPredicate *fullNamePredicate = [NSPredicate predicateWithFormat:@"fullName CONTAINS[cd] %@", searchText];
-//    NSArray *predicateArray = [NSArray arrayWithArray:[self.searchArray filteredArrayUsingPredicate:fullNamePredicate]];
+    NSPredicate *fullNamePredicate = [NSPredicate predicateWithFormat:@"fullName CONTAINS[cd] %@", searchText];
+    NSArray *predicateArray = [NSArray arrayWithArray:[self.searchArray filteredArrayUsingPredicate:fullNamePredicate]];
     
     //Location Predicate
 //    NSPredicate *locationPredicate = [NSPredicate predicateWithFormat:@"location CONTAINS[cd] %@", searchText];
@@ -154,8 +147,8 @@
 //    NSArray *predicateArray = [NSArray arrayWithArray:[self.searchArray filteredArrayUsingPredicate:headlinePredicate]];
     
     //Job Title Predicate
-    NSPredicate *jobTitlePredicate = [NSPredicate predicateWithFormat:@"ANY SELF.currentPositionArray.title CONTAINS[cd] %@", searchText];
-    NSArray *predicateArray = [NSArray arrayWithArray:[self.searchArray filteredArrayUsingPredicate:jobTitlePredicate]];
+//    NSPredicate *jobTitlePredicate = [NSPredicate predicateWithFormat:@"ANY SELF.currentPositionArray.title CONTAINS[cd] %@", searchText];
+//    NSArray *predicateArray = [NSArray arrayWithArray:[self.searchArray filteredArrayUsingPredicate:jobTitlePredicate]];
     
     for (Gamer *gamer in predicateArray) {
         NSLog(@"%@", gamer.fullName);

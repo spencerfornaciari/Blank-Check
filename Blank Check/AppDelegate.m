@@ -7,6 +7,8 @@
 //
 
 #import "AppDelegate.h"
+#import "SideViewController.h"
+#import "LoginViewController.h"
 
 @implementation AppDelegate
 
@@ -18,16 +20,39 @@
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 
-    
+    //Create instance of network controller
     self.networkController = [NetworkController new];
     
+    //Create instance of operation queue
+    self.blankQueue = [NSOperationQueue new];
+    
+    //Create instance of Gamer
+    self.gamer = [Gamer new];
+    
+    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main_iPhone"
+                                                             bundle: nil];
+
     if (![[NSUserDefaults standardUserDefaults] stringForKey:@"accessToken"]) {
         NSLog(@"No Token");
     } else {
         NSLog(@"Token available");
+        
+        BOOL tokenIsCurrent = [self.networkController checkTokenIsCurrent];
+        
+        if (tokenIsCurrent) {
+            NSLog(@"Token is current");
+            
+            SideViewController *viewController = [mainStoryboard instantiateViewControllerWithIdentifier: @"sideView"];
+            self.window.rootViewController = viewController;
+            
+        } else {
+            NSLog(@"Token is NOT current");
+            
+            LoginViewController *viewController = [mainStoryboard instantiateViewControllerWithIdentifier: @"loginView"];
+            self.window.rootViewController = viewController;
+        }
     }
     
-    self.blankQueue = [NSOperationQueue new];
     
     return YES;
 }

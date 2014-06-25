@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NetworkController.h"
+#import "AppDelegate.h"
 
 @interface LoginViewController : UIViewController
 
