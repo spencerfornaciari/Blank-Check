@@ -20,6 +20,7 @@
 
 @property (nonatomic) NetworkController *networkController;
 @property (nonatomic) NSOperationQueue *operationQueue;
+@property (nonatomic) AppDelegate *appDelegate;
 
 @end
 
@@ -44,6 +45,14 @@
     self.operationQueue = [(AppDelegate *)[[UIApplication sharedApplication] delegate] blankQueue];
     
     self.one = [self.networkController loadCurrentUserData];
+    
+    self.appDelegate = [[UIApplication sharedApplication] delegate];
+    self.appDelegate.gamer = self.one;
+    
+//    self.one = [self.networkController loadCurrentUserData];
+    
+    
+    
 
     
 //    [self.operationQueue addOperationWithBlock:^{

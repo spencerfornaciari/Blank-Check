@@ -13,6 +13,7 @@
 @interface SideViewController ()
 
 @property (nonatomic) ViewController *mainViewController, *topViewController;
+@property (nonatomic) Gamer *gamer;
 
 @property (nonatomic) BOOL menuButtonBool;
 - (IBAction)menuButton:(id)sender;
@@ -38,6 +39,11 @@
     
     self.topViewController = self.mainViewController;
     [self setupPanGesture];
+    
+    self.gamer = [(AppDelegate *)[[UIApplication sharedApplication] delegate] gamer];
+    
+    NSLog(@"Feed: %@", [[(AppDelegate *)[[UIApplication sharedApplication] delegate] gamer] firstName]);
+
     // Do any additional setup after loading the view.
 }
 
@@ -143,7 +149,7 @@
     
     if ([segue.identifier isEqualToString:@"search"]) {
         SearchViewController *viewController = segue.destinationViewController;
-        viewController.string = @"Boogie Mills";
+        viewController.searchArray = [[(AppDelegate *)[[UIApplication sharedApplication] delegate] gamer] connectionIDArray];
     }
     
     

@@ -33,7 +33,7 @@
     self.searchBar.delegate = self;
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
-    NSLog(@"Search: %@", self.string);
+    NSLog(@"Search Count: %lu", (unsigned long)self.searchArray.count);
     
     self.searchBar.barTintColor = [UIColor blankCheckBlue];
     
