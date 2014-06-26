@@ -533,7 +533,12 @@
     NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
     NSString *stringResponse = [[NSString alloc] initWithData:responseData encoding:NSASCIIStringEncoding];
     
-    NSLog(@"%@", stringResponse);
+    NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableContainers error:&error];
+    
+    NSArray *entityArray = [dictionary objectForKey:@"entity_list"];
+    NSArray *conceptArray = [dictionary objectForKey:@"concept_list"];
+    
+    NSLog(@"%@", conceptArray);
     
     /*    NSURL *url = [NSURL URLWithString:LINKEDIN_TOKEN_URL];
      NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
@@ -541,6 +546,28 @@
      [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
      [request setHTTPBody:[token dataUsingEncoding:NSUTF8StringEncoding]];
      [request setValue:@"json" forHTTPHeaderField:@"x-li-format"]; // per Linkedin API: https://developer.linkedin.com/documents/api-requests-json*/
+    
+    NSDictionary *jobDictionary = @{@"SOFTWARE ENGINEER":@[@"$75,411",@"$27,877", @"37.0%"],
+                                    @"SOFTWARE DEVELOPER":@[@"$72,510",@"$10,980", @"15.1%"],
+                                    @"BUSINESS ANALYST":@[@"$65,841",@"$5,482",@"8.3%"],
+                                    @"SENIOR CONSULTANT":@[@"$95,902",@"$4,761",@"5.0%"],
+                                    @"CONSULTANT":@[@"$77,411",@"$6,713",@"8.7%"],
+                                    @"SENIOR SOFTWARE ENGINEER":@[@"$90,055",@"$20,534",@"22.8%"],
+                                    @"PROJECT MANAGER":@[@"$78,305",@"$12,875",@"16.4%"],
+                                    @"DATABASE ADMINISTRATOR":@[@"$66,410",@"$4,013",@"6.0%"],
+                                    @"ASSISTANT PROFESSOR":@[@"$98,770",@"-$5,693",@"-5.8%"],
+                                    @"WEB DEVELOPER":@[@"$64,494",@"$7,376",@"11.4%"],
+                                    @"MECHANICAL ENGINEER":@[@"$68,844",@"$9,663",@"14.0%"],
+                                    @"ACCOUNTANT":@[@"$50,282",@"$3,506",@"7.0%"],
+                                    @"FINANCIAL ANALYST":@[@"$64,146",@"$9,733",@"15.2%"],
+                                    @"POSTDOCTORAL FELLOW":@[@"$45,806",@"$3,505",@"7.7%"],
+                                    @"INDUSTRIAL DESIGNER":@[@"$54,071",@"$19,002",@"35.1%"],
+                                    @"MARKET RESEARCH ANALYST":@[@"$48,118",@"$4,314",@"9.0%"],
+                                    @"PHYSICIAN":@[@"$157,355",@"$38,693",@"24.6%"],  // @[@157355, @38693, @24.6],
+                                    @"PRODUCT MANAGER":@[@"$95,024",@"$17,898",@"18.8%"],
+                                    @"OTHER":@[@"$50,000",@"$7,122",@"14.2%"]
+                                    };
+    
 }
 
 //

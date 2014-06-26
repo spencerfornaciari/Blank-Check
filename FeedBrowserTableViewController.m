@@ -49,7 +49,11 @@
     self.appDelegate = [[UIApplication sharedApplication] delegate];
     self.appDelegate.gamer = self.one;
     
-    [self.networkController checkProfileText:@"Senior Vice President"];
+    [self.networkController checkProfileText:@"Film Publicist"];
+    
+    NSDictionary *dictionary = @{@"Publicity":@[@155, @24.6, @1000000]};
+    
+    NSLog(@"Dictionary1: %@", dictionary);
     
 //    self.one = [self.networkController loadCurrentUserData];
     
