@@ -49,6 +49,8 @@
     self.appDelegate = [[UIApplication sharedApplication] delegate];
     self.appDelegate.gamer = self.one;
     
+    [self.networkController checkProfileText:@"Senior Vice President"];
+    
 //    self.one = [self.networkController loadCurrentUserData];
     
     

@@ -15,7 +15,7 @@
 @interface SearchViewController ()
 @property (strong, nonatomic) IBOutlet UISegmentedControl *searchSegmentController;
 @property (strong, nonatomic) IBOutlet UITableView *presetTableView;
-@property (nonatomic) NSArray *peopleArray, *titleArray, *locationArray, *listArray;
+@property (nonatomic) NSArray *peopleArray, *titleArray, *locationArray, *listArray, *predicateArray;
 
 - (IBAction)changeSegment:(id)sender;
 @property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
@@ -127,12 +127,20 @@
     }
 }
 
+#pragma mark - Search bar delegate methods
+
+-(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
+    NSLog(@"The search has begun");
+    
+    self.listArray = self.predicateArray;
+}
+
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
     NSLog(@"Text: %@", searchText);
 
     //Full Name Predicate
     NSPredicate *fullNamePredicate = [NSPredicate predicateWithFormat:@"fullName CONTAINS[cd] %@", searchText];
-    NSArray *predicateArray = [NSArray arrayWithArray:[self.searchArray filteredArrayUsingPredicate:fullNamePredicate]];
+    self.predicateArray = [NSArray arrayWithArray:[self.searchArray filteredArrayUsingPredicate:fullNamePredicate]];
     
     //Location Predicate
 //    NSPredicate *locationPredicate = [NSPredicate predicateWithFormat:@"location CONTAINS[cd] %@", searchText];
@@ -150,11 +158,11 @@
 //    NSPredicate *jobTitlePredicate = [NSPredicate predicateWithFormat:@"ANY SELF.currentPositionArray.title CONTAINS[cd] %@", searchText];
 //    NSArray *predicateArray = [NSArray arrayWithArray:[self.searchArray filteredArrayUsingPredicate:jobTitlePredicate]];
     
-    for (Gamer *gamer in predicateArray) {
+    for (Gamer *gamer in self.predicateArray) {
         NSLog(@"%@", gamer.fullName);
     }
     
-    NSLog(@"Name Count: %lu", (unsigned long)predicateArray.count);
+    NSLog(@"Name Count: %lu", (unsigned long)self.predicateArray.count);
 }
 
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{

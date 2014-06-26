@@ -27,4 +27,6 @@
 -(void)shareOnLinkedin:(Gamer *)gamer;
 -(NSArray *)commonConnectionsWithUser:(NSString *)userID;
 
+-(void)checkProfileText:(NSString *)string;
+
 @end

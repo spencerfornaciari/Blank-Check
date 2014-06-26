@@ -508,5 +508,40 @@
     
     return array;
 }
+
+#pragma mark - Textalytics
+
+-(void)checkProfileText:(NSString *)string {
+    
+    string = [string stringByReplacingOccurrencesOfString:@" " withString:@"+"];
+    
+    NSLog(@"String: %@", string);
+    
+    NSString *searchString = [NSString stringWithFormat:@"tt=ecr&dic=chetsdpCA&key=1c03ecaeb9c146a07056c4049064cb3a&of=json&lang=en&txt=%@&txtf=plain&url=&_tte=e&_ttc=c&_ttr=r&dm=4&cont=&ud=", string];
+        
+    //@"tt=ectmupoqr&dic=chetsdpCA&key=1c03ecaeb9c146a07056c4049064cb3a&of=json&lang=en&txt=iOS+Engineer&txtf=plain&url=&_tte=e&_ttc=c&_ttt=t&_ttm=m&_ttu=u&_ttp=p&_tto=o&_ttq=q&_ttr=r&dm=4&cont=&ud=";
+    
+    NSData *data = [searchString dataUsingEncoding:NSUTF8StringEncoding];
+    
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"https://textalytics.com/core/topics-1.2"]];
+    [request setHTTPMethod:@"POST"];
+    [request setHTTPBody:data];
+    
+    NSURLResponse *response;
+    NSError *error;
+    
+    NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+    NSString *stringResponse = [[NSString alloc] initWithData:responseData encoding:NSASCIIStringEncoding];
+    
+    NSLog(@"%@", stringResponse);
+    
+    /*    NSURL *url = [NSURL URLWithString:LINKEDIN_TOKEN_URL];
+     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+     [request setHTTPMethod:@"POST"];
+     [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+     [request setHTTPBody:[token dataUsingEncoding:NSUTF8StringEncoding]];
+     [request setValue:@"json" forHTTPHeaderField:@"x-li-format"]; // per Linkedin API: https://developer.linkedin.com/documents/api-requests-json*/
+}
+
 //
 @end
