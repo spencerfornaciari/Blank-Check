@@ -27,6 +27,8 @@
 -(void)shareOnLinkedin:(Gamer *)gamer;
 -(NSArray *)commonConnectionsWithUser:(NSString *)userID;
 
+//Textalytics API Calls
 -(void)checkProfileText:(NSString *)string;
+-(void)createDictionary;
 
 @end

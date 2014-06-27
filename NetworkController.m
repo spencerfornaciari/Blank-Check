@@ -291,11 +291,16 @@
     gamer.smallImageLocalLocation = [NSString stringWithFormat:@"%@/%@_small.jpg", [self documentsDirectoryPath], fullName];
     
     BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:gamer.imageLocalLocation];
-    BOOL smalllFileExists = [[NSFileManager defaultManager] fileExistsAtPath:gamer.smallImageLocalLocation];
+    BOOL smallFileExists = [[NSFileManager defaultManager] fileExistsAtPath:gamer.smallImageLocalLocation];
     
     if (fileExists) {
         gamer.profileImage = [UIImage imageWithData:[NSData dataWithContentsOfMappedFile:gamer.imageLocalLocation]];
     }
+    
+    if (smallFileExists) {
+        gamer.smallProfileImage = [UIImage imageWithData:[NSData dataWithContentsOfMappedFile:gamer.smallImageLocalLocation]];
+    }
+    
     
     //Check for full-size image
 //    if (!fileExists) {
@@ -569,6 +574,37 @@
                                     };
     
 }
+
+-(void)createDictionary {
+    
+    NSString *dictionaryDescription = @"Entities for Blank Check Lab job descriptions";
+    NSString *jsonString = [dictionaryDescription stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+    NSDictionary *dictionary = @{@"name":@"blankCheck",
+                                 @"language":@"en",
+                                 @"description":jsonString};
+    
+    NSDictionary *jsonDictionary = @{@"dictionary":dictionary};
+    
+    NSData *data = [NSJSONSerialization dataWithJSONObject:jsonDictionary options:NSJSONWritingPrettyPrinted error:nil];
+    
+    
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"https://textalytics.com/core/topics-1.2/dictionary_list"]];
+    request.HTTPMethod = @"POST";
+    request.HTTPBody = data;
+    
+    NSURLResponse *response;
+    NSError *error;
+    
+    NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+    NSString *stringResponse = [[NSString alloc] initWithData:responseData encoding:NSASCIIStringEncoding];
+    
+    NSLog(@"%@", stringResponse);
+
+    
+
+}
+
 
 //
 @end
