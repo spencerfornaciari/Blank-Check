@@ -18,7 +18,6 @@
 @property (nonatomic) Gamer *one, *two, *three;
 @property (nonatomic) NSMutableArray *feedArray;
 
-@property (nonatomic) NetworkController *networkController;
 @property (nonatomic) NSOperationQueue *operationQueue;
 @property (nonatomic) AppDelegate *appDelegate;
 
@@ -26,38 +25,22 @@
 
 @implementation FeedBrowserTableViewController
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
     self.title = @"Blank Check Labs";
     
-    self.networkController = [(AppDelegate *)[[UIApplication sharedApplication] delegate] networkController];
     self.operationQueue = [(AppDelegate *)[[UIApplication sharedApplication] delegate] blankQueue];
     
-    self.one = [self.networkController loadCurrentUserData];
+    self.one = [[NetworkController sharedController] loadCurrentUserData];
     
     self.appDelegate = [[UIApplication sharedApplication] delegate];
     self.appDelegate.gamer = self.one;
     
 //    [self.networkController checkProfileText:@"Film Publicist"];
     //
-    [self.networkController createDictionary];
-    
-//    self.one = [self.networkController loadCurrentUserData];
-    
-    
-    
-
+//    [[NetworkController sharedController] createDictionary];
     
 //    [self.operationQueue addOperationWithBlock:^{
 //        

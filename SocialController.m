@@ -47,11 +47,9 @@
 }
 
 +(void)shareOnLinkedin:(id)sender {
-    NetworkController *networkController = [(AppDelegate *)[[UIApplication sharedApplication] delegate] networkController];
-    
     Gamer *gamer = (Gamer *)sender;
     
-    [networkController shareOnLinkedin:gamer];
+    [[NetworkController sharedController] shareOnLinkedin:gamer];
 }
 
 @end

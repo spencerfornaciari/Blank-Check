@@ -54,4 +54,9 @@
 @property (nonatomic) NSArray *groups;
 @property (nonatomic) NSMutableArray *gamerRecommendations;
 
+//Methods
+-(instancetype)initWithCoder:(NSCoder *)decoder;
+-(void)encodeWithCoder:(NSCoder *)encoder;
+
+
 @end

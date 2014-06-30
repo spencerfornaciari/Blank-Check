@@ -17,6 +17,7 @@
 
 @property (nonatomic) NSString *accessToken;
 
++(NetworkController *)sharedController;
 -(NSString *)beginOAuthAccess;
 -(void)handleCallbackURL:(NSString *)code;
 -(NSString *)convertURLToCode:(NSURL *)url;

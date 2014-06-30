@@ -174,21 +174,19 @@
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     
-    
     if (self.searchSegmentController.selectedSegmentIndex == 0) {
         NSIndexPath *indexPath = [self.presetTableView indexPathForSelectedRow];
-        
         PresetViewController *preset = segue.destinationViewController;
         preset.pageTitle = self.listArray[indexPath.row];
         preset.category = @"Person";
     } else if (self.searchSegmentController.selectedSegmentIndex == 1) {
         NSLog(@"Segment Controller #2");
+        NSIndexPath *indexPath = [self.presetTableView indexPathForSelectedRow];
+        [[NetworkController sharedController] checkProfileText:self.titleArray[indexPath.row]];
     } else {
         NSLog(@"Segment Controller #3");
 
     }
-    
-    
     
 }
 

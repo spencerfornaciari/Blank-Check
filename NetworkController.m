@@ -62,6 +62,8 @@
     NSArray *components = [query componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"=&"]];
     NSMutableArray *mutCom = [components mutableCopy];
     
+    NSLog(@"Components: %@", mutCom);
+    
     
     if ([mutCom[0]  isEqual: @"code"]) {
         [mutCom removeObjectAtIndex:0];
@@ -104,7 +106,8 @@
     
     NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
     
-    //    NSString *tokenResponse = [[NSString alloc] initWithData:responseData encoding:NSASCIIStringEncoding];
+    NSString *tokenResponse = [[NSString alloc] initWithData:responseData encoding:NSASCIIStringEncoding];
+    NSLog(@"%@", tokenResponse);
     
     NSDictionary *jsonObject=[NSJSONSerialization
                               JSONObjectWithData:responseData

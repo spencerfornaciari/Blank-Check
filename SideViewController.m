@@ -42,8 +42,6 @@
     
     self.gamer = [(AppDelegate *)[[UIApplication sharedApplication] delegate] gamer];
     
-    NSLog(@"Feed: %@", [[(AppDelegate *)[[UIApplication sharedApplication] delegate] gamer] firstName]);
-
     // Do any additional setup after loading the view.
 }
 
