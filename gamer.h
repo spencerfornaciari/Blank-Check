@@ -29,7 +29,7 @@
 @property (nonatomic) NSString *linkedinUsername;
 @property (nonatomic) NSString *gamerEmail;
 @property (nonatomic) NSURL *linkedinURL;
-@property (nonatomic) NSDate *lastLinkedinUpdate;
+@property (nonatomic) NSDate *lastLinkedinUpdate; //GMT
 
 //Gamer photo information
 @property (nonatomic) NSURL *imageURL;

@@ -17,9 +17,6 @@
         
         /*@property (nonatomic) NSInteger *zipCode; //Not part of LinkedIn API
          @property (nonatomic) NSString *location;
-         @property (nonatomic) NSString *firstName;
-         @property (nonatomic) NSString *lastName;
-         @property (nonatomic) NSString *fullName;
          @property (nonatomic) NSString *desiredPosition;
          @property (nonatomic) NSNumber *numConnections;
          @property (nonatomic) NSNumber *numRecommenders;
@@ -31,17 +28,7 @@
          //Linkedin User Information
          @property (nonatomic) NSString *gamerID; //Linkedin ID number
          @property (nonatomic) NSString *linkedinUsername;
-         @property (nonatomic) NSString *gamerEmail;
-         @property (nonatomic) NSURL *linkedinURL;
          @property (nonatomic) NSDate *lastLinkedinUpdate;
-         
-         //Gamer photo information
-         @property (nonatomic) NSURL *imageURL;
-         @property (nonatomic) NSURL *smallImageURL;
-         @property (nonatomic) NSString *imageLocalLocation;
-         @property (nonatomic) NSString *smallImageLocalLocation;
-         @property (nonatomic) UIImage *profileImage;
-         @property (nonatomic) UIImage *smallProfileImage;
          
          //Gamer's job (level) information
          @property (nonatomic) NSMutableArray *valueArray;
@@ -72,6 +59,12 @@
         
         self.valueArray = [decoder decodeObjectForKey:@"valueArray"];
         self.currentPositionArray = [decoder decodeObjectForKey:@"currentPositionArray"];
+        
+        self.connectionIDArray = [decoder decodeObjectForKey:@"connectionIDArray"];
+        self.educationArray = [decoder decodeObjectForKey:@"educationArray"];
+        
+        self.gamerLanguages = [decoder decodeObjectForKey:@"gamerLanguages"];
+        self.gamerRecommendations = [decoder decodeObjectForKey:@"gamerRecommendations"];
         
         return self;
     }

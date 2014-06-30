@@ -269,6 +269,12 @@
     float newDate = [date floatValue] / 1000;
     gamer.lastLinkedinUpdate = [NSDate dateWithTimeIntervalSince1970:newDate];
     
+    //Converting NSDate to local time zone
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.timeZone = [NSTimeZone localTimeZone];
+    dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm";
+    NSString *timeStamp = [dateFormatter stringFromDate:gamer.lastLinkedinUpdate];
+    NSLog(@"Last Updated: %@", timeStamp);
     
     //Grabbing the image URL
     gamer.imageURL = [NSURL URLWithString:[dictionary valueForKeyPath:@"pictureUrls.values"][0]];
