@@ -40,9 +40,10 @@
     
 //    [self.networkController checkProfileText:@"Film Publicist"];
     //
-    [[NetworkController sharedController] createDictionary];
+//    [[NetworkController sharedController] createDictionary];
 //    [[NetworkController sharedController] listDictionaries];
-//    [[NetworkController sharedController] readDictionary];
+    [[NetworkController sharedController] readDictionaryWithName:@"got"];
+//    [[NetworkController sharedController] updateDictionaryWithName:@"got"];
     
 //    [self.operationQueue addOperationWithBlock:^{
 //        
