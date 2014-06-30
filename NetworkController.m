@@ -60,17 +60,16 @@
 {
     NSString *query = [url query];
     NSArray *components = [query componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"=&"]];
-    NSMutableArray *mutCom = [components mutableCopy];
+    NSMutableArray *mutComponents = [components mutableCopy];
     
-    NSLog(@"Components: %@", mutCom);
+    NSLog(@"Components: %@", mutComponents);
     
     
-    if ([mutCom[0]  isEqual: @"code"]) {
-        [mutCom removeObjectAtIndex:0];
-        authorizationCode = mutCom[0];
+    if ([mutComponents[0]  isEqual: @"code"]) {
+        [mutComponents removeObjectAtIndex:0];
+        authorizationCode = mutComponents[0];
         
-        return mutCom[0];
-//        [self handleCallbackURL:mutCom[0]];
+        return mutComponents[0];
     }
     
     return nil;
@@ -78,13 +77,6 @@
 
 -(void)handleCallbackURL:(NSString *)code
 {
-
-    //
-    //    [self convertURLToCode:url];
-    //
-//    NSString *tokenURL = [NSString stringWithFormat:@"%@&code=%@&redirect_uri=%@&client_id=%@&client_secret=%@", LINKEDIN_TOKEN_URL, code, LINKEDIN_REDIRECT, kLINKEDIN_API_KEY, kLINKEDIN_SECRET_KEY];
-    
-    
     //Generating data for token extension
     NSString *token = [NSString stringWithFormat:@"&code=%@&redirect_uri=%@&client_id=%@&client_secret=%@", code, LINKEDIN_REDIRECT, kLINKEDIN_API_KEY, kLINKEDIN_SECRET_KEY];
     NSLog(@"Token: %@", token);
@@ -97,26 +89,19 @@
     [request setHTTPBody:[token dataUsingEncoding:NSUTF8StringEncoding]];
     [request setValue:@"json" forHTTPHeaderField:@"x-li-format"]; // per Linkedin API: https://developer.linkedin.com/documents/api-requests-json
     
-    //    [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
-    //    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-    //    [request setHTTPBody:postData];
-    //
     NSURLResponse *response;
     NSError *error;
     
     NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
     
-    NSString *tokenResponse = [[NSString alloc] initWithData:responseData encoding:NSASCIIStringEncoding];
-    NSLog(@"%@", tokenResponse);
+//    NSString *tokenResponse = [[NSString alloc] initWithData:responseData encoding:NSASCIIStringEncoding];
     
     NSDictionary *jsonObject=[NSJSONSerialization
                               JSONObjectWithData:responseData
                               options:NSJSONReadingMutableLeaves
                               error:nil];
-    //    NSLog(@"jsonObject is %@",jsonObject);
     self.accessToken = [jsonObject objectForKey:@"access_token"];
     NSLog(@"Access: %@", self.accessToken);
-    
     
     [[NSUserDefaults standardUserDefaults] setObject:self.accessToken forKey:@"accessToken"];
     [[NSUserDefaults standardUserDefaults] synchronize];
@@ -439,9 +424,6 @@
                                         @"body":body,
                                         @"recipients":recipients};
     
-    
-
-    
     NSError *JSONError;
     
     NSData *postData = [NSJSONSerialization dataWithJSONObject:messageDictionary options:NSJSONWritingPrettyPrinted error:&JSONError];
@@ -523,11 +505,7 @@
     
     string = [string stringByReplacingOccurrencesOfString:@" " withString:@"+"];
     
-    NSLog(@"String: %@", string);
-    
     NSString *searchString = [NSString stringWithFormat:@"tt=ecr&dic=chetsdpCA&key=1c03ecaeb9c146a07056c4049064cb3a&of=json&lang=en&txt=%@&txtf=plain&url=&_tte=e&_ttc=c&_ttr=r&dm=4&cont=&ud=", string];
-        
-    //@"tt=ectmupoqr&dic=chetsdpCA&key=1c03ecaeb9c146a07056c4049064cb3a&of=json&lang=en&txt=iOS+Engineer&txtf=plain&url=&_tte=e&_ttc=c&_ttt=t&_ttm=m&_ttu=u&_ttp=p&_tto=o&_ttq=q&_ttr=r&dm=4&cont=&ud=";
     
     NSData *data = [searchString dataUsingEncoding:NSUTF8StringEncoding];
     
@@ -539,7 +517,6 @@
     NSError *error;
     
     NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-    NSString *stringResponse = [[NSString alloc] initWithData:responseData encoding:NSASCIIStringEncoding];
     
     NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableContainers error:&error];
     
@@ -555,46 +532,115 @@
      [request setHTTPBody:[token dataUsingEncoding:NSUTF8StringEncoding]];
      [request setValue:@"json" forHTTPHeaderField:@"x-li-format"]; // per Linkedin API: https://developer.linkedin.com/documents/api-requests-json*/
     
-    NSDictionary *jobDictionary = @{@"SOFTWARE ENGINEER":@[@"$75,411",@"$27,877", @"37.0%"],
-                                    @"SOFTWARE DEVELOPER":@[@"$72,510",@"$10,980", @"15.1%"],
-                                    @"BUSINESS ANALYST":@[@"$65,841",@"$5,482",@"8.3%"],
-                                    @"SENIOR CONSULTANT":@[@"$95,902",@"$4,761",@"5.0%"],
-                                    @"CONSULTANT":@[@"$77,411",@"$6,713",@"8.7%"],
-                                    @"SENIOR SOFTWARE ENGINEER":@[@"$90,055",@"$20,534",@"22.8%"],
-                                    @"PROJECT MANAGER":@[@"$78,305",@"$12,875",@"16.4%"],
-                                    @"DATABASE ADMINISTRATOR":@[@"$66,410",@"$4,013",@"6.0%"],
-                                    @"ASSISTANT PROFESSOR":@[@"$98,770",@"-$5,693",@"-5.8%"],
-                                    @"WEB DEVELOPER":@[@"$64,494",@"$7,376",@"11.4%"],
-                                    @"MECHANICAL ENGINEER":@[@"$68,844",@"$9,663",@"14.0%"],
-                                    @"ACCOUNTANT":@[@"$50,282",@"$3,506",@"7.0%"],
-                                    @"FINANCIAL ANALYST":@[@"$64,146",@"$9,733",@"15.2%"],
-                                    @"POSTDOCTORAL FELLOW":@[@"$45,806",@"$3,505",@"7.7%"],
-                                    @"INDUSTRIAL DESIGNER":@[@"$54,071",@"$19,002",@"35.1%"],
-                                    @"MARKET RESEARCH ANALYST":@[@"$48,118",@"$4,314",@"9.0%"],
-                                    @"PHYSICIAN":@[@"$157,355",@"$38,693",@"24.6%"],  // @[@157355, @38693, @24.6],
-                                    @"PRODUCT MANAGER":@[@"$95,024",@"$17,898",@"18.8%"],
-                                    @"OTHER":@[@"$50,000",@"$7,122",@"14.2%"]
-                                    };
+//    NSDictionary *jobDictionary = @{@"SOFTWARE ENGINEER":@[@"$75,411",@"$27,877", @"37.0%"],
+//                                    @"SOFTWARE DEVELOPER":@[@"$72,510",@"$10,980", @"15.1%"],
+//                                    @"BUSINESS ANALYST":@[@"$65,841",@"$5,482",@"8.3%"],
+//                                    @"SENIOR CONSULTANT":@[@"$95,902",@"$4,761",@"5.0%"],
+//                                    @"CONSULTANT":@[@"$77,411",@"$6,713",@"8.7%"],
+//                                    @"SENIOR SOFTWARE ENGINEER":@[@"$90,055",@"$20,534",@"22.8%"],
+//                                    @"PROJECT MANAGER":@[@"$78,305",@"$12,875",@"16.4%"],
+//                                    @"DATABASE ADMINISTRATOR":@[@"$66,410",@"$4,013",@"6.0%"],
+//                                    @"ASSISTANT PROFESSOR":@[@"$98,770",@"-$5,693",@"-5.8%"],
+//                                    @"WEB DEVELOPER":@[@"$64,494",@"$7,376",@"11.4%"],
+//                                    @"MECHANICAL ENGINEER":@[@"$68,844",@"$9,663",@"14.0%"],
+//                                    @"ACCOUNTANT":@[@"$50,282",@"$3,506",@"7.0%"],
+//                                    @"FINANCIAL ANALYST":@[@"$64,146",@"$9,733",@"15.2%"],
+//                                    @"POSTDOCTORAL FELLOW":@[@"$45,806",@"$3,505",@"7.7%"],
+//                                    @"INDUSTRIAL DESIGNER":@[@"$54,071",@"$19,002",@"35.1%"],
+//                                    @"MARKET RESEARCH ANALYST":@[@"$48,118",@"$4,314",@"9.0%"],
+//                                    @"PHYSICIAN":@[@"$157,355",@"$38,693",@"24.6%"],  // @[@157355, @38693, @24.6],
+//                                    @"PRODUCT MANAGER":@[@"$95,024",@"$17,898",@"18.8%"],
+//                                    @"OTHER":@[@"$50,000",@"$7,122",@"14.2%"]
+//                                    };
     
 }
 
 -(void)createDictionary {
     
+    NSURLSessionConfiguration *defaultConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSession *defaultSession = [NSURLSession sessionWithConfiguration:defaultConfiguration];
+    
     NSString *dictionaryDescription = @"Entities for Blank Check Lab job descriptions";
     NSString *jsonString = [dictionaryDescription stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
     NSDictionary *dictionary = @{@"name":@"blankCheck",
-                                 @"language":@"en",
-                                 @"description":jsonString};
+                                 @"language":@"en"};
+    
+//    @"description":@"Entities for Blank Check Lab job descriptions"
     
     NSDictionary *jsonDictionary = @{@"dictionary":dictionary};
     
+    NSLog(@"%@", jsonDictionary);
+    
     NSData *data = [NSJSONSerialization dataWithJSONObject:jsonDictionary options:NSJSONWritingPrettyPrinted error:nil];
     
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"https://textalytics.com/api/sempub/1.0/manage/dictionary_list?key=b8d169500ad3ded96d69054182f829cd"]];
+    [request setHTTPMethod:@"POST"];
+    [request setHTTPBody:data];
     
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"https://textalytics.com/core/topics-1.2/dictionary_list"]];
-    request.HTTPMethod = @"POST";
-    request.HTTPBody = data;
+    NSURLSessionDataTask *dataTask = [defaultSession dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        NSString *stringResponse = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
+
+       NSLog(@"Response: %@", stringResponse);
+    }];
+    
+    [dataTask resume];
+    
+//    NSURLResponse *response;
+//    NSError *error;
+//    
+//    NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+//    NSString *stringResponse = [[NSString alloc] initWithData:responseData encoding:NSASCIIStringEncoding];
+//    
+//    NSLog(@"%@", stringResponse);
+
+    
+
+}
+
+-(void)listDictionaries {
+    NSURLSessionConfiguration *defaultSessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:defaultSessionConfiguration];
+    
+    __block NSArray *customDictionaries;
+    
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"https://textalytics.com/api/sempub/1.0/manage/dictionary_list/?key=b8d169500ad3ded96d69054182f829cd"]];
+    [request setHTTPMethod:@"GET"];
+    
+    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        
+        NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        
+        NSArray *array = [dictionary valueForKey:@"dictionary_list"];
+        NSLog(@"Dictionary Count: %ld", array.count);
+        customDictionaries = array;
+        
+    }];
+    
+    
+    [dataTask resume];
+    
+    NSLog(@"Array Count: %ld", customDictionaries.count);
+
+    
+    NSString *stringResponse = [[NSString alloc] initWithData:customDictionaries encoding:NSASCIIStringEncoding];
+    NSLog(@"%@", stringResponse);
+
+    
+//    NSURLResponse *response;
+//    NSError *error;
+//    
+//    NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+//    NSString *stringResponse = [[NSString alloc] initWithData:responseData encoding:NSASCIIStringEncoding];
+//    
+//    NSLog(@"%@", stringResponse);
+    
+}
+
+-(void)readDictionary {
+    
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"https://textalytics.com/api/sempub/1.0/manage/dictionary_list/{got}?key=b8d169500ad3ded96d69054182f829cd"]];
+    [request setHTTPMethod:@"GET"];
     
     NSURLResponse *response;
     NSError *error;
@@ -603,10 +649,9 @@
     NSString *stringResponse = [[NSString alloc] initWithData:responseData encoding:NSASCIIStringEncoding];
     
     NSLog(@"%@", stringResponse);
-
     
-
 }
+
 
 
 //

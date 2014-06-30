@@ -18,18 +18,25 @@
 @property (nonatomic) NSString *accessToken;
 
 +(NetworkController *)sharedController;
+
+//Linkedin API OAuth methods
 -(NSString *)beginOAuthAccess;
 -(void)handleCallbackURL:(NSString *)code;
 -(NSString *)convertURLToCode:(NSURL *)url;
 -(BOOL)checkTokenIsCurrent;
 
+//Grabbing user data from Linkedin API
 -(Gamer *)loadCurrentUserData;
+-(NSArray *)commonConnectionsWithUser:(NSString *)userID;
+
+//Social Networking methods
 -(void)sendInvitationToUserID:(NSString *)userID;
 -(void)shareOnLinkedin:(Gamer *)gamer;
--(NSArray *)commonConnectionsWithUser:(NSString *)userID;
 
 //Textalytics API Calls
 -(void)checkProfileText:(NSString *)string;
 -(void)createDictionary;
+-(void)listDictionaries;
+-(void)readDictionary;
 
 @end

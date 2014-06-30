@@ -94,7 +94,6 @@
         
         // Rethink logic here
         if (self.tokenBOOL == TRUE) {
-            //        NSLog(@"We have an auth token: %@", );
 //            self.currentGamer = [[NetworkController sharedController] loadCurrentUserData];
 //            [self.networkController loadCurrentUserData];
             

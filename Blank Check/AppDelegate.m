@@ -20,8 +20,8 @@
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 
-    //Create instance of network controller
-    self.networkController = [NetworkController new];
+//    //Create instance of network controller
+//    self.networkController = [NetworkController new];
     
     //Create instance of operation queue
     self.blankQueue = [NSOperationQueue new];
@@ -37,7 +37,7 @@
     } else {
         NSLog(@"Token available");
         
-        BOOL tokenIsCurrent = [self.networkController checkTokenIsCurrent];
+        BOOL tokenIsCurrent = [[NetworkController sharedController] checkTokenIsCurrent];
         
         if (tokenIsCurrent) {
             NSLog(@"Token is current");
