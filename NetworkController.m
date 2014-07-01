@@ -12,9 +12,7 @@
 
 #define LINKEDIN_OAUTH_URL @"https://www.linkedin.com/uas/oauth2/authorization?response_type=code"
 #define LINKEDIN_TOKEN_URL @"https://www.linkedin.com/uas/oauth2/accessToken?grant_type=authorization_code"
-
 #define LINKEDIN_REDIRECT @"http://comingsoon.blankchecklabs.com"
-
 #define LINKEDIN_SCOPE @"r_fullprofile%20r_emailaddress%20r_network%20r_contactinfo%20w_messages%20rw_nus"
 
 @implementation NetworkController{
@@ -98,7 +96,7 @@
     
     NSDictionary *jsonObject=[NSJSONSerialization
                               JSONObjectWithData:responseData
-                              options:NSJSONReadingMutableLeaves
+                              options:NSJSONReadingMutableContainers
                               error:nil];
     self.accessToken = [jsonObject objectForKey:@"access_token"];
     NSLog(@"Access: %@", self.accessToken);
@@ -110,25 +108,20 @@
 
 -(BOOL)checkTokenIsCurrent
 {
-//    NSLog(@"Token: %@",[[NSUserDefaults standardUserDefaults] stringForKey:@"accessToken"]);
-    
     NSString *accessURL = [NSString stringWithFormat:@"%@%@&format=json", @"https://api.linkedin.com/v1/people/~:(id,first-name,last-name,industry,headline,location:(name),num-connections,picture-url,email-address,last-modified-timestamp,interests,languages,skills,certifications,three-current-positions,public-profile-url,educations,num-recommenders,recommendations-received)?oauth2_access_token=", [[NSUserDefaults standardUserDefaults] stringForKey:@"accessToken"]];
 
     NSURL *url = [NSURL URLWithString:accessURL];
     
     NSData *data = [NSData dataWithContentsOfURL:url];
     
-    NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
+    NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
     
     NSNumber *status = dictionary[@"status"];
-    
-
     
     if ([[status stringValue] isEqualToString:@"401"]) {
         return FALSE;
     } else {
         return TRUE;
-
     }
  
     
@@ -169,6 +162,7 @@
     gamer.linkedinURL = dictionary[@"publicProfileUrl"];
     gamer.numConnections = dictionary[@"numConnections"];
     gamer.numRecommenders = dictionary[@"numRecommenders"];
+    gamer.invitationSent = TRUE;
     
     //Working on parsing current positions
     NSMutableArray *tempArray = [NSMutableArray new];
@@ -208,7 +202,6 @@
         NSString *skill = [skillsDictionary valueForKeyPath:@"skill.name"];
         [gamer.gamerSkills addObject:skill];
     }
-    
     
     //Parsing Educational Institutions
     gamer.educationArray = [NSMutableArray new];
@@ -335,6 +328,7 @@
         gamerConnection.firstName = connection[@"firstName"];
         gamerConnection.lastName = connection[@"lastName"];
         gamerConnection.fullName = [NSString stringWithFormat:@"%@ %@", gamerConnection.firstName, gamerConnection.lastName];
+        gamerConnection.invitationSent = FALSE;
         
         //Add a base value
         gamerConnection.valueArray = [NSMutableArray new];
@@ -350,7 +344,6 @@
         
         NSMutableArray *tempConnectionArray = [NSMutableArray new];
         NSArray *connectionPositionArray = [connection valueForKeyPath:@"positions.values"];
-        //        NSDictionary *connectDictoinary = [dictionary valueForKeyPath:@"positions"];
         
         for (NSDictionary *positionDictionary in connectionPositionArray) {
             Position *position = [Position new];
@@ -374,12 +367,11 @@
             
             NSDate *date = [NSDate date];
             NSTimeInterval employmentLength = [date timeIntervalSinceDate:position.startDate];
+            
             //Conversion from seconds to months
             position.monthsInCurrentJob = (employmentLength / 60 / 60 / 24 / 365) * 12;
             
-            
             [tempConnectionArray addObject:position];
-            
         }
         
         gamerConnection.currentPositionArray = tempConnectionArray;
@@ -566,26 +558,30 @@
     NSURLSessionConfiguration *defaultConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
     NSURLSession *defaultSession = [NSURLSession sessionWithConfiguration:defaultConfiguration];
     
-    NSString *dictionaryDescription = @"Entities for Blank Check Lab job descriptions";
-    NSString *jsonString = [dictionaryDescription stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    
     NSDictionary *dictionary = @{@"name":@"blankCheck",
                                  @"language":@"en"};
     
     NSDictionary *jsonDictionary = @{@"dictionary":dictionary};
     
+    NSDictionary *gotDictionary = @{@"dictionary":@{
+                                        @"name":@"got",
+                                        @"language":@"en",
+                                        @"description":@"Entities and concepts from A Song of Ice and Fire."}};
+    
     NSLog(@"%@", jsonDictionary);
     
-    NSData *data = [NSJSONSerialization dataWithJSONObject:jsonDictionary options:NSJSONWritingPrettyPrinted error:nil];
+    NSData *data = [NSJSONSerialization dataWithJSONObject:gotDictionary options:NSJSONWritingPrettyPrinted error:nil];
     
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"https://textalytics.com/api/sempub/1.0/manage/dictionary_list?key=b8d169500ad3ded96d69054182f829cd"]];
+    NSURL *url = [NSURL URLWithString:@"http://textalytics.com/api/sempub/1.0/manage/dictionary_list?key=b8d169500ad3ded96d69054182f829cd&input=json&output=json"];
+    
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
     [request setHTTPMethod:@"POST"];
     [request setHTTPBody:data];
     
     NSURLSessionDataTask *dataTask = [defaultSession dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        
         NSString *stringResponse = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
-
-       NSLog(@"Response: %@", stringResponse);
+        NSLog(@"Response: %@", stringResponse);
     }];
     
     [dataTask resume];
@@ -617,7 +613,7 @@
         customDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
         
         NSArray *array = [customDictionary valueForKey:@"dictionary_list"];
-        NSLog(@"Dictionary Count: %ld", array.count);
+        NSLog(@"Dictionary Count: %@", [array[0] valueForKey:@"description"]);
         customDictionaries = array;
         
     }];
@@ -625,8 +621,6 @@
     
     [dataTask resume];
     
-    NSLog(@"Dictionary: %@", customDictionary);
-    NSLog(@"Array Count: %ld", customDictionaries.count);
 
 
     

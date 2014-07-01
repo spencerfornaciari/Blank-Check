@@ -249,9 +249,9 @@
 		89C973F11925797B00EC6004 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				897F02301958A4B200A770A6 /* DetailScrollViewController.h */,
 				897F02331958E8D000A770A6 /* LoginViewController.h */,
 				897F02341958E8D000A770A6 /* LoginViewController.m */,
-				897F02301958A4B200A770A6 /* DetailScrollViewController.h */,
 				897F02311958A4B200A770A6 /* DetailScrollViewController.m */,
 				895AF660195235A700B20DA6 /* FeedBrowserTableViewController.h */,
 				895AF661195235A700B20DA6 /* FeedBrowserTableViewController.m */,

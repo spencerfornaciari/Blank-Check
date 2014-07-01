@@ -11,6 +11,8 @@
 
 @interface DetailScrollViewController ()
 
+@property (nonatomic) UIView *overView;
+
 @end
 
 @implementation DetailScrollViewController
@@ -22,8 +24,11 @@
     
     scrollView.delegate = self;
     
+    NSLog(@"Invitation sent: %d", self.gamer.invitationSent);
+    
     [scrollView setScrollEnabled:YES];
-    [scrollView setContentSize:CGSizeMake(320, 1000)];
+    
+
     
     [self addButtonMenu];
     
@@ -31,8 +36,7 @@
     graph.backgroundColor = [UIColor blankCheckBlue];
     [scrollView addSubview:graph];
     
-    [self loadInviteView];
-    
+
     NSString *fullName = [NSString stringWithFormat:@"%@%@", self.gamer.firstName, self.gamer.lastName];
     self.gamer.imageLocalLocation = [NSString stringWithFormat:@"%@/%@.jpg", [self documentsDirectoryPath], fullName];
     
@@ -45,17 +49,22 @@
     NSString *firstLetter = [self.gamer.lastName substringWithRange:NSMakeRange(0, 1)];
     
     userNameLabel.text = [NSString stringWithFormat:@"%@ %@.", self.gamer.firstName, firstLetter];
-    
     valueLabel.text = [NSString stringWithFormat:@"$%@", [self.gamer.valueArray lastObject]];
     
     workExpLabel.text = [NSString stringWithFormat:@"Work Exp: Top 10%%"];
     educationExpLabel.text = [NSString stringWithFormat:@"Education Exp: Top 5%%"];
     
-    // Do any additional setup after loading the view.
 }
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
+    if (self.gamer.invitationSent) {
+        [scrollView setContentSize:CGSizeMake(320, 1000)];
+    } else {
+        [self loadInviteView];
+        [scrollView setContentSize:CGSizeMake(320, self.view.frame.size.height)];
+    }
     
     profileImage.image = [UIImage imageNamed:@"default-user"];
     
@@ -151,7 +160,10 @@
 }
 
 -(void)inviteTarget:(Gamer *)gamer {
-    NSLog(@"Invite Action");
+    NSLog(@"Invitation Sent");
+    self.gamer.invitationSent = TRUE;
+    [self.overView removeFromSuperview];
+    [scrollView setContentSize:CGSizeMake(320, 1000)];
 }
 
 - (NSString *)documentsDirectoryPath
@@ -162,15 +174,15 @@
 
 -(void)loadInviteView {
     //Add UIView over info to promote connection
-    UIView *overView = [[UIView alloc] initWithFrame:CGRectMake(20, 210, scrollView.frame.size.width - 40, 1000)];
-    overView.backgroundColor = [UIColor blankCheckBlue];
-    overView.alpha = .8;
-    overView.layer.zPosition = 2;
-    [scrollView addSubview:overView];
+    self.overView = [[UIView alloc] initWithFrame:CGRectMake(20, 210, scrollView.frame.size.width - 40, 1000)];
+    self.overView.backgroundColor = [UIColor blankCheckBlue];
+    self.overView.alpha = .8;
+    self.overView.layer.zPosition = 2;
+    [scrollView addSubview:self.overView];
     
-    NSLog(@"Width: %f", overView.frame.size.width);
+    NSLog(@"Width: %f", self.overView.frame.size.width);
     
-    UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, overView.frame.size.width - 40, 40)];
+    UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, self.overView.frame.size.width - 40, 40)];
     nameLabel.textAlignment = NSTextAlignmentCenter;
     nameLabel.text = [NSString stringWithFormat:@"%@ has picked up the Blank Check yet.", self.gamer.firstName];
     nameLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0];
@@ -178,10 +190,10 @@
     [nameLabel sizeToFit];
     nameLabel.textColor = [UIColor whiteColor];
     nameLabel.alpha = 1;
-    nameLabel.center = CGPointMake(overView.frame.size.width / 2, 50);
-    [overView addSubview:nameLabel];
+    nameLabel.center = CGPointMake(self.overView.frame.size.width / 2, 50);
+    [self.overView addSubview:nameLabel];
     
-    UILabel *descriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 200, overView.frame.size.width - 40, 60)];
+    UILabel *descriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 200, self.overView.frame.size.width - 40, 60)];
     descriptionLabel.textAlignment = NSTextAlignmentCenter;
     descriptionLabel.text = @"We provide better estimates when friends use Blank Check.";
     descriptionLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0];
@@ -189,18 +201,18 @@
     [descriptionLabel sizeToFit];
     descriptionLabel.textColor = [UIColor whiteColor];
     descriptionLabel.alpha = 1;
-    descriptionLabel.center = CGPointMake(overView.frame.size.width / 2, nameLabel.center.y + 80);
-    [overView addSubview:descriptionLabel];
+    descriptionLabel.center = CGPointMake(self.overView.frame.size.width / 2, nameLabel.center.y + 80);
+    [self.overView addSubview:descriptionLabel];
     
     
     UIButton *inviteButton = [UIButton buttonWithType:UIButtonTypeCustom];
     inviteButton.frame = CGRectMake(0, descriptionLabel.frame.origin.y + 100, 200, 60);
-    inviteButton.center = CGPointMake(overView.frame.size.width / 2, descriptionLabel.center.y + 100);
+    inviteButton.center = CGPointMake(self.overView.frame.size.width / 2, descriptionLabel.center.y + 100);
     [inviteButton setTitle:[NSString stringWithFormat:@"Invite %@", self.gamer.firstName] forState:UIControlStateNormal];
     [inviteButton addTarget:self action:@selector(inviteTarget:) forControlEvents:UIControlEventTouchUpInside];
     [inviteButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     inviteButton.backgroundColor = [UIColor whiteColor];
-    [overView addSubview:inviteButton];
+    [self.overView addSubview:inviteButton];
 }
 
 

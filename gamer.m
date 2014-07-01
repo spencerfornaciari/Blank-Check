@@ -65,6 +65,7 @@
         
         self.gamerLanguages = [decoder decodeObjectForKey:@"gamerLanguages"];
         self.gamerRecommendations = [decoder decodeObjectForKey:@"gamerRecommendations"];
+        self.invitationSent = [decoder decodeBoolForKey:@"invitationSent"];
         
         return self;
     }
@@ -88,6 +89,7 @@
     
     [encoder encodeObject:self.valueArray forKey:@"valueArray"];
     [encoder encodeObject:self.currentPositionArray forKey:@"currentPositionArray"];
+    [encoder encodeBool:self.invitationSent forKey:@"invitationSent"];
 
 }
 @end

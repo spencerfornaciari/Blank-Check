@@ -19,6 +19,7 @@
 @property (nonatomic) NSString *desiredPosition;
 @property (nonatomic) NSNumber *numConnections;
 @property (nonatomic) NSNumber *numRecommenders;
+@property (nonatomic) BOOL invitationSent;
 
 //For connections
 @property (nonatomic) NSString *headline;
