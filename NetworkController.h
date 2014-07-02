@@ -12,6 +12,7 @@
 #import "Education.h"
 #import "Language.h"
 #import "Recommendation.h"
+#import "Insights.h"
 
 @interface NetworkController : NSObject
 

@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "Gamer.h"
+#import "ExpertInsightView.h"
+#import "ExpertAppraisalView.h"
+#import "UserInfoView.h"
+#import "TimelineView.h"
 
 @interface DetailScrollViewController : UIViewController <UIScrollViewDelegate> {
     IBOutlet UIScrollView *scrollView;

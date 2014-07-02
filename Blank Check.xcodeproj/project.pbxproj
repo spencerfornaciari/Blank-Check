@@ -16,6 +16,11 @@
 		891B94661948C9FF00BEAEC9 /* BlankCheckViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 891B94651948C9FF00BEAEC9 /* BlankCheckViewCell.m */; };
 		895AF662195235A700B20DA6 /* FeedBrowserTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 895AF661195235A700B20DA6 /* FeedBrowserTableViewController.m */; };
 		895AF665195235FD00B20DA6 /* FeedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 895AF664195235FD00B20DA6 /* FeedTableViewCell.m */; };
+		89779DE819633C7600AC81CA /* Insights.m in Sources */ = {isa = PBXBuildFile; fileRef = 89779DE719633C7600AC81CA /* Insights.m */; };
+		89779DF0196488E600AC81CA /* ExpertInsightView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89779DEF196488E600AC81CA /* ExpertInsightView.m */; };
+		89779DF319648AAC00AC81CA /* UserInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89779DF219648AAC00AC81CA /* UserInfoView.m */; };
+		89779DF619648ABC00AC81CA /* TimelineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89779DF519648ABC00AC81CA /* TimelineView.m */; };
+		89779DF919648ACF00AC81CA /* ExpertAppraisalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89779DF819648ACF00AC81CA /* ExpertAppraisalView.m */; };
 		8978FBCB193E562600BF0921 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8978FBCA193E562600BF0921 /* SearchViewController.m */; };
 		897F02321958A4B200A770A6 /* DetailScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 897F02311958A4B200A770A6 /* DetailScrollViewController.m */; };
 		897F02351958E8D000A770A6 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 897F02341958E8D000A770A6 /* LoginViewController.m */; };
@@ -73,6 +78,16 @@
 		895AF661195235A700B20DA6 /* FeedBrowserTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedBrowserTableViewController.m; path = ../FeedBrowserTableViewController.m; sourceTree = "<group>"; };
 		895AF663195235FD00B20DA6 /* FeedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedTableViewCell.h; path = ../FeedTableViewCell.h; sourceTree = "<group>"; };
 		895AF664195235FD00B20DA6 /* FeedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedTableViewCell.m; path = ../FeedTableViewCell.m; sourceTree = "<group>"; };
+		89779DE619633C7600AC81CA /* Insights.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Insights.h; sourceTree = "<group>"; };
+		89779DE719633C7600AC81CA /* Insights.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Insights.m; sourceTree = "<group>"; };
+		89779DEE196488E600AC81CA /* ExpertInsightView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpertInsightView.h; sourceTree = "<group>"; };
+		89779DEF196488E600AC81CA /* ExpertInsightView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpertInsightView.m; sourceTree = "<group>"; };
+		89779DF119648AAC00AC81CA /* UserInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoView.h; sourceTree = "<group>"; };
+		89779DF219648AAC00AC81CA /* UserInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoView.m; sourceTree = "<group>"; };
+		89779DF419648ABC00AC81CA /* TimelineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimelineView.h; sourceTree = "<group>"; };
+		89779DF519648ABC00AC81CA /* TimelineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimelineView.m; sourceTree = "<group>"; };
+		89779DF719648ACF00AC81CA /* ExpertAppraisalView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpertAppraisalView.h; sourceTree = "<group>"; };
+		89779DF819648ACF00AC81CA /* ExpertAppraisalView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpertAppraisalView.m; sourceTree = "<group>"; };
 		8978FBC9193E562600BF0921 /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchViewController.h; path = ../SearchViewController.h; sourceTree = "<group>"; };
 		8978FBCA193E562600BF0921 /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchViewController.m; path = ../SearchViewController.m; sourceTree = "<group>"; };
 		897F02301958A4B200A770A6 /* DetailScrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DetailScrollViewController.h; path = ../DetailScrollViewController.h; sourceTree = "<group>"; };
@@ -144,6 +159,8 @@
 		8910F3201937AD1300955812 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				89779DE619633C7600AC81CA /* Insights.h */,
+				89779DE719633C7600AC81CA /* Insights.m */,
 				8910F3301937AE3400955812 /* Language.h */,
 				8910F3311937AE3400955812 /* Language.m */,
 				8910F32D1937ADEA00955812 /* Recommendation.h */,
@@ -162,6 +179,14 @@
 		89C973A2192564AF00EC6004 = {
 			isa = PBXGroup;
 			children = (
+				89779DF719648ACF00AC81CA /* ExpertAppraisalView.h */,
+				89779DF819648ACF00AC81CA /* ExpertAppraisalView.m */,
+				89779DF419648ABC00AC81CA /* TimelineView.h */,
+				89779DF519648ABC00AC81CA /* TimelineView.m */,
+				89779DF119648AAC00AC81CA /* UserInfoView.h */,
+				89779DF219648AAC00AC81CA /* UserInfoView.m */,
+				89779DEE196488E600AC81CA /* ExpertInsightView.h */,
+				89779DEF196488E600AC81CA /* ExpertInsightView.m */,
 				89C973B4192564AF00EC6004 /* Blank Check */,
 				89C973D6192564AF00EC6004 /* Blank CheckTests */,
 				89C973AD192564AF00EC6004 /* Frameworks */,
@@ -250,9 +275,9 @@
 			isa = PBXGroup;
 			children = (
 				897F02301958A4B200A770A6 /* DetailScrollViewController.h */,
+				897F02311958A4B200A770A6 /* DetailScrollViewController.m */,
 				897F02331958E8D000A770A6 /* LoginViewController.h */,
 				897F02341958E8D000A770A6 /* LoginViewController.m */,
-				897F02311958A4B200A770A6 /* DetailScrollViewController.m */,
 				895AF660195235A700B20DA6 /* FeedBrowserTableViewController.h */,
 				895AF661195235A700B20DA6 /* FeedBrowserTableViewController.m */,
 				89B06FC91950AD6100ACC733 /* SocialController.h */,
@@ -388,6 +413,9 @@
 			files = (
 				8910F3261937AD8200955812 /* Gamer.m in Sources */,
 				897F02351958E8D000A770A6 /* LoginViewController.m in Sources */,
+				89779DF619648ABC00AC81CA /* TimelineView.m in Sources */,
+				89779DF0196488E600AC81CA /* ExpertInsightView.m in Sources */,
+				89779DF919648ACF00AC81CA /* ExpertAppraisalView.m in Sources */,
 				89C973EB192565D800EC6004 /* Constants.m in Sources */,
 				8910F32C1937ADC700955812 /* Position.m in Sources */,
 				89C973E81925650C00EC6004 /* NetworkController.m in Sources */,
@@ -400,6 +428,7 @@
 				8910F32F1937ADEA00955812 /* Recommendation.m in Sources */,
 				8910F3321937AE3400955812 /* Language.m in Sources */,
 				891B94661948C9FF00BEAEC9 /* BlankCheckViewCell.m in Sources */,
+				89779DE819633C7600AC81CA /* Insights.m in Sources */,
 				8978FBCB193E562600BF0921 /* SearchViewController.m in Sources */,
 				89C973BB192564AF00EC6004 /* main.m in Sources */,
 				891B94631948C84600BEAEC9 /* FeedControllerViewController.m in Sources */,
@@ -409,6 +438,7 @@
 				8910F3291937ADB700955812 /* Education.m in Sources */,
 				89A1433B193FCCF300FDEC4F /* SideViewController.m in Sources */,
 				899616B919464DF600C75B99 /* LanguageProcessing.m in Sources */,
+				89779DF319648AAC00AC81CA /* UserInfoView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

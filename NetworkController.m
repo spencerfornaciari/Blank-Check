@@ -163,6 +163,7 @@
     gamer.numConnections = dictionary[@"numConnections"];
     gamer.numRecommenders = dictionary[@"numRecommenders"];
     gamer.invitationSent = TRUE;
+    gamer.expertInsightsArray = [NSMutableArray new];
     
     //Working on parsing current positions
     NSMutableArray *tempArray = [NSMutableArray new];
@@ -329,6 +330,7 @@
         gamerConnection.lastName = connection[@"lastName"];
         gamerConnection.fullName = [NSString stringWithFormat:@"%@ %@", gamerConnection.firstName, gamerConnection.lastName];
         gamerConnection.invitationSent = FALSE;
+        gamer.expertInsightsArray = [NSMutableArray new];
         
         //Add a base value
         gamerConnection.valueArray = [NSMutableArray new];

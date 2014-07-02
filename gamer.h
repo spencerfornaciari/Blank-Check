@@ -59,5 +59,7 @@
 -(instancetype)initWithCoder:(NSCoder *)decoder;
 -(void)encodeWithCoder:(NSCoder *)encoder;
 
+//Detail Page Information
+@property (nonatomic) NSMutableArray *expertInsightsArray;
 
 @end

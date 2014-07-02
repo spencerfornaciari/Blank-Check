@@ -11,7 +11,7 @@
 
 @interface DetailScrollViewController ()
 
-@property (nonatomic) UIView *overView;
+@property (nonatomic) UIView *overView, *userInfoView, *expertInsightsView, *timelineView, *expertAppraisalView;
 
 @end
 
@@ -28,7 +28,10 @@
     
     [scrollView setScrollEnabled:YES];
     
-
+    [self loadUserInfo];
+    [self loadExpertInsights];
+    [self loadTimeLine];
+    [self loadExpertAppraisal];
     
     [self addButtonMenu];
     
@@ -50,9 +53,6 @@
     
     userNameLabel.text = [NSString stringWithFormat:@"%@ %@.", self.gamer.firstName, firstLetter];
     valueLabel.text = [NSString stringWithFormat:@"$%@", [self.gamer.valueArray lastObject]];
-    
-    workExpLabel.text = [NSString stringWithFormat:@"Work Exp: Top 10%%"];
-    educationExpLabel.text = [NSString stringWithFormat:@"Education Exp: Top 5%%"];
     
 }
 
@@ -163,7 +163,8 @@
     NSLog(@"Invitation Sent");
     self.gamer.invitationSent = TRUE;
     [self.overView removeFromSuperview];
-    [scrollView setContentSize:CGSizeMake(320, 1000)];
+//    self.view.frame = CGRectMake(0, 0, 320, 1500);
+    [scrollView setContentSize:CGSizeMake(320, 2000)];
 }
 
 - (NSString *)documentsDirectoryPath
@@ -213,6 +214,84 @@
     [inviteButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     inviteButton.backgroundColor = [UIColor whiteColor];
     [self.overView addSubview:inviteButton];
+}
+
+-(void)loadUserInfo {
+    self.userInfoView = [[UIView alloc] initWithFrame:CGRectMake(0, 568, 320, 320)];
+    [scrollView addSubview:self.userInfoView];
+    
+    UserInfoView *infoView = [[UserInfoView alloc] initWithFrame:CGRectMake(0, 0, 320, 320)];
+    [self.userInfoView addSubview:infoView];
+    
+//    UILabel *userInfoLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 128, 21)];
+//    userInfoLabel.text = @"USER INFO";
+//    userInfoLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0];
+//    userInfoLabel.textColor = [UIColor blackColor];
+//    [userInfoView addSubview:userInfoLabel];
+//    
+//    UILabel *workExperienceLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, userInfoView.frame.origin.y + 29, 128, 21)];
+//    workExperienceLabel.text = [NSString stringWithFormat:@"Work Exp: Top 10%%"];
+//    workExperienceLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:17.0];
+//    workExperienceLabel.textColor = [UIColor blackColor];
+//    [userInfoView addSubview:workExperienceLabel];
+//    
+//    UILabel *educationLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, workExperienceLabel.frame.origin.y + 29, 128, 21)];
+//    educationLabel.text = [NSString stringWithFormat:@"Education Exp: Top 5%%"];
+//    educationLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:17.0];
+//    educationLabel.textColor = [UIColor blackColor];
+//    [userInfoView addSubview:educationLabel];
+}
+
+-(void)loadExpertInsights {
+    self.expertInsightsView = [[UIView alloc] initWithFrame:CGRectMake(0, self.userInfoView.frame.origin.y + self.userInfoView.frame.size.height, 320, 320)];
+    [scrollView addSubview:self.expertInsightsView];
+    
+    NSLog(@"Expert Insight Y: %f", self.expertInsightsView.frame.origin.y + self.expertInsightsView.frame.size.height);
+
+
+//    UILabel *expertLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 206, 21)];
+//    expertLabel.text = @"EXPERT INSIGHTS";
+//    expertLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0];
+//    expertLabel.textColor = [UIColor blackColor];
+//    [expertInsightsView addSubview:expertLabel];
+    
+    ExpertInsightView *insightView = [[ExpertInsightView alloc] initWithFrame:CGRectMake(0, 0, 320, 320)];
+    [self.expertInsightsView addSubview:insightView];
+    
+    
+}
+
+-(void)loadTimeLine {
+    self.timelineView = [[UIView alloc] initWithFrame:CGRectMake(0, self.expertInsightsView.frame.origin.y + self.expertInsightsView.frame.size.height, 320, 320)];
+    [scrollView addSubview:self.timelineView];
+    
+    NSLog(@"Timeline Y: %f", self.timelineView.frame.origin.y);
+    
+    
+//    UILabel *expertLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 206, 21)];
+//    expertLabel.text = @"EXPERT INSIGHTS";
+//    expertLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0];
+//    expertLabel.textColor = [UIColor blackColor];
+//    [expertInsightsView addSubview:expertLabel];
+    
+    TimelineView *timeline = [[TimelineView alloc] initWithFrame:CGRectMake(0, 0, 320, 320)];
+    [self.timelineView addSubview:timeline];
+}
+
+-(void)loadExpertAppraisal {
+    self.expertAppraisalView = [[UIView alloc] initWithFrame:CGRectMake(0, 2000, 320, 320)];
+    [scrollView addSubview:self.expertAppraisalView];
+    
+    NSLog(@"ExpertAppraisal Y: %f", self.expertAppraisalView.frame.origin.y);
+    
+    //    UILabel *expertLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 206, 21)];
+    //    expertLabel.text = @"EXPERT INSIGHTS";
+    //    expertLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0];
+    //    expertLabel.textColor = [UIColor blackColor];
+    //    [expertInsightsView addSubview:expertLabel];
+    
+//    ExpertAppraisalView *expertView = [[ExpertAppraisalView alloc] initWithFrame:CGRectMake(0, 0, 320, 320)];
+//    [self.timelineView addSubview:expertView];
 }
 
 
