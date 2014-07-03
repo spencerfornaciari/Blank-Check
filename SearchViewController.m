@@ -12,8 +12,10 @@
 
 @interface SearchViewController ()
 
-@property (nonatomic) NSArray *totalArray, *searchResultsArray;
 @property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
+@property (nonatomic) NSString *scopeString;
+
+@property (nonatomic) NSArray *searchResultsArray;
 
 @end
 
@@ -29,7 +31,7 @@
     
     NSLog(@"Count: %ld", (long)self.searchArray.count);
 	// Initialize table data
-    self.totalArray = [[NSArray alloc] initWithObjects:@"Tim Cook", @"Jonathan Ive", @"Craig Federighi", @"Angela Ahrendts", @"Eddy Cue", @"Luca Maestri", @"Dan Riccio", @"Philip W. Schiller", @"Bruce Sewell", @"Jeff Williams", nil];
+//    self.totalArray = [[NSArray alloc] initWithObjects:@"Tim Cook", @"Jonathan Ive", @"Craig Federighi", @"Angela Ahrendts", @"Eddy Cue", @"Luca Maestri", @"Dan Riccio", @"Philip W. Schiller", @"Bruce Sewell", @"Jeff Williams", nil];
 }
 
 
@@ -46,20 +48,31 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *simpleTableIdentifier = @"RecipeCell";
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
-    
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
-    }
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     
     if (tableView == self.searchDisplayController.searchResultsTableView) {
-        Gamer *gamer = self.searchArray[indexPath.row];
+        Gamer *gamer = self.searchResultsArray[indexPath.row];
+        
+        if ([self.scopeString isEqualToString:@"Name"]) {
+            cell.textLabel.text = gamer.fullName;
+            cell.detailTextLabel.text = @"NAME";
+        } else if ([self.scopeString isEqualToString:@"Title"]) {
+            cell.textLabel.text = gamer.fullName;
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", [gamer.currentPositionArray[0] title]];
+        } else if ([self.scopeString isEqualToString:@"Location"]) {
+            cell.textLabel.text = gamer.fullName;
+            cell.detailTextLabel.text = gamer.location;
+        } else {
+            cell.textLabel.text = gamer.fullName;
+            cell.detailTextLabel.text = @"ALL";
+        }
+        
         cell.textLabel.text = gamer.fullName;
+        cell.detailTextLabel.text = gamer.location;
     } else {
         Gamer *gamer = self.searchArray[indexPath.row];
         cell.textLabel.text = gamer.fullName;
+        cell.detailTextLabel.text = gamer.location;
     }
     
     return cell;
@@ -94,25 +107,34 @@
 //    NSPredicate *resultPredicate = [NSPredicate
 //                                    predicateWithFormat:@"SELF contains[cd] %@",
 //                                    searchText];
+//    
+//    NSLog(@"%@", [self.searchArray filteredArrayUsingPredicate:resultPredicate]);
+    self.scopeString = scope;
     
     if ([scope isEqualToString:@"Name"]) {
-        NSLog(@"Name");
         //Full Name Predicate
         NSPredicate *fullNamePredicate = [NSPredicate predicateWithFormat:@"fullName CONTAINS[cd] %@", searchText];
-        self.searchResultsArray = [self.searchArray filteredArrayUsingPredicate:fullNamePredicate];
+        self.searchResultsArray = [self.searchArray filteredArrayUsingPredicate:fullNamePredicate];//
+        
     } else if ([scope isEqualToString:@"Title"]) {
-        NSLog(@"Title");
         //Job Title Predicate
         NSPredicate *jobTitlePredicate = [NSPredicate predicateWithFormat:@"ANY SELF.currentPositionArray.title CONTAINS[cd] %@", searchText];
         self.searchResultsArray = [NSArray arrayWithArray:[self.searchArray filteredArrayUsingPredicate:jobTitlePredicate]];
         
+//        for (Gamer *gamer in self.searchResultsArray) {
+//            NSLog(@"%@: %@", gamer.fullName, gamer.currentPositionArray;
+//        }
+        
     } else if ([scope isEqualToString:@"Location"]) {
-        NSLog(@"Location");
         //Location Predicate
         NSPredicate *locationPredicate = [NSPredicate predicateWithFormat:@"location CONTAINS[cd] %@", searchText];
         self.searchResultsArray = [NSArray arrayWithArray:[self.searchArray filteredArrayUsingPredicate:locationPredicate]];
+        
+        for (Gamer *gamer in self.searchResultsArray) {
+            NSLog(@"%@: %@", gamer.fullName, gamer.location);
+        }
     } else {
-        NSLog(@"All");
+
     }
     
 //    self.searchResultsArray = [self.totalArray filteredArrayUsingPredicate:resultPredicate];

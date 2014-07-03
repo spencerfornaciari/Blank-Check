@@ -39,9 +39,7 @@
     self.appDelegate.gamer = self.one;
     
 //    [self.networkController checkProfileText:@"Film Publicist"];
-    //
-    [[NetworkController sharedController] createDictionary];
-    
+//    [[NetworkController sharedController] createDictionary];
 //    [[NetworkController sharedController] listDictionaries];
 //    [[NetworkController sharedController] readDictionaryWithName:@"got"];
 //    [[NetworkController sharedController] updateDictionaryWithName:@"got"];
