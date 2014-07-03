@@ -5,11 +5,75 @@
     </dependencies>
     <scenes>
         <!--Search View Controller-->
+        <scene sceneID="ti3-9B-Wz1">
+            <objects>
+                <viewController id="jkK-ul-ytY" customClass="SearchViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="3x9-Ah-PYs">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="2p6-Xg-4Aj">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <searchBar key="tableHeaderView" contentMode="redraw" placeholder="Search names, titles, and locations" showsScopeBar="YES" id="uB8-BF-kbY">
+                                    <rect key="frame" x="0.0" y="64" width="320" height="88"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                    <scopeButtonTitles>
+                                        <string>Name</string>
+                                        <string>Title</string>
+                                        <string>Location</string>
+                                        <string>All</string>
+                                    </scopeButtonTitles>
+                                    <connections>
+                                        <outlet property="delegate" destination="jkK-ul-ytY" id="N2l-aP-WRP"/>
+                                    </connections>
+                                </searchBar>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="gI9-IJ-GKb">
+                                        <rect key="frame" x="0.0" y="174" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gI9-IJ-GKb" id="AS5-zl-pw7">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="jkK-ul-ytY" id="TcA-Tg-dPZ"/>
+                                    <outlet property="delegate" destination="jkK-ul-ytY" id="cSD-Xl-OQG"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="5LV-GK-An0"/>
+                    <connections>
+                        <outlet property="searchBar" destination="uB8-BF-kbY" id="9nY-SK-3zj"/>
+                        <outlet property="searchDisplayController" destination="f4S-sj-UCe" id="gMu-BT-7Qe"/>
+                        <outlet property="tableView" destination="2p6-Xg-4Aj" id="wRT-aE-3d6"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="h8t-iw-7rM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="f4S-sj-UCe">
+                    <connections>
+                        <outlet property="delegate" destination="jkK-ul-ytY" id="KE8-4F-fuW"/>
+                        <outlet property="searchBar" destination="uB8-BF-kbY" id="DCs-Mi-s09"/>
+                        <outlet property="searchContentsController" destination="jkK-ul-ytY" id="D9O-x8-Rmg"/>
+                        <outlet property="searchResultsDataSource" destination="jkK-ul-ytY" id="MVt-gn-q0X"/>
+                        <outlet property="searchResultsDelegate" destination="jkK-ul-ytY" id="s03-IO-9qf"/>
+                    </connections>
+                </searchDisplayController>
+            </objects>
+            <point key="canvasLocation" x="1045" y="-1351"/>
+        </scene>
+        <!--Old Search View Controller-->
         <scene sceneID="Fca-ap-r7M">
             <objects>
-                <viewController id="vrJ-fc-Nmc" customClass="SearchViewController" sceneMemberID="viewController">
+                <viewController id="vrJ-fc-Nmc" customClass="OldSearchViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4i2-pL-bLd">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <searchBar contentMode="redraw" placeholder="Search names, titles and locations" id="WA3-ba-nsB">
@@ -30,7 +94,7 @@
                                 </connections>
                             </segmentedControl>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="vg8-mS-f1R">
-                                <rect key="frame" x="20" y="216" width="280" height="333"/>
+                                <rect key="frame" x="20" y="216" width="280" height="245"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -84,7 +148,7 @@
             <objects>
                 <viewController id="gTc-Tz-GvM" customClass="PresetViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Cfb-x8-R5b">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -99,7 +163,7 @@
             <objects>
                 <viewController id="gv5-5z-3Zo" customClass="SideViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gS8-DU-jga">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -111,7 +175,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="search" id="2T6-NL-e5L">
                             <connections>
-                                <segue destination="vrJ-fc-Nmc" kind="push" identifier="search" id="KEp-65-3vv"/>
+                                <segue destination="jkK-ul-ytY" kind="push" identifier="search" id="2wI-YS-XHX"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -125,7 +189,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="mainViewController" id="tVR-3O-WG2" customClass="FeedBrowserTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="96" sectionHeaderHeight="22" sectionFooterHeight="22" id="aZH-Sn-3Z1">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -264,11 +328,11 @@
             <objects>
                 <viewController storyboardIdentifier="loginView" id="eIG-O4-5Zc" customClass="LoginViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="UmH-ah-bq7">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <webView contentMode="scaleToFill" id="Ft8-NJ-h0n">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </webView>
@@ -308,6 +372,6 @@
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination" type="retina4"/>
+        <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
 </document>

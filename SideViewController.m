@@ -30,6 +30,7 @@
     
     self.title = @"Blank Check Labs";
     self.menuButtonBool = FALSE;
+    self.view.backgroundColor = [UIColor blackColor];
     
     self.mainViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"mainViewController"];
     [self addChildViewController:self.mainViewController];
@@ -94,7 +95,7 @@
 {
     [self.topViewController.view setUserInteractionEnabled:NO];
     [UIView animateWithDuration:.4 animations:^{
-        self.topViewController.view.frame = CGRectMake(self.view.frame.size.width * .5, self.topViewController.view.frame.origin.y, self.topViewController.view.frame.size.width, self.topViewController.view.frame.size.height);
+        self.topViewController.view.frame = CGRectMake(self.view.frame.size.width * .8, self.topViewController.view.frame.origin.y, self.topViewController.view.frame.size.width, self.topViewController.view.frame.size.height);
     } completion:^(BOOL finished) {
         UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(slideBack:)];
         [self.topViewController.view addGestureRecognizer:pan];
@@ -144,13 +145,10 @@
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
-    
     if ([segue.identifier isEqualToString:@"search"]) {
         SearchViewController *viewController = segue.destinationViewController;
         viewController.searchArray = [[(AppDelegate *)[[UIApplication sharedApplication] delegate] gamer] connectionIDArray];
     }
-    
-    
     
 }
 
