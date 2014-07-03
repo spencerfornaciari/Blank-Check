@@ -12,6 +12,8 @@
 
 @property (nonatomic) UIImageView *profileImage;
 @property (nonatomic) UILabel *nameLabel;
+@property (nonatomic) UILabel *positionLabel;
+@property (nonatomic) UILabel *locationLabel;
 
 -(id)initWithFrame:(CGRect)frame;
 
