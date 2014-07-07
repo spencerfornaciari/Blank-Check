@@ -7,6 +7,7 @@
 //
 
 #import "SearchViewController.h"
+#import "DetailScrollViewController.h"
 #import "UIColor+BlankCheckColors.h"
 #import "Gamer.h"
 
@@ -85,29 +86,27 @@
     return cell;
 }
 
-//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    if (tableView == self.searchDisplayController.searchResultsTableView) {
-//        [self performSegueWithIdentifier: @"showRecipeDetail" sender: self];
-//    }
-//}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        NSLog(@"Did select");
+//        [self performSegueWithIdentifier: @"detailedView" sender: self];
+    }
+}
 //
-//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-//    if ([segue.identifier isEqualToString:@"showRecipeDetail"]) {
-//        RecipeDetailViewController *destViewController = segue.destinationViewController;
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"detailedView"]) {
+        NSLog(@"Prepare segue");
+
+        NSIndexPath *indexPath = [self.searchDisplayController.searchResultsTableView indexPathForSelectedRow];
+        Gamer *gamer =  self.searchResultsArray[indexPath.row];
+        NSLog(@"Selected user: %@", gamer.fullName);
 //
-//        NSIndexPath *indexPath = nil;
-//        if ([self.searchDisplayController isActive]) {
-//            indexPath = [self.searchDisplayController.searchResultsTableView indexPathForSelectedRow];
-//            destViewController.recipeName = [searchResults objectAtIndex:indexPath.row];
-//
-//        } else {
-//            indexPath = [self.tableView indexPathForSelectedRow];
-//            destViewController.recipeName = [recipes objectAtIndex:indexPath.row];
-//        }
-//    }
-//
-//}
+        DetailScrollViewController *detailedView = segue.destinationViewController;
+        detailedView.gamer = gamer;
+    }
+
+}
 
 - (void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope
 {

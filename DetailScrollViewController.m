@@ -26,7 +26,7 @@
     
     scrollView.delegate = self;
     
-    NSLog(@"Invitation sent: %d", self.gamer.invitationSent);
+//    NSLog(@"Invitation sent: %d", self.gamer.invitationSent);
     
     [scrollView setScrollEnabled:YES];
     
@@ -255,9 +255,6 @@
     TimelineView *timelineView = [[TimelineView alloc] initWithFrame:CGRectMake(0, self.expertInsightsView.frame.origin.y + self.expertInsightsView.frame.size.height, 320, 320)];
     [scrollView addSubview:timelineView];
     
-    NSLog(@"Timeline Y: %f", self.timelineView.frame.origin.y);
-    
-    
 //    UILabel *expertLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 206, 21)];
 //    expertLabel.text = @"EXPERT INSIGHTS";
 //    expertLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0];
@@ -271,8 +268,6 @@
 -(void)loadExpertAppraisal {
     self.expertAppraisalView = [[UIView alloc] initWithFrame:CGRectMake(0, 2000, 320, 320)];
     [scrollView addSubview:self.expertAppraisalView];
-    
-    NSLog(@"ExpertAppraisal Y: %f", self.expertAppraisalView.frame.origin.y);
     
     //    UILabel *expertLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 206, 21)];
     //    expertLabel.text = @"EXPERT INSIGHTS";
