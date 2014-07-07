@@ -133,9 +133,6 @@
 {
     Gamer *gamer = [Gamer new];
     
-//    [operationQueue addOperationWithBlock:^{
-    
-    
     NSString *accessToken = [[NSUserDefaults standardUserDefaults] stringForKey:@"accessToken"];
     //Generating the NSMutableURLRequest with the base LinkedIN URL with token extension in the HTTP Body
     //    NSString *string = [NSString stringWithFormat:@"https://api.linkedin.com/v1/people/~"]
@@ -392,8 +389,14 @@
 //  NSArray *sortedArray = [NSArray arrayWithArray:[gamer.connectionIDArray sortUsingDescriptors:@[sortDescriptor]]];
     
     gamer.connectionIDArray = [sortedArray mutableCopy];
-            
+    
+
+    NSLog(@"END OF LOAD CURRENT USER");
+    
     return gamer;
+
+    
+    
 }
 
 

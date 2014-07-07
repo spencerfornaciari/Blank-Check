@@ -147,7 +147,7 @@
     
     if ([segue.identifier isEqualToString:@"search"]) {
         SearchViewController *viewController = segue.destinationViewController;
-        viewController.searchArray = [[(AppDelegate *)[[UIApplication sharedApplication] delegate] gamer] connectionIDArray];
+        viewController.connectionsArray = [[(AppDelegate *)[[UIApplication sharedApplication] delegate] gamer] connectionIDArray];
     }
     
 }

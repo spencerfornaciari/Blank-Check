@@ -17,6 +17,8 @@
 
 @property (nonatomic) NSArray *searchResultsArray;
 
+@property (nonatomic) UIView *overView;
+
 @end
 
 @implementation SearchViewController
@@ -29,9 +31,17 @@
     
     self.searchBar.barTintColor = [UIColor blankCheckBlue];
     
-    NSLog(@"Count: %ld", (long)self.searchArray.count);
-	// Initialize table data
-//    self.totalArray = [[NSArray alloc] initWithObjects:@"Tim Cook", @"Jonathan Ive", @"Craig Federighi", @"Angela Ahrendts", @"Eddy Cue", @"Luca Maestri", @"Dan Riccio", @"Philip W. Schiller", @"Bruce Sewell", @"Jeff Williams", nil];
+    UIBarButtonItem *btnBack = [[UIBarButtonItem alloc]
+                                initWithTitle:@"Home"
+                                style:UIBarButtonItemStyleBordered
+                                target:self
+                                action:nil];
+    self.navigationController.navigationBar.topItem.backBarButtonItem=btnBack;
+    
+//    self.tableView.hidden = TRUE;
+    
+    [self loadOverview];
+
 }
 
 
@@ -41,7 +51,7 @@
         return self.searchResultsArray.count;
         
     } else {
-        return self.searchArray.count;
+        return self.connectionsArray.count;
         
     }
 }
@@ -58,7 +68,7 @@
             cell.detailTextLabel.text = @"NAME";
         } else if ([self.scopeString isEqualToString:@"Title"]) {
             cell.textLabel.text = gamer.fullName;
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", [gamer.currentPositionArray[0] title]];
+            cell.detailTextLabel.text = [gamer.currentPositionArray[0] title];
         } else if ([self.scopeString isEqualToString:@"Location"]) {
             cell.textLabel.text = gamer.fullName;
             cell.detailTextLabel.text = gamer.location;
@@ -66,11 +76,8 @@
             cell.textLabel.text = gamer.fullName;
             cell.detailTextLabel.text = @"ALL";
         }
-        
-        cell.textLabel.text = gamer.fullName;
-        cell.detailTextLabel.text = gamer.location;
     } else {
-        Gamer *gamer = self.searchArray[indexPath.row];
+        Gamer *gamer = self.connectionsArray[indexPath.row];
         cell.textLabel.text = gamer.fullName;
         cell.detailTextLabel.text = gamer.location;
     }
@@ -114,30 +121,23 @@
     if ([scope isEqualToString:@"Name"]) {
         //Full Name Predicate
         NSPredicate *fullNamePredicate = [NSPredicate predicateWithFormat:@"fullName CONTAINS[cd] %@", searchText];
-        self.searchResultsArray = [self.searchArray filteredArrayUsingPredicate:fullNamePredicate];//
+        self.searchResultsArray = [self.connectionsArray filteredArrayUsingPredicate:fullNamePredicate];//
         
     } else if ([scope isEqualToString:@"Title"]) {
         //Job Title Predicate
         NSPredicate *jobTitlePredicate = [NSPredicate predicateWithFormat:@"ANY SELF.currentPositionArray.title CONTAINS[cd] %@", searchText];
-        self.searchResultsArray = [NSArray arrayWithArray:[self.searchArray filteredArrayUsingPredicate:jobTitlePredicate]];
-        
-//        for (Gamer *gamer in self.searchResultsArray) {
-//            NSLog(@"%@: %@", gamer.fullName, gamer.currentPositionArray;
-//        }
+        self.searchResultsArray = [self.connectionsArray filteredArrayUsingPredicate:jobTitlePredicate];
         
     } else if ([scope isEqualToString:@"Location"]) {
         //Location Predicate
         NSPredicate *locationPredicate = [NSPredicate predicateWithFormat:@"location CONTAINS[cd] %@", searchText];
-        self.searchResultsArray = [NSArray arrayWithArray:[self.searchArray filteredArrayUsingPredicate:locationPredicate]];
+        self.searchResultsArray = [self.connectionsArray filteredArrayUsingPredicate:locationPredicate];
         
-        for (Gamer *gamer in self.searchResultsArray) {
-            NSLog(@"%@: %@", gamer.fullName, gamer.location);
-        }
     } else {
 
+        
     }
     
-//    self.searchResultsArray = [self.totalArray filteredArrayUsingPredicate:resultPredicate];
 }
 
 #pragma mark - UISearchDisplayController delegate methods
@@ -150,5 +150,19 @@ shouldReloadTableForSearchString:(NSString *)searchString
                                                      selectedScopeButtonIndex]]];
     
     return YES;
+}
+
+-(BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar {
+    [self.overView removeFromSuperview];
+    
+    return YES;
+}
+ 
+
+-(void)loadOverview {
+    self.overView = [[UIView alloc] initWithFrame:CGRectMake(0, 108, 320, self.view.frame.size.height-65)];
+    self.overView.backgroundColor = [UIColor blueColor];
+    self.overView.layer.zPosition = 5;
+    [self.view addSubview:self.overView];
 }
 @end

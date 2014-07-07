@@ -24,7 +24,6 @@
                                         <string>Name</string>
                                         <string>Title</string>
                                         <string>Location</string>
-                                        <string>All</string>
                                     </scopeButtonTitles>
                                     <connections>
                                         <outlet property="delegate" destination="jkK-ul-ytY" id="N2l-aP-WRP"/>

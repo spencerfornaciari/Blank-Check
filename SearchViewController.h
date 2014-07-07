@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SearchViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> 
+@interface SearchViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate>
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 
-@property (nonatomic) NSArray *searchArray;
+@property (nonatomic) NSArray *connectionsArray;
 
 @end

@@ -20,6 +20,7 @@
 
 @property (nonatomic) NSOperationQueue *operationQueue;
 @property (nonatomic) AppDelegate *appDelegate;
+@property (nonatomic) UIActivityIndicatorView *spinner;
 
 @end
 
@@ -28,15 +29,26 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     self.title = @"Blank Check Labs";
     
     self.operationQueue = [(AppDelegate *)[[UIApplication sharedApplication] delegate] blankQueue];
     
-    self.one = [[NetworkController sharedController] loadCurrentUserData];
-    
-    self.appDelegate = [[UIApplication sharedApplication] delegate];
-    self.appDelegate.gamer = self.one;
+    [self.operationQueue addOperationWithBlock:^{
+        self.one = [[NetworkController sharedController] loadCurrentUserData];
+        
+        self.appDelegate = [[UIApplication sharedApplication] delegate];
+        self.appDelegate.gamer = self.one;
+        
+        self.feedArray = [NSMutableArray new];
+        self.feedArray = self.one.connectionIDArray;
+        
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            [self.spinner stopAnimating];
+            
+            NSLog(@"Gamer: %@", self.one.fullName);
+            [self.tableView reloadData];
+        }];
+    }];
     
 //    [self.networkController checkProfileText:@"Film Publicist"];
 //    [[NetworkController sharedController] createDictionary];
@@ -59,15 +71,27 @@
     //    NSLog(@"%@", array);
     //    NSLog(@"Count: %lu", (unsigned long)array.count);
     
-    self.feedArray = [NSMutableArray new];
-    
-    self.feedArray = self.one.connectionIDArray;
+
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    self.spinner.center = self.tableView.center; //set some center
+    [self.tableView addSubview: self.spinner];
+    [self.tableView bringSubviewToFront: self.spinner];
+    self.spinner.hidesWhenStopped = YES;
+    self.spinner.hidden = NO;
+    [self.spinner startAnimating];
+//    stateGauges = [[GaugeList alloc] initWithStateIdentifier:stateIdentifier andType:nil];
+//    [self.tableView reloadData];
+//    [spinner stopAnimating];
 }
 
 - (void)didReceiveMemoryWarning
