@@ -219,7 +219,7 @@
 }
 
 -(void)loadUserInfo {
-    self.userInfoView = [[UserInfoView alloc] initWithFrame:CGRectMake(0, 568, 320, 100)];
+    self.userInfoView = [[UserInfoView alloc] initWithFrame:CGRectMake(0, 568, 320, 170)];
     [scrollView addSubview:self.userInfoView];
     
 //    UILabel *userInfoLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 128, 21)];

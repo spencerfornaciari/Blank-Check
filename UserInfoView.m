@@ -29,6 +29,17 @@
         self.educationLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:17.0];
         [self addSubview:self.educationLabel];
         
+        self.linkedinButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        CGRect linkedRect = CGRectMake(40, self.bounds.origin.y + self.frame.size.height - 70, 240, 50);
+        self.linkedinButton.frame = linkedRect;
+        [self.linkedinButton addTarget:self action:@selector(LinkedInAction) forControlEvents:UIControlEventTouchUpInside];
+        [self.linkedinButton setTitle:@"See LinkedIn Summary" forState:UIControlStateNormal];
+        self.linkedinButton.layer.borderWidth = 1.0;
+        self.linkedinButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:17.0];
+        [self.linkedinButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        self.linkedinButton.layer.borderColor = [UIColor blackColor].CGColor;
+        [self addSubview:self.linkedinButton];
+        
         //        self.profileImage.frame = CGRectMake(10, 10, 40, 40);
 //        self.profileImage.backgroundColor = [UIColor purpleColor];
 //        [self addSubview:self.profileImage];
@@ -41,6 +52,10 @@
     }
     
     return nil;
+}
+
+-(void)LinkedInAction {
+    NSLog(@"LINKEDIN");
 }
 
 @end

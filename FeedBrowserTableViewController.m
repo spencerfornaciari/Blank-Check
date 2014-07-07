@@ -24,6 +24,8 @@
 
 @property (nonatomic) LoadingView *loadingView;
 
+@property (nonatomic) BOOL downloadingUserData;
+
 @end
 
 @implementation FeedBrowserTableViewController
@@ -33,24 +35,32 @@
     [super viewDidLoad];
     self.title = @"Blank Check Labs";
     
+    self.downloadingUserData = FALSE;
+    
     self.operationQueue = [(AppDelegate *)[[UIApplication sharedApplication] delegate] blankQueue];
     
-    [self.operationQueue addOperationWithBlock:^{
-        self.one = [[NetworkController sharedController] loadCurrentUserData];
-        
-        self.appDelegate = [[UIApplication sharedApplication] delegate];
-        self.appDelegate.gamer = self.one;
-        
-        self.feedArray = [NSMutableArray new];
-        self.feedArray = self.one.connectionIDArray;
-        
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            [self.loadingView.activityIndicator stopAnimating];
-            [self.loadingView removeFromSuperview];
+    if (!self.one && self.downloadingUserData == FALSE) {
+        [self.operationQueue addOperationWithBlock:^{
+            self.one = [[NetworkController sharedController] loadCurrentUserData];
             
-            [self.tableView reloadData];
+            self.appDelegate = [[UIApplication sharedApplication] delegate];
+            self.appDelegate.gamer = self.one;
+            
+            self.feedArray = [NSMutableArray new];
+            self.feedArray = self.one.connectionIDArray;
+            
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                [self.loadingView.activityIndicator stopAnimating];
+                [self.loadingView removeFromSuperview];
+                
+                [self.tableView reloadData];
+            }];
         }];
-    }];
+    } else {
+        
+    }
+    
+    
     
 //    [self.networkController checkProfileText:@"Film Publicist"];
 //    [[NetworkController sharedController] createDictionary];
@@ -85,16 +95,25 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    self.loadingView = [[LoadingView alloc] initWithFrame:CGRectMake(160,320,100,100)];
-    self.loadingView.center = CGPointMake(self.view.center.x, self.view.center.y - 65);
-    self.loadingView.layer.zPosition = 2;
-    [self.tableView addSubview:self.loadingView];
-    [self.tableView bringSubviewToFront:self.loadingView];
+    if (!self.downloadingUserData) {
+        self.downloadingUserData = TRUE;
+        self.loadingView = [[LoadingView alloc] initWithFrame:CGRectMake(160,320,100,100)];
+        self.loadingView.center = CGPointMake(self.view.center.x, self.view.center.y - 65);
+        self.loadingView.layer.zPosition = 2;
+        [self.tableView addSubview:self.loadingView];
+        [self.tableView bringSubviewToFront:self.loadingView];
+        
+        self.loadingView.activityIndicator.hidesWhenStopped = TRUE;
+        self.loadingView.activityIndicator.hidden = FALSE;
+        [self.loadingView.activityIndicator startAnimating];
+    } else {
+        
+    }
+    
 
-    self.loadingView.activityIndicator.hidesWhenStopped = TRUE;
-    self.loadingView.activityIndicator.hidden = FALSE;
-    [self.loadingView.activityIndicator startAnimating];
 }
+
+//-
 
 - (void)didReceiveMemoryWarning
 {

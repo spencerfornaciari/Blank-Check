@@ -515,7 +515,7 @@
     
     NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableContainers error:&error];
     
-    NSArray *entityArray = [dictionary objectForKey:@"entity_list"];
+//    NSArray *entityArray = [dictionary objectForKey:@"entity_list"];
     NSArray *conceptArray = [dictionary objectForKey:@"concept_list"];
     
     NSLog(@"%@", conceptArray);

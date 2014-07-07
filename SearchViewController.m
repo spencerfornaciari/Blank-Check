@@ -65,7 +65,7 @@
         
         if ([self.scopeString isEqualToString:@"Name"]) {
             cell.textLabel.text = gamer.fullName;
-            cell.detailTextLabel.text = @"NAME";
+//            cell.detailTextLabel.text = @"NAME";
         } else if ([self.scopeString isEqualToString:@"Title"]) {
             cell.textLabel.text = gamer.fullName;
             cell.detailTextLabel.text = [gamer.currentPositionArray[0] title];
