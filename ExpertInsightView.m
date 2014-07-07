@@ -15,19 +15,24 @@
         self.frame = frame;
         self.backgroundColor = [UIColor whiteColor];
         
-        self.profileImage = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 100, 100)];
+        UILabel *expertLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 206, 21)];
+        expertLabel.text = @"EXPERT INSIGHTS";
+        expertLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0];
+        [self addSubview:expertLabel];
+        
+        self.profileImage = [[UIImageView alloc] initWithFrame:CGRectMake(10, 40, 100, 100)];
         self.profileImage.image = [UIImage imageNamed:@"default-user"];
         [self addSubview:self.profileImage];
 
-        self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(150, 10, 170, 20)];
+        self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(125, 40, 170, 20)];
         self.nameLabel.text = @"Johnny Appleseed";
         [self addSubview:self.nameLabel];
         
-        self.positionLabel = [[UILabel alloc] initWithFrame:CGRectMake(150, 40, 170, 20)];
+        self.positionLabel = [[UILabel alloc] initWithFrame:CGRectMake(125, 70, 170, 20)];
         self.positionLabel.text = @"President, Apple Inc.";
         [self addSubview:self.positionLabel];
         
-        self.locationLabel = [[UILabel alloc] initWithFrame:CGRectMake(150, 70, 170, 20)];
+        self.locationLabel = [[UILabel alloc] initWithFrame:CGRectMake(125, 100, 170, 20)];
         self.locationLabel.text = @"Cupertino, CA";
         [self addSubview:self.locationLabel];
         

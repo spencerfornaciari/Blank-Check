@@ -22,6 +22,7 @@
 		89779DF619648ABC00AC81CA /* TimelineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89779DF519648ABC00AC81CA /* TimelineView.m */; };
 		89779DF919648ACF00AC81CA /* ExpertAppraisalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89779DF819648ACF00AC81CA /* ExpertAppraisalView.m */; };
 		89779E0A1965DCF700AC81CA /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89779E091965DCF700AC81CA /* SearchViewController.m */; };
+		89779E13196B12F600AC81CA /* LoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89779E12196B12F600AC81CA /* LoadingView.m */; };
 		8978FBCB193E562600BF0921 /* OldSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8978FBCA193E562600BF0921 /* OldSearchViewController.m */; };
 		897F02321958A4B200A770A6 /* DetailScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 897F02311958A4B200A770A6 /* DetailScrollViewController.m */; };
 		897F02351958E8D000A770A6 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 897F02341958E8D000A770A6 /* LoginViewController.m */; };
@@ -91,6 +92,8 @@
 		89779DF819648ACF00AC81CA /* ExpertAppraisalView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ExpertAppraisalView.m; path = ../ExpertAppraisalView.m; sourceTree = "<group>"; };
 		89779E081965DCF700AC81CA /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchViewController.h; path = ../SearchViewController.h; sourceTree = "<group>"; };
 		89779E091965DCF700AC81CA /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchViewController.m; path = ../SearchViewController.m; sourceTree = "<group>"; };
+		89779E11196B12F600AC81CA /* LoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoadingView.h; path = ../LoadingView.h; sourceTree = "<group>"; };
+		89779E12196B12F600AC81CA /* LoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoadingView.m; path = ../LoadingView.m; sourceTree = "<group>"; };
 		8978FBC9193E562600BF0921 /* OldSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OldSearchViewController.h; path = ../OldSearchViewController.h; sourceTree = "<group>"; };
 		8978FBCA193E562600BF0921 /* OldSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OldSearchViewController.m; path = ../OldSearchViewController.m; sourceTree = "<group>"; };
 		897F02301958A4B200A770A6 /* DetailScrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DetailScrollViewController.h; path = ../DetailScrollViewController.h; sourceTree = "<group>"; };
@@ -258,6 +261,8 @@
 		89C973F01925797700EC6004 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				89779E11196B12F600AC81CA /* LoadingView.h */,
+				89779E12196B12F600AC81CA /* LoadingView.m */,
 				89779DF719648ACF00AC81CA /* ExpertAppraisalView.h */,
 				89779DF819648ACF00AC81CA /* ExpertAppraisalView.m */,
 				89779DF419648ABC00AC81CA /* TimelineView.h */,
@@ -417,6 +422,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8910F3261937AD8200955812 /* Gamer.m in Sources */,
+				89779E13196B12F600AC81CA /* LoadingView.m in Sources */,
 				897F02351958E8D000A770A6 /* LoginViewController.m in Sources */,
 				89779DF619648ABC00AC81CA /* TimelineView.m in Sources */,
 				89779DF0196488E600AC81CA /* ExpertInsightView.m in Sources */,

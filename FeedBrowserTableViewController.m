@@ -12,6 +12,7 @@
 #import "FeedTableViewCell.h"
 #import "NetworkController.h"
 #import "Gamer.h"
+#import "LoadingView.h"
 
 @interface FeedBrowserTableViewController ()
 
@@ -20,7 +21,8 @@
 
 @property (nonatomic) NSOperationQueue *operationQueue;
 @property (nonatomic) AppDelegate *appDelegate;
-@property (nonatomic) UIActivityIndicatorView *spinner;
+
+@property (nonatomic) LoadingView *loadingView;
 
 @end
 
@@ -43,9 +45,9 @@
         self.feedArray = self.one.connectionIDArray;
         
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            [self.spinner stopAnimating];
+            [self.loadingView.activityIndicator stopAnimating];
+            [self.loadingView removeFromSuperview];
             
-            NSLog(@"Gamer: %@", self.one.fullName);
             [self.tableView reloadData];
         }];
     }];
@@ -82,16 +84,16 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    self.spinner.center = self.tableView.center; //set some center
-    [self.tableView addSubview: self.spinner];
-    [self.tableView bringSubviewToFront: self.spinner];
-    self.spinner.hidesWhenStopped = YES;
-    self.spinner.hidden = NO;
-    [self.spinner startAnimating];
-//    stateGauges = [[GaugeList alloc] initWithStateIdentifier:stateIdentifier andType:nil];
-//    [self.tableView reloadData];
-//    [spinner stopAnimating];
+    
+    self.loadingView = [[LoadingView alloc] initWithFrame:CGRectMake(160,320,100,100)];
+    self.loadingView.center = CGPointMake(self.view.center.x, self.view.center.y - 65);
+    self.loadingView.layer.zPosition = 2;
+    [self.tableView addSubview:self.loadingView];
+    [self.tableView bringSubviewToFront:self.loadingView];
+
+    self.loadingView.activityIndicator.hidesWhenStopped = TRUE;
+    self.loadingView.activityIndicator.hidden = FALSE;
+    [self.loadingView.activityIndicator startAnimating];
 }
 
 - (void)didReceiveMemoryWarning

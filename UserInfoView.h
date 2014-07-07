@@ -10,8 +10,10 @@
 
 @interface UserInfoView : UIView
 
-@property (nonatomic) UIImageView *profileImage;
-@property (nonatomic) UILabel *nameLabel;
+@property (nonatomic) UILabel *workExperienceLabel;
+@property (nonatomic) UILabel *educationLabel;
+
+@property (nonatomic) UIButton *linkedinButton;
 
 -(id)initWithFrame:(CGRect)frame;
 

@@ -347,7 +347,6 @@
         for (NSDictionary *positionDictionary in connectionPositionArray) {
             Position *position = [Position new];
             
-            
             position.isCurrent = [positionDictionary[@"isCurrent"] integerValue];
             
             NSDictionary *company = positionDictionary[@"company"];
@@ -385,18 +384,11 @@
     NSSortDescriptor *nameDescriptor = [[NSSortDescriptor alloc] initWithKey:@"lastName" ascending:YES];
     NSArray *sortDescriptors = [NSArray arrayWithObject:nameDescriptor];
     NSArray *sortedArray = [gamer.connectionIDArray sortedArrayUsingDescriptors:sortDescriptors];
-        
-//  NSArray *sortedArray = [NSArray arrayWithArray:[gamer.connectionIDArray sortUsingDescriptors:@[sortDescriptor]]];
     
     gamer.connectionIDArray = [sortedArray mutableCopy];
     
-
-    NSLog(@"END OF LOAD CURRENT USER");
-    
     return gamer;
 
-    
-    
 }
 
 

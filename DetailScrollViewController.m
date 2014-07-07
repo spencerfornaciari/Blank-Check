@@ -11,7 +11,9 @@
 
 @interface DetailScrollViewController ()
 
-@property (nonatomic) UIView *overView, *userInfoView, *expertInsightsView, *timelineView, *expertAppraisalView;
+@property (nonatomic) UIView *overView, *timelineView, *expertAppraisalView;
+@property (nonatomic) UserInfoView *userInfoView;
+@property (nonatomic) ExpertInsightView *expertInsightsView;
 
 @end
 
@@ -31,7 +33,7 @@
     [self loadUserInfo];
     [self loadExpertInsights];
     [self loadTimeLine];
-    [self loadExpertAppraisal];
+//    [self loadExpertAppraisal];
     
     [self addButtonMenu];
     
@@ -217,11 +219,8 @@
 }
 
 -(void)loadUserInfo {
-    self.userInfoView = [[UIView alloc] initWithFrame:CGRectMake(0, 568, 320, 320)];
+    self.userInfoView = [[UserInfoView alloc] initWithFrame:CGRectMake(0, 568, 320, 100)];
     [scrollView addSubview:self.userInfoView];
-    
-    UserInfoView *infoView = [[UserInfoView alloc] initWithFrame:CGRectMake(0, 0, 320, 320)];
-    [self.userInfoView addSubview:infoView];
     
 //    UILabel *userInfoLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 128, 21)];
 //    userInfoLabel.text = @"USER INFO";
@@ -243,27 +242,18 @@
 }
 
 -(void)loadExpertInsights {
-    self.expertInsightsView = [[UIView alloc] initWithFrame:CGRectMake(0, self.userInfoView.frame.origin.y + self.userInfoView.frame.size.height, 320, 320)];
+    self.expertInsightsView = [[ExpertInsightView alloc] initWithFrame:CGRectMake(0, self.userInfoView.frame.origin.y + self.userInfoView.frame.size.height, 320, 320)];
     [scrollView addSubview:self.expertInsightsView];
-    
-    NSLog(@"Expert Insight Y: %f", self.expertInsightsView.frame.origin.y + self.expertInsightsView.frame.size.height);
-
-
-//    UILabel *expertLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 206, 21)];
-//    expertLabel.text = @"EXPERT INSIGHTS";
-//    expertLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0];
-//    expertLabel.textColor = [UIColor blackColor];
-//    [expertInsightsView addSubview:expertLabel];
-    
-    ExpertInsightView *insightView = [[ExpertInsightView alloc] initWithFrame:CGRectMake(0, 0, 320, 320)];
-    [self.expertInsightsView addSubview:insightView];
     
     
 }
 
 -(void)loadTimeLine {
-    self.timelineView = [[UIView alloc] initWithFrame:CGRectMake(0, self.expertInsightsView.frame.origin.y + self.expertInsightsView.frame.size.height, 320, 320)];
-    [scrollView addSubview:self.timelineView];
+//    self.timelineView = [[UIView alloc] initWithFrame:CGRectMake(0, self.expertInsightsView.frame.origin.y + self.expertInsightsView.frame.size.height, 320, 320)];
+//    [scrollView addSubview:self.timelineView];
+    
+    TimelineView *timelineView = [[TimelineView alloc] initWithFrame:CGRectMake(0, self.expertInsightsView.frame.origin.y + self.expertInsightsView.frame.size.height, 320, 320)];
+    [scrollView addSubview:timelineView];
     
     NSLog(@"Timeline Y: %f", self.timelineView.frame.origin.y);
     
@@ -290,8 +280,8 @@
     //    expertLabel.textColor = [UIColor blackColor];
     //    [expertInsightsView addSubview:expertLabel];
     
-//    ExpertAppraisalView *expertView = [[ExpertAppraisalView alloc] initWithFrame:CGRectMake(0, 0, 320, 320)];
-//    [self.timelineView addSubview:expertView];
+    ExpertAppraisalView *expertView = [[ExpertAppraisalView alloc] initWithFrame:CGRectMake(0, 0, 320, 320)];
+    [self.timelineView addSubview:expertView];
 }
 
 
