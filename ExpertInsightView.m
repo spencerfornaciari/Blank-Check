@@ -28,11 +28,11 @@
         self.positionLabel.text = insight.position;
         [self addSubview:self.positionLabel];
         
-        self.positionLabel = [[UILabel alloc] initWithFrame:CGRectMake(125, 40, 170, 20)];
-        self.positionLabel.text = insight.company;
-        [self addSubview:self.positionLabel];
+        self.companyLabel = [[UILabel alloc] initWithFrame:CGRectMake(125, 35, 170, 20)];
+        self.companyLabel.text = insight.company;
+        [self addSubview:self.companyLabel];
         
-        self.locationLabel = [[UILabel alloc] initWithFrame:CGRectMake(125, 70, 170, 20)];
+        self.locationLabel = [[UILabel alloc] initWithFrame:CGRectMake(125, 60, 170, 20)];
         self.locationLabel.text = insight.location;
         [self addSubview:self.locationLabel];
         

@@ -16,6 +16,7 @@
         self.firstName = @"Jane";
         self.lastName = @"Beeman";
         self.position = @"Recruiter";
+        self.company = @"Siemens";
         self.location = @"Seattle, WA";
         
         self.profileImage = [UIImage imageNamed:@"default-user"];

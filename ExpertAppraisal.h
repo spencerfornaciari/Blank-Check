@@ -13,7 +13,9 @@
 @property (nonatomic) NSString *firstName;
 @property (nonatomic) NSString *lastName;
 @property (nonatomic) NSString *location;
+
 @property (nonatomic) NSString *position;
+@property (nonatomic) NSString *company;
 
 @property (nonatomic) UIImage *profileImage;
 

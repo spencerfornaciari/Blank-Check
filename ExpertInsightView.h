@@ -14,6 +14,7 @@
 @property (nonatomic) UIImageView *profileImage;
 @property (nonatomic) UILabel *nameLabel;
 @property (nonatomic) UILabel *positionLabel;
+@property (nonatomic) UILabel *companyLabel;
 @property (nonatomic) UILabel *locationLabel;
 @property (nonatomic) UILabel *commentLabel;
 

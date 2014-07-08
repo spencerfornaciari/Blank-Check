@@ -33,7 +33,7 @@
     [self loadUserInfo];
     [self loadExpertInsights];
     [self loadTimeLine];
-//    [self loadExpertAppraisal];
+    [self loadExpertAppraisal];
     
     [self addButtonMenu];
     
@@ -54,7 +54,9 @@
     NSString *firstLetter = [self.gamer.lastName substringWithRange:NSMakeRange(0, 1)];
     
     userNameLabel.text = [NSString stringWithFormat:@"%@ %@.", self.gamer.firstName, firstLetter];
+//    userNameLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:20.0];
     valueLabel.text = [NSString stringWithFormat:@"$%@", [self.gamer.valueArray lastObject]];
+//    valueLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:17.0];
     
 }
 
@@ -116,11 +118,23 @@
     [followButton addTarget:self action:@selector(followAction) forControlEvents:UIControlEventTouchUpInside];
     [scrollView addSubview:followButton];
     
+    UILabel *followLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 561, 56, 21)];
+    followLabel.text = @"Follow";
+    followLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:11.0];
+    followLabel.textAlignment = NSTextAlignmentCenter;
+    [scrollView addSubview:followLabel];
+    
     UIButton *outButton = [UIButton buttonWithType:UIButtonTypeCustom];
     outButton.frame = CGRectMake(76, 500, 56, 56);
     [outButton setImage:[UIImage imageNamed:@"Social-Share"] forState:UIControlStateNormal];
     [outButton addTarget:self action:@selector(outAction) forControlEvents:UIControlEventTouchUpInside];
     [scrollView addSubview:outButton];
+    
+    UILabel *outLabel = [[UILabel alloc] initWithFrame:CGRectMake(76, 561, 56, 21)];
+    outLabel.text = @"X-Out";
+    outLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:11.0];
+    outLabel.textAlignment = NSTextAlignmentCenter;
+    [scrollView addSubview:outLabel];
     
     UIButton *noteButton = [UIButton buttonWithType:UIButtonTypeCustom];
     noteButton.frame = CGRectMake(132, 500, 56, 56);
@@ -128,17 +142,35 @@
     [noteButton addTarget:self action:@selector(noteAction) forControlEvents:UIControlEventTouchUpInside];
     [scrollView addSubview:noteButton];
     
+    UILabel *noteLabel = [[UILabel alloc] initWithFrame:CGRectMake(132, 561, 56, 21)];
+    noteLabel.text = @"Note";
+    noteLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:11.0];
+    noteLabel.textAlignment = NSTextAlignmentCenter;
+    [scrollView addSubview:noteLabel];
+    
     UIButton *shareButton = [UIButton buttonWithType:UIButtonTypeCustom];
     shareButton.frame = CGRectMake(188, 500, 56, 56);
     [shareButton setImage:[UIImage imageNamed:@"Social-Share"] forState:UIControlStateNormal];
     [shareButton addTarget:self action:@selector(shareAction) forControlEvents:UIControlEventTouchUpInside];
     [scrollView addSubview:shareButton];
     
+    UILabel *shareLabel = [[UILabel alloc] initWithFrame:CGRectMake(188, 561, 56, 21)];
+    shareLabel.text = @"Share";
+    shareLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:11.0];
+    shareLabel.textAlignment = NSTextAlignmentCenter;
+    [scrollView addSubview:shareLabel];
+    
     UIButton *findSimilarButton = [UIButton buttonWithType:UIButtonTypeCustom];
     findSimilarButton.frame = CGRectMake(244, 500, 56, 56);
     [findSimilarButton setImage:[UIImage imageNamed:@"Social-Share"] forState:UIControlStateNormal];
     [findSimilarButton addTarget:self action:@selector(findSimilarAction) forControlEvents:UIControlEventTouchUpInside];
     [scrollView addSubview:findSimilarButton];
+    
+    UILabel *findSimilarLabel = [[UILabel alloc] initWithFrame:CGRectMake(244, 561, 60, 21)];
+    findSimilarLabel.text = @"Find Similar";
+    findSimilarLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:11.0];
+    findSimilarLabel.textAlignment = NSTextAlignmentCenter;
+    [scrollView addSubview:findSimilarLabel];
 }
 
 -(void)followAction {
@@ -166,7 +198,7 @@
     self.gamer.invitationSent = TRUE;
     [self.overView removeFromSuperview];
 //    self.view.frame = CGRectMake(0, 0, 320, 1500);
-    [scrollView setContentSize:CGSizeMake(320, 2000)];
+    [scrollView setContentSize:CGSizeMake(320, 1340)];
 }
 
 - (NSString *)documentsDirectoryPath
@@ -219,7 +251,7 @@
 }
 
 -(void)loadUserInfo {
-    self.userInfoView = [[UserInfoView alloc] initWithFrame:CGRectMake(0, 568, 320, 170)];
+    self.userInfoView = [[UserInfoView alloc] initWithFrame:CGRectMake(0, 600, 320, 170)];
     [scrollView addSubview:self.userInfoView];
     
 //    UILabel *userInfoLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 128, 21)];
@@ -243,7 +275,7 @@
 
 -(void)loadExpertInsights {
     
-    self.expertInsightsView = [[UIView alloc] initWithFrame:CGRectMake(0, self.userInfoView.frame.origin.y + self.userInfoView.frame.size.height, 320, 320)];
+    self.expertInsightsView = [[UIView alloc] initWithFrame:CGRectMake(0, self.userInfoView.frame.origin.y + self.userInfoView.frame.size.height, 320, 280)];
     [scrollView addSubview:self.expertInsightsView];
     
     UILabel *expertLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 206, 21)];
@@ -253,14 +285,14 @@
     
     ExpertInsight *model = [ExpertInsight new];
     
-    ExpertInsightView *expert = [[ExpertInsightView alloc] initWithFrame:CGRectMake(0, 40, 320, 320) andExpertInsight:model];
+    ExpertInsightView *expert = [[ExpertInsightView alloc] initWithFrame:CGRectMake(0, 40, 320, 240) andExpertInsight:model];
     [self.expertInsightsView addSubview:expert];
     
     
 }
 
 -(void)loadTimeLine {
-    self.timelineView = [[UIView alloc] initWithFrame:CGRectMake(0, self.expertInsightsView.frame.origin.y + self.expertInsightsView.frame.size.height, 320, 320)];
+    self.timelineView = [[UIView alloc] initWithFrame:CGRectMake(0, self.expertInsightsView.frame.origin.y + self.expertInsightsView.frame.size.height, 320, 130)];
     [scrollView addSubview:self.timelineView];
     
     UILabel *timelineLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 206, 21)];
@@ -281,8 +313,6 @@
     
     NSString *stringDate2 = @"12/13/2013";
     
-    
-
     
     TimelineView *timelineView = [[TimelineView alloc] initWithFrame:CGRectMake(0, 60, 320, 30) andTimelineEvent:event];
     [self.timelineView addSubview:timelineView];
@@ -307,17 +337,19 @@
 }
 
 -(void)loadExpertAppraisal {
-    self.expertAppraisalView = [[UIView alloc] initWithFrame:CGRectMake(0, 2000, 320, 320)];
+    self.expertAppraisalView = [[UIView alloc] initWithFrame:CGRectMake(0, self.timelineView.frame.origin.y + self.timelineView.frame.size.height, 320, 200)];
     [scrollView addSubview:self.expertAppraisalView];
     
-    //    UILabel *expertLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 206, 21)];
-    //    expertLabel.text = @"EXPERT INSIGHTS";
-    //    expertLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0];
-    //    expertLabel.textColor = [UIColor blackColor];
-    //    [expertInsightsView addSubview:expertLabel];
+    UILabel *expertLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 206, 21)];
+    expertLabel.text = @"EXPERT APPRAISALS";
+    expertLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0];
+    expertLabel.textColor = [UIColor blackColor];
+    [self.expertAppraisalView addSubview:expertLabel];
     
-    ExpertAppraisalView *expertView = [[ExpertAppraisalView alloc] initWithFrame:CGRectMake(0, 0, 320, 320)];
-    [self.timelineView addSubview:expertView];
+    ExpertAppraisal *appraisal = [[ExpertAppraisal alloc] init];
+    
+    ExpertAppraisalView *expertView = [[ExpertAppraisalView alloc] initWithFrame:CGRectMake(0, 30, 320, 200) andExpertAppraiser:appraisal];
+    [self.expertAppraisalView addSubview:expertView];
 }
 
 
