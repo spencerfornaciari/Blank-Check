@@ -62,4 +62,7 @@
 //Detail Page Information
 @property (nonatomic) NSMutableArray *expertInsightsArray;
 
++(NSString *)documentsDirectoryPath;
++(NSString *)gamerPath;
+
 @end

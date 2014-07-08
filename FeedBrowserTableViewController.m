@@ -39,27 +39,60 @@
     
     self.operationQueue = [(AppDelegate *)[[UIApplication sharedApplication] delegate] blankQueue];
     
-    if (!self.one && self.downloadingUserData == FALSE) {
-        [self.operationQueue addOperationWithBlock:^{
-            self.one = [[NetworkController sharedController] loadCurrentUserData];
-            
-            self.appDelegate = [[UIApplication sharedApplication] delegate];
-            self.appDelegate.gamer = self.one;
-            
-            self.feedArray = [NSMutableArray new];
-            self.feedArray = self.one.connectionIDArray;
-            
-            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                [self.loadingView.activityIndicator stopAnimating];
-                [self.loadingView removeFromSuperview];
-                
-                [self.tableView reloadData];
-            }];
-        }];
-    } else {
+    if ([self doesGamerExist]) {
+        self.downloadingUserData = TRUE;
+        self.one = [NSKeyedUnarchiver unarchiveObjectWithFile:[Gamer gamerPath]];
         
+        self.appDelegate = [[UIApplication sharedApplication] delegate];
+        self.appDelegate.gamer = self.one;
+        
+        self.feedArray = [NSMutableArray new];
+        self.feedArray = self.one.connectionIDArray;
+    } else {
+        if (!self.one && self.downloadingUserData == FALSE) {
+            [self.operationQueue addOperationWithBlock:^{
+                self.one = [[NetworkController sharedController] loadCurrentUserData];
+                
+                [NSKeyedArchiver archiveRootObject:self.one toFile:[Gamer gamerPath]];
+                
+                self.appDelegate = [[UIApplication sharedApplication] delegate];
+                self.appDelegate.gamer = self.one;
+                
+                self.feedArray = [NSMutableArray new];
+                self.feedArray = self.one.connectionIDArray;
+                
+                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                    [self.loadingView.activityIndicator stopAnimating];
+                    [self.loadingView removeFromSuperview];
+                    
+                    [self.tableView reloadData];
+                }];
+            }];
+        } else {
+            
+        }
     }
     
+    
+//    [NSKeyedArchiver archiveRootObject:self.one toFile:[Gamer gamerPath]];
+    
+//    Gamer *gamerNew = [NSKeyedUnarchiver unarchiveObjectWithFile:[Gamer gamerPath]];
+//    
+//    NSLog(@"Full name: %@", gamerNew.fullName);
+//    
+//    NSLog(@"Full name: %@", gamerNew.imageLocalLocation);
+//    NSLog(@"Connection Count: %lu", (unsigned long)gamerNew.connectionIDArray.count);
+    
+    
+//    if (self.one) {
+//        if (!self.seenController.seenArray)
+//        {
+//            self.seenController.seenArray = [NSMutableArray new];
+//        }
+//        
+//        [self.seenController.seenArray addObject:film];
+//        [NSKeyedArchiver archiveRootObject:self.seenController.seenArray toFile:_seenItPath];
+//    
     
     
 //    [self.networkController checkProfileText:@"Film Publicist"];
@@ -206,5 +239,14 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+-(BOOL)doesGamerExist
+{
+    if (![[NSFileManager defaultManager] fileExistsAtPath:[Gamer gamerPath]]) {
+        return FALSE;
+    } else {
+        return TRUE;
+    }
+}
 
 @end

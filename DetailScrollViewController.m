@@ -13,7 +13,6 @@
 
 @property (nonatomic) UIView *overView, *expertInsightsView, *timelineView, *expertAppraisalView;
 @property (nonatomic) UserInfoView *userInfoView;
-//@property (nonatomic) ExpertInsightView *expertInsightsView;
 
 @end
 
