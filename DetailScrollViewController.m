@@ -11,9 +11,9 @@
 
 @interface DetailScrollViewController ()
 
-@property (nonatomic) UIView *overView, *timelineView, *expertAppraisalView;
+@property (nonatomic) UIView *overView, *expertInsightsView, *timelineView, *expertAppraisalView;
 @property (nonatomic) UserInfoView *userInfoView;
-@property (nonatomic) ExpertInsightView *expertInsightsView;
+//@property (nonatomic) ExpertInsightView *expertInsightsView;
 
 @end
 
@@ -242,18 +242,59 @@
 }
 
 -(void)loadExpertInsights {
-    self.expertInsightsView = [[ExpertInsightView alloc] initWithFrame:CGRectMake(0, self.userInfoView.frame.origin.y + self.userInfoView.frame.size.height, 320, 320)];
+    
+    self.expertInsightsView = [[UIView alloc] initWithFrame:CGRectMake(0, self.userInfoView.frame.origin.y + self.userInfoView.frame.size.height, 320, 320)];
     [scrollView addSubview:self.expertInsightsView];
+    
+    UILabel *expertLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 206, 21)];
+    expertLabel.text = @"EXPERT INSIGHTS";
+    expertLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0];
+    [self.expertInsightsView addSubview:expertLabel];
+    
+    ExpertInsight *model = [ExpertInsight new];
+    
+    ExpertInsightView *expert = [[ExpertInsightView alloc] initWithFrame:CGRectMake(0, 40, 320, 320) andExpertInsight:model];
+    [self.expertInsightsView addSubview:expert];
     
     
 }
 
 -(void)loadTimeLine {
-//    self.timelineView = [[UIView alloc] initWithFrame:CGRectMake(0, self.expertInsightsView.frame.origin.y + self.expertInsightsView.frame.size.height, 320, 320)];
-//    [scrollView addSubview:self.timelineView];
+    self.timelineView = [[UIView alloc] initWithFrame:CGRectMake(0, self.expertInsightsView.frame.origin.y + self.expertInsightsView.frame.size.height, 320, 320)];
+    [scrollView addSubview:self.timelineView];
     
-    TimelineView *timelineView = [[TimelineView alloc] initWithFrame:CGRectMake(0, self.expertInsightsView.frame.origin.y + self.expertInsightsView.frame.size.height, 320, 320)];
-    [scrollView addSubview:timelineView];
+    UILabel *timelineLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 206, 21)];
+    timelineLabel.text = @"TIMELINE";
+    timelineLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0];
+    [self.timelineView addSubview:timelineLabel];
+    
+    UILabel *headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 30, 280, 21)];
+    headerLabel.text = [NSString stringWithFormat:@"Date\t\tEvent\t\tSalary Change"];
+    headerLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:16.0];
+    [self.timelineView addSubview:headerLabel];
+    
+    NSString *stringDate = @"6/15/2012";
+    NSDateFormatter *dateFormat = [NSDateFormatter new];
+    dateFormat.dateStyle = NSDateFormatterShortStyle;
+    
+    TimelineEvent *event = [[TimelineEvent alloc] initWithEvent:@"College Degree" onDate:[dateFormat dateFromString:stringDate] withChange:20000];
+    
+    NSString *stringDate2 = @"12/13/2013";
+    
+    
+
+    
+    TimelineView *timelineView = [[TimelineView alloc] initWithFrame:CGRectMake(0, 60, 320, 30) andTimelineEvent:event];
+    [self.timelineView addSubview:timelineView];
+    
+    TimelineEvent *event2 = [[TimelineEvent alloc] initWithEvent:@"iOS Certification" onDate:[dateFormat dateFromString:stringDate2] withChange:-10000];
+    
+    TimelineView *timelineView2 = [[TimelineView alloc] initWithFrame:CGRectMake(0, 90, 320, 30) andTimelineEvent:event2];
+    [self.timelineView addSubview:timelineView2];
+    
+    
+//    TimelineView *timelineView = [[TimelineView alloc] initWithFrame:CGRectMake(0, self.expertInsightsView.frame.origin.y + self.expertInsightsView.frame.size.height, 320, 320)];
+//    [scrollView addSubview:timelineView];
     
 //    UILabel *expertLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 206, 21)];
 //    expertLabel.text = @"EXPERT INSIGHTS";
@@ -261,8 +302,8 @@
 //    expertLabel.textColor = [UIColor blackColor];
 //    [expertInsightsView addSubview:expertLabel];
     
-    TimelineView *timeline = [[TimelineView alloc] initWithFrame:CGRectMake(0, 0, 320, 320)];
-    [self.timelineView addSubview:timeline];
+//    TimelineView *timeline = [[TimelineView alloc] initWithFrame:CGRectMake(0, 0, 320, 320)];
+//    [self.timelineView addSubview:timeline];
 }
 
 -(void)loadExpertAppraisal {

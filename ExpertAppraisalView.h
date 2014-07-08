@@ -7,11 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ExpertAppraisal.h"
 
 @interface ExpertAppraisalView : UIView
 
 @property (nonatomic) UIImageView *profileImage;
 @property (nonatomic) UILabel *nameLabel;
+@property (nonatomic) UILabel *locationLabel;
+@property (nonatomic) UILabel *positionLabel;
+
+@property (nonatomic) UIButton *getEstimateButton;
 
 -(id)initWithFrame:(CGRect)frame;
 

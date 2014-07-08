@@ -23,6 +23,9 @@
 		89779DF919648ACF00AC81CA /* ExpertAppraisalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89779DF819648ACF00AC81CA /* ExpertAppraisalView.m */; };
 		89779E0A1965DCF700AC81CA /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89779E091965DCF700AC81CA /* SearchViewController.m */; };
 		89779E13196B12F600AC81CA /* LoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89779E12196B12F600AC81CA /* LoadingView.m */; };
+		89779E16196C52D900AC81CA /* ExpertInsight.m in Sources */ = {isa = PBXBuildFile; fileRef = 89779E15196C52D900AC81CA /* ExpertInsight.m */; };
+		89779E19196C530100AC81CA /* ExpertAppraisal.m in Sources */ = {isa = PBXBuildFile; fileRef = 89779E18196C530100AC81CA /* ExpertAppraisal.m */; };
+		89779E1C196C588C00AC81CA /* TimelineEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 89779E1B196C588C00AC81CA /* TimelineEvent.m */; };
 		8978FBCB193E562600BF0921 /* OldSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8978FBCA193E562600BF0921 /* OldSearchViewController.m */; };
 		897F02321958A4B200A770A6 /* DetailScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 897F02311958A4B200A770A6 /* DetailScrollViewController.m */; };
 		897F02351958E8D000A770A6 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 897F02341958E8D000A770A6 /* LoginViewController.m */; };
@@ -94,6 +97,12 @@
 		89779E091965DCF700AC81CA /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchViewController.m; path = ../SearchViewController.m; sourceTree = "<group>"; };
 		89779E11196B12F600AC81CA /* LoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoadingView.h; path = ../LoadingView.h; sourceTree = "<group>"; };
 		89779E12196B12F600AC81CA /* LoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoadingView.m; path = ../LoadingView.m; sourceTree = "<group>"; };
+		89779E14196C52D900AC81CA /* ExpertInsight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpertInsight.h; sourceTree = "<group>"; };
+		89779E15196C52D900AC81CA /* ExpertInsight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpertInsight.m; sourceTree = "<group>"; };
+		89779E17196C530100AC81CA /* ExpertAppraisal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpertAppraisal.h; sourceTree = "<group>"; };
+		89779E18196C530100AC81CA /* ExpertAppraisal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpertAppraisal.m; sourceTree = "<group>"; };
+		89779E1A196C588C00AC81CA /* TimelineEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimelineEvent.h; sourceTree = "<group>"; };
+		89779E1B196C588C00AC81CA /* TimelineEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimelineEvent.m; sourceTree = "<group>"; };
 		8978FBC9193E562600BF0921 /* OldSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OldSearchViewController.h; path = ../OldSearchViewController.h; sourceTree = "<group>"; };
 		8978FBCA193E562600BF0921 /* OldSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OldSearchViewController.m; path = ../OldSearchViewController.m; sourceTree = "<group>"; };
 		897F02301958A4B200A770A6 /* DetailScrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DetailScrollViewController.h; path = ../DetailScrollViewController.h; sourceTree = "<group>"; };
@@ -177,6 +186,12 @@
 				8910F3281937ADB700955812 /* Education.m */,
 				8910F3241937AD8200955812 /* Gamer.h */,
 				8910F3251937AD8200955812 /* Gamer.m */,
+				89779E14196C52D900AC81CA /* ExpertInsight.h */,
+				89779E15196C52D900AC81CA /* ExpertInsight.m */,
+				89779E17196C530100AC81CA /* ExpertAppraisal.h */,
+				89779E18196C530100AC81CA /* ExpertAppraisal.m */,
+				89779E1A196C588C00AC81CA /* TimelineEvent.h */,
+				89779E1B196C588C00AC81CA /* TimelineEvent.m */,
 			);
 			name = Model;
 			path = ..;
@@ -422,9 +437,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				8910F3261937AD8200955812 /* Gamer.m in Sources */,
+				89779E19196C530100AC81CA /* ExpertAppraisal.m in Sources */,
 				89779E13196B12F600AC81CA /* LoadingView.m in Sources */,
 				897F02351958E8D000A770A6 /* LoginViewController.m in Sources */,
 				89779DF619648ABC00AC81CA /* TimelineView.m in Sources */,
+				89779E1C196C588C00AC81CA /* TimelineEvent.m in Sources */,
 				89779DF0196488E600AC81CA /* ExpertInsightView.m in Sources */,
 				89779DF919648ACF00AC81CA /* ExpertAppraisalView.m in Sources */,
 				89C973EB192565D800EC6004 /* Constants.m in Sources */,
@@ -450,6 +467,7 @@
 				8910F3291937ADB700955812 /* Education.m in Sources */,
 				89A1433B193FCCF300FDEC4F /* SideViewController.m in Sources */,
 				899616B919464DF600C75B99 /* LanguageProcessing.m in Sources */,
+				89779E16196C52D900AC81CA /* ExpertInsight.m in Sources */,
 				89779DF319648AAC00AC81CA /* UserInfoView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

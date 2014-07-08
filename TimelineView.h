@@ -7,12 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TimelineEvent.h"
 
 @interface TimelineView : UIView
 
 @property (nonatomic) UIImageView *profileImage;
 @property (nonatomic) UILabel *nameLabel;
 
--(id)initWithFrame:(CGRect)frame;
+-(id)initWithFrame:(CGRect)frame andTimelineEvent:(TimelineEvent *)event;
 
 @end

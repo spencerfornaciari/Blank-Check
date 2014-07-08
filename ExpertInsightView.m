@@ -10,31 +10,37 @@
 
 @implementation ExpertInsightView
 
--(id)initWithFrame:(CGRect)frame {
+-(id)initWithFrame:(CGRect)frame andExpertInsight:(ExpertInsight *)insight {
     if (self = [super initWithFrame:frame]) {
         self.frame = frame;
         self.backgroundColor = [UIColor whiteColor];
         
-        UILabel *expertLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 206, 21)];
-        expertLabel.text = @"EXPERT INSIGHTS";
-        expertLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0];
-        [self addSubview:expertLabel];
-        
-        self.profileImage = [[UIImageView alloc] initWithFrame:CGRectMake(10, 40, 100, 100)];
-        self.profileImage.image = [UIImage imageNamed:@"default-user"];
+        self.profileImage = [[UIImageView alloc] initWithFrame:CGRectMake(10, 0, 100, 100)];
+        self.profileImage.image = insight.profileImage;
         [self addSubview:self.profileImage];
 
-        self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(125, 40, 170, 20)];
-        self.nameLabel.text = @"Johnny Appleseed";
+        self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 105, 100, 20)];
+        self.nameLabel.text = [NSString stringWithFormat:@"%@ %@", insight.firstName, [insight.lastName substringWithRange:NSMakeRange(0, 1)]];
+        self.nameLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview:self.nameLabel];
         
-        self.positionLabel = [[UILabel alloc] initWithFrame:CGRectMake(125, 70, 170, 20)];
-        self.positionLabel.text = @"President, Apple Inc.";
+        self.positionLabel = [[UILabel alloc] initWithFrame:CGRectMake(125, 10, 170, 20)];
+        self.positionLabel.text = insight.position;
         [self addSubview:self.positionLabel];
         
-        self.locationLabel = [[UILabel alloc] initWithFrame:CGRectMake(125, 100, 170, 20)];
-        self.locationLabel.text = @"Cupertino, CA";
+        self.positionLabel = [[UILabel alloc] initWithFrame:CGRectMake(125, 40, 170, 20)];
+        self.positionLabel.text = insight.company;
+        [self addSubview:self.positionLabel];
+        
+        self.locationLabel = [[UILabel alloc] initWithFrame:CGRectMake(125, 70, 170, 20)];
+        self.locationLabel.text = insight.location;
         [self addSubview:self.locationLabel];
+        
+        self.commentLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 140, 300, 60)];
+        self.commentLabel.text = insight.comments;
+        self.commentLabel.numberOfLines = 0;
+        [self.commentLabel sizeToFit];
+        [self addSubview:self.commentLabel];
         
         return self;
     }
