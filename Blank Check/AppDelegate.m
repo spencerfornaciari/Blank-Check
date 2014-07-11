@@ -16,10 +16,13 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    
     [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"a5e62e01653d9a9607b8f5d5dd48f65a"];
     [[BITHockeyManager sharedHockeyManager] startManager];
     [[BITHockeyManager sharedHockeyManager].authenticator
      authenticateInstallation];
+    
+//    [[BITHockeyManager sharedHockeyManager] testIdentifier];
 
     
     [[UINavigationBar appearance] setBarTintColor:[UIColor blankCheckBlue]];

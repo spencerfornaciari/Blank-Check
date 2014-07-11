@@ -63,7 +63,7 @@
     [super viewWillAppear:animated];
     
     if (self.gamer.invitationSent) {
-        [scrollView setContentSize:CGSizeMake(320, 1000)];
+        [scrollView setContentSize:CGSizeMake(320, 1340)];
     } else {
         [self loadInviteView];
         [scrollView setContentSize:CGSizeMake(320, self.view.frame.size.height)];
