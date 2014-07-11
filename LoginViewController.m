@@ -29,7 +29,7 @@
 {
     [super viewDidLoad];
     
-    self.operationQueue = [(AppDelegate *)[[UIApplication sharedApplication] delegate] blankQueue];
+//    self.operationQueue = [(AppDelegate *)[[UIApplication sharedApplication] delegate] blankQueue];
     self.currentGamer = [(AppDelegate *)[[UIApplication sharedApplication] delegate] gamer];
     
     self.tokenBOOL = FALSE;

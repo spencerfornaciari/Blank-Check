@@ -9,12 +9,19 @@
 #import "AppDelegate.h"
 #import "SideViewController.h"
 #import "LoginViewController.h"
+#import <HockeySDK/HockeySDK.h>
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"a5e62e01653d9a9607b8f5d5dd48f65a"];
+    [[BITHockeyManager sharedHockeyManager] startManager];
+    [[BITHockeyManager sharedHockeyManager].authenticator
+     authenticateInstallation];
+
+    
     [[UINavigationBar appearance] setBarTintColor:[UIColor blankCheckBlue]];
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];

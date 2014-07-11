@@ -58,8 +58,8 @@
         self.smallImageLocalLocation = [decoder decodeObjectForKey:@"smallImageLocalLocation"];
 
         self.valueArray = [decoder decodeObjectForKey:@"valueArray"];
-//        self.currentPositionArray = [decoder decodeObjectForKey:@"currentPositionArray"];
-//        
+        self.currentPositionArray = [decoder decodeObjectForKey:@"currentPositionArray"];
+//
         self.connectionIDArray = [decoder decodeObjectForKey:@"connectionIDArray"];
 //        self.educationArray = [decoder decodeObjectForKey:@"educationArray"];
 //        
@@ -93,8 +93,8 @@
     [encoder encodeObject:self.smallImageLocalLocation forKey:@"smallImageLocalLocation"];
 
     [encoder encodeObject:self.valueArray forKey:@"valueArray"];
-//    [encoder encodeObject:self.currentPositionArray forKey:@"currentPositionArray"];
-//    
+    [encoder encodeObject:self.currentPositionArray forKey:@"currentPositionArray"];
+//
     [encoder encodeObject:self.connectionIDArray forKey:@"connectionIDArray"];
 //    [encoder encodeObject:self.educationArray forKey:@"educationArray"];
 //    

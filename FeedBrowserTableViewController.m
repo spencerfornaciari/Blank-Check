@@ -127,6 +127,7 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [NSKeyedArchiver archiveRootObject:self.one toFile:[Gamer gamerPath]];
     
     if (!self.downloadingUserData) {
         self.downloadingUserData = TRUE;

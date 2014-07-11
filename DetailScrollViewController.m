@@ -36,8 +36,8 @@
     
     [self addButtonMenu];
     
-    UIImageView *graph = [[UIImageView alloc] initWithFrame:CGRectMake(20, 210, self.view.frame.size.width-40, self.view.frame.size.width-40)];
-    graph.backgroundColor = [UIColor blankCheckBlue];
+    UIImageView *graph = [[UIImageView alloc] initWithFrame:CGRectMake(20, 230, self.view.frame.size.width-40, 236)]; //height should be: self.view.frame.size.width-40 , origin: 20, 210
+    graph.image = [UIImage imageNamed:@"graph"];
     [scrollView addSubview:graph];
     
 
@@ -113,8 +113,10 @@
     
     UIButton *followButton = [UIButton buttonWithType:UIButtonTypeCustom];
     followButton.frame = CGRectMake(20, 500, 56, 56);
-    [followButton setImage:[UIImage imageNamed:@"Social-Share"] forState:UIControlStateNormal];
+    [followButton setImage:[UIImage imageNamed:@"follow"] forState:UIControlStateNormal];
     [followButton addTarget:self action:@selector(followAction) forControlEvents:UIControlEventTouchUpInside];
+    followButton.layer.borderWidth = 1.0;
+    followButton.layer.borderColor = [UIColor blackColor].CGColor;
     [scrollView addSubview:followButton];
     
     UILabel *followLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 561, 56, 21)];
@@ -125,8 +127,10 @@
     
     UIButton *outButton = [UIButton buttonWithType:UIButtonTypeCustom];
     outButton.frame = CGRectMake(76, 500, 56, 56);
-    [outButton setImage:[UIImage imageNamed:@"Social-Share"] forState:UIControlStateNormal];
+    [outButton setImage:[UIImage imageNamed:@"out"] forState:UIControlStateNormal];
     [outButton addTarget:self action:@selector(outAction) forControlEvents:UIControlEventTouchUpInside];
+    outButton.layer.borderWidth = 1.0;
+    outButton.layer.borderColor = [UIColor blackColor].CGColor;
     [scrollView addSubview:outButton];
     
     UILabel *outLabel = [[UILabel alloc] initWithFrame:CGRectMake(76, 561, 56, 21)];
@@ -137,8 +141,10 @@
     
     UIButton *noteButton = [UIButton buttonWithType:UIButtonTypeCustom];
     noteButton.frame = CGRectMake(132, 500, 56, 56);
-    [noteButton setImage:[UIImage imageNamed:@"Social-Share"] forState:UIControlStateNormal];
+    [noteButton setImage:[UIImage imageNamed:@"note"] forState:UIControlStateNormal];
     [noteButton addTarget:self action:@selector(noteAction) forControlEvents:UIControlEventTouchUpInside];
+    noteButton.layer.borderWidth = 1.0;
+    noteButton.layer.borderColor = [UIColor blackColor].CGColor;
     [scrollView addSubview:noteButton];
     
     UILabel *noteLabel = [[UILabel alloc] initWithFrame:CGRectMake(132, 561, 56, 21)];
@@ -149,8 +155,10 @@
     
     UIButton *shareButton = [UIButton buttonWithType:UIButtonTypeCustom];
     shareButton.frame = CGRectMake(188, 500, 56, 56);
-    [shareButton setImage:[UIImage imageNamed:@"Social-Share"] forState:UIControlStateNormal];
+    [shareButton setImage:[UIImage imageNamed:@"share"] forState:UIControlStateNormal];
     [shareButton addTarget:self action:@selector(shareAction) forControlEvents:UIControlEventTouchUpInside];
+    shareButton.layer.borderWidth = 1.0;
+    shareButton.layer.borderColor = [UIColor blackColor].CGColor;
     [scrollView addSubview:shareButton];
     
     UILabel *shareLabel = [[UILabel alloc] initWithFrame:CGRectMake(188, 561, 56, 21)];
@@ -161,8 +169,10 @@
     
     UIButton *findSimilarButton = [UIButton buttonWithType:UIButtonTypeCustom];
     findSimilarButton.frame = CGRectMake(244, 500, 56, 56);
-    [findSimilarButton setImage:[UIImage imageNamed:@"Social-Share"] forState:UIControlStateNormal];
+    [findSimilarButton setImage:[UIImage imageNamed:@"findSimilar"] forState:UIControlStateNormal];
     [findSimilarButton addTarget:self action:@selector(findSimilarAction) forControlEvents:UIControlEventTouchUpInside];
+    findSimilarButton.layer.borderWidth = 1.0;
+    findSimilarButton.layer.borderColor = [UIColor blackColor].CGColor;
     [scrollView addSubview:findSimilarButton];
     
     UILabel *findSimilarLabel = [[UILabel alloc] initWithFrame:CGRectMake(244, 561, 60, 21)];
@@ -210,7 +220,7 @@
     //Add UIView over info to promote connection
     self.overView = [[UIView alloc] initWithFrame:CGRectMake(20, 210, scrollView.frame.size.width - 40, 1000)];
     self.overView.backgroundColor = [UIColor blankCheckBlue];
-    self.overView.alpha = .8;
+    self.overView.alpha = .9;
     self.overView.layer.zPosition = 2;
     [scrollView addSubview:self.overView];
     
