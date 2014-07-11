@@ -409,6 +409,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Blank Check Labs";
 				TargetAttributes = {
+					89C973AA192564AF00EC6004 = {
+						DevelopmentTeam = 98932SP3YP;
+					};
 					89C973CE192564AF00EC6004 = {
 						TestTargetID = 89C973AA192564AF00EC6004;
 					};
@@ -644,6 +647,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/HockeySDK-iOS/HockeySDK.embeddedframework",
@@ -661,6 +665,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/HockeySDK-iOS/HockeySDK.embeddedframework",
