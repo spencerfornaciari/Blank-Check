@@ -45,7 +45,6 @@
 		89C973C5192564AF00EC6004 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89C973C3192564AF00EC6004 /* Main_iPad.storyboard */; };
 		89C973C8192564AF00EC6004 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C973C7192564AF00EC6004 /* ViewController.m */; };
 		89C973CA192564AF00EC6004 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 89C973C9192564AF00EC6004 /* Images.xcassets */; };
-		89C973D1192564AF00EC6004 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89C973D0192564AF00EC6004 /* XCTest.framework */; };
 		89C973D2192564AF00EC6004 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89C973AE192564AF00EC6004 /* Foundation.framework */; };
 		89C973D3192564AF00EC6004 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89C973B2192564AF00EC6004 /* UIKit.framework */; };
 		89C973DB192564AF00EC6004 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 89C973D9192564AF00EC6004 /* InfoPlist.strings */; };
@@ -62,6 +61,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		8964CCA51970953C0026619A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 89C973A3192564AF00EC6004 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 89C973AA192564AF00EC6004;
+			remoteInfo = "Blank Check";
+		};
+		8964CCA71970953C0026619A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 89C973A3192564AF00EC6004 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 89C973AA192564AF00EC6004;
+			remoteInfo = "Blank Check";
+		};
 		89C973D4192564AF00EC6004 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 89C973A3192564AF00EC6004 /* Project object */;
@@ -144,7 +157,6 @@
 		89C973C7192564AF00EC6004 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		89C973C9192564AF00EC6004 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		89C973CF192564AF00EC6004 /* Blank CheckTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Blank CheckTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		89C973D0192564AF00EC6004 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		89C973D8192564AF00EC6004 /* Blank CheckTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Blank CheckTests-Info.plist"; sourceTree = "<group>"; };
 		89C973DA192564AF00EC6004 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		89C973DC192564AF00EC6004 /* Blank_CheckTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Blank_CheckTests.m; sourceTree = "<group>"; };
@@ -181,7 +193,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				89C973D1192564AF00EC6004 /* XCTest.framework in Frameworks */,
 				89C973D3192564AF00EC6004 /* UIKit.framework in Frameworks */,
 				89C973D2192564AF00EC6004 /* Foundation.framework in Frameworks */,
 			);
@@ -246,7 +257,6 @@
 				89C973AE192564AF00EC6004 /* Foundation.framework */,
 				89C973B0192564AF00EC6004 /* CoreGraphics.framework */,
 				89C973B2192564AF00EC6004 /* UIKit.framework */,
-				89C973D0192564AF00EC6004 /* XCTest.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -413,6 +423,8 @@
 			);
 			dependencies = (
 				89C973D5192564AF00EC6004 /* PBXTargetDependency */,
+				8964CCA61970953C0026619A /* PBXTargetDependency */,
+				8964CCA81970953C0026619A /* PBXTargetDependency */,
 			);
 			name = "Blank CheckTests";
 			productName = "Blank CheckTests";
@@ -430,9 +442,6 @@
 				TargetAttributes = {
 					89C973AA192564AF00EC6004 = {
 						DevelopmentTeam = 98932SP3YP;
-					};
-					89C973CE192564AF00EC6004 = {
-						TestTargetID = 89C973AA192564AF00EC6004;
 					};
 				};
 			};
@@ -547,6 +556,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		8964CCA61970953C0026619A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 89C973AA192564AF00EC6004 /* Blank Check */;
+			targetProxy = 8964CCA51970953C0026619A /* PBXContainerItemProxy */;
+		};
+		8964CCA81970953C0026619A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 89C973AA192564AF00EC6004 /* Blank Check */;
+			targetProxy = 8964CCA71970953C0026619A /* PBXContainerItemProxy */;
+		};
 		89C973D5192564AF00EC6004 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 89C973AA192564AF00EC6004 /* Blank Check */;
@@ -668,6 +687,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/HockeySDK.embeddedframework",
@@ -675,7 +695,11 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Blank Check/Blank Check-Prefix.pch";
 				INFOPLIST_FILE = "Blank Check/Blank Check-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -686,6 +710,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/HockeySDK.embeddedframework",
@@ -693,7 +718,11 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Blank Check/Blank Check-Prefix.pch";
 				INFOPLIST_FILE = "Blank Check/Blank Check-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -701,7 +730,6 @@
 		89C973E4192564AF00EC6004 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Blank Check.app/Blank Check";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -715,7 +743,6 @@
 				);
 				INFOPLIST_FILE = "Blank CheckTests/Blank CheckTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Debug;
@@ -723,7 +750,6 @@
 		89C973E5192564AF00EC6004 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Blank Check.app/Blank Check";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -733,7 +759,6 @@
 				GCC_PREFIX_HEADER = "Blank Check/Blank Check-Prefix.pch";
 				INFOPLIST_FILE = "Blank CheckTests/Blank CheckTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;

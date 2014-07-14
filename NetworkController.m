@@ -306,13 +306,20 @@
 //    }
     
     //Parsing Connection info
-    gamer.connectionIDArray = [NSMutableArray new];
+    gamer.connectionIDArray = [[NetworkController grabUserConnections] mutableCopy];
+    
+    return gamer;
+
+}
+
++(NSArray *)grabUserConnections {
+    NSMutableArray *connectionsArray = [NSMutableArray new];
+    
+    NSString *accessToken = [[NSUserDefaults standardUserDefaults] stringForKey:@"accessToken"];
     
     NSString *connectionAccess = [NSString stringWithFormat:@"%@%@&format=json", @"https://api.linkedin.com/v1/people/~/connections:(id,first-name,last-name,num-connections,num-connections-capped,positions,public-profile-url,headline,industry,location,pictureUrl,picture-urls::(original))?oauth2_access_token=", accessToken];
     
     NSURL *connectionURL = [NSURL URLWithString:connectionAccess];
-    
-    /*NSURL *connectionURL = [NSURL URLWithString:@"https://api.linkedin.com/v1/people/~/connections?oauth2_access_token=AQWlBgoqxdW9OLFOg1UUEGFt_Re-vnQLw7F9lTHXM6QzPBiT0iWzXOQQHP49hfmfm21N2n7LGhAnDRB3tsYdnfoQK9sG8KMDjrVVeTp5Psld5VAkE0ACHcd0MDrdT0_VOfVXLbDIc4wfqL3tlrnvGuqHcs2TeRwxTL4nzL_oVTM8e9NVeE8&format=json"];*/
     
     NSData *connectionData = [NSData dataWithContentsOfURL:connectionURL];
     NSDictionary *connectionDictionary = [NSJSONSerialization JSONObjectWithData:connectionData
@@ -327,7 +334,6 @@
         gamerConnection.lastName = connection[@"lastName"];
         gamerConnection.fullName = [NSString stringWithFormat:@"%@ %@", gamerConnection.firstName, gamerConnection.lastName];
         gamerConnection.invitationSent = FALSE;
-        gamer.expertInsightsArray = [NSMutableArray new];
         
         //Add a base value
         gamerConnection.valueArray = [NSMutableArray new];
@@ -377,18 +383,15 @@
         if ([gamerConnection.firstName isEqualToString:@"private"]) {
             //Private Users - contain no info
         } else {
-            [gamer.connectionIDArray addObject:gamerConnection];
+            [connectionsArray addObject:gamerConnection];
         }
     }
     
     NSSortDescriptor *nameDescriptor = [[NSSortDescriptor alloc] initWithKey:@"lastName" ascending:YES];
     NSArray *sortDescriptors = [NSArray arrayWithObject:nameDescriptor];
-    NSArray *sortedArray = [gamer.connectionIDArray sortedArrayUsingDescriptors:sortDescriptors];
+    NSArray *sortedArray = [connectionsArray sortedArrayUsingDescriptors:sortDescriptors];
     
-    gamer.connectionIDArray = [sortedArray mutableCopy];
-    
-    return gamer;
-
+    return sortedArray;
 }
 
 

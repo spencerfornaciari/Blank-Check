@@ -73,6 +73,8 @@
         }
     }
     
+//    NSArray *myArray = [NetworkController grabUserConnections];
+//    NSLog(@"Count: %ld", (long)myArray.count);
     
 //    [NSKeyedArchiver archiveRootObject:self.one toFile:[Gamer gamerPath]];
     
