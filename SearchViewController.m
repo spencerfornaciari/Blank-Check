@@ -7,6 +7,7 @@
 //
 
 #import "SearchViewController.h"
+#import "OldSearchViewController.h"
 #import "DetailScrollViewController.h"
 #import "UIColor+BlankCheckColors.h"
 #import "Gamer.h"
@@ -38,10 +39,8 @@
                                 target:self
                                 action:nil];
     self.navigationController.navigationBar.topItem.backBarButtonItem=btnBack;
-    
-//    self.tableView.hidden = TRUE;
-    
-//    [self loadOverview];
+        
+    [self loadOverview];
 
 }
 
@@ -159,9 +158,12 @@ shouldReloadTableForSearchString:(NSString *)searchString
  
 
 -(void)loadOverview {
-    self.overView = [[UIView alloc] initWithFrame:CGRectMake(0, 108, 320, self.view.frame.size.height-65)];
-    self.overView.backgroundColor = [UIColor blueColor];
-    self.overView.layer.zPosition = 5;
-    [self.view addSubview:self.overView];
+//    self.overView = [[UIView alloc] initWithFrame:CGRectMake(0, 108, 320, self.view.frame.size.height-65)];
+//    self.overView.backgroundColor = [UIColor blueColor];
+//    self.overView.layer.zPosition = 5;
+//    [self.view addSubview:self.overView]
+    
+//    OldSearchViewController *viewController = [OldSearchViewController new];
+//    [self presentViewController:viewController animated:NO completion:nil];
 }
 @end

@@ -282,12 +282,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetworkController.m"
-            timestampString = "427051339.301632"
+            timestampString = "427063429.728584"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "678"
-            endingLineNumber = "678"
-            landmarkName = "-createDictionary"
+            startingLineNumber = "669"
+            endingLineNumber = "669"
+            landmarkName = "-commonConnectionsWithUser:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -314,12 +314,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetworkController.m"
-            timestampString = "427051339.301632"
+            timestampString = "427063429.728584"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "712"
-            endingLineNumber = "712"
-            landmarkName = "-listDictionaries"
+            startingLineNumber = "703"
+            endingLineNumber = "703"
+            landmarkName = "-checkProfileText:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

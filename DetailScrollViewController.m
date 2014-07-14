@@ -14,6 +14,10 @@
 @property (nonatomic) UIView *overView, *expertInsightsView, *timelineView, *expertAppraisalView;
 @property (nonatomic) UserInfoView *userInfoView;
 
+@property (nonatomic, weak) IBOutlet GKLineGraph *graph;
+@property (nonatomic, strong) NSArray *data;
+@property (nonatomic, strong) NSArray *labels;
+
 @end
 
 @implementation DetailScrollViewController
@@ -24,10 +28,10 @@
     self.title = @"Blank Check Labs";
     
     scrollView.delegate = self;
-    
-//    NSLog(@"Invitation sent: %d", self.gamer.invitationSent);
-    
     [scrollView setScrollEnabled:YES];
+    
+    [self _setupExampleGraph];
+
     
     [self loadUserInfo];
     [self loadExpertInsights];
@@ -36,9 +40,11 @@
     
     [self addButtonMenu];
     
-    UIImageView *graph = [[UIImageView alloc] initWithFrame:CGRectMake(20, 230, self.view.frame.size.width-40, 236)]; //height should be: self.view.frame.size.width-40 , origin: 20, 210
-    graph.image = [UIImage imageNamed:@"graph"];
-    [scrollView addSubview:graph];
+    
+    
+//    UIImageView *graph = [[UIImageView alloc] initWithFrame:CGRectMake(20, 230, self.view.frame.size.width-40, 236)]; //height should be: self.view.frame.size.width-40 , origin: 20, 210
+//    graph.image = [UIImage imageNamed:@"graph"];
+//    [scrollView addSubview:graph];
     
 
     NSString *fullName = [NSString stringWithFormat:@"%@%@", self.gamer.firstName, self.gamer.lastName];
@@ -94,6 +100,26 @@
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     
+}
+
+- (void)_setupExampleGraph {
+    
+    self.data = @[
+                  @[@20, @40, @20, @60, @40, @140, @80],
+                  @[@40, @20, @60, @100, @60, @20, @60],
+                  @[@80, @60, @40, @160, @100, @40, @110],
+                  @[@120, @150, @80, @120, @140, @100, @0],
+                  //                  @[@620, @650, @580, @620, @540, @400, @0]
+                  ];
+    
+    self.labels = @[@"2001", @"2002", @"2003", @"2004", @"2005", @"2006", @"2007"];
+    
+    self.graph.dataSource = self;
+    self.graph.lineWidth = 3.0;
+    
+    self.graph.valueLabelCount = 6;
+    
+    [self.graph draw];
 }
 
 /*
@@ -361,5 +387,31 @@
     [self.expertAppraisalView addSubview:expertView];
 }
 
+#pragma mark - GKLineGraphDataSource
+
+- (NSInteger)numberOfLines {
+    return [self.data count];
+}
+
+- (UIColor *)colorForLineAtIndex:(NSInteger)index {
+    id colors = @[[UIColor gk_turquoiseColor],
+                  [UIColor gk_peterRiverColor],
+                  [UIColor gk_alizarinColor],
+                  [UIColor gk_sunflowerColor]
+                  ];
+    return [colors objectAtIndex:index];
+}
+
+- (NSArray *)valuesForLineAtIndex:(NSInteger)index {
+    return [self.data objectAtIndex:index];
+}
+
+- (CFTimeInterval)animationDurationForLineAtIndex:(NSInteger)index {
+    return [[@[@1, @1.6, @2.2, @1.4] objectAtIndex:index] doubleValue];
+}
+
+- (NSString *)titleForLineAtIndex:(NSInteger)index {
+    return [self.labels objectAtIndex:index];
+}
 
 @end

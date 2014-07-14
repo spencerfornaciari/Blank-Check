@@ -7,13 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <GraphKit.h>
 #import "Gamer.h"
 #import "ExpertInsightView.h"
 #import "ExpertAppraisalView.h"
 #import "UserInfoView.h"
 #import "TimelineView.h"
 
-@interface DetailScrollViewController : UIViewController <UIScrollViewDelegate> {
+@interface DetailScrollViewController : UIViewController <UIScrollViewDelegate,GKLineGraphDataSource> {
     IBOutlet UIScrollView *scrollView;
     IBOutlet UIImageView *profileImage;
     IBOutlet UILabel *userNameLabel;
