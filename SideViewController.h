@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FeedBrowserTableViewController.h"
 #import "ViewController.h"
 
-@interface SideViewController : UIViewController <UIGestureRecognizerDelegate>
+@interface SideViewController : UIViewController <UIGestureRecognizerDelegate, FeedBrowserTableViewControllerDelegate>
 
 @end

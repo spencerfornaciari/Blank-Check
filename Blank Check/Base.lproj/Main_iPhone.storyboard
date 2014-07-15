@@ -171,11 +171,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="Odp-9R-Tv7">
-                        <barButtonItem key="leftBarButtonItem" image="menu" id="r8g-AN-fx3" userLabel="Bar Button Item - Menu">
-                            <connections>
-                                <action selector="menuButton:" destination="gv5-5z-3Zo" id="wcF-H1-Grf"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="leftBarButtonItem" image="menu" id="r8g-AN-fx3" userLabel="Bar Button Item - Menu"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="search" id="2T6-NL-e5L"/>
                     </navigationItem>
                 </viewController>
@@ -186,7 +182,7 @@
         <!--Feed Browser Table View Controller-->
         <scene sceneID="f48-VL-gjv">
             <objects>
-                <tableViewController id="tVR-3O-WG2" customClass="FeedBrowserTableViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="mainViewController" id="tVR-3O-WG2" customClass="FeedBrowserTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="96" sectionHeaderHeight="22" sectionFooterHeight="22" id="aZH-Sn-3Z1">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -240,7 +236,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="Ehg-cw-on2">
-                        <barButtonItem key="leftBarButtonItem" image="menu" id="G1C-B9-nLJ"/>
+                        <barButtonItem key="leftBarButtonItem" image="menu" id="G1C-B9-nLJ">
+                            <connections>
+                                <action selector="handleMenuButton:" destination="tVR-3O-WG2" id="Fak-FO-ebp"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="search" id="B7e-Sx-IPH">
                             <connections>
                                 <segue destination="jkK-ul-ytY" kind="push" identifier="searchView" id="Djc-cd-FfO"/>
@@ -341,7 +341,7 @@
         <!--Navigation Controller-->
         <scene sceneID="EyE-y9-yxw">
             <objects>
-                <navigationController storyboardIdentifier="mainViewController" automaticallyAdjustsScrollViewInsets="NO" id="EoD-Dp-rae" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="EoD-Dp-rae" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="6MJ-JF-fm7">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -366,6 +366,6 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="UVr-ZQ-uL9"/>
+        <segue reference="X5l-K0-Z1M"/>
     </inferredMetricsTieBreakers>
 </document>

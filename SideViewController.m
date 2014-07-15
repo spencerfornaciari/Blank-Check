@@ -12,12 +12,11 @@
 
 @interface SideViewController ()
 
-@property (nonatomic) ViewController *mainViewController, *topViewController;
+//@property (nonatomic) ViewController *mainViewController, *topViewController;
+@property (nonatomic) UINavigationController *mainViewController, *topViewController;
 @property (nonatomic) Gamer *gamer;
 
-@property (nonatomic) BOOL menuButtonBool;
-- (IBAction)menuButton:(id)sender;
-
+@property (nonatomic) FeedBrowserTableViewController *controller;
 
 @end
 
@@ -27,12 +26,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     self.title = @"Blank Check Labs";
-    self.menuButtonBool = FALSE;
-    self.view.backgroundColor = [UIColor blackColor];
+    self.view.backgroundColor = [UIColor blankCheckBrown];
+
+    self.controller = [self.storyboard instantiateViewControllerWithIdentifier:@"mainViewController"];
+    self.controller.delegate = self;
     
-    self.mainViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"mainViewController"];
+    self.mainViewController = [[UINavigationController alloc] initWithRootViewController:self.controller];
     [self addChildViewController:self.mainViewController];
     self.mainViewController.view.frame = self.view.frame;
     [self.view addSubview:self.mainViewController.view];
@@ -40,8 +40,12 @@
     
     self.topViewController = self.mainViewController;
     [self setupPanGesture];
-    
-    self.gamer = [(AppDelegate *)[[UIApplication sharedApplication] delegate] gamer];
+
+//    self.mainViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"mainViewController"];
+//    [self addChildViewController:self.mainViewController];
+//    self.mainViewController.view.frame = self.view.frame;
+//    [self.view addSubview:self.mainViewController.view];
+//    [self.mainViewController didMoveToParentViewController:self];
     
     // Do any additional setup after loading the view.
 }
@@ -93,7 +97,6 @@
 
 - (void)openMenu
 {
-    [self.topViewController.view setUserInteractionEnabled:NO];
     [UIView animateWithDuration:.4 animations:^{
         self.topViewController.view.frame = CGRectMake(self.view.frame.size.width * .8, self.topViewController.view.frame.origin.y, self.topViewController.view.frame.size.width, self.topViewController.view.frame.size.height);
     } completion:^(BOOL finished) {
@@ -104,7 +107,6 @@
 
 - (void)closeMenu
 {
-    [self.topViewController.view setUserInteractionEnabled:YES];
     [UIView animateWithDuration:.4 animations:
      ^{
          //self.repoViewController.view.frame = CGRectMake(self.repoViewController.view.frame.origin.x, self.self.repoViewController.view.frame.origin.y, self.repoViewController.view.frame.size.width, self.repoViewController.view.frame.size.height);
@@ -148,14 +150,4 @@
     
 }
 
-- (IBAction)menuButton:(id)sender {
-    if (self.menuButtonBool == FALSE) {
-        [self openMenu];
-        self.menuButtonBool = TRUE;
-    } else {
-        [self closeMenu];
-        self.menuButtonBool = FALSE;
-    }
-    
-}
 @end

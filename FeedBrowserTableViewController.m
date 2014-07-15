@@ -25,7 +25,8 @@
 
 @property (nonatomic) LoadingView *loadingView;
 
-@property (nonatomic) BOOL downloadingUserData;
+@property (nonatomic) BOOL downloadingUserData, menuButtonBool;
+
 
 @end
 
@@ -36,6 +37,7 @@
     [super viewDidLoad];
     self.title = @"Blank Check Labs";
     
+    self.menuButtonBool = FALSE;
     self.downloadingUserData = FALSE;
     
     self.operationQueue = [(AppDelegate *)[[UIApplication sharedApplication] delegate] blankQueue];
@@ -262,4 +264,15 @@
     }
 }
 
+- (IBAction)handleMenuButton:(id)sender {
+    
+    if (self.menuButtonBool == FALSE) {
+        [self.delegate openMenu];
+        self.menuButtonBool = TRUE;
+    } else {
+        [self.delegate closeMenu];
+        self.menuButtonBool = FALSE;
+    }
+
+}
 @end

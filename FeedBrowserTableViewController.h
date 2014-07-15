@@ -8,6 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol FeedBrowserTableViewControllerDelegate <NSObject>
+
+-(void)openMenu;
+-(void)closeMenu;
+
+@end
+
 @interface FeedBrowserTableViewController : UITableViewController
+
+@property (nonatomic, weak) id<FeedBrowserTableViewControllerDelegate> delegate;
+
+- (IBAction)handleMenuButton:(id)sender;
+
 
 @end
