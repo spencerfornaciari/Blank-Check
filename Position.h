@@ -20,4 +20,7 @@
 @property (nonatomic) BOOL isCurrent;
 @property (nonatomic) NSString *companyName;
 
+-(instancetype)initWithCoder:(NSCoder *)decoder;
+-(void)encodeWithCoder:(NSCoder *)encoder;
+
 @end

@@ -85,24 +85,38 @@
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (tableView == self.searchDisplayController.searchResultsTableView) {
-        NSLog(@"Did select");
-//        [self performSegueWithIdentifier: @"detailedView" sender: self];
-    }
-}
+//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//   
+//    if (tableView == self.searchDisplayController.searchResultsTableView) {
+//        NSLog(@"Did select");
+////        [self performSegueWithIdentifier: @"detailedView" sender: self];
+////        NSIndexPath *indexPath = [self.searchDisplayController.searchResultsTableView indexPathForSelectedRow];
+//        self.selectedGamer =  self.searchResultsArray[indexPath.row];
+//        //
+////        DetailScrollViewController *detailedView = segue.destinationViewController;
+////        detailedView.gamer = gamer;
+//    } else {
+//        self.selectedGamer = self.connectionsArray[indexPath.row];
+//    }
+//}
 //
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"detailedView"]) {
         NSLog(@"Prepare segue");
+        Gamer *gamer;
+        
+        if (self.searchDisplayController.active) {
+            NSIndexPath *indexPath = [self.searchDisplayController.searchResultsTableView indexPathForSelectedRow];
+            gamer =  self.searchResultsArray[indexPath.row];
+        } else {
+            NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+            gamer =  self.connectionsArray[indexPath.row];
+        }
 
-        NSIndexPath *indexPath = [self.searchDisplayController.searchResultsTableView indexPathForSelectedRow];
-        Gamer *gamer =  self.searchResultsArray[indexPath.row];
-        NSLog(@"Selected user: %@", gamer.fullName);
-//
         DetailScrollViewController *detailedView = segue.destinationViewController;
         detailedView.gamer = gamer;
+        
     }
 
 }
@@ -117,9 +131,13 @@
     self.scopeString = scope;
     
     if ([scope isEqualToString:@"Name"]) {
-        //Full Name Predicate
-        NSPredicate *fullNamePredicate = [NSPredicate predicateWithFormat:@"fullName CONTAINS[cd] %@", searchText];
-        self.searchResultsArray = [self.connectionsArray filteredArrayUsingPredicate:fullNamePredicate];//
+        //Name Predicate
+        NSPredicate *firstNamePredicate = [NSPredicate predicateWithFormat:@"fullName BEGINSWITH[cd] %@", searchText];
+        NSPredicate *lastNamePredicate = [NSPredicate predicateWithFormat:@"lastName BEGINSWITH[cd] %@", searchText];
+        
+        NSPredicate *namePredicate = [NSCompoundPredicate orPredicateWithSubpredicates:@[firstNamePredicate, lastNamePredicate]];
+
+        self.searchResultsArray = [self.connectionsArray filteredArrayUsingPredicate:namePredicate];//
         
     } else if ([scope isEqualToString:@"Title"]) {
         //Job Title Predicate

@@ -61,8 +61,8 @@
         self.currentPositionArray = [decoder decodeObjectForKey:@"currentPositionArray"];
 //
         self.connectionIDArray = [decoder decodeObjectForKey:@"connectionIDArray"];
-//        self.educationArray = [decoder decodeObjectForKey:@"educationArray"];
-//        
+        self.educationArray = [decoder decodeObjectForKey:@"educationArray"];
+//
 //        self.gamerLanguages = [decoder decodeObjectForKey:@"gamerLanguages"];
 //        self.gamerRecommendations = [decoder decodeObjectForKey:@"gamerRecommendations"];
         
@@ -96,8 +96,8 @@
     [encoder encodeObject:self.currentPositionArray forKey:@"currentPositionArray"];
 //
     [encoder encodeObject:self.connectionIDArray forKey:@"connectionIDArray"];
-//    [encoder encodeObject:self.educationArray forKey:@"educationArray"];
-//    
+    [encoder encodeObject:self.educationArray forKey:@"educationArray"];
+//
 //    [encoder encodeObject:self.gamerLanguages forKey:@"gamerLanguages"];
 //    [encoder encodeObject:self.gamerRecommendations forKey:@"gamerRecommendations"];
     

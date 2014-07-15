@@ -14,7 +14,7 @@
 #import "UserInfoView.h"
 #import "TimelineView.h"
 
-@interface DetailScrollViewController : UIViewController <UIScrollViewDelegate,GKLineGraphDataSource> {
+@interface DetailScrollViewController : UIViewController <UIScrollViewDelegate,GKLineGraphDataSource, UIActionSheetDelegate> {
     IBOutlet UIScrollView *scrollView;
     IBOutlet UIImageView *profileImage;
     IBOutlet UILabel *userNameLabel;

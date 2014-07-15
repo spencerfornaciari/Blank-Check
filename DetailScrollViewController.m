@@ -7,6 +7,7 @@
 //
 
 #import "DetailScrollViewController.h"
+#import "SocialController.h"
 #import "UIColor+BlankCheckColors.h"
 
 @interface DetailScrollViewController ()
@@ -222,6 +223,13 @@
 
 -(void)shareAction {
     NSLog(@"Share Action");
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Share this profile"
+                                                             delegate:self
+                                                    cancelButtonTitle:@"Cancel"
+                                               destructiveButtonTitle:nil otherButtonTitles:@"LinkedIn", @"Twitter", @"Facebook", nil];
+    
+    [actionSheet showInView:self.view];
+
 }
 
 -(void)findSimilarAction {
@@ -427,6 +435,51 @@
 
 - (NSString *)titleForLineAtIndex:(NSInteger)index {
     return [self.labels objectAtIndex:index];
+}
+
+#pragma mark - Social share
+
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    
+    switch (buttonIndex) {
+        case 0:
+        {
+            NSLog(@"LinkedIn");
+            [SocialController shareOnLinkedin:self.gamer];;
+            //            [socialController shareOnFacebook:<#(Gamer *)#>]
+            
+        }    //            SLComposeViewController *viewController = [SocialController shareOnFacebook:gamer];
+            break;
+            
+        case 1:
+        {
+            NSLog(@"Twitter");
+            SLComposeViewController *twitterViewController = [SocialController shareOnTwitter:self.gamer];
+            
+            if (twitterViewController) {
+                [self presentViewController:twitterViewController animated:YES completion:nil];
+            } else {
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"No Twitter Account Available" message:@"Please enable Twitter to do this" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+                [alertView show];
+            }
+        }
+            break;
+            
+        case 2:
+        {
+            NSLog(@"Facebook");
+            SLComposeViewController *facebookViewController = [SocialController shareOnFacebook:self.gamer];
+            //
+            if (facebookViewController) {
+                [self presentViewController:facebookViewController animated:YES completion:nil];
+            } else {
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"No Facebook Account Available" message:@"Please enable Facebook to do this" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+                [alertView show];
+            }
+        }
+            break;
+    }
 }
 
 @end

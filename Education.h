@@ -17,4 +17,7 @@
 @property (nonatomic) NSDate *startYear;
 @property (nonatomic) NSDate *endYear;
 
+-(instancetype)initWithCoder:(NSCoder *)decoder;
+-(void)encodeWithCoder:(NSCoder *)encoder;
+
 @end

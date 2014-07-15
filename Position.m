@@ -44,7 +44,6 @@
     
     [encoder encodeObject:self.companyName forKey:@"companyName"];
 
-    
 }
 
 @end

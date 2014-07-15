@@ -30,11 +30,11 @@
                                     </connections>
                                 </searchBar>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" textLabel="vQ8-8a-ESf" detailTextLabel="swL-ZH-Gww" style="IBUITableViewCellStyleSubtitle" id="gI9-IJ-GKb">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Cell" textLabel="vQ8-8a-ESf" detailTextLabel="swL-ZH-Gww" style="IBUITableViewCellStyleSubtitle" id="gI9-IJ-GKb">
                                         <rect key="frame" x="0.0" y="174" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gI9-IJ-GKb" id="AS5-zl-pw7">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="vQ8-8a-ESf">
@@ -84,7 +84,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="1095" y="-672"/>
+            <point key="canvasLocation" x="1443" y="-680"/>
         </scene>
         <!--Old Search View Controller-->
         <scene sceneID="Fca-ap-r7M">
@@ -159,7 +159,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="1539" y="-160"/>
+            <point key="canvasLocation" x="1843" y="-1238"/>
         </scene>
         <!--Side View Controller-->
         <scene sceneID="Kk9-Lf-R79">
@@ -181,7 +181,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qzi-kV-4Wk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="146" y="-518"/>
+            <point key="canvasLocation" x="46" y="-214"/>
         </scene>
         <!--Feed Browser Table View Controller-->
         <scene sceneID="f48-VL-gjv">
@@ -250,7 +250,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gI9-W3-zdX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="595" y="100"/>
+            <point key="canvasLocation" x="863" y="-208"/>
         </scene>
         <!--Detail Scroll View Controller-->
         <scene sceneID="IX2-tP-qx7">
@@ -312,7 +312,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gk9-en-vEF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1095" y="100"/>
+            <point key="canvasLocation" x="1427" y="52"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="RsP-qC-ke5">
@@ -336,7 +336,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sO3-OH-YHl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-335" y="-266"/>
+            <point key="canvasLocation" x="-391" y="-214"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="EyE-y9-yxw">
@@ -354,7 +354,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WLS-Fv-RVH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="146" y="100"/>
+            <point key="canvasLocation" x="442" y="-214"/>
         </scene>
     </scenes>
     <resources>
@@ -366,6 +366,6 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="X5l-K0-Z1M"/>
+        <segue reference="UVr-ZQ-uL9"/>
     </inferredMetricsTieBreakers>
 </document>
