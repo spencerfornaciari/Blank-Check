@@ -86,16 +86,16 @@
             </objects>
             <point key="canvasLocation" x="1443" y="-680"/>
         </scene>
-        <!--Old Search View Controller-->
+        <!--Preset Search View Controller-->
         <scene sceneID="Fca-ap-r7M">
             <objects>
-                <viewController id="vrJ-fc-Nmc" customClass="OldSearchViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="presetSearch" id="vrJ-fc-Nmc" customClass="PresetSearchViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4i2-pL-bLd">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="2DK-Hm-Wy5">
-                                <rect key="frame" x="20" y="166" width="280" height="29"/>
+                                <rect key="frame" x="20" y="84" width="280" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
                                     <segment title="People"/>
@@ -107,7 +107,7 @@
                                 </connections>
                             </segmentedControl>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="vg8-mS-f1R">
-                                <rect key="frame" x="20" y="195" width="280" height="245"/>
+                                <rect key="frame" x="20" y="113" width="280" height="345"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -131,7 +131,7 @@
                                 </prototypes>
                             </tableView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Or choose a popular search" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="XTJ-Sn-5sq">
-                                <rect key="frame" x="20" y="110" width="280" height="21"/>
+                                <rect key="frame" x="20" y="32" width="280" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="21"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -366,6 +366,6 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="X5l-K0-Z1M"/>
+        <segue reference="UVr-ZQ-uL9"/>
     </inferredMetricsTieBreakers>
 </document>

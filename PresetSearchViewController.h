@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "NetworkController.h"
 
-@interface OldSearchViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
+@interface PresetSearchViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
 
 @property (nonatomic) NSArray *searchArray;
 

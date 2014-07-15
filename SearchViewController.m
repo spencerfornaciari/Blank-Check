@@ -7,7 +7,7 @@
 //
 
 #import "SearchViewController.h"
-#import "OldSearchViewController.h"
+#import "PresetSearchViewController.h"
 #import "DetailScrollViewController.h"
 #import "UIColor+BlankCheckColors.h"
 #import "Gamer.h"
@@ -16,6 +16,8 @@
 
 @property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (nonatomic) NSString *scopeString;
+
+@property (nonatomic) PresetSearchViewController *controller;
 
 @property (nonatomic) NSArray *searchResultsArray;
 
@@ -169,19 +171,17 @@ shouldReloadTableForSearchString:(NSString *)searchString
 }
 
 -(BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar {
-    [self.overView removeFromSuperview];
+    [self.controller removeFromParentViewController];
     
     return YES;
 }
  
 
 -(void)loadOverview {
-//    self.overView = [[UIView alloc] initWithFrame:CGRectMake(0, 108, 320, self.view.frame.size.height-65)];
-//    self.overView.backgroundColor = [UIColor blueColor];
-//    self.overView.layer.zPosition = 5;
-//    [self.view addSubview:self.overView]
-    
-//    OldSearchViewController *viewController = [OldSearchViewController new];
-//    [self presentViewController:viewController animated:NO completion:nil];
+    self.controller = [self.storyboard instantiateViewControllerWithIdentifier:@"presetSearch"];
+    [self addChildViewController:self.controller];
+    self.controller.view.frame = CGRectMake(0, 108, 320, 480);
+    [self.view addSubview:self.controller.view];
+    [self.controller didMoveToParentViewController:self];
 }
 @end

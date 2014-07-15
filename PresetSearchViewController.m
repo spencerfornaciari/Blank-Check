@@ -6,23 +6,22 @@
 //  Copyright (c) 2014 Blank Check Labs. All rights reserved.
 //
 
-#import "OldSearchViewController.h"
+#import "PresetSearchViewController.h"
 #import "PresetViewController.h"
 #import "Gamer.h"
 #import "Position.h"
 #import "UIColor+BlankCheckColors.h"
 
-@interface OldSearchViewController ()
+@interface PresetSearchViewController ()
 @property (strong, nonatomic) IBOutlet UISegmentedControl *searchSegmentController;
 @property (strong, nonatomic) IBOutlet UITableView *presetTableView;
 @property (nonatomic) NSArray *peopleArray, *titleArray, *locationArray, *listArray, *predicateArray;
 
 - (IBAction)changeSegment:(id)sender;
-@property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
 
 @end
 
-@implementation OldSearchViewController
+@implementation PresetSearchViewController
 
 - (void)viewDidLoad
 {
@@ -30,12 +29,7 @@
     self.title = @"Search";
     self.presetTableView.dataSource = self;
     self.presetTableView.delegate = self;
-    self.searchBar.delegate = self;
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-    
-    NSLog(@"Search Count: %lu", (unsigned long)self.searchArray.count);
-    
-    self.searchBar.barTintColor = [UIColor blankCheckBlue];
     
     self.searchSegmentController.selectedSegmentIndex = 0;
     
@@ -44,27 +38,8 @@
     self.titleArray = [NSArray arrayWithObjects:@"marketing manager", @"marketing director", @"marketing specialist", @"associate marketing manager", @"marketing intern", nil];
     
     self.locationArray = [NSArray arrayWithObjects:@"Seattle", @"Los Angeles", @"New York", @"Chicago", @"Phoenix", @"Las Vegas", @"San Francisco", @"Austin", @"Washington DC", @"Boston", nil];
-//    self.navigationController.navigationBar.topItem.backBarButtonItem.title = @"Home";
     
     self.listArray = self.peopleArray;
-    
-    UIBarButtonItem *btnBack = [[UIBarButtonItem alloc]
-                                initWithTitle:@"Home"
-                                style:UIBarButtonItemStyleBordered
-                                target:self
-                                action:nil];
-    self.navigationController.navigationBar.topItem.backBarButtonItem=btnBack;
-    
-
-    UILabel *presetSearches = [[UILabel alloc] initWithFrame:CGRectMake(0, 130, self.view.frame.size.width, 40)];
-    presetSearches.textAlignment = NSTextAlignmentCenter;
-    presetSearches.font = [UIFont fontWithName:@"Avenir" size:19.0];
-    presetSearches.text = @"Or choose a popular search...";
-    [self.view addSubview:presetSearches];
-
-    
-    
-    // Do any additional setup after loading the view.
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -125,51 +100,6 @@
         [self.presetTableView reloadData];
 
     }
-}
-
-#pragma mark - Search bar delegate methods
-
--(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
-    NSLog(@"The search has begun");
-    
-    self.listArray = self.predicateArray;
-}
-
--(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
-    NSLog(@"Text: %@", searchText);
-
-    //Full Name Predicate
-    NSPredicate *fullNamePredicate = [NSPredicate predicateWithFormat:@"fullName CONTAINS[cd] %@", searchText];
-    self.predicateArray = [NSArray arrayWithArray:[self.searchArray filteredArrayUsingPredicate:fullNamePredicate]];
-    
-    //Location Predicate
-//    NSPredicate *locationPredicate = [NSPredicate predicateWithFormat:@"location CONTAINS[cd] %@", searchText];
-//    NSArray *predicateArray = [NSArray arrayWithArray:[self.searchArray filteredArrayUsingPredicate:locationPredicate]];
-    
-    //Industry Predicate
-//    NSPredicate *industryPredicate = [NSPredicate predicateWithFormat:@"industry CONTAINS[cd] %@", searchText];
-//    NSArray *predicateArray = [NSArray arrayWithArray:[self.searchArray filteredArrayUsingPredicate:industryPredicate]];
-    
-    //Headline Predicate
-//    NSPredicate *headlinePredicate = [NSPredicate predicateWithFormat:@"headline CONTAINS[cd] %@", searchText];
-//    NSArray *predicateArray = [NSArray arrayWithArray:[self.searchArray filteredArrayUsingPredicate:headlinePredicate]];
-    
-    //Job Title Predicate
-//    NSPredicate *jobTitlePredicate = [NSPredicate predicateWithFormat:@"ANY SELF.currentPositionArray.title CONTAINS[cd] %@", searchText];
-//    NSArray *predicateArray = [NSArray arrayWithArray:[self.searchArray filteredArrayUsingPredicate:jobTitlePredicate]];
-    
-    for (Gamer *gamer in self.predicateArray) {
-        NSLog(@"%@", gamer.fullName);
-    }
-    
-    NSLog(@"Name Count: %lu", (unsigned long)self.predicateArray.count);
-}
-
--(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
-    NSLog(@"Search Button Clicked");
-    NSLog(@"Search Bar Text: %@", searchBar.text);
-    
-    [searchBar resignFirstResponder];
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{

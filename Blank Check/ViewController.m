@@ -8,7 +8,7 @@
 
 #import "ViewController.h"
 #import "NetworkController.h"
-#import "OldSearchViewController.h"
+#import "PresetSearchViewController.h"
 #import "Gamer.h"
 #import "Position.h"
 #import "Education.h"
@@ -450,7 +450,7 @@
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    OldSearchViewController *searchView = segue.destinationViewController;
+    PresetSearchViewController *searchView = segue.destinationViewController;
     searchView.searchArray = self.currentGamer.connectionIDArray;
     
 }
