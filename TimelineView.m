@@ -15,21 +15,33 @@
         self.frame = frame;
         
         NSDateFormatter *dateformatter = [NSDateFormatter new];
-//        [dateformatter setDateFormat:@"LLL 'yy"];
-        [dateformatter setDateStyle:NSDateFormatterShortStyle];
+        [dateformatter setDateFormat:@"MMM ''yy"];
         NSString *theDate = [dateformatter stringFromDate:event.dateOfEvent];
 
-        UILabel *example = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 280, 21)];
+        UILabel *date = [[UILabel alloc] initWithFrame:CGRectMake(self.frame.origin.x + 10, 0, 40, 21)];
+        date.text = [NSString stringWithFormat:@"%@", theDate];
+        date.font = [UIFont fontWithName:@"HelveticaNeue" size:14.0];
+        [date sizeToFit];
+        [self addSubview:date];
+        
+        UILabel *eventDetails = [[UILabel alloc] initWithFrame:CGRectMake(date.frame.origin.x + 70, 0, 100, 21)];
+        eventDetails.text = event.event;
+        eventDetails.font = [UIFont fontWithName:@"HelveticaNeue" size:14.0];
+        [eventDetails sizeToFit];
+        [self addSubview:eventDetails];
+        
+        UILabel *performanceChange = [[UILabel alloc] initWithFrame:CGRectMake(eventDetails.frame.origin.x + 120, 0, 100, 21)];
         
         if (event.amountOfChange > 0) {
-            example.text = [NSString stringWithFormat:@"%@\t%@\t+%ld", theDate, event.event, (long)event.amountOfChange];
+            performanceChange.text = [NSString stringWithFormat:@"+%ld",(long)event.amountOfChange];
         } else {
-            example.text = [NSString stringWithFormat:@"%@\t%@\t%ld", theDate, event.event, (long)event.amountOfChange];
+            performanceChange.text = [NSString stringWithFormat:@"%ld",(long)event.amountOfChange];
         }
         
-        example.font = [UIFont fontWithName:@"HelveticaNeue" size:15.0];
-        [example sizeToFit];
-        [self addSubview:example];
+        performanceChange.font = [UIFont fontWithName:@"HelveticaNeue" size:14.0];
+        [performanceChange sizeToFit];
+        [self addSubview:performanceChange];
+        
         
         return self;
     }

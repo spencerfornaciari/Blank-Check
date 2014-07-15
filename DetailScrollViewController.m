@@ -313,7 +313,7 @@
     self.expertInsightsView = [[UIView alloc] initWithFrame:CGRectMake(0, self.userInfoView.frame.origin.y + self.userInfoView.frame.size.height, 320, 280)];
     [scrollView addSubview:self.expertInsightsView];
     
-    UILabel *expertLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 206, 21)];
+    UILabel *expertLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 206, 21)];
     expertLabel.text = @"EXPERT INSIGHTS";
     expertLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0];
     [self.expertInsightsView addSubview:expertLabel];
@@ -330,15 +330,31 @@
     self.timelineView = [[UIView alloc] initWithFrame:CGRectMake(0, self.expertInsightsView.frame.origin.y + self.expertInsightsView.frame.size.height, 320, 130)];
     [scrollView addSubview:self.timelineView];
     
-    UILabel *timelineLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 206, 21)];
+    UILabel *timelineLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 206, 21)];
     timelineLabel.text = @"TIMELINE";
     timelineLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0];
     [self.timelineView addSubview:timelineLabel];
     
-    UILabel *headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 30, 280, 21)];
-    headerLabel.text = [NSString stringWithFormat:@"Date\t\tEvent\t\tSalary Change"];
-    headerLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:16.0];
-    [self.timelineView addSubview:headerLabel];
+    //Format Column Headers
+    NSDictionary *underlineAttribute = @{NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle)};
+    
+    UILabel *dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 30, 40, 21)];
+    dateLabel.attributedText = [[NSAttributedString alloc] initWithString:@"Date"
+                                                    attributes:underlineAttribute];
+    dateLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:15.0];
+    [self.timelineView addSubview:dateLabel];
+    
+    UILabel *eventLabel = [[UILabel alloc] initWithFrame:CGRectMake(80, 30, 100, 21)];
+    eventLabel.attributedText = [[NSAttributedString alloc] initWithString:@"Event"
+                                                               attributes:underlineAttribute];
+    eventLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:15.0];
+    [self.timelineView addSubview:eventLabel];
+    
+    UILabel *salaryChangeLabel = [[UILabel alloc] initWithFrame:CGRectMake(200, 30, 100, 21)];
+    salaryChangeLabel.attributedText = [[NSAttributedString alloc] initWithString:@"Salary Change"
+                                                               attributes:underlineAttribute];
+    salaryChangeLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:15.0];
+    [self.timelineView addSubview:salaryChangeLabel];
     
     NSString *stringDate = @"6/15/2012";
     NSDateFormatter *dateFormat = [NSDateFormatter new];
@@ -347,7 +363,6 @@
     TimelineEvent *event = [[TimelineEvent alloc] initWithEvent:@"College Degree" onDate:[dateFormat dateFromString:stringDate] withChange:20000];
     
     NSString *stringDate2 = @"12/13/2013";
-    
     
     TimelineView *timelineView = [[TimelineView alloc] initWithFrame:CGRectMake(0, 60, 320, 30) andTimelineEvent:event];
     [self.timelineView addSubview:timelineView];
@@ -375,7 +390,7 @@
     self.expertAppraisalView = [[UIView alloc] initWithFrame:CGRectMake(0, self.timelineView.frame.origin.y + self.timelineView.frame.size.height, 320, 200)];
     [scrollView addSubview:self.expertAppraisalView];
     
-    UILabel *expertLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 206, 21)];
+    UILabel *expertLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 206, 21)];
     expertLabel.text = @"EXPERT APPRAISALS";
     expertLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0];
     expertLabel.textColor = [UIColor blackColor];
