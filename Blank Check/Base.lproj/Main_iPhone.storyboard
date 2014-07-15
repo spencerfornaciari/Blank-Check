@@ -289,7 +289,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" id="XfU-8l-7DU" customClass="GKLineGraph">
-                                        <rect key="frame" x="20" y="230" width="280" height="236"/>
+                                        <rect key="frame" x="0.0" y="208" width="320" height="280"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                     </view>

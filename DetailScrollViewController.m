@@ -30,7 +30,7 @@
     scrollView.delegate = self;
     [scrollView setScrollEnabled:YES];
     
-    [self _setupExampleGraph];
+    [self setupGraph];
 
     
     [self loadUserInfo];
@@ -102,7 +102,7 @@
     
 }
 
-- (void)_setupExampleGraph {
+- (void)setupGraph {
     
     self.data = @[
                   @[@20, @40, @20, @60, @40, @140, @80],
@@ -407,7 +407,7 @@
 }
 
 - (CFTimeInterval)animationDurationForLineAtIndex:(NSInteger)index {
-    return [[@[@1, @1.6, @2.2, @1.4] objectAtIndex:index] doubleValue];
+    return 0; //[[@[@1, @1.6, @2.2, @1.4] objectAtIndex:index] doubleValue];
 }
 
 - (NSString *)titleForLineAtIndex:(NSInteger)index {
