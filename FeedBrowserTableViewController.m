@@ -8,6 +8,7 @@
 
 #import "FeedBrowserTableViewController.h"
 #import "DetailScrollViewController.h"
+#import "SearchViewController.h"
 #import "AppDelegate.h"
 #import "FeedTableViewCell.h"
 #import "NetworkController.h"
@@ -186,12 +187,21 @@
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
     
-    Gamer *gamer = self.feedArray[indexPath.row];
+    if ([segue.identifier isEqualToString:@"detailedView"]) {
+        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+        
+        Gamer *gamer = self.feedArray[indexPath.row];
+        
+        DetailScrollViewController *viewController = segue.destinationViewController;
+        viewController.gamer = gamer;
+    }
     
-    DetailScrollViewController *viewController = segue.destinationViewController;
-    viewController.gamer = gamer;
+    if ([segue.identifier isEqualToString:@"searchView"]) {
+        SearchViewController *viewController = segue.destinationViewController;
+        viewController.connectionsArray = self.one.connectionIDArray;
+    }
+    
 }
 
 /*

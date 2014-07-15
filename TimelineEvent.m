@@ -10,7 +10,7 @@
 
 @implementation TimelineEvent
 
--(id)initWithEvent:(NSString *)event onDate:(NSDate *)date withChange:(NSInteger)change {
+-(id)initWithEvent:(NSString *)event onDate:(NSDate *)date withChange:(NSNumber *)change {
     if (self = [super init]) {
         self.event = event;
         self.dateOfEvent = date;

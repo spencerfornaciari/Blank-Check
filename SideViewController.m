@@ -145,10 +145,6 @@
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
-    if ([segue.identifier isEqualToString:@"search"]) {
-        SearchViewController *viewController = segue.destinationViewController;
-        viewController.connectionsArray = [[(AppDelegate *)[[UIApplication sharedApplication] delegate] gamer] connectionIDArray];
-    }
     
 }
 

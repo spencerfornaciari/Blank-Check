@@ -30,12 +30,16 @@
         [eventDetails sizeToFit];
         [self addSubview:eventDetails];
         
+        NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+        [numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
+        NSString *formattedNumberString = [numberFormatter stringFromNumber:event.amountOfChange];
+        
         UILabel *performanceChange = [[UILabel alloc] initWithFrame:CGRectMake(eventDetails.frame.origin.x + 120, 0, 100, 21)];
         
-        if (event.amountOfChange > 0) {
-            performanceChange.text = [NSString stringWithFormat:@"+%ld",(long)event.amountOfChange];
+        if ([event.amountOfChange integerValue] > 0) {
+            performanceChange.text = [NSString stringWithFormat:@"+%@", formattedNumberString];
         } else {
-            performanceChange.text = [NSString stringWithFormat:@"%ld",(long)event.amountOfChange];
+            performanceChange.text = [NSString stringWithFormat:@"%@", formattedNumberString];
         }
         
         performanceChange.font = [UIFont fontWithName:@"HelveticaNeue" size:14.0];

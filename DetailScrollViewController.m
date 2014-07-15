@@ -360,14 +360,14 @@
     NSDateFormatter *dateFormat = [NSDateFormatter new];
     dateFormat.dateStyle = NSDateFormatterShortStyle;
     
-    TimelineEvent *event = [[TimelineEvent alloc] initWithEvent:@"College Degree" onDate:[dateFormat dateFromString:stringDate] withChange:20000];
+    TimelineEvent *event = [[TimelineEvent alloc] initWithEvent:@"College Degree" onDate:[dateFormat dateFromString:stringDate] withChange:[NSNumber numberWithInteger:20000]];
     
     NSString *stringDate2 = @"12/13/2013";
     
     TimelineView *timelineView = [[TimelineView alloc] initWithFrame:CGRectMake(0, 60, 320, 30) andTimelineEvent:event];
     [self.timelineView addSubview:timelineView];
     
-    TimelineEvent *event2 = [[TimelineEvent alloc] initWithEvent:@"iOS Certification" onDate:[dateFormat dateFromString:stringDate2] withChange:-10000];
+    TimelineEvent *event2 = [[TimelineEvent alloc] initWithEvent:@"iOS Certification" onDate:[dateFormat dateFromString:stringDate2] withChange:[NSNumber numberWithInteger:-10000]];
     
     TimelineView *timelineView2 = [[TimelineView alloc] initWithFrame:CGRectMake(0, 90, 320, 30) andTimelineEvent:event2];
     [self.timelineView addSubview:timelineView2];

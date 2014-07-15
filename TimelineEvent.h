@@ -11,9 +11,9 @@
 @interface TimelineEvent : NSObject
 
 @property (nonatomic) NSString *event;
-@property (nonatomic) NSInteger amountOfChange;
+@property (nonatomic) NSNumber *amountOfChange;
 @property (nonatomic) NSDate *dateOfEvent;
 
--(id)initWithEvent:(NSString *)event onDate:(NSDate *)date withChange:(NSInteger)change;
+-(id)initWithEvent:(NSString *)event onDate:(NSDate *)date withChange:(NSNumber *)change;
 
 @end
