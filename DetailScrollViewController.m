@@ -19,6 +19,8 @@
 @property (nonatomic, strong) NSArray *data;
 @property (nonatomic, strong) NSArray *labels;
 
+@property (nonatomic) int frameHeight;
+
 @end
 
 @implementation DetailScrollViewController
@@ -33,6 +35,7 @@
     
     [self setupGraph];
 
+    self.frameHeight = 1390;
     
     [self loadUserInfo];
     [self loadExpertInsights];
@@ -70,10 +73,10 @@
     [super viewWillAppear:animated];
     
     if (self.gamer.invitationSent) {
-        [scrollView setContentSize:CGSizeMake(320, 1340)];
+        [scrollView setContentSize:CGSizeMake(self.view.frame.size.width, self.frameHeight)];
     } else {
         [self loadInviteView];
-        [scrollView setContentSize:CGSizeMake(320, self.view.frame.size.height)];
+        [scrollView setContentSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height)];
     }
     
     profileImage.image = [UIImage imageNamed:@"default-user"];
@@ -241,7 +244,7 @@
     self.gamer.invitationSent = TRUE;
     [self.overView removeFromSuperview];
 //    self.view.frame = CGRectMake(0, 0, 320, 1500);
-    [scrollView setContentSize:CGSizeMake(320, 1340)];
+    [scrollView setContentSize:CGSizeMake(self.view.frame.size.width, self.frameHeight)];
 }
 
 - (NSString *)documentsDirectoryPath
@@ -395,7 +398,7 @@
 }
 
 -(void)loadExpertAppraisal {
-    self.expertAppraisalView = [[UIView alloc] initWithFrame:CGRectMake(0, self.timelineView.frame.origin.y + self.timelineView.frame.size.height, 320, 200)];
+    self.expertAppraisalView = [[UIView alloc] initWithFrame:CGRectMake(0, self.timelineView.frame.origin.y + self.timelineView.frame.size.height, 320, 260)];
     [scrollView addSubview:self.expertAppraisalView];
     
     UILabel *expertLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 206, 21)];
@@ -406,8 +409,20 @@
     
     ExpertAppraisal *appraisal = [[ExpertAppraisal alloc] init];
     
-    ExpertAppraisalView *expertView = [[ExpertAppraisalView alloc] initWithFrame:CGRectMake(0, 30, 320, 200) andExpertAppraiser:appraisal];
+    ExpertAppraisalView *expertView = [[ExpertAppraisalView alloc] initWithFrame:CGRectMake(0, 30, 320, 100) andExpertAppraiser:appraisal];
     [self.expertAppraisalView addSubview:expertView];
+    
+    UIButton *estimateButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    CGRect linkedRect = CGRectMake(40, expertView.frame.origin.y + expertView.frame.size.height + 20, 240, 50);
+    estimateButton.frame = linkedRect;
+    [estimateButton addTarget:self action:@selector(LinkedInAction) forControlEvents:UIControlEventTouchUpInside];
+    [estimateButton setTitle:@"Get All Estimates" forState:UIControlStateNormal];
+    estimateButton.layer.borderWidth = 1.0;
+    estimateButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:17.0];
+    [estimateButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    estimateButton.layer.borderColor = [UIColor blackColor].CGColor;
+    [self.expertAppraisalView addSubview:estimateButton];
+    
 }
 
 #pragma mark - GKLineGraphDataSource
