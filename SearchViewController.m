@@ -46,6 +46,12 @@
 
 }
 
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [Amplitude logEvent:[NSString stringWithFormat:@"Search Browser"]];
+
+}
+
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {

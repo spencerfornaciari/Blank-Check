@@ -10,12 +10,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Blank Check/AppDelegate.m"
-            timestampString = "426796895.867677"
+            timestampString = "427235802.006298"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "72"
-            endingLineNumber = "72"
-            landmarkName = "-application:handleOpenURL:"
+            startingLineNumber = "82"
+            endingLineNumber = "82"
+            landmarkName = "-application:didFinishLaunchingWithOptions:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -42,12 +42,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Blank Check/AppDelegate.m"
-            timestampString = "426796895.867677"
+            timestampString = "427235802.006298"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "73"
-            endingLineNumber = "73"
-            landmarkName = "-application:handleOpenURL:"
+            startingLineNumber = "83"
+            endingLineNumber = "83"
+            landmarkName = "-application:didFinishLaunchingWithOptions:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -218,11 +218,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetworkController.m"
-            timestampString = "427063429.728584"
+            timestampString = "427226810.926003"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "669"
-            endingLineNumber = "669"
+            startingLineNumber = "672"
+            endingLineNumber = "672"
             landmarkName = "-commonConnectionsWithUser:"
             landmarkType = "5">
          </BreakpointContent>
@@ -250,11 +250,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetworkController.m"
-            timestampString = "427063429.728584"
+            timestampString = "427226810.926003"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "703"
-            endingLineNumber = "703"
+            startingLineNumber = "706"
+            endingLineNumber = "706"
             landmarkName = "-checkProfileText:"
             landmarkType = "5">
          </BreakpointContent>

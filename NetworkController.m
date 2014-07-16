@@ -92,7 +92,8 @@
     
     NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
     
-//    NSString *tokenResponse = [[NSString alloc] initWithData:responseData encoding:NSASCIIStringEncoding];
+   NSString *tokenResponse = [[NSString alloc] initWithData:responseData encoding:NSASCIIStringEncoding];
+    NSLog(@"Token Response: %@", tokenResponse);
     
     NSDictionary *jsonObject=[NSJSONSerialization
                               JSONObjectWithData:responseData
@@ -103,6 +104,8 @@
     
     [[NSUserDefaults standardUserDefaults] setObject:self.accessToken forKey:@"accessToken"];
     [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    NSLog(@"Token is currently: %d", [self checkTokenIsCurrent]);
     
 }
 

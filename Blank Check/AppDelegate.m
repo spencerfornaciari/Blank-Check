@@ -10,6 +10,7 @@
 #import "SideViewController.h"
 #import "LoginViewController.h"
 #import <HockeySDK/HockeySDK.h>
+#import "Flurry.h"
 
 @implementation AppDelegate
 
@@ -17,13 +18,34 @@
 {
     // Override point for customization after application launch.
     
+    //Hockey App Setup
     [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"a5e62e01653d9a9607b8f5d5dd48f65a"];
     [[BITHockeyManager sharedHockeyManager] startManager];
     [[BITHockeyManager sharedHockeyManager].authenticator
      authenticateInstallation];
     
+    [Flurry setCrashReportingEnabled:YES];
+    
+    // Replace YOUR_API_KEY with the api key in the downloaded package
+    [Flurry startSession:@"PK5YRTZRCPKZSTWSDHJ5"];
 //    [[BITHockeyManager sharedHockeyManager] testIdentifier];
+    
+//    [Amplitude initializeApiKey:@"ed7d7df567cd80075d2a83fb069a0fe7"];
+    
+    [Amplitude initializeApiKey:@"ed7d7df567cd80075d2a83fb069a0fe7" userId:[[UIDevice currentDevice] name]];
 
+    //Google Analytics Setup
+    // Optional: automatically send uncaught exceptions to Google Analytics.
+//    [GAI sharedInstance].trackUncaughtExceptions = YES;
+//    
+//    // Optional: set Google Analytics dispatch interval to e.g. 20 seconds.
+//    [GAI sharedInstance].dispatchInterval = 20;
+//    
+//    // Optional: set Logger to VERBOSE for debug information.
+//    [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelVerbose];
+//    
+//    // Initialize tracker. Replace with your tracking ID.
+//    [[GAI sharedInstance] trackerWithTrackingId:@"UA-52905521-1"];
     
     [[UINavigationBar appearance] setBarTintColor:[UIColor blankCheckBlue]];
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];

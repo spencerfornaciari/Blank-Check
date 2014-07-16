@@ -42,12 +42,34 @@
     
     self.operationQueue = [(AppDelegate *)[[UIApplication sharedApplication] delegate] blankQueue];
     
-    if ([self doesGamerExist]) {
+    if (!self.one && self.downloadingUserData == FALSE) {
+        [self.operationQueue addOperationWithBlock:^{
+            self.one = [[NetworkController sharedController] loadCurrentUserData];
+            NSLog(@"User Count: %d", self.one.connectionIDArray.count);
+            
+            //                [NSKeyedArchiver archiveRootObject:self.one toFile:[Gamer gamerPath]];
+            //
+            //                self.appDelegate = [[UIApplication sharedApplication] delegate];
+            //                self.appDelegate.gamer = self.one;
+            
+            self.feedArray = [NSMutableArray new];
+            self.feedArray = self.one.connectionIDArray;
+            
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                [self.loadingView.activityIndicator stopAnimating];
+                [self.loadingView removeFromSuperview];
+                
+                [self.tableView reloadData];
+            }];
+        }];
+    }
+/*
+   if ([self doesGamerExist]) {
         self.downloadingUserData = TRUE;
-        self.one = [NSKeyedUnarchiver unarchiveObjectWithFile:[Gamer gamerPath]];
-        
-        self.appDelegate = [[UIApplication sharedApplication] delegate];
-        self.appDelegate.gamer = self.one;
+//        self.one = [NSKeyedUnarchiver unarchiveObjectWithFile:[Gamer gamerPath]];
+//        
+//        self.appDelegate = [[UIApplication sharedApplication] delegate];
+//        self.appDelegate.gamer = self.one;
         
         self.feedArray = [NSMutableArray new];
         self.feedArray = self.one.connectionIDArray;
@@ -55,11 +77,12 @@
         if (!self.one && self.downloadingUserData == FALSE) {
             [self.operationQueue addOperationWithBlock:^{
                 self.one = [[NetworkController sharedController] loadCurrentUserData];
+                NSLog(@"User Count: %d", self.one.connectionIDArray.count);
                 
-                [NSKeyedArchiver archiveRootObject:self.one toFile:[Gamer gamerPath]];
-                
-                self.appDelegate = [[UIApplication sharedApplication] delegate];
-                self.appDelegate.gamer = self.one;
+//                [NSKeyedArchiver archiveRootObject:self.one toFile:[Gamer gamerPath]];
+//                
+//                self.appDelegate = [[UIApplication sharedApplication] delegate];
+//                self.appDelegate.gamer = self.one;
                 
                 self.feedArray = [NSMutableArray new];
                 self.feedArray = self.one.connectionIDArray;
@@ -75,7 +98,9 @@
             
         }
     }
-    
+*/
+    NSLog(@"User Count: %d", self.one.connectionIDArray.count);
+
 //    NSArray *myArray = [NetworkController grabUserConnections];
 //    NSLog(@"Count: %ld", (long)myArray.count);
     
@@ -132,6 +157,12 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [Amplitude logEvent:[NSString stringWithFormat:@"Feed Browser - %@", self.one.fullName]];
+//    id tracker = [[GAI sharedInstance] defaultTracker];
+//    [tracker set:kGAIScreenName value:@"Feed Browser Table"];
+//    
+//    [tracker send:[[GAIDictionaryBuilder createAppView] build]];
+    
     [NSKeyedArchiver archiveRootObject:self.one toFile:[Gamer gamerPath]];
     
     if (!self.downloadingUserData) {

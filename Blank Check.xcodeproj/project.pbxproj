@@ -58,6 +58,7 @@
 		89F1F8F21970889F00ECC1B3 /* HockeySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89F1F8EE1970889F00ECC1B3 /* HockeySDK.framework */; };
 		89F1F8F31970889F00ECC1B3 /* HockeySDK.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 89F1F8F01970889F00ECC1B3 /* HockeySDK.xcconfig */; };
 		89F1F8F41970889F00ECC1B3 /* HockeySDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 89F1F8F11970889F00ECC1B3 /* HockeySDKResources.bundle */; };
+		89F8AE0C1977147600FF37D1 /* libFlurry_5.2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 89F8AE0B1977147600FF37D1 /* libFlurry_5.2.0.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,6 +100,9 @@
 		891B94621948C84600BEAEC9 /* FeedControllerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedControllerViewController.m; path = ../FeedControllerViewController.m; sourceTree = "<group>"; };
 		891B94641948C9FF00BEAEC9 /* BlankCheckViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BlankCheckViewCell.h; path = ../BlankCheckViewCell.h; sourceTree = "<group>"; };
 		891B94651948C9FF00BEAEC9 /* BlankCheckViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BlankCheckViewCell.m; path = ../BlankCheckViewCell.m; sourceTree = "<group>"; wrapsLines = 0; };
+		8937E7611976FE82004BA64D /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		8937E7631976FE89004BA64D /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		8937E7651976FE98004BA64D /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		895AF660195235A700B20DA6 /* FeedBrowserTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedBrowserTableViewController.h; path = ../FeedBrowserTableViewController.h; sourceTree = "<group>"; };
 		895AF661195235A700B20DA6 /* FeedBrowserTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedBrowserTableViewController.m; path = ../FeedBrowserTableViewController.m; sourceTree = "<group>"; };
 		895AF663195235FD00B20DA6 /* FeedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedTableViewCell.h; path = ../FeedTableViewCell.h; sourceTree = "<group>"; };
@@ -169,6 +173,8 @@
 		89F1F8EE1970889F00ECC1B3 /* HockeySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = HockeySDK.framework; sourceTree = "<group>"; };
 		89F1F8F01970889F00ECC1B3 /* HockeySDK.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = HockeySDK.xcconfig; sourceTree = "<group>"; };
 		89F1F8F11970889F00ECC1B3 /* HockeySDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = HockeySDKResources.bundle; sourceTree = "<group>"; };
+		89F8AE0A1977147600FF37D1 /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
+		89F8AE0B1977147600FF37D1 /* libFlurry_5.2.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry_5.2.0.a; sourceTree = "<group>"; };
 		8D88B6EE341E4BB49404DDD2 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF0FF877FE3843E6B32D913D /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -187,6 +193,7 @@
 				89C973B3192564AF00EC6004 /* UIKit.framework in Frameworks */,
 				89C973AF192564AF00EC6004 /* Foundation.framework in Frameworks */,
 				4F6ABBBCFE2E42399BFFEFC8 /* libPods.a in Frameworks */,
+				89F8AE0C1977147600FF37D1 /* libFlurry_5.2.0.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -251,6 +258,9 @@
 		89C973AD192564AF00EC6004 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8937E7651976FE98004BA64D /* libz.dylib */,
+				8937E7631976FE89004BA64D /* CoreData.framework */,
+				8937E7611976FE82004BA64D /* AdSupport.framework */,
 				89F1F8ED1970889F00ECC1B3 /* HockeySDK.embeddedframework */,
 				89F1F8D7197042C400ECC1B3 /* SystemConfiguration.framework */,
 				89F1F8D5197042BD00ECC1B3 /* Security.framework */,
@@ -267,6 +277,7 @@
 		89C973B4192564AF00EC6004 /* Blank Check */ = {
 			isa = PBXGroup;
 			children = (
+				89F8AE091977147600FF37D1 /* Flurry */,
 				8910F3201937AD1300955812 /* Model */,
 				89C973F21925797F00EC6004 /* Misc */,
 				89C973F11925797B00EC6004 /* Controller */,
@@ -389,6 +400,15 @@
 				89F1F8F11970889F00ECC1B3 /* HockeySDKResources.bundle */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		89F8AE091977147600FF37D1 /* Flurry */ = {
+			isa = PBXGroup;
+			children = (
+				89F8AE0A1977147600FF37D1 /* Flurry.h */,
+				89F8AE0B1977147600FF37D1 /* libFlurry_5.2.0.a */,
+			);
+			path = Flurry;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -729,6 +749,18 @@
 				GCC_PREFIX_HEADER = "Blank Check/Blank Check-Prefix.pch";
 				INFOPLIST_FILE = "Blank Check/Blank Check-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Blank",
+					Check,
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Blank",
+					Check,
+					"$(PROJECT_DIR)/Blank",
+					Check/Google,
+					"$(PROJECT_DIR)/Blank",
+					Check/Flurry,
+				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -753,6 +785,18 @@
 				GCC_PREFIX_HEADER = "Blank Check/Blank Check-Prefix.pch";
 				INFOPLIST_FILE = "Blank Check/Blank Check-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Blank",
+					Check,
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Blank",
+					Check,
+					"$(PROJECT_DIR)/Blank",
+					Check/Google,
+					"$(PROJECT_DIR)/Blank",
+					Check/Flurry,
+				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

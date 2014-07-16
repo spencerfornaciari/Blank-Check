@@ -19,7 +19,7 @@
 
 @property (nonatomic) NSString *authorizationString, *accessToken;
 @property (nonatomic) BOOL tokenBOOL, tokenStatus, gottenUserData;
-@property (nonatomic) Gamer *currentGamer;
+//@property (nonatomic) Gamer *currentGamer;
 
 @end
 
@@ -30,7 +30,7 @@
     [super viewDidLoad];
     
 //    self.operationQueue = [(AppDelegate *)[[UIApplication sharedApplication] delegate] blankQueue];
-    self.currentGamer = [(AppDelegate *)[[UIApplication sharedApplication] delegate] gamer];
+//    self.currentGamer = [(AppDelegate *)[[UIApplication sharedApplication] delegate] gamer];
     
     self.tokenBOOL = FALSE;
     self.gottenUserData = FALSE;

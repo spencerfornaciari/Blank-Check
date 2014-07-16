@@ -9,6 +9,7 @@
 #import "DetailScrollViewController.h"
 #import "SocialController.h"
 #import "UIColor+BlankCheckColors.h"
+#import "Flurry.h"
 
 @interface DetailScrollViewController ()
 
@@ -71,6 +72,20 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+//    self.screenName = [NSString stringWithFormat:@"Detail page: %@", self.gamer.fullName];
+    
+    [Amplitude logEvent:[NSString stringWithFormat:@"%@", self.gamer.fullName]];
+    NSDictionary *articleParams = [NSDictionary dictionaryWithObjectsAndKeys:
+                                   @"John Q", @"Author",
+                                   self.gamer.fullName, @"Detailed_Info",
+                                   nil];
+    
+    [Flurry logEvent:@"Detailed_View" withParameters:articleParams timed:YES];
+    
+    
+    // In a function that captures when a user navigates away from article
+    // You can pass in additional params or update existing ones here as well
+    [Flurry endTimedEvent:@"Detailed_View" withParameters:nil];
     
     if (self.gamer.invitationSent) {
         [scrollView setContentSize:CGSizeMake(self.view.frame.size.width, self.frameHeight)];
