@@ -430,13 +430,17 @@
     UIButton *estimateButton = [UIButton buttonWithType:UIButtonTypeCustom];
     CGRect linkedRect = CGRectMake(40, expertView.frame.origin.y + expertView.frame.size.height + 20, 240, 50);
     estimateButton.frame = linkedRect;
-    [estimateButton addTarget:self action:@selector(LinkedInAction) forControlEvents:UIControlEventTouchUpInside];
+    [estimateButton addTarget:self action:@selector(linkedInAction) forControlEvents:UIControlEventTouchUpInside];
     [estimateButton setTitle:@"Get All Estimates" forState:UIControlStateNormal];
     estimateButton.layer.borderWidth = 1.0;
     estimateButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:17.0];
     [estimateButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     estimateButton.layer.borderColor = [UIColor blackColor].CGColor;
     [self.expertAppraisalView addSubview:estimateButton];
+    
+}
+
+-(void)linkedInAction {
     
 }
 

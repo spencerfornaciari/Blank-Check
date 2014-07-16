@@ -751,15 +751,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Blank",
-					Check,
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Blank",
-					Check,
-					"$(PROJECT_DIR)/Blank",
-					Check/Google,
-					"$(PROJECT_DIR)/Blank",
-					Check/Flurry,
+					"$(SRCROOT)/\"Blank Check\"/Flurry",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -787,15 +780,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Blank",
-					Check,
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Blank",
-					Check,
-					"$(PROJECT_DIR)/Blank",
-					Check/Google,
-					"$(PROJECT_DIR)/Blank",
-					Check/Flurry,
+					"$(SRCROOT)/\"Blank Check\"/Flurry",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
