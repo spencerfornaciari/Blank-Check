@@ -135,6 +135,13 @@
 -(Gamer *)loadCurrentUserData
 {
     Gamer *gamer = [Gamer new];
+    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+//    NSManagedObjectContext *context = [appDelegate managedObjectContext];
+//    NSManagedObject *newContact;
+//    newContact = [NSEntityDescription insertNewObjectForEntityForName:@"Gamer" inManagedObjectContext:context];
+
+    
+
     
     NSString *accessToken = [[NSUserDefaults standardUserDefaults] stringForKey:@"accessToken"];
     //Generating the NSMutableURLRequest with the base LinkedIN URL with token extension in the HTTP Body
@@ -153,8 +160,14 @@
                                                                options:NSJSONReadingMutableLeaves
                                                                  error:nil];
     
+//    [newContact setValue:@"Bob" forKey:@"firstName"];
+//    [newContact setValue:@"Johnson" forKey:@"lastName"];
+//    [newContact setValue:@"Seattle" forKey:@"location"];
+    
     gamer.firstName = dictionary[@"firstName"];
+//    [newContact setValue:dictionary[@"firstName"] forKey:@"firstName"];
     gamer.lastName = dictionary[@"lastName"];
+//    [newContact setValue:dictionary[@"lastName"] forKey:@"lastName"];
     gamer.fullName = [NSString stringWithFormat:@"%@ %@", gamer.firstName, gamer.lastName];
     gamer.gamerID = dictionary[@"id"];
     gamer.gamerEmail = dictionary[@"emailAddress"];
@@ -310,6 +323,9 @@
     
     //Parsing Connection info
     gamer.connectionIDArray = [[NetworkController grabUserConnections] mutableCopy];
+    
+//    NSError *error;
+//    [context save:&error];
     
     return gamer;
 
@@ -497,6 +513,8 @@
     gamer.connectionIDArray = [[NetworkController grabUserConnections] mutableCopy];
     
     return gamer;
+    
+
 }
 
 +(NSArray *)grabUserConnections {
@@ -740,50 +758,50 @@
     
 }
 
--(void)createDictionary {
-    
-    NSURLSessionConfiguration *defaultConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    NSURLSession *defaultSession = [NSURLSession sessionWithConfiguration:defaultConfiguration];
-    
-    NSDictionary *dictionary = @{@"name":@"blankCheck",
-                                 @"language":@"en"};
-    
-    NSDictionary *jsonDictionary = @{@"dictionary":dictionary};
-    
-    NSDictionary *gotDictionary = @{@"dictionary":@{
-                                        @"name":@"got",
-                                        @"language":@"en",
-                                        @"description":@"Entities and concepts from A Song of Ice and Fire."}};
-    
-    NSLog(@"%@", jsonDictionary);
-    
-    NSData *data = [NSJSONSerialization dataWithJSONObject:gotDictionary options:NSJSONWritingPrettyPrinted error:nil];
-    
-    NSURL *url = [NSURL URLWithString:@"http://textalytics.com/api/sempub/1.0/manage/dictionary_list?key=b8d169500ad3ded96d69054182f829cd&input=json&output=json"];
-    
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
-    [request setHTTPMethod:@"POST"];
-    [request setHTTPBody:data];
-    
-    NSURLSessionDataTask *dataTask = [defaultSession dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        
-        NSString *stringResponse = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
-        NSLog(@"Response: %@", stringResponse);
-    }];
-    
-    [dataTask resume];
-    
-//    NSURLResponse *response;
-//    NSError *error;
+//-(void)createDictionary {
 //    
-//    NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-//    NSString *stringResponse = [[NSString alloc] initWithData:responseData encoding:NSASCIIStringEncoding];
+//    NSURLSessionConfiguration *defaultConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
+//    NSURLSession *defaultSession = [NSURLSession sessionWithConfiguration:defaultConfiguration];
 //    
-//    NSLog(@"%@", stringResponse);
-
-    
-
-}
+//    NSDictionary *dictionary = @{@"name":@"blankCheck",
+//                                 @"language":@"en"};
+//    
+//    NSDictionary *jsonDictionary = @{@"dictionary":dictionary};
+//    
+//    NSDictionary *gotDictionary = @{@"dictionary":@{
+//                                        @"name":@"got",
+//                                        @"language":@"en",
+//                                        @"description":@"Entities and concepts from A Song of Ice and Fire."}};
+//    
+//    NSLog(@"%@", jsonDictionary);
+//    
+//    NSData *data = [NSJSONSerialization dataWithJSONObject:gotDictionary options:NSJSONWritingPrettyPrinted error:nil];
+//    
+//    NSURL *url = [NSURL URLWithString:@"http://textalytics.com/api/sempub/1.0/manage/dictionary_list?key=b8d169500ad3ded96d69054182f829cd&input=json&output=json"];
+//    
+//    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
+//    [request setHTTPMethod:@"POST"];
+//    [request setHTTPBody:data];
+//    
+//    NSURLSessionDataTask *dataTask = [defaultSession dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+//        
+//        NSString *stringResponse = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
+//        NSLog(@"Response: %@", stringResponse);
+//    }];
+//    
+//    [dataTask resume];
+//    
+////    NSURLResponse *response;
+////    NSError *error;
+////    
+////    NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+////    NSString *stringResponse = [[NSString alloc] initWithData:responseData encoding:NSASCIIStringEncoding];
+////    
+////    NSLog(@"%@", stringResponse);
+//
+//    
+//
+//}
 
 -(void)listDictionaries {
     NSURLSessionConfiguration *defaultSessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
@@ -849,71 +867,69 @@
     
 }
 
--(void)removeDictionaryWithName:(NSString *)name {
-    NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfiguration];
-    
-    NSString *string = [NSString stringWithFormat:@"https://textalytics.com/api/sempub/1.0/manage/dictionary_list/%@?key=b8d169500ad3ded96d69054182f829cd", name];
-    
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:string]];
-    [request setHTTPMethod:@"DELETE"];
-    
-    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-        NSLog(@"Remove: %@", dictionary);
-    }];
-    
-    [dataTask resume];
-}
-
--(void)updateDictionaryWithName:(NSString *)name {
-    NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfiguration];
-    
-    NSString *string = [NSString stringWithFormat:@"https://textalytics.com/api/sempub/1.0/manage/dictionary_list/%@?key=b8d169500ad3ded96d69054182f829cd", name];
-    
-    /*{
-     "entity": {
-     "id": "01",
-     "form": "Daenerys Targaryen",
-     "alias_list": [
-     "Dany",
-     "Khaleesi",
-     "Daenerys Stormborn",
-     "The Unburnt",
-     "Mother of Dragons",
-     "Mysha"
-     ],
-     "type": "Top>Person>FullName",
-     "theme_list": [
-     "Top>Society>Politics",
-     "Top>Arts>Cinema"
-     ]
-     }
-     }*/
-    
-    NSArray *array = @[@"Dany", @"Khaleesi", @"Daenerys Stormborn", @"The Unburnt", @"Mother of Dragons", @"Mysha"];
-    NSArray *array2 = @[@"Top>Society>Politics", @"Top>Arts>Cinema"];
-    
-    NSDictionary *dictionary = @{@"form":[@"Daenerys Targaryen" dataUsingEncoding:NSUTF8StringEncoding],
-                                 @"alias":array,
-                                 @"type":@"Top>Person>FullName",
-                                 @"theme_list":array2};
-    
-    NSLog(@"Dictionary: %@", dictionary);
-    
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:string]];
-    [request setHTTPMethod:@"PUT"];
-    
-    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-        NSLog(@"Remove: %@", dictionary);
-    }];
-    
-    [dataTask resume];
-    
-}
-
-
+//-(void)removeDictionaryWithName:(NSString *)name {
+//    NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
+//    NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfiguration];
+//    
+//    NSString *string = [NSString stringWithFormat:@"https://textalytics.com/api/sempub/1.0/manage/dictionary_list/%@?key=b8d169500ad3ded96d69054182f829cd", name];
+//    
+//    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:string]];
+//    [request setHTTPMethod:@"DELETE"];
+//    
+//    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+//        NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+//        NSLog(@"Remove: %@", dictionary);
+//    }];
+//    
+//    [dataTask resume];
+//}
 //
+//-(void)updateDictionaryWithName:(NSString *)name {
+//    NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
+//    NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfiguration];
+//    
+//    NSString *string = [NSString stringWithFormat:@"https://textalytics.com/api/sempub/1.0/manage/dictionary_list/%@?key=b8d169500ad3ded96d69054182f829cd", name];
+//    
+//    /*{
+//     "entity": {
+//     "id": "01",
+//     "form": "Daenerys Targaryen",
+//     "alias_list": [
+//     "Dany",
+//     "Khaleesi",
+//     "Daenerys Stormborn",
+//     "The Unburnt",
+//     "Mother of Dragons",
+//     "Mysha"
+//     ],
+//     "type": "Top>Person>FullName",
+//     "theme_list": [
+//     "Top>Society>Politics",
+//     "Top>Arts>Cinema"
+//     ]
+//     }
+//     }*/
+//    
+//    NSArray *array = @[@"Dany", @"Khaleesi", @"Daenerys Stormborn", @"The Unburnt", @"Mother of Dragons", @"Mysha"];
+//    NSArray *array2 = @[@"Top>Society>Politics", @"Top>Arts>Cinema"];
+//    
+//    NSDictionary *dictionary = @{@"form":[@"Daenerys Targaryen" dataUsingEncoding:NSUTF8StringEncoding],
+//                                 @"alias":array,
+//                                 @"type":@"Top>Person>FullName",
+//                                 @"theme_list":array2};
+//    
+//    NSLog(@"Dictionary: %@", dictionary);
+//    
+//    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:string]];
+//    [request setHTTPMethod:@"PUT"];
+//    
+//    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+//        NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+//        NSLog(@"Remove: %@", dictionary);
+//    }];
+//    
+//    [dataTask resume];
+//    
+//}
+
 @end
