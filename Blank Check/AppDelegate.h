@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-//#import "GAI.h"
 #import "NetworkController.h"
 #import "Gamer.h"
 #import "UIColor+BlankCheckColors.h"
@@ -18,6 +17,13 @@
 @property (strong, nonatomic) NetworkController *networkController;
 @property (strong, nonatomic) NSOperationQueue *blankQueue;
 
+@property (nonatomic, strong, readonly) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, strong, readonly) NSManagedObjectModel *managedObjectModel;
+@property (nonatomic, strong, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
+
 @property (nonatomic) Gamer *gamer;
+
+-(void)saveContext;
+-(NSURL *)applicationDocumentsDirectory;
 
 @end

@@ -19,7 +19,6 @@
 
 @property (nonatomic) NSString *authorizationString, *accessToken;
 @property (nonatomic) BOOL tokenBOOL, tokenStatus, gottenUserData;
-//@property (nonatomic) Gamer *currentGamer;
 
 @end
 

@@ -51,6 +51,7 @@
 		89C973DD192564AF00EC6004 /* Blank_CheckTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C973DC192564AF00EC6004 /* Blank_CheckTests.m */; };
 		89C973E81925650C00EC6004 /* NetworkController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C973E71925650C00EC6004 /* NetworkController.m */; };
 		89C973EB192565D800EC6004 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C973EA192565D800EC6004 /* Constants.m */; };
+		89D417A9197858D300A0CA4F /* BlankCheck.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 89D417A7197858D300A0CA4F /* BlankCheck.xcdatamodeld */; };
 		89F1F8D2197042B100ECC1B3 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89F1F8D1197042B100ECC1B3 /* QuartzCore.framework */; };
 		89F1F8D4197042B500ECC1B3 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89F1F8D3197042B500ECC1B3 /* CoreText.framework */; };
 		89F1F8D6197042BD00ECC1B3 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89F1F8D5197042BD00ECC1B3 /* Security.framework */; };
@@ -166,6 +167,7 @@
 		89C973E71925650C00EC6004 /* NetworkController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NetworkController.m; path = ../NetworkController.m; sourceTree = "<group>"; };
 		89C973E9192565D800EC6004 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Constants.h; path = ../Constants.h; sourceTree = "<group>"; };
 		89C973EA192565D800EC6004 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Constants.m; path = ../Constants.m; sourceTree = "<group>"; };
+		89D417A8197858D300A0CA4F /* BlankCheck.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BlankCheck.xcdatamodel; sourceTree = "<group>"; };
 		89F1F8D1197042B100ECC1B3 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		89F1F8D3197042B500ECC1B3 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		89F1F8D5197042BD00ECC1B3 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -374,6 +376,7 @@
 		89C973F21925797F00EC6004 /* Misc */ = {
 			isa = PBXGroup;
 			children = (
+				89D417A7197858D300A0CA4F /* BlankCheck.xcdatamodeld */,
 				89C973E9192565D800EC6004 /* Constants.h */,
 				89C973EA192565D800EC6004 /* Constants.m */,
 				899616B719464DF600C75B99 /* LanguageProcessing.h */,
@@ -581,6 +584,7 @@
 				89C973BF192564AF00EC6004 /* AppDelegate.m in Sources */,
 				8910F32F1937ADEA00955812 /* Recommendation.m in Sources */,
 				8910F3321937AE3400955812 /* Language.m in Sources */,
+				89D417A9197858D300A0CA4F /* BlankCheck.xcdatamodeld in Sources */,
 				891B94661948C9FF00BEAEC9 /* BlankCheckViewCell.m in Sources */,
 				89779DE819633C7600AC81CA /* Insights.m in Sources */,
 				8978FBCB193E562600BF0921 /* PresetSearchViewController.m in Sources */,
@@ -753,6 +757,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					"$(SRCROOT)/\"Blank Check\"/Flurry",
+					"$(SRCROOT)/\"Blank Check\"/Google",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -782,6 +787,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					"$(SRCROOT)/\"Blank Check\"/Flurry",
+					"$(SRCROOT)/\"Blank Check\"/Google",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -858,6 +864,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		89D417A7197858D300A0CA4F /* BlankCheck.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				89D417A8197858D300A0CA4F /* BlankCheck.xcdatamodel */,
+			);
+			currentVersion = 89D417A8197858D300A0CA4F /* BlankCheck.xcdatamodel */;
+			name = BlankCheck.xcdatamodeld;
+			path = ../BlankCheck.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 89C973A3192564AF00EC6004 /* Project object */;
 }

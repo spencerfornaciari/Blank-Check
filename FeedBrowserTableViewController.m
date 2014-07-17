@@ -27,7 +27,6 @@
 
 @property (nonatomic) BOOL downloadingUserData, menuButtonBool;
 
-
 @end
 
 @implementation FeedBrowserTableViewController
@@ -45,12 +44,12 @@
     if (!self.one && self.downloadingUserData == FALSE) {
         [self.operationQueue addOperationWithBlock:^{
             self.one = [[NetworkController sharedController] loadCurrentUserData];
-            NSLog(@"User Count: %d", self.one.connectionIDArray.count);
+            NSLog(@"User Count: %lu", (unsigned long)self.one.connectionIDArray.count);
             
             //                [NSKeyedArchiver archiveRootObject:self.one toFile:[Gamer gamerPath]];
             //
-            //                self.appDelegate = [[UIApplication sharedApplication] delegate];
-            //                self.appDelegate.gamer = self.one;
+            self.appDelegate = [[UIApplication sharedApplication] delegate];
+            self.appDelegate.gamer = self.one;
             
             self.feedArray = [NSMutableArray new];
             self.feedArray = self.one.connectionIDArray;
@@ -63,6 +62,35 @@
             }];
         }];
     }
+    
+    //Core Data Example
+    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    NSManagedObjectContext *context = [appDelegate managedObjectContext];
+    NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Gamer" inManagedObjectContext:context];
+    NSFetchRequest *request = [NSFetchRequest new];
+    [request setEntity:entityDescription];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"firstName = %@", @"Bob"];
+    [request setPredicate:predicate];
+    
+    NSManagedObject *matches = nil;
+    
+    NSError *error;
+    
+    NSArray *objects = [context executeFetchRequest:request error:&error];
+    
+    if ([objects count] == 0) {
+        NSLog(@"No matches");
+    } else {
+        NSLog(@"Found a Bob");
+        for (int i = 0; i < objects.count; i++) {
+            matches = objects[i];
+            NSLog(@"%@ %@ %@", [matches valueForKey:@"firstName"], [matches valueForKey:@"lastName"], [matches valueForKey:@"location"]);
+        }
+    }
+    
+//    [self add];
+    
 /*
    if ([self doesGamerExist]) {
         self.downloadingUserData = TRUE;
@@ -99,7 +127,7 @@
         }
     }
 */
-    NSLog(@"User Count: %d", self.one.connectionIDArray.count);
+    NSLog(@"User Count: %lu", (unsigned long)self.one.connectionIDArray.count);
 
 //    NSArray *myArray = [NetworkController grabUserConnections];
 //    NSLog(@"Count: %ld", (long)myArray.count);
@@ -163,7 +191,7 @@
 //    
 //    [tracker send:[[GAIDictionaryBuilder createAppView] build]];
     
-    [NSKeyedArchiver archiveRootObject:self.one toFile:[Gamer gamerPath]];
+//    [NSKeyedArchiver archiveRootObject:self.one toFile:[Gamer gamerPath]];
     
     if (!self.downloadingUserData) {
         self.downloadingUserData = TRUE;
@@ -305,5 +333,20 @@
         self.menuButtonBool = FALSE;
     }
 
+}
+
+-(void)add {
+    
+    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    NSManagedObjectContext *context = [appDelegate managedObjectContext];
+    NSManagedObject *newContact;
+    newContact = [NSEntityDescription insertNewObjectForEntityForName:@"Gamer" inManagedObjectContext:context];
+    [newContact setValue:@"Bob" forKey:@"firstName"];
+    [newContact setValue:@"Johnson" forKey:@"lastName"];
+    [newContact setValue:@"Seattle" forKey:@"location"];
+    
+    NSError *error;
+    [context save:&error];
+    
 }
 @end
