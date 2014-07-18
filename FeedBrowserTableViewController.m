@@ -71,27 +71,28 @@
     NSFetchRequest *request = [NSFetchRequest new];
     [request setEntity:entityDescription];
     
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"firstName = %@", @"Bob"];
-    [request setPredicate:predicate];
+//    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"firstName = %@", @"Jessica"];
+//    [request setPredicate:predicate];
     
-    NSManagedObject *matches = nil;
+//    NSManagedObject *matches = nil;
     
     NSError *error;
     
     NSArray *objects = [context executeFetchRequest:request error:&error];
     
-    if ([objects count] == 0) {
-        NSLog(@"No matches");
-    } else {
-        NSLog(@"Found a Bob");
-        for (int i = 0; i < objects.count; i++) {
-            matches = objects[i];
-            NSLog(@"%@ %@ %@", [matches valueForKey:@"firstName"], [matches valueForKey:@"lastName"], [matches valueForKey:@"location"]);
-        }
-    }
+    NSLog(@"Objects: %u", (unsigned)objects.count);
     
-    [self.controller loadUserData];
-//    [self add];
+//    if ([objects count] == 0) {
+//        NSLog(@"No matches");
+//    } else {
+//        NSLog(@"Found a Jessica");
+//        for (int i = 0; i < objects.count; i++) {
+//            matches = objects[i];
+//            NSLog(@"%@ %@ %@", [matches valueForKey:@"firstName"], [matches valueForKey:@"lastName"], [matches valueForKey:@"location"]);
+//        }
+//    }
+
+    //    [self add];
     
 /*
    if ([self doesGamerExist]) {
@@ -337,20 +338,20 @@
 
 }
 
--(void)add {
-    
-    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-    NSManagedObjectContext *context = [appDelegate managedObjectContext];
-    NSManagedObject *newContact;
-    newContact = [NSEntityDescription insertNewObjectForEntityForName:@"Gamer" inManagedObjectContext:context];
-    [newContact setValue:@"Bob" forKey:@"firstName"];
-    [newContact setValue:@"Johnson" forKey:@"lastName"];
-    [newContact setValue:@"Seattle" forKey:@"location"];
-    
-    NSError *error;
-    [context save:&error];
-    
-}
+//-(void)add {
+//    
+//    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+//    NSManagedObjectContext *context = [appDelegate managedObjectContext];
+//    NSManagedObject *newContact;
+//    newContact = [NSEntityDescription insertNewObjectForEntityForName:@"Gamer" inManagedObjectContext:context];
+//    [newContact setValue:@"Bob" forKey:@"firstName"];
+//    [newContact setValue:@"Johnson" forKey:@"lastName"];
+//    [newContact setValue:@"Seattle" forKey:@"location"];
+//    
+//    NSError *error;
+//    [context save:&error];
+//    
+//}
 
 -(void)setGamerData:(Gamer *)gamer {
     self.one = gamer;

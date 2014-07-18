@@ -354,7 +354,13 @@
     AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *context = [appDelegate managedObjectContext];
     NSManagedObject *newContact;
-    
+    newContact = [NSEntityDescription insertNewObjectForEntityForName:@"Gamer" inManagedObjectContext:context];
+//    [newContact setValue:@"Ted" forKey:@"firstName"];
+//    [newContact setValue:@"Smith" forKey:@"lastName"];
+//    [newContact setValue:@"Portland" forKey:@"location"];
+//    NSError *error;
+//    [context save:&error];
+
     NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data
                                                                options:NSJSONReadingMutableLeaves
                                                                  error:nil];
@@ -713,6 +719,10 @@
 +(NSArray *)grabUserConnections {
     NSMutableArray *connectionsArray = [NSMutableArray new];
     
+    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    NSManagedObjectContext *context = [appDelegate managedObjectContext];
+    
+    
     NSString *accessToken = [[NSUserDefaults standardUserDefaults] stringForKey:@"accessToken"];
     
     NSString *connectionAccess = [NSString stringWithFormat:@"%@%@&format=json", @"https://api.linkedin.com/v1/people/~/connections:(id,first-name,last-name,num-connections,num-connections-capped,positions,public-profile-url,headline,industry,location,pictureUrl,picture-urls::(original))?oauth2_access_token=", accessToken];
@@ -724,26 +734,48 @@
                                                                          options:NSJSONReadingMutableLeaves
                                                                            error:nil];
     NSArray *connectionArray = connectionDictionary[@"values"];
+    NSLog(@"Connections: %lu", (unsigned long)connectionArray.count);
     
     for (NSDictionary *connection in connectionArray) {
         Gamer *gamerConnection = [Gamer new];
+        NSManagedObject *newContact;
+        newContact = [NSEntityDescription insertNewObjectForEntityForName:@"Gamer" inManagedObjectContext:context];
         gamerConnection.gamerID = connection[@"id"];
         gamerConnection.firstName = connection[@"firstName"];
+        
         gamerConnection.lastName = connection[@"lastName"];
+        
         gamerConnection.fullName = [NSString stringWithFormat:@"%@ %@", gamerConnection.firstName, gamerConnection.lastName];
         gamerConnection.invitationSent = FALSE;
+        
+        NSNumber *number = FALSE;
+        
+//        [newContact setPrimitiveValue:gamerConnection.invitationSent forKey:@"invitationSent"];
         
         //Add a base value
         gamerConnection.valueArray = [NSMutableArray new];
         [gamerConnection.valueArray addObject:@"1,000,000"];
         
         gamerConnection.headline = connection[@"headline"];
+        
+        
         gamerConnection.industry = connection[@"industry"];
+        
+
         gamerConnection.numConnections = connection[@"numConnections"];
+        
+        
         gamerConnection.imageURL = [NSURL URLWithString:[connection valueForKeyPath:@"pictureUrls.values"][0]];
+        
+        
         gamerConnection.smallImageURL = [NSURL URLWithString:[connection valueForKey:@"pictureUrl"]];
+        
+        
         gamerConnection.location = [connection valueForKeyPath:@"location.name"];
+        
+        
         gamerConnection.linkedinURL = [NSURL URLWithString:connection[@"publicProfileUrl"]];
+        
         
         NSMutableArray *tempConnectionArray = [NSMutableArray new];
         NSArray *connectionPositionArray = [connection valueForKeyPath:@"positions.values"];
@@ -782,12 +814,28 @@
             //Private Users - contain no info
         } else {
             [connectionsArray addObject:gamerConnection];
+            
+            //Add to Core Data
+            [newContact setValue:gamerConnection.firstName forKey:@"firstName"];
+            [newContact setValue:gamerConnection.lastName forKey:@"lastName"];
+            [newContact setValue:number forKey:@"invitationSent"];
+            [newContact setValue:gamerConnection.headline forKey:@"headline"];
+            [newContact setValue:gamerConnection.industry forKey:@"industry"];
+            [newContact setValue:gamerConnection.numConnections forKey:@"numConnections"];
+            [newContact setValue:[connection valueForKeyPath:@"pictureUrls.values"][0] forKey:@"imageURL"];
+            [newContact setValue:[connection valueForKey:@"pictureUrl"] forKey:@"smallImageURL"];
+            [newContact setValue:gamerConnection.location forKey:@"location"];
+            [newContact setValue:connection[@"publicProfileUrl"] forKey:@"linkedinURL"];
+            
         }
     }
     
     NSSortDescriptor *nameDescriptor = [[NSSortDescriptor alloc] initWithKey:@"lastName" ascending:YES];
     NSArray *sortDescriptors = [NSArray arrayWithObject:nameDescriptor];
     NSArray *sortedArray = [connectionsArray sortedArrayUsingDescriptors:sortDescriptors];
+    
+    NSError *error;
+    [context save:&error];
     
     return sortedArray;
 }

@@ -10,6 +10,7 @@
 #import "SocialController.h"
 #import "UIColor+BlankCheckColors.h"
 #import "Flurry.h"
+#import "AppDelegate.h"
 
 @interface DetailScrollViewController ()
 
@@ -73,6 +74,45 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 //    self.screenName = [NSString stringWithFormat:@"Detail page: %@", self.gamer.fullName];
+    
+    //Core Data
+    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    NSManagedObjectContext *context = [appDelegate managedObjectContext];
+     NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Gamer" inManagedObjectContext:context];
+    NSFetchRequest *request = [NSFetchRequest new];
+    [request setEntity:entityDescription];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"firstName = %@", self.gamer.firstName];
+    [request setPredicate:predicate];
+
+    NSManagedObject *matches = nil;
+    
+    NSError *error;
+    
+    NSArray *objects = [context executeFetchRequest:request error:&error];
+    
+    NSLog(@"Objects: %u", (unsigned)objects.count);
+    
+    if ([objects count] == 0) {
+        NSLog(@"No matches");
+    } else {
+        NSLog(@"Found a %@", self.gamer.firstName);
+        for (int i = 0; i < objects.count; i++) {
+            matches = objects[i];
+            NSLog(@"%@ %@ %@", [matches valueForKey:@"firstName"], [matches valueForKey:@"lastName"], [matches valueForKey:@"location"]);
+        }
+    }
+    
+    // error handling code
+    
+
+//    NSManagedObject *newContact;
+//    newContact = [NSEntityDescription insertNewObjectForEntityForName:@"Gamer" inManagedObjectContext:context];
+//    [newContact setValue:@"Bob" forKey:@"firstName"];
+//    [newContact setValue:@"Johnson" forKey:@"lastName"];
+//    [newContact setValue:@"Seattle" forKey:@"location"];
+//    NSError *error;
+//    [context save:&error];
     
     [Amplitude logEvent:[NSString stringWithFormat:@"%@", self.gamer.fullName]];
     NSDictionary *articleParams = [NSDictionary dictionaryWithObjectsAndKeys:

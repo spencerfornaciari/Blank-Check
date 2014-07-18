@@ -2,11 +2,17 @@
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5064" systemVersion="13E28" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Gamer" syncable="YES">
         <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="headline" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="imageLocation" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="imageURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="industry" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="invitationSent" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="linkedinURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="linkedinUsername" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="location" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="numConnections" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="numRecommenders" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="smallImageLocation" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="smallImageURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="zipCode" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
@@ -24,7 +30,7 @@
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Gamer" positionX="-1278" positionY="-1593" width="128" height="193"/>
+        <element name="Gamer" positionX="-1278" positionY="-1593" width="128" height="283"/>
         <element name="Position" positionX="-963" positionY="-1521" width="128" height="180"/>
     </elements>
 </model>
