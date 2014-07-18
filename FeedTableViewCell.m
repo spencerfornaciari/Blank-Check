@@ -37,12 +37,18 @@
 //    self.profileImage.image = gamer.smallProfileImage;
     
     BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:gamer.smallImageLocalLocation];
-    
+    BOOL fileExists2 = [[NSFileManager defaultManager] fileExistsAtPath:gamer.imageLocalLocation];
+
     if (!fileExists) {
         [self downloadProfileImage:gamer];
     } else {
-        gamer.smallProfileImage = [UIImage imageWithData:[NSData dataWithContentsOfMappedFile:gamer.smallImageLocalLocation]];
-        self.profileImage.image = gamer.smallProfileImage;
+        if (fileExists2) {
+            gamer.profileImage = [UIImage imageWithData:[NSData dataWithContentsOfMappedFile:gamer.imageLocalLocation]];
+            self.profileImage.image = gamer.profileImage;
+        } else {
+            gamer.smallProfileImage = [UIImage imageWithData:[NSData dataWithContentsOfMappedFile:gamer.smallImageLocalLocation]];
+            self.profileImage.image = gamer.smallProfileImage;
+        }
     }
     
     self.profileImage.contentMode = UIViewContentModeScaleAspectFit;
@@ -51,7 +57,22 @@
 }
 
 -(void)downloadProfileImage:(Gamer *)gamer {
+    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    NSManagedObjectContext *context = appDelegate.managedObjectContext;
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Gamer" inManagedObjectContext:context];
+    NSManagedObject *cellObject = nil;
     
+    NSFetchRequest *request = [NSFetchRequest new];
+    [request setEntity:entity];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"firstName = %@", gamer.firstName];
+    NSPredicate *predicate2 = [NSPredicate predicateWithFormat:@"lastName = %@", gamer.lastName];
+    NSPredicate *final = [NSCompoundPredicate andPredicateWithSubpredicates:@[predicate, predicate2]];
+    [request setPredicate:final];
+    
+    NSError *error;
+    NSArray *objects = [context executeFetchRequest:request error:&error];
+    cellObject = objects[0];
     
     //Loggin image URL
     NSURL *url = gamer.smallImageURL;
@@ -64,6 +85,12 @@
         
         NSString *fullName = [NSString stringWithFormat:@"%@%@", gamer.firstName, gamer.lastName];
         gamer.smallImageLocalLocation = [NSString stringWithFormat:@"%@/%@_small.jpg", [self documentsDirectoryPath], fullName];
+        
+//        [cellObject setValue:gamer.smallImageLocalLocation forKey:@"smallImageLocation"];
+//        
+//        NSError *error2;
+//        [context save:&error2];
+        
         [data writeToFile:gamer.smallImageLocalLocation atomically:YES];
         
         BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:gamer.smallImageLocalLocation];

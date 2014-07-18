@@ -7,6 +7,7 @@
         <attribute name="imageURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="industry" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="invitationSent" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="lastLinkedinUpdate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="linkedinURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="linkedinUsername" optional="YES" attributeType="String" syncable="YES"/>
@@ -30,7 +31,7 @@
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Gamer" positionX="-1278" positionY="-1593" width="128" height="283"/>
+        <element name="Gamer" positionX="-1278" positionY="-1593" width="128" height="298"/>
         <element name="Position" positionX="-963" positionY="-1521" width="128" height="180"/>
     </elements>
 </model>

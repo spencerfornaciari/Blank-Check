@@ -78,12 +78,14 @@
     //Core Data
     AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *context = [appDelegate managedObjectContext];
-     NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Gamer" inManagedObjectContext:context];
+    NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Gamer" inManagedObjectContext:context];
     NSFetchRequest *request = [NSFetchRequest new];
     [request setEntity:entityDescription];
     
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"firstName = %@", self.gamer.firstName];
-    [request setPredicate:predicate];
+    NSPredicate *predicate2 = [NSPredicate predicateWithFormat:@"lastName = %@", self.gamer.lastName];
+    NSPredicate *final = [NSCompoundPredicate andPredicateWithSubpredicates:@[predicate, predicate2]];
+    [request setPredicate:final];
 
     NSManagedObject *matches = nil;
     
@@ -147,6 +149,13 @@
         profileImage.image = self.gamer.profileImage;
         [profileImage setNeedsDisplay];
     }
+    
+    matches = [objects objectAtIndex:0];
+    [matches setValue:self.gamer.imageLocalLocation forKey:@"imageLocation"];
+    
+    NSError *saveError;
+    [context save:&saveError];
+    
     
 }
 
@@ -297,6 +306,30 @@
 -(void)inviteTarget:(Gamer *)gamer {
     NSLog(@"Invitation Sent");
     self.gamer.invitationSent = TRUE;
+    
+    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    NSManagedObjectContext *context = [appDelegate managedObjectContext];
+    NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Gamer" inManagedObjectContext:context];
+    NSFetchRequest *request = [NSFetchRequest new];
+    [request setEntity:entityDescription];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"firstName = %@", self.gamer.firstName];
+    NSPredicate *predicate2 = [NSPredicate predicateWithFormat:@"lastName = %@", self.gamer.lastName];
+    NSPredicate *final = [NSCompoundPredicate andPredicateWithSubpredicates:@[predicate, predicate2]];
+    [request setPredicate:final];
+    
+    NSManagedObject *matches = nil;
+    
+    NSError *error;
+    
+    NSArray *objects = [context executeFetchRequest:request error:&error];
+    
+    matches = objects[0];
+    [matches setValue:@1 forKey:@"invitationSent"];
+    
+    NSError *error2;
+    [context save:&error2];
+    
     [self.overView removeFromSuperview];
 //    self.view.frame = CGRectMake(0, 0, 320, 1500);
     [scrollView setContentSize:CGSizeMake(self.view.frame.size.width, self.frameHeight)];

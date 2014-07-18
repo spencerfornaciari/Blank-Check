@@ -355,17 +355,15 @@
     NSManagedObjectContext *context = [appDelegate managedObjectContext];
     NSManagedObject *newContact;
     newContact = [NSEntityDescription insertNewObjectForEntityForName:@"Gamer" inManagedObjectContext:context];
-//    [newContact setValue:@"Ted" forKey:@"firstName"];
-//    [newContact setValue:@"Smith" forKey:@"lastName"];
-//    [newContact setValue:@"Portland" forKey:@"location"];
-//    NSError *error;
-//    [context save:&error];
+
+
 
     NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data
                                                                options:NSJSONReadingMutableLeaves
                                                                  error:nil];
     
     gamer.firstName = dictionary[@"firstName"];
+    
     gamer.lastName = dictionary[@"lastName"];
     gamer.fullName = [NSString stringWithFormat:@"%@ %@", gamer.firstName, gamer.lastName];
     gamer.gamerID = dictionary[@"id"];
@@ -523,8 +521,23 @@
     //Parsing Connection info
     gamer.connectionIDArray = [[NetworkController grabUserConnections] mutableCopy];
     
-    //    NSError *error;
-    //    [context save:&error];
+    [newContact setValue:gamer.firstName forKey:@"firstName"];
+    [newContact setValue:gamer.lastName forKey:@"lastName"];
+    [newContact setValue:@1 forKey:@"invitationSent"];
+    [newContact setValue:gamer.headline forKey:@"headline"];
+    [newContact setValue:gamer.industry forKey:@"industry"];
+    [newContact setValue:gamer.numConnections forKey:@"numConnections"];
+    [newContact setValue:gamer.numRecommenders forKey:@"numRecommenders"];
+    
+    [newContact setValue:gamer.lastLinkedinUpdate forKey:@"lastLinkedinUpdate"];
+    
+    [newContact setValue:[dictionary valueForKeyPath:@"pictureUrls.values"][0] forKey:@"imageURL"];
+    [newContact setValue:[dictionary valueForKey:@"pictureUrl"] forKey:@"smallImageURL"];
+    [newContact setValue:gamer.location forKey:@"location"];
+    [newContact setValue:dictionary[@"publicProfileUrl"] forKey:@"linkedinURL"];
+    
+    NSError *error;
+    [context save:&error];
     
     return gamer;
 
@@ -757,23 +770,14 @@
         [gamerConnection.valueArray addObject:@"1,000,000"];
         
         gamerConnection.headline = connection[@"headline"];
-        
-        
         gamerConnection.industry = connection[@"industry"];
         
 
         gamerConnection.numConnections = connection[@"numConnections"];
-        
-        
         gamerConnection.imageURL = [NSURL URLWithString:[connection valueForKeyPath:@"pictureUrls.values"][0]];
-        
-        
         gamerConnection.smallImageURL = [NSURL URLWithString:[connection valueForKey:@"pictureUrl"]];
-        
-        
+
         gamerConnection.location = [connection valueForKeyPath:@"location.name"];
-        
-        
         gamerConnection.linkedinURL = [NSURL URLWithString:connection[@"publicProfileUrl"]];
         
         
@@ -818,7 +822,7 @@
             //Add to Core Data
             [newContact setValue:gamerConnection.firstName forKey:@"firstName"];
             [newContact setValue:gamerConnection.lastName forKey:@"lastName"];
-            [newContact setValue:number forKey:@"invitationSent"];
+            [newContact setValue:@0 forKey:@"invitationSent"];
             [newContact setValue:gamerConnection.headline forKey:@"headline"];
             [newContact setValue:gamerConnection.industry forKey:@"industry"];
             [newContact setValue:gamerConnection.numConnections forKey:@"numConnections"];
