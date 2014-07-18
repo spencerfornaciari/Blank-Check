@@ -14,9 +14,16 @@
 #import "Recommendation.h"
 #import "Insights.h"
 
-@interface NetworkController : NSObject
+@protocol NetworkControllerDelegate <NSObject>
+
+-(void)setGamerData:(Gamer *)gamer;
+
+@end
+
+@interface NetworkController : NSObject <NSURLSessionDelegate, NSURLSessionDataDelegate>
 
 @property (nonatomic) NSString *accessToken;
+@property (nonatomic, weak) id<NetworkControllerDelegate>delegate;
 
 +(NetworkController *)sharedController;
 
@@ -27,6 +34,7 @@
 -(BOOL)checkTokenIsCurrent;
 
 //Grabbing user data from Linkedin API
+-(void)loadUserData;
 -(Gamer *)loadCurrentUserData;
 +(NSArray *)grabUserConnections;
 -(NSArray *)commonConnectionsWithUser:(NSString *)userID;

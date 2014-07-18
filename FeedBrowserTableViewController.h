@@ -7,6 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DetailScrollViewController.h"
+#import "SearchViewController.h"
+#import "AppDelegate.h"
+#import "FeedTableViewCell.h"
+#import "NetworkController.h"
+#import "Gamer.h"
+#import "LoadingView.h"
 //#import "GAITrackedViewController.h"
 //#import "GAIDictionaryBuilder.h"
 //#import "GAIFields.h"
@@ -18,7 +25,7 @@
 
 @end
 
-@interface FeedBrowserTableViewController : UITableViewController
+@interface FeedBrowserTableViewController : UITableViewController <NetworkControllerDelegate>
 
 @property (nonatomic, weak) id<FeedBrowserTableViewControllerDelegate> delegate;
 

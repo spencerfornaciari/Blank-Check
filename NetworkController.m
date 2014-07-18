@@ -132,12 +132,27 @@
 
 #pragma mark - Load current user data
 
+-(void)loadUserData {
+    NSString *accessToken = [[NSUserDefaults standardUserDefaults] stringForKey:@"accessToken"];
+    //Generating the NSMutableURLRequest with the base LinkedIN URL with token extension in the HTTP Body
+    //    NSString *string = [NSString stringWithFormat:@"https://api.linkedin.com/v1/people/~"]
+    NSString *accessURL = [NSString stringWithFormat:@"%@%@&format=json", @"https://api.linkedin.com/v1/people/~:(id,first-name,last-name,industry,headline,location:(name),num-connections,picture-url,picture-urls::(original),email-address,last-modified-timestamp,interests,languages,skills,certifications,three-current-positions,public-profile-url,educations,num-recommenders,recommendations-received)?oauth2_access_token=", accessToken];
+    
+    NSURL *url = [NSURL URLWithString:accessURL];
+    
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:self delegateQueue:nil];
+    
+    NSURLSessionDataTask *dataTask = [session dataTaskWithURL:url];
+    [dataTask setTaskDescription:@"currentUser"];
+    
+    [dataTask resume];
+
+}
+
 -(Gamer *)loadCurrentUserData
 {
     Gamer *gamer = [Gamer new];
-    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-//    NSManagedObjectContext *context = [appDelegate managedObjectContext];
-//    NSManagedObject *newContact;
+
 //    newContact = [NSEntityDescription insertNewObjectForEntityForName:@"Gamer" inManagedObjectContext:context];
 
     
@@ -154,20 +169,21 @@
     
     NSURL *url = [NSURL URLWithString:accessURL];
     
+//    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:self delegateQueue:nil];
+//    
+//    NSURLSessionDataTask *dataTask = [session dataTaskWithURL:url];
+//    [dataTask setTaskDescription:@"notCurrent"];
+//    
+//    [dataTask resume];
+    
     NSData *data = [NSData dataWithContentsOfURL:url];
     
     NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data
                                                                options:NSJSONReadingMutableLeaves
                                                                  error:nil];
     
-//    [newContact setValue:@"Bob" forKey:@"firstName"];
-//    [newContact setValue:@"Johnson" forKey:@"lastName"];
-//    [newContact setValue:@"Seattle" forKey:@"location"];
-    
     gamer.firstName = dictionary[@"firstName"];
-//    [newContact setValue:dictionary[@"firstName"] forKey:@"firstName"];
     gamer.lastName = dictionary[@"lastName"];
-//    [newContact setValue:dictionary[@"lastName"] forKey:@"lastName"];
     gamer.fullName = [NSString stringWithFormat:@"%@ %@", gamer.firstName, gamer.lastName];
     gamer.gamerID = dictionary[@"id"];
     gamer.gamerEmail = dictionary[@"emailAddress"];
@@ -326,6 +342,183 @@
     
 //    NSError *error;
 //    [context save:&error];
+    
+    return gamer;
+
+}
+
+-(Gamer *)parseUserData:(NSData *)data {
+    
+    Gamer *gamer = [Gamer new];
+    
+    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    NSManagedObjectContext *context = [appDelegate managedObjectContext];
+    NSManagedObject *newContact;
+    
+    NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data
+                                                               options:NSJSONReadingMutableLeaves
+                                                                 error:nil];
+    
+    gamer.firstName = dictionary[@"firstName"];
+    gamer.lastName = dictionary[@"lastName"];
+    gamer.fullName = [NSString stringWithFormat:@"%@ %@", gamer.firstName, gamer.lastName];
+    gamer.gamerID = dictionary[@"id"];
+    gamer.gamerEmail = dictionary[@"emailAddress"];
+    gamer.location = [dictionary valueForKeyPath:@"location.name"];
+    gamer.linkedinURL = dictionary[@"publicProfileUrl"];
+    gamer.numConnections = dictionary[@"numConnections"];
+    gamer.numRecommenders = dictionary[@"numRecommenders"];
+    gamer.invitationSent = TRUE;
+    gamer.expertInsightsArray = [NSMutableArray new];
+    
+    //Working on parsing current positions
+    NSMutableArray *tempArray = [NSMutableArray new];
+    NSArray *positionArray = [dictionary valueForKeyPath:@"threeCurrentPositions.values"];
+    
+    for (NSDictionary *positionDictionary in positionArray) {
+        Position *position = [Position new];
+        position.isCurrent = TRUE;
+        position.companyName = [positionDictionary valueForKeyPath:@"company.name"];
+        position.idNumber = [positionDictionary valueForKeyPath:@"company.id"];
+        position.industry = [positionDictionary valueForKeyPath:@"company.industry"];
+        position.title = [positionDictionary valueForKey:@"title"];
+        
+        //Parse start date
+        NSString *startDate = [NSString stringWithFormat:@"%@/%@", [positionDictionary valueForKeyPath:@"startDate.month"], [positionDictionary valueForKeyPath:@"startDate.year"]];
+        NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+        [formatter setDateFormat:@"MM/yyyy"];
+        position.startDate = [formatter dateFromString:startDate];
+        
+        NSDate *date = [NSDate date];
+        NSTimeInterval employmentLength = [date timeIntervalSinceDate:position.startDate];
+        //Conversion from seconds to months
+        position.monthsInCurrentJob = (employmentLength / 60 / 60 / 24 / 365) * 12;
+        
+        [tempArray addObject:position];
+    }
+    
+    gamer.currentPositionArray = tempArray;
+    
+    //    NSLog(@"%@", positionArray[0]);
+    
+    //Parsing skills
+    gamer.gamerSkills = [NSMutableArray new];
+    NSArray *skillsArray = [dictionary valueForKeyPath:@"skills.values"];
+    
+    for (NSDictionary *skillsDictionary in skillsArray) {
+        NSString *skill = [skillsDictionary valueForKeyPath:@"skill.name"];
+        [gamer.gamerSkills addObject:skill];
+    }
+    
+    //Parsing Educational Institutions
+    gamer.educationArray = [NSMutableArray new];
+    
+    NSArray *educationArray = [dictionary valueForKeyPath:@"educations.values"];
+    
+    for (NSDictionary *educationDictionary in educationArray) {
+        Education *institution = [Education new];
+        institution.schoolID = [educationDictionary valueForKey:@"id"];
+        institution.schoolName = [educationDictionary valueForKey:@"schoolName"];
+        institution.degree = [educationDictionary valueForKey:@"degree"];
+        institution.fieldOfStudy = [educationDictionary valueForKey:@"fieldOfStudy"];
+        
+        NSString *startDate = [NSString stringWithFormat:@"%@", [educationDictionary valueForKeyPath:@"startDate.year"]];
+        NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+        [formatter setDateFormat:@"yyyy"];
+        institution.startYear = [formatter dateFromString:startDate];
+        
+        NSString *endDate = [NSString stringWithFormat:@"%@", [educationDictionary valueForKeyPath:@"endDate.year"]];
+        institution.endYear = [formatter dateFromString:endDate];
+        
+        [gamer.educationArray addObject:institution];
+        
+    }
+    
+    //Parsing Languages
+    gamer.GamerLanguages = [NSMutableArray new];
+    
+    NSArray *languageArray = [dictionary valueForKeyPath:@"languages.values"];
+    
+    for (NSDictionary *languageDictionary in languageArray) {
+        Language *language = [Language new];
+        language.languageID = [languageDictionary valueForKey:@"id"];
+        language.languageName = [languageDictionary valueForKeyPath:@"language.name"];
+        
+        [gamer.gamerLanguages addObject:language];
+    }
+    
+    //Parsing Recommendations
+    gamer.gamerRecommendations = [NSMutableArray new];
+    
+    NSArray *recommendationArray = [dictionary valueForKeyPath:@"recommendationsReceived.values"];
+    
+    for (NSDictionary *recommendationDictionary in recommendationArray) {
+        Recommendation *recommendation = [Recommendation new];
+        recommendation.recommendationID = [recommendationDictionary valueForKey:@"id"];
+        recommendation.recommendationText = [recommendationDictionary valueForKey:@"recommendationText"];
+        recommendation.recommendationType = [recommendationDictionary valueForKeyPath:@"recommendationType.code"];
+        recommendation.recommenderID = [recommendationDictionary valueForKeyPath:@"recommender.id"];
+        recommendation.firstName = [recommendationDictionary valueForKeyPath:@"recommender.firstName"];
+        recommendation.lastName = [recommendationDictionary valueForKeyPath:@"recommender.lastName"];
+        
+        [gamer.gamerRecommendations addObject:recommendation];
+    }
+    
+    //Parsing last updated time (and millisecond conversion)
+    NSNumber *date = [dictionary valueForKey:@"lastModifiedTimestamp"];
+    float newDate = [date floatValue] / 1000;
+    gamer.lastLinkedinUpdate = [NSDate dateWithTimeIntervalSince1970:newDate];
+    
+    //Converting NSDate to local time zone
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.timeZone = [NSTimeZone localTimeZone];
+    dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm";
+    NSString *timeStamp = [dateFormatter stringFromDate:gamer.lastLinkedinUpdate];
+    NSLog(@"Last Updated: %@", timeStamp);
+    
+    //Grabbing the image URL
+    gamer.imageURL = [NSURL URLWithString:[dictionary valueForKeyPath:@"pictureUrls.values"][0]];
+    gamer.smallImageURL = [NSURL URLWithString:[dictionary valueForKey:@"pictureUrl"]];
+    
+    NSString *fullName = [NSString stringWithFormat:@"%@%@", gamer.firstName, gamer.lastName];
+    gamer.imageLocalLocation = [NSString stringWithFormat:@"%@/%@.jpg", [self documentsDirectoryPath], fullName];
+    gamer.smallImageLocalLocation = [NSString stringWithFormat:@"%@/%@_small.jpg", [self documentsDirectoryPath], fullName];
+    
+    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:gamer.imageLocalLocation];
+    BOOL smallFileExists = [[NSFileManager defaultManager] fileExistsAtPath:gamer.smallImageLocalLocation];
+    
+    if (fileExists) {
+        gamer.profileImage = [UIImage imageWithData:[NSData dataWithContentsOfMappedFile:gamer.imageLocalLocation]];
+    }
+    
+    if (smallFileExists) {
+        gamer.smallProfileImage = [UIImage imageWithData:[NSData dataWithContentsOfMappedFile:gamer.smallImageLocalLocation]];
+    }
+    
+    
+    //Check for full-size image
+    //    if (!fileExists) {
+    //        NSData *profilePicData = [NSData dataWithContentsOfURL:gamer.imageURL];
+    //        [profilePicData writeToFile:gamer.imageLocalLocation atomically:YES];
+    //        gamer.profileImage = [UIImage imageWithData:profilePicData];
+    //    } else {
+    //        gamer.profileImage = [UIImage imageWithData:[NSData dataWithContentsOfMappedFile:gamer.imageLocalLocation]];
+    //    }
+    
+    //Check for small image
+    //    if (!smalllFileExists) {
+    //        NSData *profilePicData = [NSData dataWithContentsOfURL:gamer.smallImageURL];
+    //        [profilePicData writeToFile:gamer.smallImageLocalLocation atomically:YES];
+    //        gamer.smallProfileImage = [UIImage imageWithData:profilePicData];
+    //    } else {
+    //        gamer.smallProfileImage = [UIImage imageWithData:[NSData dataWithContentsOfMappedFile:gamer.smallImageLocalLocation]];
+    //    }
+    
+    //Parsing Connection info
+    gamer.connectionIDArray = [[NetworkController grabUserConnections] mutableCopy];
+    
+    //    NSError *error;
+    //    [context save:&error];
     
     return gamer;
 
@@ -758,51 +951,6 @@
     
 }
 
-//-(void)createDictionary {
-//    
-//    NSURLSessionConfiguration *defaultConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
-//    NSURLSession *defaultSession = [NSURLSession sessionWithConfiguration:defaultConfiguration];
-//    
-//    NSDictionary *dictionary = @{@"name":@"blankCheck",
-//                                 @"language":@"en"};
-//    
-//    NSDictionary *jsonDictionary = @{@"dictionary":dictionary};
-//    
-//    NSDictionary *gotDictionary = @{@"dictionary":@{
-//                                        @"name":@"got",
-//                                        @"language":@"en",
-//                                        @"description":@"Entities and concepts from A Song of Ice and Fire."}};
-//    
-//    NSLog(@"%@", jsonDictionary);
-//    
-//    NSData *data = [NSJSONSerialization dataWithJSONObject:gotDictionary options:NSJSONWritingPrettyPrinted error:nil];
-//    
-//    NSURL *url = [NSURL URLWithString:@"http://textalytics.com/api/sempub/1.0/manage/dictionary_list?key=b8d169500ad3ded96d69054182f829cd&input=json&output=json"];
-//    
-//    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
-//    [request setHTTPMethod:@"POST"];
-//    [request setHTTPBody:data];
-//    
-//    NSURLSessionDataTask *dataTask = [defaultSession dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-//        
-//        NSString *stringResponse = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
-//        NSLog(@"Response: %@", stringResponse);
-//    }];
-//    
-//    [dataTask resume];
-//    
-////    NSURLResponse *response;
-////    NSError *error;
-////    
-////    NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-////    NSString *stringResponse = [[NSString alloc] initWithData:responseData encoding:NSASCIIStringEncoding];
-////    
-////    NSLog(@"%@", stringResponse);
-//
-//    
-//
-//}
-
 -(void)listDictionaries {
     NSURLSessionConfiguration *defaultSessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:defaultSessionConfiguration];
@@ -825,17 +973,6 @@
     
     
     [dataTask resume];
-    
-
-
-    
-//    NSURLResponse *response;
-//    NSError *error;
-//    
-//    NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-//    NSString *stringResponse = [[NSString alloc] initWithData:responseData encoding:NSASCIIStringEncoding];
-//    
-//    NSLog(@"%@", stringResponse);
     
 }
 
@@ -867,69 +1004,26 @@
     
 }
 
-//-(void)removeDictionaryWithName:(NSString *)name {
-//    NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
-//    NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfiguration];
-//    
-//    NSString *string = [NSString stringWithFormat:@"https://textalytics.com/api/sempub/1.0/manage/dictionary_list/%@?key=b8d169500ad3ded96d69054182f829cd", name];
-//    
-//    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:string]];
-//    [request setHTTPMethod:@"DELETE"];
-//    
-//    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-//        NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-//        NSLog(@"Remove: %@", dictionary);
-//    }];
-//    
-//    [dataTask resume];
-//}
-//
-//-(void)updateDictionaryWithName:(NSString *)name {
-//    NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
-//    NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfiguration];
-//    
-//    NSString *string = [NSString stringWithFormat:@"https://textalytics.com/api/sempub/1.0/manage/dictionary_list/%@?key=b8d169500ad3ded96d69054182f829cd", name];
-//    
-//    /*{
-//     "entity": {
-//     "id": "01",
-//     "form": "Daenerys Targaryen",
-//     "alias_list": [
-//     "Dany",
-//     "Khaleesi",
-//     "Daenerys Stormborn",
-//     "The Unburnt",
-//     "Mother of Dragons",
-//     "Mysha"
-//     ],
-//     "type": "Top>Person>FullName",
-//     "theme_list": [
-//     "Top>Society>Politics",
-//     "Top>Arts>Cinema"
-//     ]
-//     }
-//     }*/
-//    
-//    NSArray *array = @[@"Dany", @"Khaleesi", @"Daenerys Stormborn", @"The Unburnt", @"Mother of Dragons", @"Mysha"];
-//    NSArray *array2 = @[@"Top>Society>Politics", @"Top>Arts>Cinema"];
-//    
-//    NSDictionary *dictionary = @{@"form":[@"Daenerys Targaryen" dataUsingEncoding:NSUTF8StringEncoding],
-//                                 @"alias":array,
-//                                 @"type":@"Top>Person>FullName",
-//                                 @"theme_list":array2};
-//    
-//    NSLog(@"Dictionary: %@", dictionary);
-//    
-//    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:string]];
-//    [request setHTTPMethod:@"PUT"];
-//    
-//    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-//        NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-//        NSLog(@"Remove: %@", dictionary);
-//    }];
-//    
-//    [dataTask resume];
-//    
-//}
+#pragma mark - NSURLSession Delegate Methods
+
+-(void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didReceiveData:(NSData *)data {
+    
+    if ([dataTask.taskDescription isEqualToString:@"currentUser"]) {
+        Gamer *newGamer = [self parseUserData:data];
+        [self.delegate setGamerData:newGamer];
+        NSLog(@"%@", newGamer.fullName);
+        
+    } else {
+        NSLog(@"It is not");
+    }
+}
+
+-(void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didBecomeDownloadTask:(NSURLSessionDownloadTask *)downloadTask {
+    
+}
+
+-(void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didSendBodyData:(int64_t)bytesSent totalBytesSent:(int64_t)totalBytesSent totalBytesExpectedToSend:(int64_t)totalBytesExpectedToSend {
+    
+}
 
 @end

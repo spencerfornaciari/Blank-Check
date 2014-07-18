@@ -7,13 +7,7 @@
 //
 
 #import "FeedBrowserTableViewController.h"
-#import "DetailScrollViewController.h"
-#import "SearchViewController.h"
-#import "AppDelegate.h"
-#import "FeedTableViewCell.h"
-#import "NetworkController.h"
-#import "Gamer.h"
-#import "LoadingView.h"
+
 
 @interface FeedBrowserTableViewController ()
 
@@ -26,6 +20,7 @@
 @property (nonatomic) LoadingView *loadingView;
 
 @property (nonatomic) BOOL downloadingUserData, menuButtonBool;
+@property (nonatomic) NetworkController *controller;
 
 @end
 
@@ -39,27 +34,33 @@
     self.menuButtonBool = FALSE;
     self.downloadingUserData = FALSE;
     
+//    self.controller = [NetworkController new];
+//    self.controller.delegate = self;
+    [NetworkController sharedController].delegate = self;
+    
     self.operationQueue = [(AppDelegate *)[[UIApplication sharedApplication] delegate] blankQueue];
     
     if (!self.one && self.downloadingUserData == FALSE) {
         [self.operationQueue addOperationWithBlock:^{
-            self.one = [[NetworkController sharedController] loadCurrentUserData];
-            NSLog(@"User Count: %lu", (unsigned long)self.one.connectionIDArray.count);
+            [[NetworkController sharedController] loadUserData];
+
+//            self.one = [[NetworkController sharedController] loadCurrentUserData];
+//            NSLog(@"User Count: %lu", (unsigned long)self.one.connectionIDArray.count);
+//            
+//            //                [NSKeyedArchiver archiveRootObject:self.one toFile:[Gamer gamerPath]];
+//            //
+//            self.appDelegate = [[UIApplication sharedApplication] delegate];
+//            self.appDelegate.gamer = self.one;
             
-            //                [NSKeyedArchiver archiveRootObject:self.one toFile:[Gamer gamerPath]];
-            //
-            self.appDelegate = [[UIApplication sharedApplication] delegate];
-            self.appDelegate.gamer = self.one;
-            
-            self.feedArray = [NSMutableArray new];
-            self.feedArray = self.one.connectionIDArray;
-            
-            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                [self.loadingView.activityIndicator stopAnimating];
-                [self.loadingView removeFromSuperview];
-                
-                [self.tableView reloadData];
-            }];
+//            self.feedArray = [NSMutableArray new];
+//            self.feedArray = self.one.connectionIDArray;
+//            
+//            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+//                [self.loadingView.activityIndicator stopAnimating];
+//                [self.loadingView removeFromSuperview];
+//                
+//                [self.tableView reloadData];
+//            }];
         }];
     }
     
@@ -89,6 +90,7 @@
         }
     }
     
+    [self.controller loadUserData];
 //    [self add];
     
 /*
@@ -348,5 +350,18 @@
     NSError *error;
     [context save:&error];
     
+}
+
+-(void)setGamerData:(Gamer *)gamer {
+    self.one = gamer;
+    self.feedArray = [NSMutableArray new];
+    self.feedArray = self.one.connectionIDArray;
+    
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+        [self.loadingView.activityIndicator stopAnimating];
+        [self.loadingView removeFromSuperview];
+        
+        [self.tableView reloadData];
+    }];
 }
 @end
