@@ -444,6 +444,8 @@
     NSArray *educationArray = [dictionary valueForKeyPath:@"educations.values"];
     
     for (NSDictionary *educationDictionary in educationArray) {
+        School *newSchool = [NSEntityDescription insertNewObjectForEntityForName:@"School" inManagedObjectContext:context];
+        
         Education *institution = [Education new];
         institution.schoolID = [educationDictionary valueForKey:@"id"];
         institution.schoolName = [educationDictionary valueForKey:@"schoolName"];
@@ -457,6 +459,17 @@
         
         NSString *endDate = [NSString stringWithFormat:@"%@", [educationDictionary valueForKeyPath:@"endDate.year"]];
         institution.endYear = [formatter dateFromString:endDate];
+        
+        //Core Data
+        [newSchool setValue:[educationDictionary valueForKey:@"id"] forKey:@"schoolID"];
+        [newSchool setValue:[educationDictionary valueForKey:@"schoolName"] forKey:@"schoolName"];
+        [newSchool setValue:[educationDictionary valueForKey:@"degree"] forKey:@"degree"];
+        [newSchool setValue:[educationDictionary valueForKey:@"fieldOfStudy"] forKey:@"fieldOfStudy"];
+        [newSchool setValue:[formatter dateFromString:startDate] forKey:@"startYear"];
+        [newSchool setValue:[formatter dateFromString:endDate] forKey:@"endYear"];
+        
+        [newContact addSchoolsObject:newSchool];
+        
         
         [gamer.educationArray addObject:institution];
         
@@ -784,10 +797,6 @@
         
         gamerConnection.fullName = [NSString stringWithFormat:@"%@ %@", gamerConnection.firstName, gamerConnection.lastName];
         gamerConnection.invitationSent = FALSE;
-        
-        NSNumber *number = FALSE;
-        
-//        [newContact setPrimitiveValue:gamerConnection.invitationSent forKey:@"invitationSent"];
         
         //Add a base value
         gamerConnection.valueArray = [NSMutableArray new];

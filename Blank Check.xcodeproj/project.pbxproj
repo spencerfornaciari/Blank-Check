@@ -15,6 +15,7 @@
 		891B94661948C9FF00BEAEC9 /* BlankCheckViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 891B94651948C9FF00BEAEC9 /* BlankCheckViewCell.m */; };
 		895AF662195235A700B20DA6 /* FeedBrowserTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 895AF661195235A700B20DA6 /* FeedBrowserTableViewController.m */; };
 		895AF665195235FD00B20DA6 /* FeedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 895AF664195235FD00B20DA6 /* FeedTableViewCell.m */; };
+		8971C6EE197C6FF80024D3A1 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8937E7631976FE89004BA64D /* CoreData.framework */; };
 		89779DE819633C7600AC81CA /* Insights.m in Sources */ = {isa = PBXBuildFile; fileRef = 89779DE719633C7600AC81CA /* Insights.m */; };
 		89779DF0196488E600AC81CA /* ExpertInsightView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89779DEF196488E600AC81CA /* ExpertInsightView.m */; };
 		89779DF319648AAC00AC81CA /* UserInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89779DF219648AAC00AC81CA /* UserInfoView.m */; };
@@ -32,6 +33,7 @@
 		89800C481979DAB60051A844 /* Position.m in Sources */ = {isa = PBXBuildFile; fileRef = 89800C461979DAB60051A844 /* Position.m */; };
 		89800C4B1979E2BA0051A844 /* Worker.m in Sources */ = {isa = PBXBuildFile; fileRef = 89800C4A1979E2BA0051A844 /* Worker.m */; };
 		89800C4E1979E2BB0051A844 /* Job.m in Sources */ = {isa = PBXBuildFile; fileRef = 89800C4D1979E2BB0051A844 /* Job.m */; };
+		89800C61197C6E600051A844 /* School.m in Sources */ = {isa = PBXBuildFile; fileRef = 89800C60197C6E600051A844 /* School.m */; };
 		899616B619461E3100C75B99 /* PresetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 899616B519461E3100C75B99 /* PresetViewController.m */; };
 		899616B919464DF600C75B99 /* LanguageProcessing.m in Sources */ = {isa = PBXBuildFile; fileRef = 899616B819464DF600C75B99 /* LanguageProcessing.m */; };
 		89A1433B193FCCF300FDEC4F /* SideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A1433A193FCCF300FDEC4F /* SideViewController.m */; };
@@ -140,6 +142,12 @@
 		89800C4A1979E2BA0051A844 /* Worker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Worker.m; path = "Blank Check/Worker.m"; sourceTree = "<group>"; };
 		89800C4C1979E2BB0051A844 /* Job.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Job.h; path = "Blank Check/Job.h"; sourceTree = "<group>"; };
 		89800C4D1979E2BB0051A844 /* Job.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Job.m; path = "Blank Check/Job.m"; sourceTree = "<group>"; };
+		89800C59197C6E600051A844 /* Worker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Worker.h; sourceTree = "<group>"; };
+		89800C5A197C6E600051A844 /* Worker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Worker.m; sourceTree = "<group>"; };
+		89800C5C197C6E600051A844 /* Job.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Job.h; sourceTree = "<group>"; };
+		89800C5D197C6E600051A844 /* Job.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Job.m; sourceTree = "<group>"; };
+		89800C5F197C6E600051A844 /* School.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = School.h; sourceTree = "<group>"; };
+		89800C60197C6E600051A844 /* School.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = School.m; sourceTree = "<group>"; };
 		899616B419461E3100C75B99 /* PresetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PresetViewController.h; path = ../PresetViewController.h; sourceTree = "<group>"; };
 		899616B519461E3100C75B99 /* PresetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PresetViewController.m; path = ../PresetViewController.m; sourceTree = "<group>"; };
 		899616B719464DF600C75B99 /* LanguageProcessing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LanguageProcessing.h; path = ../LanguageProcessing.h; sourceTree = "<group>"; };
@@ -192,6 +200,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8971C6EE197C6FF80024D3A1 /* CoreData.framework in Frameworks */,
 				89F1F8D8197042C400ECC1B3 /* SystemConfiguration.framework in Frameworks */,
 				89F1F8D6197042BD00ECC1B3 /* Security.framework in Frameworks */,
 				89F1F8D4197042B500ECC1B3 /* CoreText.framework in Frameworks */,
@@ -258,6 +267,12 @@
 		89C973A2192564AF00EC6004 = {
 			isa = PBXGroup;
 			children = (
+				89800C5F197C6E600051A844 /* School.h */,
+				89800C60197C6E600051A844 /* School.m */,
+				89800C5C197C6E600051A844 /* Job.h */,
+				89800C5D197C6E600051A844 /* Job.m */,
+				89800C59197C6E600051A844 /* Worker.h */,
+				89800C5A197C6E600051A844 /* Worker.m */,
 				89C973B4192564AF00EC6004 /* Blank Check */,
 				89C973D6192564AF00EC6004 /* Blank CheckTests */,
 				89C973AD192564AF00EC6004 /* Frameworks */,
@@ -617,6 +632,7 @@
 				89A1433B193FCCF300FDEC4F /* SideViewController.m in Sources */,
 				899616B919464DF600C75B99 /* LanguageProcessing.m in Sources */,
 				89779E16196C52D900AC81CA /* ExpertInsight.m in Sources */,
+				89800C61197C6E600051A844 /* School.m in Sources */,
 				89779DF319648AAC00AC81CA /* UserInfoView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

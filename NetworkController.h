@@ -16,6 +16,7 @@
 
 #import "Worker.h"
 #import "Job.h"
+#import "School.h"
 
 @protocol NetworkControllerDelegate <NSObject>
 
@@ -48,10 +49,7 @@
 
 //Textalytics API Calls
 -(void)checkProfileText:(NSString *)string;
--(void)createDictionary;
 -(void)listDictionaries;
 -(void)readDictionaryWithName:(NSString *)name;
--(void)removeDictionaryWithName:(NSString *)name;
--(void)updateDictionaryWithName:(NSString *)name;
 
 @end
