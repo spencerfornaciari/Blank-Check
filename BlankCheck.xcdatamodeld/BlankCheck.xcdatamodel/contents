@@ -1,6 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5064" systemVersion="13E28" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
-    <entity name="Gamer" syncable="YES">
+    <entity name="Job" representedClassName="Job" syncable="YES">
+        <attribute name="companyName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="idNumber" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="industry" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isCurrent" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="monthsInCurrentJob" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="startDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="summary" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Language" syncable="YES">
+        <attribute name="languageID" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="languageName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="languageProficiency" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+    </entity>
+    <entity name="School" syncable="YES">
+        <attribute name="degree" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="endYear" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="fieldOfStudy" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="schoolID" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="schoolName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="startYear" optional="YES" attributeType="Date" syncable="YES"/>
+    </entity>
+    <entity name="Worker" representedClassName="Worker" syncable="YES">
         <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="headline" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="imageLocation" optional="YES" attributeType="String" syncable="YES"/>
@@ -10,28 +33,20 @@
         <attribute name="lastLinkedinUpdate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="linkedinURL" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="linkedinUsername" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="location" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="numConnections" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="numRecommenders" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="smallImageLocation" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="smallImageURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="zipCode" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <relationship name="positions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Position" syncable="YES"/>
-    </entity>
-    <entity name="Position" syncable="YES">
-        <attribute name="companyName" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="endDate" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="idNumber" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="industry" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="isCurrent" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <attribute name="monthsInCurrentJob" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="startDate" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="summary" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="jobs" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Job" syncable="YES"/>
+        <relationship name="languages" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Language" syncable="YES"/>
+        <relationship name="schools" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="School" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Gamer" positionX="-1278" positionY="-1593" width="128" height="298"/>
-        <element name="Position" positionX="-963" positionY="-1521" width="128" height="180"/>
+        <element name="Worker" positionX="-4176" positionY="-367" width="128" height="313"/>
+        <element name="Job" positionX="225" positionY="-198" width="128" height="163"/>
+        <element name="School" positionX="-99" positionY="-117" width="128" height="133"/>
+        <element name="Language" positionX="36" positionY="-108" width="128" height="90"/>
     </elements>
 </model>

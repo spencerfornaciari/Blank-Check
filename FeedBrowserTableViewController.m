@@ -67,14 +67,14 @@
     //Core Data Example
     AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *context = [appDelegate managedObjectContext];
-    NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Gamer" inManagedObjectContext:context];
+    NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Worker" inManagedObjectContext:context];
     NSFetchRequest *request = [NSFetchRequest new];
     [request setEntity:entityDescription];
     
-//    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"firstName = %@", @"Jessica"];
-//    [request setPredicate:predicate];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"firstName = %@", @"Spencer"];
+    [request setPredicate:predicate];
     
-//    NSManagedObject *matches = nil;
+    NSManagedObject *matches = nil;
     
     NSError *error;
     
@@ -82,15 +82,20 @@
     
     NSLog(@"Objects: %u", (unsigned)objects.count);
     
-//    if ([objects count] == 0) {
-//        NSLog(@"No matches");
-//    } else {
+    if ([objects count] == 0) {
+        NSLog(@"No matches");
+    } else {
 //        NSLog(@"Found a Jessica");
-//        for (int i = 0; i < objects.count; i++) {
-//            matches = objects[i];
-//            NSLog(@"%@ %@ %@", [matches valueForKey:@"firstName"], [matches valueForKey:@"lastName"], [matches valueForKey:@"location"]);
-//        }
-//    }
+        for (int i = 0; i < objects.count; i++) {
+            matches = objects[i];
+            NSLog(@"%@ %@ %@", [matches valueForKey:@"firstName"], [matches valueForKey:@"lastName"], [matches valueForKey:@"location"]);
+            for (Job *unit in [matches valueForKey:@"jobs"]) {
+                NSLog(@"%@", [unit valueForKey:@"companyName"]);
+                //I am not at a computer, so I cannot test, but this should work. You might have to access each property of the unit object to fire the fault, but I don't believe that is necessary.
+            }
+//            NSLog(@"Jobs: %@", );
+        }
+    }
 
     //    [self add];
     

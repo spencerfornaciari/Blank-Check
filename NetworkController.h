@@ -14,6 +14,9 @@
 #import "Recommendation.h"
 #import "Insights.h"
 
+#import "Worker.h"
+#import "Job.h"
+
 @protocol NetworkControllerDelegate <NSObject>
 
 -(void)setGamerData:(Gamer *)gamer;

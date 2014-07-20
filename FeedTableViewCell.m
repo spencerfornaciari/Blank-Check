@@ -59,7 +59,7 @@
 -(void)downloadProfileImage:(Gamer *)gamer {
     AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *context = appDelegate.managedObjectContext;
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Gamer" inManagedObjectContext:context];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Worker" inManagedObjectContext:context];
     NSManagedObject *cellObject = nil;
     
     NSFetchRequest *request = [NSFetchRequest new];
@@ -86,10 +86,7 @@
         NSString *fullName = [NSString stringWithFormat:@"%@%@", gamer.firstName, gamer.lastName];
         gamer.smallImageLocalLocation = [NSString stringWithFormat:@"%@/%@_small.jpg", [self documentsDirectoryPath], fullName];
         
-//        [cellObject setValue:gamer.smallImageLocalLocation forKey:@"smallImageLocation"];
-//        
-//        NSError *error2;
-//        [context save:&error2];
+        [cellObject setValue:gamer.smallImageLocalLocation forKey:@"smallImageLocation"];
         
         [data writeToFile:gamer.smallImageLocalLocation atomically:YES];
         
@@ -101,6 +98,9 @@
             } else {
                 self.profileImage.image = gamer.smallProfileImage;
             }
+            
+            NSError *error2;
+            [context save:&error2];
         }];
     }];
 

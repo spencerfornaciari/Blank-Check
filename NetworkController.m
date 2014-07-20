@@ -138,6 +138,8 @@
     //    NSString *string = [NSString stringWithFormat:@"https://api.linkedin.com/v1/people/~"]
     NSString *accessURL = [NSString stringWithFormat:@"%@%@&format=json", @"https://api.linkedin.com/v1/people/~:(id,first-name,last-name,industry,headline,location:(name),num-connections,picture-url,picture-urls::(original),email-address,last-modified-timestamp,interests,languages,skills,certifications,three-current-positions,public-profile-url,educations,num-recommenders,recommendations-received)?oauth2_access_token=", accessToken];
     
+    NSLog(@"%@", accessURL);
+    
     NSURL *url = [NSURL URLWithString:accessURL];
     
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:self delegateQueue:nil];
@@ -353,10 +355,8 @@
     
     AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *context = [appDelegate managedObjectContext];
-    NSManagedObject *newContact;
-    newContact = [NSEntityDescription insertNewObjectForEntityForName:@"Gamer" inManagedObjectContext:context];
-
-
+    Worker *newContact;
+    newContact = [NSEntityDescription insertNewObjectForEntityForName:@"Worker" inManagedObjectContext:context];
 
     NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data
                                                                options:NSJSONReadingMutableLeaves
@@ -379,11 +379,20 @@
     NSMutableArray *tempArray = [NSMutableArray new];
     NSArray *positionArray = [dictionary valueForKeyPath:@"threeCurrentPositions.values"];
     
+    
+    
     for (NSDictionary *positionDictionary in positionArray) {
+        Job *newPosition = [NSEntityDescription insertNewObjectForEntityForName:@"Job" inManagedObjectContext:context];
+        
         Position *position = [Position new];
         position.isCurrent = TRUE;
         position.companyName = [positionDictionary valueForKeyPath:@"company.name"];
-        position.idNumber = [positionDictionary valueForKeyPath:@"company.id"];
+        
+        NSNumber *posNum = [positionDictionary valueForKeyPath:@"company.id"];
+        
+        NSLog(@"Pos Num: %ld", (long)[posNum integerValue]);
+        
+        position.idNumber = posNum;
         position.industry = [positionDictionary valueForKeyPath:@"company.industry"];
         position.title = [positionDictionary valueForKey:@"title"];
         
@@ -397,6 +406,21 @@
         NSTimeInterval employmentLength = [date timeIntervalSinceDate:position.startDate];
         //Conversion from seconds to months
         position.monthsInCurrentJob = (employmentLength / 60 / 60 / 24 / 365) * 12;
+        
+        //Core Data
+        [newPosition setValue:@1 forKey:@"isCurrent"];
+        [newPosition setValue:position.companyName forKey:@"companyName"];
+        [newPosition setValue:posNum forKey:@"idNumber"];
+        [newPosition setValue:position.industry forKey:@"industry"];
+        [newPosition setValue:position.title forKey:@"title"];
+        [newPosition setValue:position.startDate forKey:@"startDate"];
+//
+//        [newContact setValue:newPosition forKey:@"position"];
+////
+        NSNumber *numFloat = [NSNumber numberWithFloat:position.monthsInCurrentJob];
+        [newPosition setValue:numFloat forKey:@"monthsInCurrentJob"];
+        
+        [newContact addJobsObject:newPosition];
         
         [tempArray addObject:position];
     }
@@ -528,14 +552,14 @@
     [newContact setValue:gamer.industry forKey:@"industry"];
     [newContact setValue:gamer.numConnections forKey:@"numConnections"];
     [newContact setValue:gamer.numRecommenders forKey:@"numRecommenders"];
-    
+//
     [newContact setValue:gamer.lastLinkedinUpdate forKey:@"lastLinkedinUpdate"];
-    
+//
     [newContact setValue:[dictionary valueForKeyPath:@"pictureUrls.values"][0] forKey:@"imageURL"];
     [newContact setValue:[dictionary valueForKey:@"pictureUrl"] forKey:@"smallImageURL"];
     [newContact setValue:gamer.location forKey:@"location"];
     [newContact setValue:dictionary[@"publicProfileUrl"] forKey:@"linkedinURL"];
-    
+//
     NSError *error;
     [context save:&error];
     
@@ -752,7 +776,7 @@
     for (NSDictionary *connection in connectionArray) {
         Gamer *gamerConnection = [Gamer new];
         NSManagedObject *newContact;
-        newContact = [NSEntityDescription insertNewObjectForEntityForName:@"Gamer" inManagedObjectContext:context];
+        newContact = [NSEntityDescription insertNewObjectForEntityForName:@"Worker" inManagedObjectContext:context];
         gamerConnection.gamerID = connection[@"id"];
         gamerConnection.firstName = connection[@"firstName"];
         

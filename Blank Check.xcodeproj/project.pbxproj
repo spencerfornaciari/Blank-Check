@@ -8,9 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4F6ABBBCFE2E42399BFFEFC8 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D88B6EE341E4BB49404DDD2 /* libPods.a */; };
-		8910F3261937AD8200955812 /* Gamer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8910F3251937AD8200955812 /* Gamer.m */; };
 		8910F3291937ADB700955812 /* Education.m in Sources */ = {isa = PBXBuildFile; fileRef = 8910F3281937ADB700955812 /* Education.m */; };
-		8910F32C1937ADC700955812 /* Position.m in Sources */ = {isa = PBXBuildFile; fileRef = 8910F32B1937ADC700955812 /* Position.m */; };
 		8910F32F1937ADEA00955812 /* Recommendation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8910F32E1937ADEA00955812 /* Recommendation.m */; };
 		8910F3321937AE3400955812 /* Language.m in Sources */ = {isa = PBXBuildFile; fileRef = 8910F3311937AE3400955812 /* Language.m */; };
 		891B94631948C84600BEAEC9 /* FeedControllerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 891B94621948C84600BEAEC9 /* FeedControllerViewController.m */; };
@@ -30,6 +28,10 @@
 		8978FBCB193E562600BF0921 /* PresetSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8978FBCA193E562600BF0921 /* PresetSearchViewController.m */; };
 		897F02321958A4B200A770A6 /* DetailScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 897F02311958A4B200A770A6 /* DetailScrollViewController.m */; };
 		897F02351958E8D000A770A6 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 897F02341958E8D000A770A6 /* LoginViewController.m */; };
+		89800C471979DAB60051A844 /* Gamer.m in Sources */ = {isa = PBXBuildFile; fileRef = 89800C441979DAB60051A844 /* Gamer.m */; };
+		89800C481979DAB60051A844 /* Position.m in Sources */ = {isa = PBXBuildFile; fileRef = 89800C461979DAB60051A844 /* Position.m */; };
+		89800C4B1979E2BA0051A844 /* Worker.m in Sources */ = {isa = PBXBuildFile; fileRef = 89800C4A1979E2BA0051A844 /* Worker.m */; };
+		89800C4E1979E2BB0051A844 /* Job.m in Sources */ = {isa = PBXBuildFile; fileRef = 89800C4D1979E2BB0051A844 /* Job.m */; };
 		899616B619461E3100C75B99 /* PresetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 899616B519461E3100C75B99 /* PresetViewController.m */; };
 		899616B919464DF600C75B99 /* LanguageProcessing.m in Sources */ = {isa = PBXBuildFile; fileRef = 899616B819464DF600C75B99 /* LanguageProcessing.m */; };
 		89A1433B193FCCF300FDEC4F /* SideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A1433A193FCCF300FDEC4F /* SideViewController.m */; };
@@ -87,12 +89,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		8910F3241937AD8200955812 /* Gamer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Gamer.h; sourceTree = "<group>"; };
-		8910F3251937AD8200955812 /* Gamer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Gamer.m; sourceTree = "<group>"; };
 		8910F3271937ADB700955812 /* Education.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Education.h; sourceTree = "<group>"; };
 		8910F3281937ADB700955812 /* Education.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Education.m; sourceTree = "<group>"; };
-		8910F32A1937ADC700955812 /* Position.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Position.h; sourceTree = "<group>"; };
-		8910F32B1937ADC700955812 /* Position.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Position.m; sourceTree = "<group>"; };
 		8910F32D1937ADEA00955812 /* Recommendation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Recommendation.h; sourceTree = "<group>"; };
 		8910F32E1937ADEA00955812 /* Recommendation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Recommendation.m; sourceTree = "<group>"; };
 		8910F3301937AE3400955812 /* Language.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Language.h; sourceTree = "<group>"; };
@@ -134,6 +132,14 @@
 		897F02311958A4B200A770A6 /* DetailScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DetailScrollViewController.m; path = ../DetailScrollViewController.m; sourceTree = "<group>"; };
 		897F02331958E8D000A770A6 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginViewController.h; path = ../LoginViewController.h; sourceTree = "<group>"; };
 		897F02341958E8D000A770A6 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginViewController.m; path = ../LoginViewController.m; sourceTree = "<group>"; };
+		89800C431979DAB60051A844 /* Gamer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Gamer.h; sourceTree = "<group>"; };
+		89800C441979DAB60051A844 /* Gamer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Gamer.m; sourceTree = "<group>"; };
+		89800C451979DAB60051A844 /* Position.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Position.h; sourceTree = "<group>"; };
+		89800C461979DAB60051A844 /* Position.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Position.m; sourceTree = "<group>"; };
+		89800C491979E2BA0051A844 /* Worker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Worker.h; path = "Blank Check/Worker.h"; sourceTree = "<group>"; };
+		89800C4A1979E2BA0051A844 /* Worker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Worker.m; path = "Blank Check/Worker.m"; sourceTree = "<group>"; };
+		89800C4C1979E2BB0051A844 /* Job.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Job.h; path = "Blank Check/Job.h"; sourceTree = "<group>"; };
+		89800C4D1979E2BB0051A844 /* Job.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Job.m; path = "Blank Check/Job.m"; sourceTree = "<group>"; };
 		899616B419461E3100C75B99 /* PresetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PresetViewController.h; path = ../PresetViewController.h; sourceTree = "<group>"; };
 		899616B519461E3100C75B99 /* PresetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PresetViewController.m; path = ../PresetViewController.m; sourceTree = "<group>"; };
 		899616B719464DF600C75B99 /* LanguageProcessing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LanguageProcessing.h; path = ../LanguageProcessing.h; sourceTree = "<group>"; };
@@ -214,18 +220,19 @@
 		8910F3201937AD1300955812 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				89800C4F1979E2C10051A844 /* Core Data */,
+				89800C431979DAB60051A844 /* Gamer.h */,
+				89800C441979DAB60051A844 /* Gamer.m */,
+				89800C451979DAB60051A844 /* Position.h */,
+				89800C461979DAB60051A844 /* Position.m */,
 				89779DE619633C7600AC81CA /* Insights.h */,
 				89779DE719633C7600AC81CA /* Insights.m */,
 				8910F3301937AE3400955812 /* Language.h */,
 				8910F3311937AE3400955812 /* Language.m */,
 				8910F32D1937ADEA00955812 /* Recommendation.h */,
 				8910F32E1937ADEA00955812 /* Recommendation.m */,
-				8910F32A1937ADC700955812 /* Position.h */,
-				8910F32B1937ADC700955812 /* Position.m */,
 				8910F3271937ADB700955812 /* Education.h */,
 				8910F3281937ADB700955812 /* Education.m */,
-				8910F3241937AD8200955812 /* Gamer.h */,
-				8910F3251937AD8200955812 /* Gamer.m */,
 				89779E14196C52D900AC81CA /* ExpertInsight.h */,
 				89779E15196C52D900AC81CA /* ExpertInsight.m */,
 				89779E17196C530100AC81CA /* ExpertAppraisal.h */,
@@ -235,6 +242,17 @@
 			);
 			name = Model;
 			path = ..;
+			sourceTree = "<group>";
+		};
+		89800C4F1979E2C10051A844 /* Core Data */ = {
+			isa = PBXGroup;
+			children = (
+				89800C4C1979E2BB0051A844 /* Job.h */,
+				89800C4D1979E2BB0051A844 /* Job.m */,
+				89800C491979E2BA0051A844 /* Worker.h */,
+				89800C4A1979E2BA0051A844 /* Worker.m */,
+			);
+			name = "Core Data";
 			sourceTree = "<group>";
 		};
 		89C973A2192564AF00EC6004 = {
@@ -565,7 +583,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8910F3261937AD8200955812 /* Gamer.m in Sources */,
 				89779E19196C530100AC81CA /* ExpertAppraisal.m in Sources */,
 				89779E13196B12F600AC81CA /* LoadingView.m in Sources */,
 				897F02351958E8D000A770A6 /* LoginViewController.m in Sources */,
@@ -574,16 +591,19 @@
 				89779DF0196488E600AC81CA /* ExpertInsightView.m in Sources */,
 				89779DF919648ACF00AC81CA /* ExpertAppraisalView.m in Sources */,
 				89C973EB192565D800EC6004 /* Constants.m in Sources */,
-				8910F32C1937ADC700955812 /* Position.m in Sources */,
 				89C973E81925650C00EC6004 /* NetworkController.m in Sources */,
+				89800C481979DAB60051A844 /* Position.m in Sources */,
 				895AF665195235FD00B20DA6 /* FeedTableViewCell.m in Sources */,
 				895AF662195235A700B20DA6 /* FeedBrowserTableViewController.m in Sources */,
 				89779E0A1965DCF700AC81CA /* SearchViewController.m in Sources */,
 				89C973C8192564AF00EC6004 /* ViewController.m in Sources */,
 				89A143901940E65700FDEC4F /* UIColor+BlankCheckColors.m in Sources */,
+				89800C471979DAB60051A844 /* Gamer.m in Sources */,
 				89C973BF192564AF00EC6004 /* AppDelegate.m in Sources */,
+				89800C4B1979E2BA0051A844 /* Worker.m in Sources */,
 				8910F32F1937ADEA00955812 /* Recommendation.m in Sources */,
 				8910F3321937AE3400955812 /* Language.m in Sources */,
+				89800C4E1979E2BB0051A844 /* Job.m in Sources */,
 				89D417A9197858D300A0CA4F /* BlankCheck.xcdatamodeld in Sources */,
 				891B94661948C9FF00BEAEC9 /* BlankCheckViewCell.m in Sources */,
 				89779DE819633C7600AC81CA /* Insights.m in Sources */,
@@ -757,7 +777,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					"$(SRCROOT)/\"Blank Check\"/Flurry",
-					"$(SRCROOT)/\"Blank Check\"/Google",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -787,7 +806,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					"$(SRCROOT)/\"Blank Check\"/Flurry",
-					"$(SRCROOT)/\"Blank Check\"/Google",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";

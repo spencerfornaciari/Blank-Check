@@ -10,7 +10,7 @@
 
 @interface Position : NSObject
 
-@property (nonatomic) NSString *idNumber;
+@property (nonatomic) NSNumber *idNumber;
 @property (nonatomic) NSString *title;
 @property (nonatomic) NSString *industry;
 @property (nonatomic) NSString *summary;

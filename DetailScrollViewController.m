@@ -78,7 +78,7 @@
     //Core Data
     AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *context = [appDelegate managedObjectContext];
-    NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Gamer" inManagedObjectContext:context];
+    NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Worker" inManagedObjectContext:context];
     NSFetchRequest *request = [NSFetchRequest new];
     [request setEntity:entityDescription];
     
@@ -309,7 +309,7 @@
     
     AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *context = [appDelegate managedObjectContext];
-    NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Gamer" inManagedObjectContext:context];
+    NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Worker" inManagedObjectContext:context];
     NSFetchRequest *request = [NSFetchRequest new];
     [request setEntity:entityDescription];
     
