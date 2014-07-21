@@ -79,7 +79,10 @@
             currentValue = value;
         }
     }
-    valueLabel.text = [NSString stringWithFormat:@"%@", currentValue.marketPrice];
+    
+    NSNumberFormatter *formatter = [NSNumberFormatter new];
+    [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+    valueLabel.text = [NSString stringWithFormat:@"%@", [formatter stringFromNumber:currentValue.marketPrice]];
 //    valueLabel.text = [NSString stringWithFormat:@"$%@", value.marketPrice];
 //    valueLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:17.0];
     

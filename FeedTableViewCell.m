@@ -37,7 +37,9 @@
         }
     }
     
-    self.scoreLabel.text = [NSString stringWithFormat:@"%@", currentValue.marketPrice];
+    NSNumberFormatter *formatter = [NSNumberFormatter new];
+    [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+    self.scoreLabel.text = [NSString stringWithFormat:@"%@", [formatter stringFromNumber:currentValue.marketPrice]];
 }
 
 -(void)setCell:(Gamer *)gamer {

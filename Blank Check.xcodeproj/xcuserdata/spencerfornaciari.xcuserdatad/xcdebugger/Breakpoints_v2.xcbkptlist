@@ -186,11 +186,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FeedTableViewCell.m"
-            timestampString = "427670421.726656"
+            timestampString = "427671224.879955"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "122"
-            endingLineNumber = "122"
+            startingLineNumber = "124"
+            endingLineNumber = "124"
             landmarkName = "-downloadProfileImage:"
             landmarkType = "5">
          </BreakpointContent>
