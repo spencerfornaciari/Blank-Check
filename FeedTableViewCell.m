@@ -24,7 +24,20 @@
 
 -(void)setCoreCell:(Connection *)connection {
     self.userNameLabel.text = [NSString stringWithFormat:@"%@ %@", connection.firstName, connection.lastName];
-    self.scoreLabel.text = @"1,000,000";
+    
+    Value *currentValue;
+    
+    for (Value *value in connection.values) {
+        if (!currentValue) {
+            currentValue = value;
+        }
+        
+        if (value.date >= currentValue.date) {
+            currentValue = value;
+        }
+    }
+    
+    self.scoreLabel.text = [NSString stringWithFormat:@"%@", currentValue.marketPrice];
 }
 
 -(void)setCell:(Gamer *)gamer {

@@ -66,7 +66,21 @@
     
     userNameLabel.text = [NSString stringWithFormat:@"%@ %@.", self.connection.firstName, firstLetter];
 //    userNameLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:20.0];
-    valueLabel.text = [NSString stringWithFormat:@"$%@", [self.gamer.valueArray lastObject]];
+//    Value *value = [[self.connection valueForKey:@"values"] lastObject];
+//    NSLog(@"Value: %@", [self.connection valueForKey:@"values"]);
+    Value *currentValue;
+    
+    for (Value *value in self.connection.values) {
+        if (!currentValue) {
+            currentValue = value;
+        }
+        
+        if (value.date >= currentValue.date) {
+            currentValue = value;
+        }
+    }
+    valueLabel.text = [NSString stringWithFormat:@"%@", currentValue.marketPrice];
+//    valueLabel.text = [NSString stringWithFormat:@"$%@", value.marketPrice];
 //    valueLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:17.0];
     
 }

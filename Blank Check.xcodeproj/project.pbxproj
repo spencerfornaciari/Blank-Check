@@ -17,10 +17,11 @@
 		8971C6EE197C6FF80024D3A1 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8937E7631976FE89004BA64D /* CoreData.framework */; };
 		8971C70F197D7BE50024D3A1 /* Job.m in Sources */ = {isa = PBXBuildFile; fileRef = 8971C70E197D7BE50024D3A1 /* Job.m */; };
 		8971C712197D7BE60024D3A1 /* School.m in Sources */ = {isa = PBXBuildFile; fileRef = 8971C711197D7BE60024D3A1 /* School.m */; };
-		8971C718197D7BE60024D3A1 /* Worker.m in Sources */ = {isa = PBXBuildFile; fileRef = 8971C717197D7BE60024D3A1 /* Worker.m */; };
 		8971C71B197D7BE60024D3A1 /* Language.m in Sources */ = {isa = PBXBuildFile; fileRef = 8971C71A197D7BE60024D3A1 /* Language.m */; };
 		8971C71E197D85600024D3A1 /* CoreDataHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 8971C71D197D85600024D3A1 /* CoreDataHelper.m */; };
-		8971C721197D894B0024D3A1 /* Connection.m in Sources */ = {isa = PBXBuildFile; fileRef = 8971C720197D894B0024D3A1 /* Connection.m */; };
+		8971C724197DB5A90024D3A1 /* Worker.m in Sources */ = {isa = PBXBuildFile; fileRef = 8971C723197DB5A90024D3A1 /* Worker.m */; };
+		8971C727197DB5AA0024D3A1 /* Value.m in Sources */ = {isa = PBXBuildFile; fileRef = 8971C726197DB5AA0024D3A1 /* Value.m */; };
+		8971C72A197DB5AA0024D3A1 /* Connection.m in Sources */ = {isa = PBXBuildFile; fileRef = 8971C729197DB5AA0024D3A1 /* Connection.m */; };
 		89779DE819633C7600AC81CA /* Insights.m in Sources */ = {isa = PBXBuildFile; fileRef = 89779DE719633C7600AC81CA /* Insights.m */; };
 		89779DF0196488E600AC81CA /* ExpertInsightView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89779DEF196488E600AC81CA /* ExpertInsightView.m */; };
 		89779DF319648AAC00AC81CA /* UserInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89779DF219648AAC00AC81CA /* UserInfoView.m */; };
@@ -112,14 +113,16 @@
 		8971C70E197D7BE50024D3A1 /* Job.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Job.m; sourceTree = "<group>"; };
 		8971C710197D7BE60024D3A1 /* School.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = School.h; sourceTree = "<group>"; };
 		8971C711197D7BE60024D3A1 /* School.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = School.m; sourceTree = "<group>"; };
-		8971C716197D7BE60024D3A1 /* Worker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Worker.h; sourceTree = "<group>"; };
-		8971C717197D7BE60024D3A1 /* Worker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Worker.m; sourceTree = "<group>"; };
 		8971C719197D7BE60024D3A1 /* Language.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Language.h; sourceTree = "<group>"; };
 		8971C71A197D7BE60024D3A1 /* Language.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Language.m; sourceTree = "<group>"; };
 		8971C71C197D85600024D3A1 /* CoreDataHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataHelper.h; sourceTree = "<group>"; };
 		8971C71D197D85600024D3A1 /* CoreDataHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataHelper.m; sourceTree = "<group>"; };
-		8971C71F197D894B0024D3A1 /* Connection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Connection.h; sourceTree = "<group>"; };
-		8971C720197D894B0024D3A1 /* Connection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Connection.m; sourceTree = "<group>"; };
+		8971C722197DB5A90024D3A1 /* Worker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Worker.h; sourceTree = "<group>"; };
+		8971C723197DB5A90024D3A1 /* Worker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Worker.m; sourceTree = "<group>"; };
+		8971C725197DB5AA0024D3A1 /* Value.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Value.h; sourceTree = "<group>"; };
+		8971C726197DB5AA0024D3A1 /* Value.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Value.m; sourceTree = "<group>"; };
+		8971C728197DB5AA0024D3A1 /* Connection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Connection.h; sourceTree = "<group>"; };
+		8971C729197DB5AA0024D3A1 /* Connection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Connection.m; sourceTree = "<group>"; };
 		89779DE619633C7600AC81CA /* Insights.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Insights.h; sourceTree = "<group>"; };
 		89779DE719633C7600AC81CA /* Insights.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Insights.m; sourceTree = "<group>"; };
 		89779DEE196488E600AC81CA /* ExpertInsightView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExpertInsightView.h; path = ../ExpertInsightView.h; sourceTree = "<group>"; };
@@ -260,12 +263,14 @@
 				8971C70E197D7BE50024D3A1 /* Job.m */,
 				8971C710197D7BE60024D3A1 /* School.h */,
 				8971C711197D7BE60024D3A1 /* School.m */,
-				8971C716197D7BE60024D3A1 /* Worker.h */,
-				8971C717197D7BE60024D3A1 /* Worker.m */,
 				8971C719197D7BE60024D3A1 /* Language.h */,
 				8971C71A197D7BE60024D3A1 /* Language.m */,
-				8971C71F197D894B0024D3A1 /* Connection.h */,
-				8971C720197D894B0024D3A1 /* Connection.m */,
+				8971C722197DB5A90024D3A1 /* Worker.h */,
+				8971C723197DB5A90024D3A1 /* Worker.m */,
+				8971C728197DB5AA0024D3A1 /* Connection.h */,
+				8971C729197DB5AA0024D3A1 /* Connection.m */,
+				8971C725197DB5AA0024D3A1 /* Value.h */,
+				8971C726197DB5AA0024D3A1 /* Value.m */,
 			);
 			name = "Core Data";
 			sourceTree = "<group>";
@@ -608,8 +613,9 @@
 				89779DF0196488E600AC81CA /* ExpertInsightView.m in Sources */,
 				89779DF919648ACF00AC81CA /* ExpertAppraisalView.m in Sources */,
 				89C973EB192565D800EC6004 /* Constants.m in Sources */,
-				8971C718197D7BE60024D3A1 /* Worker.m in Sources */,
 				89C973E81925650C00EC6004 /* NetworkController.m in Sources */,
+				8971C727197DB5AA0024D3A1 /* Value.m in Sources */,
+				8971C724197DB5A90024D3A1 /* Worker.m in Sources */,
 				89800C481979DAB60051A844 /* Position.m in Sources */,
 				895AF665195235FD00B20DA6 /* FeedTableViewCell.m in Sources */,
 				895AF662195235A700B20DA6 /* FeedBrowserTableViewController.m in Sources */,
@@ -619,7 +625,6 @@
 				89800C471979DAB60051A844 /* Gamer.m in Sources */,
 				89C973BF192564AF00EC6004 /* AppDelegate.m in Sources */,
 				8910F32F1937ADEA00955812 /* Recommendation.m in Sources */,
-				8971C721197D894B0024D3A1 /* Connection.m in Sources */,
 				8971C70F197D7BE50024D3A1 /* Job.m in Sources */,
 				89D417A9197858D300A0CA4F /* BlankCheck.xcdatamodeld in Sources */,
 				891B94661948C9FF00BEAEC9 /* BlankCheckViewCell.m in Sources */,
@@ -635,6 +640,7 @@
 				8971C71E197D85600024D3A1 /* CoreDataHelper.m in Sources */,
 				899616B919464DF600C75B99 /* LanguageProcessing.m in Sources */,
 				89779E16196C52D900AC81CA /* ExpertInsight.m in Sources */,
+				8971C72A197DB5AA0024D3A1 /* Connection.m in Sources */,
 				8971C712197D7BE60024D3A1 /* School.m in Sources */,
 				8971C71B197D7BE60024D3A1 /* Language.m in Sources */,
 				89779DF319648AAC00AC81CA /* UserInfoView.m in Sources */,

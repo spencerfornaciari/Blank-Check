@@ -186,11 +186,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FeedTableViewCell.m"
-            timestampString = "427662591.750855"
+            timestampString = "427670421.726656"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "109"
-            endingLineNumber = "109"
+            startingLineNumber = "122"
+            endingLineNumber = "122"
             landmarkName = "-downloadProfileImage:"
             landmarkType = "5">
          </BreakpointContent>
@@ -218,11 +218,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetworkController.m"
-            timestampString = "427661981.560256"
+            timestampString = "427669543.887535"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "608"
-            endingLineNumber = "608"
+            startingLineNumber = "619"
+            endingLineNumber = "619"
             landmarkName = "-checkProfileText:"
             landmarkType = "5">
          </BreakpointContent>

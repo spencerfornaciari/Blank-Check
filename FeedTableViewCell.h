@@ -10,6 +10,7 @@
 #import "AppDelegate.h"
 #import "Gamer.h"
 #import "Connection.h"
+#import "Value.h"
 
 @interface FeedTableViewCell : UITableViewCell
 

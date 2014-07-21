@@ -49,11 +49,6 @@
 //
 ////            self.one = [[NetworkController sharedController] loadCurrentUserData];
 ////            NSLog(@"User Count: %lu", (unsigned long)self.one.connectionIDArray.count);
-////            
-////            //                [NSKeyedArchiver archiveRootObject:self.one toFile:[Gamer gamerPath]];
-////            //
-////            self.appDelegate = [[UIApplication sharedApplication] delegate];
-////            self.appDelegate.gamer = self.one;
 //            
 ////            self.feedArray = [NSMutableArray new];
 ////            self.feedArray = self.one.connectionIDArray;

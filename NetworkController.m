@@ -152,9 +152,14 @@
 //    NSManagedObjectContext *context = [appDelegate managedObjectContext];
     Worker *newWorker = [NSEntityDescription insertNewObjectForEntityForName:@"Worker" inManagedObjectContext:[CoreDataHelper managedContext]];
 
+    Value *newValue = [NSEntityDescription insertNewObjectForEntityForName:@"Value" inManagedObjectContext:[CoreDataHelper managedContext]];
+    
     NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data
                                                                options:NSJSONReadingMutableLeaves
                                                                  error:nil];
+    newValue.marketPrice = @1000000;
+    newValue.date = [NSDate date];
+    [newWorker addValuesObject:newValue];
     
     gamer.firstName = dictionary[@"firstName"];
     
@@ -394,6 +399,12 @@
     for (NSDictionary *connection in connectionArray) {
         Gamer *gamerConnection = [Gamer new];
         Connection *newConnection = [NSEntityDescription insertNewObjectForEntityForName:@"Connection" inManagedObjectContext:[CoreDataHelper managedContext]];
+        
+        Value *newValue = [NSEntityDescription insertNewObjectForEntityForName:@"Value" inManagedObjectContext:[CoreDataHelper managedContext]];
+        
+        newValue.marketPrice = @1000000;
+        newValue.date = [NSDate date];
+        [newConnection addValuesObject:newValue];
         
         gamerConnection.gamerID = connection[@"id"];
         gamerConnection.firstName = connection[@"firstName"];

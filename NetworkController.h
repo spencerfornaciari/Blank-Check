@@ -20,6 +20,7 @@
 #import "School.h"
 #import "Language.h"
 #import "Connection.h"
+#import "Value.h"
 
 @protocol NetworkControllerDelegate <NSObject>
 

@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Job, Language, School, Worker;
+@class Job, Language, School, Value, Worker;
 
 @interface Connection : NSManagedObject
 
@@ -34,6 +34,7 @@
 @property (nonatomic, retain) NSSet *schools;
 @property (nonatomic, retain) NSSet *jobs;
 @property (nonatomic, retain) NSSet *languages;
+@property (nonatomic, retain) NSSet *values;
 @end
 
 @interface Connection (CoreDataGeneratedAccessors)
@@ -52,5 +53,10 @@
 - (void)removeLanguagesObject:(Language *)value;
 - (void)addLanguages:(NSSet *)values;
 - (void)removeLanguages:(NSSet *)values;
+
+- (void)addValuesObject:(Value *)value;
+- (void)removeValuesObject:(Value *)value;
+- (void)addValues:(NSSet *)values;
+- (void)removeValues:(NSSet *)values;
 
 @end

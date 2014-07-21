@@ -33,6 +33,7 @@
 @property (nonatomic, retain) NSSet *languages;
 @property (nonatomic, retain) NSSet *schools;
 @property (nonatomic, retain) NSSet *connections;
+@property (nonatomic, retain) NSSet *values;
 @end
 
 @interface Worker (CoreDataGeneratedAccessors)
@@ -56,5 +57,10 @@
 - (void)removeConnectionsObject:(Connection *)value;
 - (void)addConnections:(NSSet *)values;
 - (void)removeConnections:(NSSet *)values;
+
+- (void)addValuesObject:(NSManagedObject *)value;
+- (void)removeValuesObject:(NSManagedObject *)value;
+- (void)addValues:(NSSet *)values;
+- (void)removeValues:(NSSet *)values;
 
 @end

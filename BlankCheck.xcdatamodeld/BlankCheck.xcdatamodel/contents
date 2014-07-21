@@ -21,6 +21,7 @@
         <relationship name="jobs" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Job" inverseName="connection" inverseEntity="Job" syncable="YES"/>
         <relationship name="languages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Language" inverseName="connection" inverseEntity="Language" syncable="YES"/>
         <relationship name="schools" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="School" inverseName="connection" inverseEntity="School" syncable="YES"/>
+        <relationship name="values" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Value" inverseName="connection" inverseEntity="Value" syncable="YES"/>
         <relationship name="worker" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Worker" inverseName="connections" inverseEntity="Worker" syncable="YES"/>
     </entity>
     <entity name="Job" representedClassName="Job" syncable="YES">
@@ -52,6 +53,13 @@
         <relationship name="connection" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Connection" inverseName="schools" inverseEntity="Connection" syncable="YES"/>
         <relationship name="worker" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Worker" inverseName="schools" inverseEntity="Worker" syncable="YES"/>
     </entity>
+    <entity name="Value" representedClassName="Value" syncable="YES">
+        <attribute name="change" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="marketPrice" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <relationship name="connection" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Connection" inverseName="values" inverseEntity="Connection" syncable="YES"/>
+        <relationship name="worker" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Worker" inverseName="values" inverseEntity="Worker" syncable="YES"/>
+    </entity>
     <entity name="Worker" representedClassName="Worker" syncable="YES">
         <attribute name="emailAddress" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
@@ -73,12 +81,14 @@
         <relationship name="jobs" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Job" inverseName="worker" inverseEntity="Job" syncable="YES"/>
         <relationship name="languages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Language" inverseName="worker" inverseEntity="Language" syncable="YES"/>
         <relationship name="schools" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="School" inverseName="worker" inverseEntity="School" syncable="YES"/>
+        <relationship name="values" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Value" inverseName="worker" inverseEntity="Value" syncable="YES"/>
     </entity>
     <elements>
         <element name="Job" positionX="-3944" positionY="-441" width="128" height="193"/>
         <element name="Language" positionX="-3944" positionY="-175" width="128" height="118"/>
         <element name="School" positionX="-3996" positionY="-22" width="128" height="163"/>
-        <element name="Worker" positionX="-4284" positionY="-535" width="128" height="343"/>
-        <element name="Connection" positionX="-4277" positionY="-115" width="128" height="358"/>
+        <element name="Worker" positionX="-4284" positionY="-535" width="128" height="358"/>
+        <element name="Connection" positionX="-4277" positionY="-115" width="128" height="373"/>
+        <element name="Value" positionX="-4097" positionY="-450" width="128" height="118"/>
     </elements>
 </model>

@@ -10,6 +10,7 @@
 #import "Job.h"
 #import "Language.h"
 #import "School.h"
+#import "Value.h"
 #import "Worker.h"
 
 
@@ -36,5 +37,6 @@
 @dynamic schools;
 @dynamic jobs;
 @dynamic languages;
+@dynamic values;
 
 @end

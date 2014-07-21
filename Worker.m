@@ -35,5 +35,6 @@
 @dynamic languages;
 @dynamic schools;
 @dynamic connections;
+@dynamic values;
 
 @end
