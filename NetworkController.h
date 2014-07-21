@@ -14,9 +14,12 @@
 #import "Recommendation.h"
 #import "Insights.h"
 
+#import "CoreDataHelper.h"
 #import "Worker.h"
 #import "Job.h"
 #import "School.h"
+#import "Language.h"
+#import "Connection.h"
 
 @protocol NetworkControllerDelegate <NSObject>
 
@@ -39,8 +42,8 @@
 
 //Grabbing user data from Linkedin API
 -(void)loadUserData;
--(Gamer *)loadCurrentUserData;
-+(NSArray *)grabUserConnections;
+//-(Gamer *)loadCurrentUserData;
++(NSArray *)grabUserConnections:(Worker *)worker inContext:(NSManagedObjectContext *)context;
 -(NSArray *)commonConnectionsWithUser:(NSString *)userID;
 
 //Social Networking methods

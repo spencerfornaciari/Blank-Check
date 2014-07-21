@@ -12,7 +12,9 @@
 @interface FeedBrowserTableViewController ()
 
 @property (nonatomic) Gamer *one, *two, *three;
-@property (nonatomic) NSMutableArray *feedArray;
+//@property (nonatomic) NSMutableArray *feedArray;
+@property (nonatomic) NSArray *feedArray;
+
 
 @property (nonatomic) NSOperationQueue *operationQueue;
 @property (nonatomic) AppDelegate *appDelegate;
@@ -33,69 +35,70 @@
     
     self.menuButtonBool = FALSE;
     self.downloadingUserData = FALSE;
-    
+
+    [self loadCoreData];
 //    self.controller = [NetworkController new];
 //    self.controller.delegate = self;
     [NetworkController sharedController].delegate = self;
     
     self.operationQueue = [(AppDelegate *)[[UIApplication sharedApplication] delegate] blankQueue];
-    
-    if (!self.one && self.downloadingUserData == FALSE) {
-        [self.operationQueue addOperationWithBlock:^{
-            [[NetworkController sharedController] loadUserData];
-
-//            self.one = [[NetworkController sharedController] loadCurrentUserData];
-//            NSLog(@"User Count: %lu", (unsigned long)self.one.connectionIDArray.count);
+    //load user data
+//    if (!self.one && self.downloadingUserData == FALSE) {
+//        [self.operationQueue addOperationWithBlock:^{
+//            [[NetworkController sharedController] loadUserData];
+//
+////            self.one = [[NetworkController sharedController] loadCurrentUserData];
+////            NSLog(@"User Count: %lu", (unsigned long)self.one.connectionIDArray.count);
+////            
+////            //                [NSKeyedArchiver archiveRootObject:self.one toFile:[Gamer gamerPath]];
+////            //
+////            self.appDelegate = [[UIApplication sharedApplication] delegate];
+////            self.appDelegate.gamer = self.one;
 //            
-//            //                [NSKeyedArchiver archiveRootObject:self.one toFile:[Gamer gamerPath]];
-//            //
-//            self.appDelegate = [[UIApplication sharedApplication] delegate];
-//            self.appDelegate.gamer = self.one;
-            
-//            self.feedArray = [NSMutableArray new];
-//            self.feedArray = self.one.connectionIDArray;
-//            
-//            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-//                [self.loadingView.activityIndicator stopAnimating];
-//                [self.loadingView removeFromSuperview];
-//                
-//                [self.tableView reloadData];
-//            }];
-        }];
-    }
+////            self.feedArray = [NSMutableArray new];
+////            self.feedArray = self.one.connectionIDArray;
+////            
+////            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+////                [self.loadingView.activityIndicator stopAnimating];
+////                [self.loadingView removeFromSuperview];
+////                
+////                [self.tableView reloadData];
+////            }];
+//        }];
+//    }
     
     //Core Data Example
-    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-    NSManagedObjectContext *context = [appDelegate managedObjectContext];
-    NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Worker" inManagedObjectContext:context];
-    NSFetchRequest *request = [NSFetchRequest new];
-    [request setEntity:entityDescription];
-    
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"firstName = %@", @"Spencer"];
-    [request setPredicate:predicate];
-    
-    NSManagedObject *matches = nil;
-    
-    NSError *error;
-    
-    NSArray *objects = [context executeFetchRequest:request error:&error];
-    
-    NSLog(@"Objects: %u", (unsigned)objects.count);
-    
-    if ([objects count] == 0) {
-        NSLog(@"No matches");
-    } else {
-//        NSLog(@"Found a Jessica");
-        for (int i = 0; i < objects.count; i++) {
-            matches = objects[i];
-            NSLog(@"%@ %@ %@", [matches valueForKey:@"firstName"], [matches valueForKey:@"lastName"], [matches valueForKey:@"location"]);
-            for (Job *unit in [matches valueForKey:@"jobs"]) {
-                NSLog(@"%@", [unit valueForKey:@"companyName"]);
-                //I am not at a computer, so I cannot test, but this should work. You might have to access each property of the unit object to fire the fault, but I don't believe that is necessary.
-            }
-//            NSLog(@"Jobs: %@", );
-        }
-    }
+//    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+//    NSManagedObjectContext *context = [appDelegate managedObjectContext];
+//    NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Worker" inManagedObjectContext:context];
+//    NSFetchRequest *request = [NSFetchRequest new];
+//    [request setEntity:entityDescription];
+//    
+//    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"firstName = %@", @"Spencer"];
+//    [request setPredicate:predicate];
+//    
+//    NSManagedObject *matches = nil;
+//    
+//    NSError *error;
+//    
+//    NSArray *objects = [context executeFetchRequest:request error:&error];
+//    
+//    NSLog(@"Objects: %u", (unsigned)objects.count);
+//    
+//    if ([objects count] == 0) {
+//        NSLog(@"No matches");
+//    } else {
+////        NSLog(@"Found a Jessica");
+//        for (int i = 0; i < objects.count; i++) {
+//            matches = objects[i];
+//            NSLog(@"%@ %@ %@", [matches valueForKey:@"firstName"], [matches valueForKey:@"lastName"], [matches valueForKey:@"location"]);
+//            for (Job *unit in [matches valueForKey:@"jobs"]) {
+//                NSLog(@"%@", [unit valueForKey:@"companyName"]);
+//                //I am not at a computer, so I cannot test, but this should work. You might have to access each property of the unit object to fire the fault, but I don't believe that is necessary.
+//            }
+////            NSLog(@"Jobs: %@", );
+//        }
+//    }
 
     //    [self add];
     
@@ -248,9 +251,17 @@
     FeedTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     
     // Configure the cell...
-    Gamer *gamer = self.feedArray[indexPath.row];
+//    Gamer *gamer = self.feedArray[indexPath.row];
     
-    [cell setCell:gamer];
+    
+//    
+//    [cell setCell:gamer];
+    Connection *connection = [self.feedArray objectAtIndex:indexPath.row];
+    [cell setCoreCell:connection];
+//    cell.userNameLabel.text = [NSString stringWithFormat:@"%@ %@", connection.firstName, connection.lastName];
+
+    
+//    [cell setCoreCell:connection];
     
     return cell;
 }
@@ -260,10 +271,11 @@
     if ([segue.identifier isEqualToString:@"detailedView"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         
-        Gamer *gamer = self.feedArray[indexPath.row];
+//        Gamer *gamer = self.feedArray[indexPath.row];
         
         DetailScrollViewController *viewController = segue.destinationViewController;
-        viewController.gamer = gamer;
+        viewController.connection = [self.feedArray objectAtIndex:indexPath.row];
+//        viewController.gamer = gamer;
     }
     
     if ([segue.identifier isEqualToString:@"searchView"]) {
@@ -360,7 +372,17 @@
 
 -(void)setGamerData:(Gamer *)gamer {
     self.one = gamer;
+    
     self.feedArray = [NSMutableArray new];
+    
+    NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"Worker" inManagedObjectContext:[CoreDataHelper managedContext]];
+    NSFetchRequest *request = [NSFetchRequest new];
+    [request setEntity:entityDesc];
+    NSError *error;
+    NSArray *objects = [[CoreDataHelper managedContext] executeFetchRequest:request error:&error];
+    
+    NSLog(@"Objects Count: %lu", (long)objects.count);
+    
     self.feedArray = self.one.connectionIDArray;
     
     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
@@ -369,5 +391,28 @@
         
         [self.tableView reloadData];
     }];
+}
+
+-(void)loadCoreData {
+    self.feedArray = [NSMutableArray new];
+    
+    NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"Worker" inManagedObjectContext:[CoreDataHelper managedContext]];
+    NSFetchRequest *request = [NSFetchRequest new];
+    [request setEntity:entityDesc];
+    
+    NSError *error;
+    NSArray *objects = [[CoreDataHelper managedContext] executeFetchRequest:request error:&error];
+    
+    
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]
+                                        initWithKey:@"lastName" ascending:YES];
+    self.feedArray = [[objects[0] valueForKey:@"connections"] sortedArrayUsingDescriptors:@[sortDescriptor]];
+
+    //    Connection *newConn = [self.feedArray objectAtIndex:0];
+
+
+    
+//    self.feedArray = [objects valueForKey:@"connections"];
+    
 }
 @end

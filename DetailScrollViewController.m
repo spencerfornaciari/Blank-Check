@@ -62,9 +62,9 @@
     profileImage.layer.cornerRadius = 60.f;
     profileImage.layer.masksToBounds = TRUE;
     
-    NSString *firstLetter = [self.gamer.lastName substringWithRange:NSMakeRange(0, 1)];
+    NSString *firstLetter = [self.connection.lastName substringWithRange:NSMakeRange(0, 1)];
     
-    userNameLabel.text = [NSString stringWithFormat:@"%@ %@.", self.gamer.firstName, firstLetter];
+    userNameLabel.text = [NSString stringWithFormat:@"%@ %@.", self.connection.firstName, firstLetter];
 //    userNameLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:20.0];
     valueLabel.text = [NSString stringWithFormat:@"$%@", [self.gamer.valueArray lastObject]];
 //    valueLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:17.0];
@@ -76,34 +76,34 @@
 //    self.screenName = [NSString stringWithFormat:@"Detail page: %@", self.gamer.fullName];
     
     //Core Data
-    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-    NSManagedObjectContext *context = [appDelegate managedObjectContext];
-    NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Worker" inManagedObjectContext:context];
-    NSFetchRequest *request = [NSFetchRequest new];
-    [request setEntity:entityDescription];
-    
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"firstName = %@", self.gamer.firstName];
-    NSPredicate *predicate2 = [NSPredicate predicateWithFormat:@"lastName = %@", self.gamer.lastName];
-    NSPredicate *final = [NSCompoundPredicate andPredicateWithSubpredicates:@[predicate, predicate2]];
-    [request setPredicate:final];
-
-    NSManagedObject *matches = nil;
-    
-    NSError *error;
-    
-    NSArray *objects = [context executeFetchRequest:request error:&error];
-    
-    NSLog(@"Objects: %u", (unsigned)objects.count);
-    
-    if ([objects count] == 0) {
-        NSLog(@"No matches");
-    } else {
-        NSLog(@"Found a %@", self.gamer.firstName);
-        for (int i = 0; i < objects.count; i++) {
-            matches = objects[i];
-            NSLog(@"%@ %@ %@", [matches valueForKey:@"firstName"], [matches valueForKey:@"lastName"], [matches valueForKey:@"location"]);
-        }
-    }
+//    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+//    NSManagedObjectContext *context = [appDelegate managedObjectContext];
+//    NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Worker" inManagedObjectContext:context];
+//    NSFetchRequest *request = [NSFetchRequest new];
+//    [request setEntity:entityDescription];
+//    
+//    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"firstName = %@", self.gamer.firstName];
+//    NSPredicate *predicate2 = [NSPredicate predicateWithFormat:@"lastName = %@", self.gamer.lastName];
+//    NSPredicate *final = [NSCompoundPredicate andPredicateWithSubpredicates:@[predicate, predicate2]];
+//    [request setPredicate:final];
+//
+//    NSManagedObject *matches = nil;
+//    
+//    NSError *error;
+//    
+//    NSArray *objects = [context executeFetchRequest:request error:&error];
+//    
+//    NSLog(@"Objects: %u", (unsigned)objects.count);
+//    
+//    if ([objects count] == 0) {
+//        NSLog(@"No matches");
+//    } else {
+//        NSLog(@"Found a %@", self.gamer.firstName);
+//        for (int i = 0; i < objects.count; i++) {
+//            matches = objects[i];
+//            NSLog(@"%@ %@ %@", [matches valueForKey:@"firstName"], [matches valueForKey:@"lastName"], [matches valueForKey:@"location"]);
+//        }
+//    }
     
     // error handling code
     
@@ -129,7 +129,7 @@
     // You can pass in additional params or update existing ones here as well
     [Flurry endTimedEvent:@"Detailed_View" withParameters:nil];
     
-    if (self.gamer.invitationSent) {
+    if ([self.connection.invitationSent integerValue] == 1) {
         [scrollView setContentSize:CGSizeMake(self.view.frame.size.width, self.frameHeight)];
     } else {
         [self loadInviteView];
@@ -138,23 +138,23 @@
     
     profileImage.image = [UIImage imageNamed:@"default-user"];
     
-    NSURL *url = self.gamer.imageURL;
+//    NSURL *url = self.gamer.imageURL;
+//    
+//    if (url) {
+//        NSData *data = [NSData dataWithContentsOfURL:url];
+//        UIImage *image = [UIImage imageWithData:data];
+//        self.gamer.profileImage = image;
+//        //
+//        [data writeToFile:self.gamer.imageLocalLocation atomically:YES];
+//        profileImage.image = self.gamer.profileImage;
+//        [profileImage setNeedsDisplay];
+//    }
     
-    if (url) {
-        NSData *data = [NSData dataWithContentsOfURL:url];
-        UIImage *image = [UIImage imageWithData:data];
-        self.gamer.profileImage = image;
-        //
-        [data writeToFile:self.gamer.imageLocalLocation atomically:YES];
-        profileImage.image = self.gamer.profileImage;
-        [profileImage setNeedsDisplay];
-    }
-    
-    matches = [objects objectAtIndex:0];
-    [matches setValue:self.gamer.imageLocalLocation forKey:@"imageLocation"];
+//    matches = [objects objectAtIndex:0];
+    [self.connection setValue:self.gamer.imageLocalLocation forKey:@"imageLocation"];
     
     NSError *saveError;
-    [context save:&saveError];
+    [[CoreDataHelper managedContext] save:&saveError];
     
     
 }
@@ -305,30 +305,30 @@
 
 -(void)inviteTarget:(Gamer *)gamer {
     NSLog(@"Invitation Sent");
-    self.gamer.invitationSent = TRUE;
+//    self.gamer.invitationSent = TRUE;
     
-    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-    NSManagedObjectContext *context = [appDelegate managedObjectContext];
-    NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Worker" inManagedObjectContext:context];
-    NSFetchRequest *request = [NSFetchRequest new];
-    [request setEntity:entityDescription];
-    
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"firstName = %@", self.gamer.firstName];
-    NSPredicate *predicate2 = [NSPredicate predicateWithFormat:@"lastName = %@", self.gamer.lastName];
-    NSPredicate *final = [NSCompoundPredicate andPredicateWithSubpredicates:@[predicate, predicate2]];
-    [request setPredicate:final];
-    
-    NSManagedObject *matches = nil;
+//    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+//    NSManagedObjectContext *context = [appDelegate managedObjectContext];
+//    NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Worker" inManagedObjectContext:context];
+//    NSFetchRequest *request = [NSFetchRequest new];
+//    [request setEntity:entityDescription];
+//    
+//    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"firstName = %@", self.gamer.firstName];
+//    NSPredicate *predicate2 = [NSPredicate predicateWithFormat:@"lastName = %@", self.gamer.lastName];
+//    NSPredicate *final = [NSCompoundPredicate andPredicateWithSubpredicates:@[predicate, predicate2]];
+//    [request setPredicate:final];
+//    
+//    NSManagedObject *matches = nil;
+//    
+//    NSError *error;
+//    
+//    NSArray *objects = [context executeFetchRequest:request error:&error];
+//    
+//    matches = objects[0];
+    [self.connection setValue:@1 forKey:@"invitationSent"];
     
     NSError *error;
-    
-    NSArray *objects = [context executeFetchRequest:request error:&error];
-    
-    matches = objects[0];
-    [matches setValue:@1 forKey:@"invitationSent"];
-    
-    NSError *error2;
-    [context save:&error2];
+    [[CoreDataHelper managedContext] save:&error];
     
     [self.overView removeFromSuperview];
 //    self.view.frame = CGRectMake(0, 0, 320, 1500);
@@ -353,7 +353,7 @@
     
     UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, self.overView.frame.size.width - 40, 40)];
     nameLabel.textAlignment = NSTextAlignmentCenter;
-    nameLabel.text = [NSString stringWithFormat:@"%@ has picked up the Blank Check yet.", self.gamer.firstName];
+    nameLabel.text = [NSString stringWithFormat:@"%@ has picked up the Blank Check yet.", self.connection.firstName];
     nameLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0];
     nameLabel.numberOfLines = 0;
     [nameLabel sizeToFit];
@@ -377,7 +377,7 @@
     UIButton *inviteButton = [UIButton buttonWithType:UIButtonTypeCustom];
     inviteButton.frame = CGRectMake(0, descriptionLabel.frame.origin.y + 100, 200, 60);
     inviteButton.center = CGPointMake(self.overView.frame.size.width / 2, descriptionLabel.center.y + 100);
-    [inviteButton setTitle:[NSString stringWithFormat:@"Invite %@", self.gamer.firstName] forState:UIControlStateNormal];
+    [inviteButton setTitle:[NSString stringWithFormat:@"Invite %@", self.connection.firstName] forState:UIControlStateNormal];
     [inviteButton addTarget:self action:@selector(inviteTarget:) forControlEvents:UIControlEventTouchUpInside];
     [inviteButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     inviteButton.backgroundColor = [UIColor whiteColor];

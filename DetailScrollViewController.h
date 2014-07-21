@@ -13,6 +13,7 @@
 #import "ExpertAppraisalView.h"
 #import "UserInfoView.h"
 #import "TimelineView.h"
+#import "Connection.h"
 
 @interface DetailScrollViewController : UIViewController <UIScrollViewDelegate,GKLineGraphDataSource, UIActionSheetDelegate> {
     IBOutlet UIScrollView *scrollView;
@@ -22,5 +23,6 @@
 }
 
 @property (nonatomic) Gamer *gamer;
+@property (nonatomic) Connection *connection;
 
 @end

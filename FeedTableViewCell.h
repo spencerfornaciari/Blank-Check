@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "AppDelegate.h"
 #import "Gamer.h"
+#import "Connection.h"
 
 @interface FeedTableViewCell : UITableViewCell
 
@@ -18,5 +19,6 @@
 @property (strong, nonatomic) IBOutlet UILabel *scoreLabel;
 
 -(void)setCell:(Gamer *)gamer;
+-(void)setCoreCell:(Connection *)connection;
 
 @end

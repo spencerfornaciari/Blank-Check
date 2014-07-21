@@ -140,8 +140,11 @@
     
     if ([scope isEqualToString:@"Name"]) {
         //Name Predicate
-        NSPredicate *firstNamePredicate = [NSPredicate predicateWithFormat:@"fullName BEGINSWITH[cd] %@", searchText];
+        NSPredicate *firstNamePredicate = [NSPredicate predicateWithFormat:@"firstName BEGINSWITH[cd] %@", searchText];
         NSPredicate *lastNamePredicate = [NSPredicate predicateWithFormat:@"lastName BEGINSWITH[cd] %@", searchText];
+        
+//        NSPredicate *namePredicate = [NSPredicate predicateWithFormat:@"(firstName BEGINSWITH[cd] %@) OR (lastName BEGINSWITH[cd] %@)", searchText];
+
         
         NSPredicate *namePredicate = [NSCompoundPredicate orPredicateWithSubpredicates:@[firstNamePredicate, lastNamePredicate]];
 

@@ -22,6 +22,11 @@
     // Configure the view for the selected state
 }
 
+-(void)setCoreCell:(Connection *)connection {
+    self.userNameLabel.text = [NSString stringWithFormat:@"%@ %@", connection.firstName, connection.lastName];
+    self.scoreLabel.text = @"1,000,000";
+}
+
 -(void)setCell:(Gamer *)gamer {
     self.userNameLabel.text = gamer.fullName;
     self.scoreLabel.text = [NSString stringWithFormat:@"$%@", [gamer.valueArray lastObject]];
@@ -57,22 +62,22 @@
 }
 
 -(void)downloadProfileImage:(Gamer *)gamer {
-    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-    NSManagedObjectContext *context = appDelegate.managedObjectContext;
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Worker" inManagedObjectContext:context];
-    NSManagedObject *cellObject = nil;
+//    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+//    NSManagedObjectContext *context = appDelegate.managedObjectContext;
+//    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Worker" inManagedObjectContext:context];
+//    NSManagedObject *cellObject = nil;
     
-    NSFetchRequest *request = [NSFetchRequest new];
-    [request setEntity:entity];
-    
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"firstName = %@", gamer.firstName];
-    NSPredicate *predicate2 = [NSPredicate predicateWithFormat:@"lastName = %@", gamer.lastName];
-    NSPredicate *final = [NSCompoundPredicate andPredicateWithSubpredicates:@[predicate, predicate2]];
-    [request setPredicate:final];
-    
-    NSError *error;
-    NSArray *objects = [context executeFetchRequest:request error:&error];
-    cellObject = objects[0];
+//    NSFetchRequest *request = [NSFetchRequest new];
+//    [request setEntity:entity];
+//    
+//    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"firstName = %@", gamer.firstName];
+//    NSPredicate *predicate2 = [NSPredicate predicateWithFormat:@"lastName = %@", gamer.lastName];
+//    NSPredicate *final = [NSCompoundPredicate andPredicateWithSubpredicates:@[predicate, predicate2]];
+//    [request setPredicate:final];
+//    
+//    NSError *error;
+//    NSArray *objects = [context executeFetchRequest:request error:&error];
+//    cellObject = objects[0];
     
     //Loggin image URL
     NSURL *url = gamer.smallImageURL;
@@ -86,7 +91,7 @@
         NSString *fullName = [NSString stringWithFormat:@"%@%@", gamer.firstName, gamer.lastName];
         gamer.smallImageLocalLocation = [NSString stringWithFormat:@"%@/%@_small.jpg", [self documentsDirectoryPath], fullName];
         
-        [cellObject setValue:gamer.smallImageLocalLocation forKey:@"smallImageLocation"];
+//        [cellObject setValue:gamer.smallImageLocalLocation forKey:@"smallImageLocation"];
         
         [data writeToFile:gamer.smallImageLocalLocation atomically:YES];
         
@@ -99,8 +104,8 @@
                 self.profileImage.image = gamer.smallProfileImage;
             }
             
-            NSError *error2;
-            [context save:&error2];
+//            NSError *error2;
+//            [context save:&error2];
         }];
     }];
 
