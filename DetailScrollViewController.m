@@ -53,12 +53,10 @@
 //    [scrollView addSubview:graph];
     
 
-    NSString *fullName = [NSString stringWithFormat:@"%@%@", self.gamer.firstName, self.gamer.lastName];
-    self.gamer.imageLocalLocation = [NSString stringWithFormat:@"%@/%@.jpg", [self documentsDirectoryPath], fullName];
     
 //    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:self.gamer.imageLocalLocation];
     
-    profileImage.image = self.gamer.profileImage;
+    profileImage.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:self.connection.imageLocation]]];
     profileImage.layer.cornerRadius = 60.f;
     profileImage.layer.masksToBounds = TRUE;
     
@@ -90,53 +88,12 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-//    self.screenName = [NSString stringWithFormat:@"Detail page: %@", self.gamer.fullName];
     
-    //Core Data
-//    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-//    NSManagedObjectContext *context = [appDelegate managedObjectContext];
-//    NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Worker" inManagedObjectContext:context];
-//    NSFetchRequest *request = [NSFetchRequest new];
-//    [request setEntity:entityDescription];
-//    
-//    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"firstName = %@", self.gamer.firstName];
-//    NSPredicate *predicate2 = [NSPredicate predicateWithFormat:@"lastName = %@", self.gamer.lastName];
-//    NSPredicate *final = [NSCompoundPredicate andPredicateWithSubpredicates:@[predicate, predicate2]];
-//    [request setPredicate:final];
-//
-//    NSManagedObject *matches = nil;
-//    
-//    NSError *error;
-//    
-//    NSArray *objects = [context executeFetchRequest:request error:&error];
-//    
-//    NSLog(@"Objects: %u", (unsigned)objects.count);
-//    
-//    if ([objects count] == 0) {
-//        NSLog(@"No matches");
-//    } else {
-//        NSLog(@"Found a %@", self.gamer.firstName);
-//        for (int i = 0; i < objects.count; i++) {
-//            matches = objects[i];
-//            NSLog(@"%@ %@ %@", [matches valueForKey:@"firstName"], [matches valueForKey:@"lastName"], [matches valueForKey:@"location"]);
-//        }
-//    }
+    [Amplitude logEvent:[NSString stringWithFormat:@"Detail page - %@ %@", self.connection.firstName, self.connection.lastName]];
     
-    // error handling code
-    
-
-//    NSManagedObject *newContact;
-//    newContact = [NSEntityDescription insertNewObjectForEntityForName:@"Gamer" inManagedObjectContext:context];
-//    [newContact setValue:@"Bob" forKey:@"firstName"];
-//    [newContact setValue:@"Johnson" forKey:@"lastName"];
-//    [newContact setValue:@"Seattle" forKey:@"location"];
-//    NSError *error;
-//    [context save:&error];
-    
-    [Amplitude logEvent:[NSString stringWithFormat:@"%@", self.gamer.fullName]];
     NSDictionary *articleParams = [NSDictionary dictionaryWithObjectsAndKeys:
                                    @"John Q", @"Author",
-                                   self.gamer.fullName, @"Detailed_Info",
+                                   [NSString stringWithFormat:@"%@ %@", self.connection.firstName, self.connection.lastName], @"Detailed_Info",
                                    nil];
     
     [Flurry logEvent:@"Detailed_View" withParameters:articleParams timed:YES];
@@ -155,25 +112,20 @@
     
     profileImage.image = [UIImage imageNamed:@"default-user"];
     
-//    NSURL *url = self.gamer.imageURL;
-//    
-//    if (url) {
-//        NSData *data = [NSData dataWithContentsOfURL:url];
-//        UIImage *image = [UIImage imageWithData:data];
-//        self.gamer.profileImage = image;
-//        //
-//        [data writeToFile:self.gamer.imageLocalLocation atomically:YES];
-//        profileImage.image = self.gamer.profileImage;
-//        [profileImage setNeedsDisplay];
-//    }
+    NSURL *url = [NSURL URLWithString:self.connection.imageURL];
     
-//    matches = [objects objectAtIndex:0];
-    [self.connection setValue:self.gamer.imageLocalLocation forKey:@"imageLocation"];
+    NSString *fullName = [NSString stringWithFormat:@"%@%@", self.connection.firstName, self.connection.lastName];
+    self.connection.imageLocation = [NSString stringWithFormat:@"%@/%@.jpg", [self documentsDirectoryPath], fullName];
     
-    NSError *saveError;
-    [[CoreDataHelper managedContext] save:&saveError];
+    if (url) {
+        NSData *data = [NSData dataWithContentsOfURL:url];
+        UIImage *image = [UIImage imageWithData:data];
+        [data writeToFile:self.connection.imageLocation atomically:YES];
+        profileImage.image = image;
+        [profileImage setNeedsDisplay];
+    }
     
-    
+    [CoreDataHelper saveContext];
 }
 
 - (void)didReceiveMemoryWarning
@@ -322,30 +274,9 @@
 
 -(void)inviteTarget:(Gamer *)gamer {
     NSLog(@"Invitation Sent");
-//    self.gamer.invitationSent = TRUE;
-    
-//    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-//    NSManagedObjectContext *context = [appDelegate managedObjectContext];
-//    NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Worker" inManagedObjectContext:context];
-//    NSFetchRequest *request = [NSFetchRequest new];
-//    [request setEntity:entityDescription];
-//    
-//    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"firstName = %@", self.gamer.firstName];
-//    NSPredicate *predicate2 = [NSPredicate predicateWithFormat:@"lastName = %@", self.gamer.lastName];
-//    NSPredicate *final = [NSCompoundPredicate andPredicateWithSubpredicates:@[predicate, predicate2]];
-//    [request setPredicate:final];
-//    
-//    NSManagedObject *matches = nil;
-//    
-//    NSError *error;
-//    
-//    NSArray *objects = [context executeFetchRequest:request error:&error];
-//    
-//    matches = objects[0];
     [self.connection setValue:@1 forKey:@"invitationSent"];
     
-    NSError *error;
-    [[CoreDataHelper managedContext] save:&error];
+    [CoreDataHelper saveContext];
     
     [self.overView removeFromSuperview];
 //    self.view.frame = CGRectMake(0, 0, 320, 1500);
