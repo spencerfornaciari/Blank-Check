@@ -22,44 +22,37 @@
     // Configure the view for the selected state
 }
 
--(void)setCoreCell:(Connection *)connection {
+-(void)setCell:(Connection *)connection {
+    self.connection = connection;
+    //Set Name
     self.userNameLabel.text = [NSString stringWithFormat:@"%@ %@", connection.firstName, connection.lastName];
     
+    //Set Value
     Value *currentValue = [connection.values lastObject];
-    
-//    for (Value *value in connection.values) {
-//        if (!currentValue) {
-//            currentValue = value;
-//        }
-//        
-//        if (value.date >= currentValue.date) {
-//            currentValue = value;
-//        }
-//    }
     
     NSNumberFormatter *formatter = [NSNumberFormatter new];
     [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
     self.scoreLabel.text = [NSString stringWithFormat:@"$%@", [formatter stringFromNumber:currentValue.marketPrice]];
     
-//    NSURL *url = [NSURL URLWithString:connection.smallImageURL];
-//    NSData *data = [NSData dataWithContentsOfURL:url];
-//    UIImage *image = [UIImage imageWithData:data];
-//    gamer.smallProfileImage = image;
+    NSLog(@"%@", connection.smallImageURL);
     
-    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:connection.smallImageLocation];
-    BOOL fileExists2 = [[NSFileManager defaultManager] fileExistsAtPath:connection.imageLocation];
-    
-    if (!fileExists) {
-        [self downloadProfileImage:connection];
-    } else {
-        if (fileExists2) {
-//            gamer.profileImage = [UIImage imageWithData:[NSData dataWithContentsOfMappedFile:gamer.imageLocalLocation]];
-            self.profileImage.image = [UIImage imageWithData:[NSData dataWithContentsOfMappedFile:connection.imageLocation]];
-
+    NSURL *url = [NSURL URLWithString:connection.smallImageURL];
+    //Set Profile Image
+    if (url) {
+        BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:connection.smallImageLocation];
+        BOOL fileExists2 = [[NSFileManager defaultManager] fileExistsAtPath:connection.imageLocation];
+        
+        if (!fileExists) {
+            [self downloadProfileImage:connection];
         } else {
-//            gamer.smallProfileImage = [UIImage imageWithData:[NSData dataWithContentsOfMappedFile:gamer.smallImageLocalLocation]];
-            self.profileImage.image = [UIImage imageWithData:[NSData dataWithContentsOfMappedFile:connection.smallImageLocation]];
+            if (fileExists2) {
+                self.profileImage.image = [UIImage imageWithData:[NSData dataWithContentsOfMappedFile:connection.imageLocation]];
+            } else {
+                self.profileImage.image = [UIImage imageWithData:[NSData dataWithContentsOfMappedFile:connection.smallImageLocation]];
+            }
         }
+    } else {
+        self.profileImage.image = [UIImage imageNamed:@"default-user"];
     }
     
     self.profileImage.contentMode = UIViewContentModeScaleAspectFit;
@@ -67,115 +60,37 @@
     self.profileImage.layer.masksToBounds = TRUE;
 }
 
--(void)setCell:(Gamer *)gamer {
-    self.userNameLabel.text = gamer.fullName;
-    self.scoreLabel.text = [NSString stringWithFormat:@"$%@", [gamer.valueArray lastObject]];
-    
-    NSURL *url = gamer.smallImageURL;
-    NSData *data = [NSData dataWithContentsOfURL:url];
-    UIImage *image = [UIImage imageWithData:data];
-    gamer.smallProfileImage = image;
-    
-//    NSString *fullName = [NSString stringWithFormat:@"%@%@", gamer.firstName, gamer.lastName];
-//    gamer.smallImageLocalLocation = [NSString stringWithFormat:@"%@/%@_small.jpg", [self documentsDirectoryPath], fullName];
-//    [data writeToFile:gamer.smallImageLocalLocation atomically:YES];
-//    self.profileImage.image = gamer.smallProfileImage;
-    
-    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:gamer.smallImageLocalLocation];
-    BOOL fileExists2 = [[NSFileManager defaultManager] fileExistsAtPath:gamer.imageLocalLocation];
 
-    if (!fileExists) {
-//        [self downloadProfileImage:gamer];
-    } else {
-        if (fileExists2) {
-            gamer.profileImage = [UIImage imageWithData:[NSData dataWithContentsOfMappedFile:gamer.imageLocalLocation]];
-            self.profileImage.image = gamer.profileImage;
-        } else {
-            gamer.smallProfileImage = [UIImage imageWithData:[NSData dataWithContentsOfMappedFile:gamer.smallImageLocalLocation]];
-            self.profileImage.image = gamer.smallProfileImage;
-        }
-    }
+-(void)downloadProfileImage:(Connection *)connection {
     
-    self.profileImage.contentMode = UIViewContentModeScaleAspectFit;
-    self.profileImage.layer.cornerRadius = 35.f;
-    self.profileImage.layer.masksToBounds = TRUE;
-}
-
-//-(void)downloadProfileImage:(Gamer *)gamer {
-////    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-////    NSManagedObjectContext *context = appDelegate.managedObjectContext;
-////    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Worker" inManagedObjectContext:context];
-////    NSManagedObject *cellObject = nil;
-//    
-////    NSFetchRequest *request = [NSFetchRequest new];
-////    [request setEntity:entity];
-////    
-////    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"firstName = %@", gamer.firstName];
-////    NSPredicate *predicate2 = [NSPredicate predicateWithFormat:@"lastName = %@", gamer.lastName];
-////    NSPredicate *final = [NSCompoundPredicate andPredicateWithSubpredicates:@[predicate, predicate2]];
-////    [request setPredicate:final];
-////    
-////    NSError *error;
-////    NSArray *objects = [context executeFetchRequest:request error:&error];
-////    cellObject = objects[0];
-//    
-//    //Loggin image URL
-//    NSURL *url = gamer.smallImageURL;
-//    
+    //Grab Image URL
+    NSURL *url = [NSURL URLWithString:connection.smallImageURL];
+    
+    NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration ephemeralSessionConfiguration];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfig delegate:self delegateQueue:nil];
+    
+    NSURLSessionDownloadTask *downloadTask = [session downloadTaskWithRequest:[NSURLRequest requestWithURL:url]];
+    
+    [downloadTask resume];
+    
 //    NSOperationQueue *operationQueue = [(AppDelegate *)[[UIApplication sharedApplication] delegate] blankQueue];
 //    [operationQueue addOperationWithBlock:^{
+//        
 //        NSData *data = [NSData dataWithContentsOfURL:url];
 //        UIImage *image = [UIImage imageWithData:data];
-//        gamer.smallProfileImage = image;
 //        
-//        NSString *fullName = [NSString stringWithFormat:@"%@%@", gamer.firstName, gamer.lastName];
-//        gamer.smallImageLocalLocation = [NSString stringWithFormat:@"%@/%@_small.jpg", [self documentsDirectoryPath], fullName];
+//        [data writeToFile:connection.smallImageLocation atomically:YES];
 //        
-////        [cellObject setValue:gamer.smallImageLocalLocation forKey:@"smallImageLocation"];
-//        
-//        [data writeToFile:gamer.smallImageLocalLocation atomically:YES];
-//        
-//        BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:gamer.smallImageLocalLocation];
+//        BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:connection.smallImageLocation];
 //        
 //        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
 //            if (!fileExists) {
 //                self.profileImage.image = [UIImage imageNamed:@"default-user"];
 //            } else {
-//                self.profileImage.image = gamer.smallProfileImage;
+//                self.profileImage.image = image;
 //            }
-//            
-////            NSError *error2;
-////            [context save:&error2];
 //        }];
 //    }];
-//
-//}
-
--(void)downloadProfileImage:(Connection *)connection {
-    
-    //Loggin image URL
-    NSURL *url = [NSURL URLWithString:connection.smallImageURL];
-    
-    NSOperationQueue *operationQueue = [(AppDelegate *)[[UIApplication sharedApplication] delegate] blankQueue];
-    [operationQueue addOperationWithBlock:^{
-        NSData *data = [NSData dataWithContentsOfURL:url];
-        UIImage *image = [UIImage imageWithData:data];
-        
-        NSString *fullName = [NSString stringWithFormat:@"%@%@", connection.firstName, connection.lastName];
-        connection.smallImageLocation = [NSString stringWithFormat:@"%@/%@_small.jpg", [self documentsDirectoryPath], fullName];
-        
-        [data writeToFile:connection.smallImageLocation atomically:YES];
-        
-        BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:connection.smallImageLocation];
-        
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            if (!fileExists) {
-                self.profileImage.image = [UIImage imageNamed:@"default-user"];
-            } else {
-                self.profileImage.image = image;
-            }
-        }];
-    }];
     
 }
 
@@ -186,6 +101,27 @@
 {
     NSURL *documentsURL = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
     return [documentsURL path];
+}
+
+-(void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(NSURL *)location {
+    
+    NSData *data = [NSData dataWithContentsOfURL:location];
+    UIImage *image = [UIImage imageWithData:data];
+    
+    [data writeToFile:self.connection.smallImageLocation atomically:YES];
+    
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+        self.profileImage.image = image;
+    }];
+    
+}
+
+-(void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didResumeAtOffset:(int64_t)fileOffset expectedTotalBytes:(int64_t)expectedTotalBytes {
+    
+}
+
+-(void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didWriteData:(int64_t)bytesWritten totalBytesWritten:(int64_t)totalBytesWritten totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite {
+    
 }
 
 @end

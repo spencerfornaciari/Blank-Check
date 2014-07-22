@@ -135,9 +135,9 @@
     
     NSURL *url = [NSURL URLWithString:accessURL];
     
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:self delegateQueue:nil];
+    self.session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:self delegateQueue:nil];
     
-    NSURLSessionDataTask *dataTask = [session dataTaskWithURL:url];
+    NSURLSessionDataTask *dataTask = [self.session dataTaskWithURL:url];
     [dataTask setTaskDescription:@"currentUser"];
     
     [dataTask resume];
@@ -309,81 +309,68 @@
     NSLog(@"Last Updated: %@", timeStamp);
     
     //Grabbing the image URL
+    
+    
     gamer.imageURL = [NSURL URLWithString:[dictionary valueForKeyPath:@"pictureUrls.values"][0]];
     gamer.smallImageURL = [NSURL URLWithString:[dictionary valueForKey:@"pictureUrl"]];
     
-    NSString *fullName = [NSString stringWithFormat:@"%@%@", gamer.firstName, gamer.lastName];
-    gamer.imageLocalLocation = [NSString stringWithFormat:@"%@/%@.jpg", [NetworkController documentsDirectoryPath], fullName];
-    gamer.smallImageLocalLocation = [NSString stringWithFormat:@"%@/%@_small.jpg", [NetworkController documentsDirectoryPath], fullName];
-    
-    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:gamer.imageLocalLocation];
-    BOOL smallFileExists = [[NSFileManager defaultManager] fileExistsAtPath:gamer.smallImageLocalLocation];
-    
-    if (fileExists) {
-        gamer.profileImage = [UIImage imageWithData:[NSData dataWithContentsOfMappedFile:gamer.imageLocalLocation]];
-    }
-    
-    if (smallFileExists) {
-        gamer.smallProfileImage = [UIImage imageWithData:[NSData dataWithContentsOfMappedFile:gamer.smallImageLocalLocation]];
-    }
-    
-    
-    //Check for full-size image
-    //    if (!fileExists) {
-    //        NSData *profilePicData = [NSData dataWithContentsOfURL:gamer.imageURL];
-    //        [profilePicData writeToFile:gamer.imageLocalLocation atomically:YES];
-    //        gamer.profileImage = [UIImage imageWithData:profilePicData];
-    //    } else {
-    //        gamer.profileImage = [UIImage imageWithData:[NSData dataWithContentsOfMappedFile:gamer.imageLocalLocation]];
-    //    }
-    
-    //Check for small image
-    //    if (!smalllFileExists) {
-    //        NSData *profilePicData = [NSData dataWithContentsOfURL:gamer.smallImageURL];
-    //        [profilePicData writeToFile:gamer.smallImageLocalLocation atomically:YES];
-    //        gamer.smallProfileImage = [UIImage imageWithData:profilePicData];
-    //    } else {
-    //        gamer.smallProfileImage = [UIImage imageWithData:[NSData dataWithContentsOfMappedFile:gamer.smallImageLocalLocation]];
-    //    }
     
     //Parsing Connection info
 
-
     [newWorker setValue:dictionary[@"id"] forKey:@"id"];
-    [newWorker setValue:dictionary[@"firstName"] forKey:@"firstName"];
-    [newWorker setValue:dictionary[@"lastName"] forKey:@"lastName"];
-    [newWorker setValue:[dictionary valueForKeyPath:@"location.name"] forKey:@"location"];
-    [newWorker setValue:dictionary[@"emailAddress"] forKey:@"emailAddress"];
-    [newWorker setValue:gamer.headline forKey:@"headline"];
-    [newWorker setValue:gamer.industry forKey:@"industry"];
-    [newWorker setValue:dictionary[@"numConnections"] forKey:@"numConnections"];
-    [newWorker setValue:dictionary[@"numRecommenders"] forKey:@"numRecommenders"];
-    [newWorker setValue:[NSDate dateWithTimeIntervalSince1970:newDate] forKey:@"lastLinkedinUpdate"];
-    [newWorker setValue:[dictionary valueForKeyPath:@"pictureUrls.values"][0] forKey:@"imageURL"];
-    [newWorker setValue:[dictionary valueForKey:@"pictureUrl"] forKey:@"smallImageURL"];
-    [newWorker setValue:dictionary[@"publicProfileUrl"] forKey:@"linkedinURL"];\
+    
+    newWorker.firstName = dictionary[@"firstName"];
+    newWorker.lastName = dictionary[@"lastName"];
+    NSString *fullName = [NSString stringWithFormat:@"%@%@", newWorker.firstName, newWorker.lastName];
+
+    newWorker.location = [dictionary valueForKeyPath:@"location.name"];
+    newWorker.linkedinURL = dictionary[@"publicProfileUrl"];
+    newWorker.emailAddress = dictionary[@"emailAddress"];
+    newWorker.numConnections = dictionary[@"numConnections"];
+    newWorker.numRecommenders = dictionary[@"numRecommenders"];
+    
+    newWorker.lastLinkedinUpdate = [NSDate dateWithTimeIntervalSince1970:newDate];
+    
+    //Grab Large Image
+    newWorker.imageURL = [dictionary valueForKeyPath:@"pictureUrls.values"][0];
+    newWorker.imageLocation = [NSString stringWithFormat:@"%@/%@.jpg", [NetworkController documentsDirectoryPath], fullName];
+    
+    NSURL *largeURL = [NSURL URLWithString:newWorker.imageURL];
+    NSURLSessionDownloadTask *downloadLarge = [self.session downloadTaskWithRequest:[NSURLRequest requestWithURL:largeURL] completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
+        NSData *largeImageData = [NSData dataWithContentsOfURL:location];
+        [largeImageData writeToFile:newWorker.imageLocation atomically:YES];
+    }];
+    [downloadLarge resume];
+    
+    //Grab Small Image
+    newWorker.smallImageURL = [dictionary valueForKey:@"pictureUrl"];
+    newWorker.smallImageLocation = [NSString stringWithFormat:@"%@/%@_small.jpg", [NetworkController documentsDirectoryPath], fullName];
+    
+    NSURL *smallURL = [NSURL URLWithString:newWorker.smallImageURL];
+    NSURLSessionDownloadTask *downloadSmall = [self.session downloadTaskWithRequest:[NSURLRequest requestWithURL:smallURL] completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
+        NSData *smallImageData = [NSData dataWithContentsOfURL:location];
+        [smallImageData writeToFile:newWorker.smallImageLocation atomically:YES];
+    }];
+    [downloadSmall resume];
     
 
+
+//    [newWorker setValue:gamer.headline forKey:@"headline"];
+//    [newWorker setValue:gamer.industry forKey:@"industry"];
+
+    
 //
     NSError *error;
     [[CoreDataHelper managedContext] save:&error];
     
-    gamer.connectionIDArray = [[NetworkController grabUserConnections:newWorker inContext:[CoreDataHelper managedContext]] mutableCopy];
+    [self grabUserConnections:newWorker inContext:[CoreDataHelper managedContext]];
     
 //    return gamer;
 
 }
 
-+(NSArray *)grabUserConnections:(Worker *)worker inContext:(NSManagedObjectContext *)context {
+-(void)grabUserConnections:(Worker *)worker inContext:(NSManagedObjectContext *)context {
     NSMutableArray *connectionsArray = [NSMutableArray new];
-    
-//    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-//    NSManagedObjectContext *context = [appDelegate managedObjectContext];
-//    Worker *newWorker = [NSEntityDescription insertNewObjectForEntityForName:@"Worker" inManagedObjectContext:context];
-    
-//    NSFetchRequest *request = [NSFetchRequest new];
-    
-    
     
     NSString *accessToken = [[NSUserDefaults standardUserDefaults] stringForKey:@"accessToken"];
     
@@ -513,8 +500,6 @@
     NSArray *sortedArray = [connectionsArray sortedArrayUsingDescriptors:sortDescriptors];
     
     [CoreDataHelper saveContext];
-    
-    return sortedArray;
 }
 
 #pragma mark - Documents Path

@@ -12,14 +12,15 @@
 #import "Connection.h"
 #import "Value.h"
 
-@interface FeedTableViewCell : UITableViewCell
+@interface FeedTableViewCell : UITableViewCell <NSURLSessionDelegate, NSURLSessionDownloadDelegate>
 
 @property (strong, nonatomic) IBOutlet UIImageView *profileImage;
 
 @property (strong, nonatomic) IBOutlet UILabel *userNameLabel;
 @property (strong, nonatomic) IBOutlet UILabel *scoreLabel;
 
--(void)setCell:(Gamer *)gamer;
--(void)setCoreCell:(Connection *)connection;
+@property (nonatomic) Connection *connection;
+
+-(void)setCell:(Connection *)connection;
 
 @end

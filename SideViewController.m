@@ -14,7 +14,6 @@
 
 //@property (nonatomic) ViewController *mainViewController, *topViewController;
 @property (nonatomic) UINavigationController *mainViewController, *topViewController;
-@property (nonatomic) Gamer *gamer;
 
 @property (nonatomic) FeedBrowserTableViewController *controller;
 
@@ -28,6 +27,27 @@
     [super viewDidLoad];
     self.title = @"Blank Check Labs";
     self.view.backgroundColor = [UIColor blankCheckBrown];
+    
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Worker" inManagedObjectContext:[CoreDataHelper managedContext]];
+    NSFetchRequest *request = [NSFetchRequest new];
+    [request setEntity:entity];
+    
+    NSError *error;
+    NSArray *array = [[CoreDataHelper managedContext] executeFetchRequest:request error:&error];
+    
+    UIButton *userProfileButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//    userProfileButton.backgroundColor = [UIColor magentaColor];
+    userProfileButton.frame = CGRectMake(0, 40, 320, 80);
+    [userProfileButton setTitle:@"Spencer Fornaciari" forState:UIControlStateNormal];
+    [userProfileButton setTitleEdgeInsets:UIEdgeInsetsMake(0, -140, 0, 0)];
+    userProfileButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:17.0];
+    
+    [userProfileButton setImage:[UIImage imageNamed:@"default-user"] forState:UIControlStateNormal];
+    [userProfileButton setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 240)];
+    userProfileButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    userProfileButton.imageView.layer.cornerRadius = 40;
+    userProfileButton.imageView.layer.masksToBounds = true;
+    [self.view addSubview:userProfileButton];
 
     self.controller = [self.storyboard instantiateViewControllerWithIdentifier:@"mainViewController"];
     self.controller.delegate = self;

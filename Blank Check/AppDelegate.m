@@ -62,8 +62,9 @@
     //Create instance of operation queue
     self.blankQueue = [NSOperationQueue new];
     
-    //Create instance of Gamer
-    self.gamer = [Gamer new];
+    //Create NSURLSession
+    NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration ephemeralSessionConfiguration];
+    self.session = [NSURLSession sessionWithConfiguration:sessionConfig delegate:self delegateQueue:nil];
     
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main_iPhone"
                                                              bundle: nil];

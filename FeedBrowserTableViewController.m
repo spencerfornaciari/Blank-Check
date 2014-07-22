@@ -129,7 +129,6 @@
         }
     }
 */
-    NSLog(@"User Count: %lu", (unsigned long)self.one.connectionIDArray.count);
 
 //    NSArray *myArray = [NetworkController grabUserConnections];
 //    NSLog(@"Count: %ld", (long)myArray.count);
@@ -249,7 +248,7 @@
 //    
 //    [cell setCell:gamer];
     Connection *connection = [self.feedArray objectAtIndex:indexPath.row];
-    [cell setCoreCell:connection];
+    [cell setCell:connection];
 //    cell.userNameLabel.text = [NSString stringWithFormat:@"%@ %@", connection.firstName, connection.lastName];
 
     

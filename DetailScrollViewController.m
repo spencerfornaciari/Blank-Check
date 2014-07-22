@@ -49,43 +49,23 @@
     
     [self addButtonMenu];
     
-    int size = ((self.view.frame.size.height - 65) - 40);
-    
-    ProblemView *problem = [[ProblemView alloc] initWithFrame:CGRectMake(20, 85, scrollView.frame.size.width - 40, size)];
-    problem.layer.zPosition = 5;
-    [self.view addSubview:problem];
-    
-//    UIImageView *graph = [[UIImageView alloc] initWithFrame:CGRectMake(20, 230, self.view.frame.size.width-40, 236)]; //height should be: self.view.frame.size.width-40 , origin: 20, 210
-//    graph.image = [UIImage imageNamed:@"graph"];
-//    [scrollView addSubview:graph];
-    
+//    int size = ((self.view.frame.size.height - 65) - 40);
+//    
+//    ProblemView *problem = [[ProblemView alloc] initWithFrame:CGRectMake(20, 85, scrollView.frame.size.width - 40, size)];
+//    problem.layer.zPosition = 5;
+//    [self.view addSubview:problem];
 
     self.fileExists = [[NSFileManager defaultManager] fileExistsAtPath:self.connection.imageLocation];
-    NSLog(@"Does it exist: %i", self.fileExists);
     
     if (self.fileExists) {
-//        NSURL *url = [NSURL URLWithString:self.connection.imageLocation];
-        
         NSData *data = [NSData dataWithContentsOfMappedFile:self.connection.imageLocation];
         UIImage *image = [UIImage imageWithData:data];
         profileImage.image = image;
-        
-//        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-//            profileImage.image = image;
-//            [profileImage setNeedsDisplay];
-//        }];
+
     } else {
         profileImage.image = [UIImage imageNamed:@"default-user"];
-
-//        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-//            [profileImage setNeedsDisplay];
-//        }];
-
     }
     
-
-//    
-//    profileImage.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:self.connection.imageLocation]]];
     profileImage.layer.cornerRadius = 60.f;
     profileImage.layer.masksToBounds = TRUE;
     

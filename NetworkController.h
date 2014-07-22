@@ -32,6 +32,7 @@
 
 @property (nonatomic) NSString *accessToken;
 @property (nonatomic, weak) id<NetworkControllerDelegate>delegate;
+@property (nonatomic) NSURLSession *session;
 
 +(NetworkController *)sharedController;
 
@@ -44,7 +45,7 @@
 //Grabbing user data from Linkedin API
 -(void)loadUserData;
 //-(Gamer *)loadCurrentUserData;
-+(NSArray *)grabUserConnections:(Worker *)worker inContext:(NSManagedObjectContext *)context;
+-(void)grabUserConnections:(Worker *)worker inContext:(NSManagedObjectContext *)context;
 -(NSArray *)commonConnectionsWithUser:(NSString *)userID;
 
 //Social Networking methods

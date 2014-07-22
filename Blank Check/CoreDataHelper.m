@@ -13,7 +13,7 @@
 
 //Return managed object context
 +(NSManagedObjectContext *)managedContext {
-    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     return appDelegate.managedObjectContext;
 }
 

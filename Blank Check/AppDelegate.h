@@ -11,7 +11,7 @@
 #import "Gamer.h"
 #import "UIColor+BlankCheckColors.h"
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, NSURLSessionDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) NetworkController *networkController;

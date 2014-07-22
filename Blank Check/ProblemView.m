@@ -30,7 +30,7 @@
         closeButton.frame = CGRectMake(50, self.bounds.size.height - 50, 100, 40);
         closeButton.center = CGPointMake(self.frame.size.width / 2, self.bounds.size.height - 50);
         [closeButton setTitle:@"Close" forState:UIControlStateNormal];
-        [closeButton addTarget:self action:@selector(inviteTarget:) forControlEvents:UIControlEventTouchUpInside];
+//        [closeButton addTarget:self action:@selector(inviteTarget:) forControlEvents:UIControlEventTouchUpInside];
         [closeButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         closeButton.backgroundColor = [UIColor whiteColor];
         [self addSubview:closeButton];
