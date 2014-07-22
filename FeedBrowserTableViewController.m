@@ -37,31 +37,31 @@
     self.menuButtonBool = FALSE;
     self.downloadingUserData = FALSE;
 
-//    [self loadCoreData];
+    [self loadCoreData];
 //    self.controller = [NetworkController new];
 //    self.controller.delegate = self;
     [NetworkController sharedController].delegate = self;
     
     self.operationQueue = [(AppDelegate *)[[UIApplication sharedApplication] delegate] blankQueue];
     //load user data
-    if (self.downloadingUserData == FALSE) { //Need to check if DB exists
-        [self.operationQueue addOperationWithBlock:^{
-            [[NetworkController sharedController] loadUserData];
-
-//            self.one = [[NetworkController sharedController] loadCurrentUserData];
-//            NSLog(@"User Count: %lu", (unsigned long)self.one.connectionIDArray.count);
-            
-//            self.feedArray = [NSMutableArray new];
-//            self.feedArray = self.one.connectionIDArray;
+//    if (self.downloadingUserData == FALSE) { //Need to check if DB exists
+//        [self.operationQueue addOperationWithBlock:^{
+//            [[NetworkController sharedController] loadUserData];
+//
+////            self.one = [[NetworkController sharedController] loadCurrentUserData];
+////            NSLog(@"User Count: %lu", (unsigned long)self.one.connectionIDArray.count);
 //            
-//            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-//                [self.loadingView.activityIndicator stopAnimating];
-//                [self.loadingView removeFromSuperview];
-//                
-//                [self.tableView reloadData];
-//            }];
-        }];
-    }
+////            self.feedArray = [NSMutableArray new];
+////            self.feedArray = self.one.connectionIDArray;
+////            
+////            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+////                [self.loadingView.activityIndicator stopAnimating];
+////                [self.loadingView removeFromSuperview];
+////                
+////                [self.tableView reloadData];
+////            }];
+//        }];
+//    }
     
     //Core Data Example
 //    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
@@ -406,6 +406,7 @@
 
 -(void)loadCoreData {
     self.feedArray = [NSMutableArray new];
+    self.downloadingUserData = TRUE;
     
     NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"Worker" inManagedObjectContext:[CoreDataHelper managedContext]];
     NSFetchRequest *request = [NSFetchRequest new];
@@ -420,11 +421,6 @@
     self.feedArray = [[objects[0] valueForKey:@"connections"] sortedArrayUsingDescriptors:@[sortDescriptor]];
     self.worker = objects[0];
 
-    //    Connection *newConn = [self.feedArray objectAtIndex:0];
-
-
-    
-//    self.feedArray = [objects valueForKey:@"connections"];
     
 }
 @end

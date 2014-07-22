@@ -25,17 +25,17 @@
 -(void)setCoreCell:(Connection *)connection {
     self.userNameLabel.text = [NSString stringWithFormat:@"%@ %@", connection.firstName, connection.lastName];
     
-    Value *currentValue;
+    Value *currentValue = [connection.values lastObject];
     
-    for (Value *value in connection.values) {
-        if (!currentValue) {
-            currentValue = value;
-        }
-        
-        if (value.date >= currentValue.date) {
-            currentValue = value;
-        }
-    }
+//    for (Value *value in connection.values) {
+//        if (!currentValue) {
+//            currentValue = value;
+//        }
+//        
+//        if (value.date >= currentValue.date) {
+//            currentValue = value;
+//        }
+//    }
     
     NSNumberFormatter *formatter = [NSNumberFormatter new];
     [formatter setNumberStyle:NSNumberFormatterDecimalStyle];

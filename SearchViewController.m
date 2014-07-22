@@ -15,7 +15,7 @@
 @interface SearchViewController ()
 
 @property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
-@property (nonatomic) NSString *scopeString;
+@property (nonatomic) NSString *scopeString, *searchString;
 
 @property (nonatomic) PresetSearchViewController *controller;
 
@@ -76,7 +76,12 @@
 //            cell.detailTextLabel.text = @"NAME";
         } else if ([self.scopeString isEqualToString:@"Title"]) {
             cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", connection.firstName, connection.lastName];
-            cell.detailTextLabel.text = @"Job";
+          
+            NSArray *jobArray = [connection.jobs allObjects];
+            NSPredicate *jobTitlePredicate = [NSPredicate predicateWithFormat:@"title CONTAINS[cd] %@", self.searchString];
+            NSArray *titleArray = [jobArray filteredArrayUsingPredicate:jobTitlePredicate];
+
+            cell.detailTextLabel.text = [titleArray[0] title];
         } else if ([self.scopeString isEqualToString:@"Location"]) {
             cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", connection.firstName, connection.lastName];
             cell.detailTextLabel.text = connection.location;
@@ -85,9 +90,10 @@
             cell.detailTextLabel.text = @"ALL";
         }
     } else {
-        Gamer *gamer = self.connectionsArray[indexPath.row];
-        cell.textLabel.text = gamer.fullName;
-        cell.detailTextLabel.text = gamer.location;
+        Connection *connection = [self.searchResultsArray objectAtIndex:indexPath.row];
+        
+        cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", connection.firstName, connection.lastName];
+        cell.detailTextLabel.text = connection.location;
     }
     
     return cell;
@@ -135,24 +141,23 @@
 //                                    predicateWithFormat:@"SELF contains[cd] %@",
 //                                    searchText];
 //    
-//    NSLog(@"%@", [self.searchArray filteredArrayUsingPredicate:resultPredicate]);
+//        NSPredicate *namePredicate = [NSPredicate predicateWithFormat:@"(firstName BEGINSWITH[cd] %@) OR (lastName BEGINSWITH[cd] %@)", searchText];
+
+    
     self.scopeString = scope;
+    self.searchString = searchText;
     
     if ([scope isEqualToString:@"Name"]) {
         //Name Predicate
         NSPredicate *firstNamePredicate = [NSPredicate predicateWithFormat:@"firstName BEGINSWITH[cd] %@", searchText];
         NSPredicate *lastNamePredicate = [NSPredicate predicateWithFormat:@"lastName BEGINSWITH[cd] %@", searchText];
-        
-//        NSPredicate *namePredicate = [NSPredicate predicateWithFormat:@"(firstName BEGINSWITH[cd] %@) OR (lastName BEGINSWITH[cd] %@)", searchText];
-
-        
         NSPredicate *namePredicate = [NSCompoundPredicate orPredicateWithSubpredicates:@[firstNamePredicate, lastNamePredicate]];
 
         self.searchResultsArray = [self.connectionsArray filteredArrayUsingPredicate:namePredicate];//
         
     } else if ([scope isEqualToString:@"Title"]) {
         //Job Title Predicate
-        NSPredicate *jobTitlePredicate = [NSPredicate predicateWithFormat:@"ANY SELF.currentPositionArray.title CONTAINS[cd] %@", searchText];
+        NSPredicate *jobTitlePredicate = [NSPredicate predicateWithFormat:@"ANY SELF.jobs.title CONTAINS[cd] %@", searchText];
         self.searchResultsArray = [self.connectionsArray filteredArrayUsingPredicate:jobTitlePredicate];
         
     } else if ([scope isEqualToString:@"Location"]) {
