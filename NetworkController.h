@@ -56,4 +56,6 @@
 -(void)listDictionaries;
 -(void)readDictionaryWithName:(NSString *)name;
 
++(NSString *)documentsDirectoryPath;
+
 @end

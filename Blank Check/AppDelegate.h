@@ -22,6 +22,7 @@
 @property (nonatomic, strong, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
 @property (nonatomic) Gamer *gamer;
+@property (nonatomic) NSURLSession *session;
 
 -(void)saveContext;
 -(NSURL *)applicationDocumentsDirectory;

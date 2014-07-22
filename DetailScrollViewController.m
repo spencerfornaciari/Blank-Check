@@ -21,6 +21,8 @@
 @property (nonatomic, strong) NSArray *data;
 @property (nonatomic, strong) NSArray *labels;
 
+@property (nonatomic) BOOL fileExists;
+
 @property (nonatomic) int frameHeight;
 
 @end
@@ -53,10 +55,32 @@
 //    [scrollView addSubview:graph];
     
 
+    self.fileExists = [[NSFileManager defaultManager] fileExistsAtPath:self.connection.imageLocation];
+    NSLog(@"Does it exist: %i", self.fileExists);
     
-//    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:self.gamer.imageLocalLocation];
+    if (self.fileExists) {
+//        NSURL *url = [NSURL URLWithString:self.connection.imageLocation];
+        
+        NSData *data = [NSData dataWithContentsOfMappedFile:self.connection.imageLocation];
+        UIImage *image = [UIImage imageWithData:data];
+        profileImage.image = image;
+        
+//        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+//            profileImage.image = image;
+//            [profileImage setNeedsDisplay];
+//        }];
+    } else {
+        profileImage.image = [UIImage imageNamed:@"default-user"];
+
+//        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+//            [profileImage setNeedsDisplay];
+//        }];
+
+    }
     
-    profileImage.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:self.connection.imageLocation]]];
+
+//    
+//    profileImage.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:self.connection.imageLocation]]];
     profileImage.layer.cornerRadius = 60.f;
     profileImage.layer.masksToBounds = TRUE;
     
@@ -110,22 +134,20 @@
         [scrollView setContentSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height)];
     }
     
-    profileImage.image = [UIImage imageNamed:@"default-user"];
-    
-    NSURL *url = [NSURL URLWithString:self.connection.imageURL];
-    
-    NSString *fullName = [NSString stringWithFormat:@"%@%@", self.connection.firstName, self.connection.lastName];
-    self.connection.imageLocation = [NSString stringWithFormat:@"%@/%@.jpg", [self documentsDirectoryPath], fullName];
-    
-    if (url) {
-        NSData *data = [NSData dataWithContentsOfURL:url];
-        UIImage *image = [UIImage imageWithData:data];
-        [data writeToFile:self.connection.imageLocation atomically:YES];
-        profileImage.image = image;
-        [profileImage setNeedsDisplay];
+    if (!self.fileExists) {
+        if (self.connection.imageURL) {
+            NSURL *url = [NSURL URLWithString:self.connection.imageURL];
+            NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url];
+            
+            NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
+            NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfiguration
+                                                                  delegate:self
+                                                             delegateQueue:nil];
+            
+            NSURLSessionDownloadTask *downloadTask = [session downloadTaskWithRequest:urlRequest];
+            [downloadTask resume];
+        }
     }
-    
-    [CoreDataHelper saveContext];
 }
 
 - (void)didReceiveMemoryWarning
@@ -535,6 +557,28 @@
         }
             break;
     }
+}
+
+-(void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(NSURL *)location {
+    
+    NSData *data = [NSData dataWithContentsOfURL:location];
+    [data writeToFile:self.connection.imageLocation atomically:YES];
+    UIImage *image = [UIImage imageWithData:data];
+    
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+        profileImage.image = image;
+        [profileImage setNeedsDisplay];
+    }];
+}
+
+-(void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didWriteData:(int64_t)bytesWritten totalBytesWritten:(int64_t)totalBytesWritten totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite {
+    
+    NSLog(@"Written %lld - %lld", totalBytesWritten, totalBytesExpectedToWrite);
+    
+}
+
+-(void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didResumeAtOffset:(int64_t)fileOffset expectedTotalBytes:(int64_t)expectedTotalBytes {
+    
 }
 
 @end

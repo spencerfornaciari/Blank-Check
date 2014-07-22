@@ -15,7 +15,7 @@
 #import "TimelineView.h"
 #import "Connection.h"
 
-@interface DetailScrollViewController : UIViewController <UIScrollViewDelegate,GKLineGraphDataSource, UIActionSheetDelegate> {
+@interface DetailScrollViewController : UIViewController <UIScrollViewDelegate,GKLineGraphDataSource, UIActionSheetDelegate, NSURLSessionDelegate, NSURLSessionDownloadDelegate> {
     IBOutlet UIScrollView *scrollView;
     IBOutlet UIImageView *profileImage;
     IBOutlet UILabel *userNameLabel;

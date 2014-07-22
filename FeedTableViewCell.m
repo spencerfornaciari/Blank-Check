@@ -85,7 +85,7 @@
     BOOL fileExists2 = [[NSFileManager defaultManager] fileExistsAtPath:gamer.imageLocalLocation];
 
     if (!fileExists) {
-        [self downloadProfileImage:gamer];
+//        [self downloadProfileImage:gamer];
     } else {
         if (fileExists2) {
             gamer.profileImage = [UIImage imageWithData:[NSData dataWithContentsOfMappedFile:gamer.imageLocalLocation]];
@@ -174,8 +174,6 @@
             } else {
                 self.profileImage.image = image;
             }
-            
-            [CoreDataHelper saveContext];
         }];
     }];
     

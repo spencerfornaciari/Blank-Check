@@ -313,8 +313,8 @@
     gamer.smallImageURL = [NSURL URLWithString:[dictionary valueForKey:@"pictureUrl"]];
     
     NSString *fullName = [NSString stringWithFormat:@"%@%@", gamer.firstName, gamer.lastName];
-    gamer.imageLocalLocation = [NSString stringWithFormat:@"%@/%@.jpg", [self documentsDirectoryPath], fullName];
-    gamer.smallImageLocalLocation = [NSString stringWithFormat:@"%@/%@_small.jpg", [self documentsDirectoryPath], fullName];
+    gamer.imageLocalLocation = [NSString stringWithFormat:@"%@/%@.jpg", [NetworkController documentsDirectoryPath], fullName];
+    gamer.smallImageLocalLocation = [NSString stringWithFormat:@"%@/%@_small.jpg", [NetworkController documentsDirectoryPath], fullName];
     
     BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:gamer.imageLocalLocation];
     BOOL smallFileExists = [[NSFileManager defaultManager] fileExistsAtPath:gamer.smallImageLocalLocation];
@@ -487,6 +487,14 @@
             [newConnection setValue:connection[@"lastName"] forKey:@"lastName"];
             [newConnection setValue:[connection valueForKeyPath:@"location.name"] forKey:@"location"];
             
+            NSString *fullName = [NSString stringWithFormat:@"%@%@", newConnection.firstName, newConnection.lastName];
+            
+            newConnection.imageLocation = [NSString stringWithFormat:@"%@/%@.jpg", [NetworkController documentsDirectoryPath], fullName];
+            newConnection.smallImageLocation = [NSString stringWithFormat:@"%@/%@_small.jpg", [NetworkController documentsDirectoryPath], fullName];
+
+//            [newConnection setValue: forKey:@"imageLocation"];
+//            [newConnection setValue:, fullName] forKey:@"imageSmallLocation"];
+            
             [newConnection setValue:@0 forKey:@"invitationSent"];
             [newConnection setValue:connection[@"headline"] forKey:@"headline"];
             [newConnection setValue:connection[@"industry"] forKey:@"industry"];
@@ -504,14 +512,14 @@
     NSArray *sortDescriptors = [NSArray arrayWithObject:nameDescriptor];
     NSArray *sortedArray = [connectionsArray sortedArrayUsingDescriptors:sortDescriptors];
     
-    NSError *error;
-    [[CoreDataHelper managedContext] save:&error];
+    [CoreDataHelper saveContext];
     
     return sortedArray;
 }
 
+#pragma mark - Documents Path
 
-- (NSString *)documentsDirectoryPath
++(NSString *)documentsDirectoryPath
 {
     NSURL *documentsURL = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
     return [documentsURL path];
@@ -742,5 +750,6 @@
 -(void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didSendBodyData:(int64_t)bytesSent totalBytesSent:(int64_t)totalBytesSent totalBytesExpectedToSend:(int64_t)totalBytesExpectedToSend {
     
 }
+
 
 @end

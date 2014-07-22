@@ -36,32 +36,27 @@
     
     self.menuButtonBool = FALSE;
     self.downloadingUserData = FALSE;
-
-    [self loadCoreData];
-//    self.controller = [NetworkController new];
-//    self.controller.delegate = self;
-    [NetworkController sharedController].delegate = self;
     
+    [NetworkController sharedController].delegate = self;
     self.operationQueue = [(AppDelegate *)[[UIApplication sharedApplication] delegate] blankQueue];
-    //load user data
-//    if (self.downloadingUserData == FALSE) { //Need to check if DB exists
-//        [self.operationQueue addOperationWithBlock:^{
-//            [[NetworkController sharedController] loadUserData];
-//
-////            self.one = [[NetworkController sharedController] loadCurrentUserData];
-////            NSLog(@"User Count: %lu", (unsigned long)self.one.connectionIDArray.count);
-//            
-////            self.feedArray = [NSMutableArray new];
-////            self.feedArray = self.one.connectionIDArray;
-////            
-////            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-////                [self.loadingView.activityIndicator stopAnimating];
-////                [self.loadingView removeFromSuperview];
-////                
-////                [self.tableView reloadData];
-////            }];
-//        }];
-//    }
+
+//    NSURL *storeURL = [[NSURL URLWithString:[self documentsDirectoryPath]] URLByAppendingPathComponent:@"CoreData.sqlite"];
+//    NSFileManager *fileManager = [NSFileManager defaultManager];
+    
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"dataExists"]) {
+        [self loadCoreData];
+    } else {
+        if (self.downloadingUserData == FALSE) { //Need to check if DB exists
+            [self.operationQueue addOperationWithBlock:^{
+
+                [[NetworkController sharedController] loadUserData];
+
+            }];
+        }
+
+    }
+
+    
     
     //Core Data Example
 //    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
@@ -192,6 +187,7 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self.tableView reloadData]; 
     [Amplitude logEvent:[NSString stringWithFormat:@"Feed Browser - %@ %@", self.worker.firstName, self.worker.lastName]];
 //    id tracker = [[GAI sharedInstance] defaultTracker];
 //    [tracker set:kGAIScreenName value:@"Feed Browser Table"];
@@ -390,6 +386,9 @@
 }
 
 -(NSArray *)loadCoreDataToTable {
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"dataExists"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
     NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"Worker" inManagedObjectContext:[CoreDataHelper managedContext]];
     NSFetchRequest *request = [NSFetchRequest new];
     [request setEntity:entityDesc];
@@ -423,4 +422,10 @@
 
     
 }
+                       
+-(NSString *)documentsDirectoryPath
+    {
+        NSURL *documentsURL = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+        return [documentsURL path];
+    }
 @end
