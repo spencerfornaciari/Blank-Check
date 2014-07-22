@@ -2,7 +2,7 @@
 //  Connection.h
 //  Blank Check
 //
-//  Created by Spencer Fornaciari on 7/21/14.
+//  Created by Spencer Fornaciari on 7/22/14.
 //  Copyright (c) 2014 Blank Check Labs. All rights reserved.
 //
 
@@ -34,7 +34,7 @@
 @property (nonatomic, retain) NSSet *schools;
 @property (nonatomic, retain) NSSet *jobs;
 @property (nonatomic, retain) NSSet *languages;
-@property (nonatomic, retain) NSSet *values;
+@property (nonatomic, retain) NSOrderedSet *values;
 @end
 
 @interface Connection (CoreDataGeneratedAccessors)
@@ -54,9 +54,16 @@
 - (void)addLanguages:(NSSet *)values;
 - (void)removeLanguages:(NSSet *)values;
 
+- (void)insertObject:(Value *)value inValuesAtIndex:(NSUInteger)idx;
+- (void)removeObjectFromValuesAtIndex:(NSUInteger)idx;
+- (void)insertValues:(NSArray *)value atIndexes:(NSIndexSet *)indexes;
+- (void)removeValuesAtIndexes:(NSIndexSet *)indexes;
+- (void)replaceObjectInValuesAtIndex:(NSUInteger)idx withObject:(Value *)value;
+- (void)replaceValuesAtIndexes:(NSIndexSet *)indexes withValues:(NSArray *)values;
 - (void)addValuesObject:(Value *)value;
 - (void)removeValuesObject:(Value *)value;
-- (void)addValues:(NSSet *)values;
-- (void)removeValues:(NSSet *)values;
+- (void)addValues:(NSOrderedSet *)values;
+- (void)removeValues:(NSOrderedSet *)values;
 
+- (void)addNewValueObject:(Value *)value;
 @end

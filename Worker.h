@@ -2,14 +2,14 @@
 //  Worker.h
 //  Blank Check
 //
-//  Created by Spencer Fornaciari on 7/21/14.
+//  Created by Spencer Fornaciari on 7/22/14.
 //  Copyright (c) 2014 Blank Check Labs. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Connection, Job, Language, School;
+@class Connection, Job, Language, School, Value;
 
 @interface Worker : NSManagedObject
 
@@ -33,7 +33,7 @@
 @property (nonatomic, retain) NSSet *languages;
 @property (nonatomic, retain) NSSet *schools;
 @property (nonatomic, retain) NSSet *connections;
-@property (nonatomic, retain) NSSet *values;
+@property (nonatomic, retain) NSOrderedSet *values;
 @end
 
 @interface Worker (CoreDataGeneratedAccessors)
@@ -58,9 +58,16 @@
 - (void)addConnections:(NSSet *)values;
 - (void)removeConnections:(NSSet *)values;
 
-- (void)addValuesObject:(NSManagedObject *)value;
-- (void)removeValuesObject:(NSManagedObject *)value;
-- (void)addValues:(NSSet *)values;
-- (void)removeValues:(NSSet *)values;
+- (void)insertObject:(Value *)value inValuesAtIndex:(NSUInteger)idx;
+- (void)removeObjectFromValuesAtIndex:(NSUInteger)idx;
+- (void)insertValues:(NSArray *)value atIndexes:(NSIndexSet *)indexes;
+- (void)removeValuesAtIndexes:(NSIndexSet *)indexes;
+- (void)replaceObjectInValuesAtIndex:(NSUInteger)idx withObject:(Value *)value;
+- (void)replaceValuesAtIndexes:(NSIndexSet *)indexes withValues:(NSArray *)values;
+- (void)addValuesObject:(Value *)value;
+- (void)removeValuesObject:(Value *)value;
+- (void)addValues:(NSOrderedSet *)values;
+- (void)removeValues:(NSOrderedSet *)values;
 
+- (void)addNewValueObject:(Value *)value;
 @end

@@ -69,19 +69,19 @@
     UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     
     if (tableView == self.searchDisplayController.searchResultsTableView) {
-        Gamer *gamer = self.searchResultsArray[indexPath.row];
+        Connection *connection = [self.searchResultsArray objectAtIndex:indexPath.row];
         
         if ([self.scopeString isEqualToString:@"Name"]) {
-            cell.textLabel.text = gamer.fullName;
+            cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", connection.firstName, connection.lastName];
 //            cell.detailTextLabel.text = @"NAME";
         } else if ([self.scopeString isEqualToString:@"Title"]) {
-            cell.textLabel.text = gamer.fullName;
-            cell.detailTextLabel.text = [gamer.currentPositionArray[0] title];
+            cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", connection.firstName, connection.lastName];
+            cell.detailTextLabel.text = @"Job";
         } else if ([self.scopeString isEqualToString:@"Location"]) {
-            cell.textLabel.text = gamer.fullName;
-            cell.detailTextLabel.text = gamer.location;
+            cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", connection.firstName, connection.lastName];
+            cell.detailTextLabel.text = connection.location;
         } else {
-            cell.textLabel.text = gamer.fullName;
+            cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", connection.firstName, connection.lastName];
             cell.detailTextLabel.text = @"ALL";
         }
     } else {

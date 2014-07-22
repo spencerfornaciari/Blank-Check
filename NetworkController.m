@@ -144,7 +144,7 @@
 
 }
 
--(Gamer *)parseUserData:(NSData *)data {
+-(void)parseUserData:(NSData *)data {
     
     Gamer *gamer = [Gamer new];
     
@@ -159,7 +159,9 @@
                                                                  error:nil];
     newValue.marketPrice = @1000000;
     newValue.date = [NSDate date];
-    [newWorker addValuesObject:newValue];
+    
+    [newWorker addNewValueObject:newValue];
+    //    [newWorker addValuesObject:newValue];
     
     gamer.firstName = dictionary[@"firstName"];
     
@@ -368,7 +370,7 @@
     
     gamer.connectionIDArray = [[NetworkController grabUserConnections:newWorker inContext:[CoreDataHelper managedContext]] mutableCopy];
     
-    return gamer;
+//    return gamer;
 
 }
 
@@ -404,7 +406,8 @@
         
         newValue.marketPrice = @1000000;
         newValue.date = [NSDate date];
-        [newConnection addValuesObject:newValue];
+        
+        [newConnection addNewValueObject:newValue];
         
         gamerConnection.gamerID = connection[@"id"];
         gamerConnection.firstName = connection[@"firstName"];
@@ -477,9 +480,7 @@
             //Private Users - contain no info
         } else {
             [connectionsArray addObject:gamerConnection];
-            
-            NSLog(@"Worker Of Name: %@", [worker valueForKey:@"firstName"]);
-            
+                        
             //Add to Core Data
             [newConnection setValue:connection[@"id"] forKey:@"id"];
             [newConnection setValue:connection[@"firstName"] forKey:@"firstName"];
@@ -726,9 +727,8 @@
 -(void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didReceiveData:(NSData *)data {
     
     if ([dataTask.taskDescription isEqualToString:@"currentUser"]) {
-        Gamer *newGamer = [self parseUserData:data];
-        [self.delegate setGamerData:newGamer];
-        NSLog(@"%@", newGamer.fullName);
+        [self parseUserData:data];
+        [self.delegate setGamerData];
         
     } else {
         NSLog(@"It is not");

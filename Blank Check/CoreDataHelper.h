@@ -13,5 +13,6 @@
 
 +(NSManagedObjectContext *)managedContext;
 +(Worker *)currentUser;
++(void)saveContext;
 
 @end

@@ -21,7 +21,7 @@
         <relationship name="jobs" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Job" inverseName="connection" inverseEntity="Job" syncable="YES"/>
         <relationship name="languages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Language" inverseName="connection" inverseEntity="Language" syncable="YES"/>
         <relationship name="schools" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="School" inverseName="connection" inverseEntity="School" syncable="YES"/>
-        <relationship name="values" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Value" inverseName="connection" inverseEntity="Value" syncable="YES"/>
+        <relationship name="values" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Value" inverseName="connection" inverseEntity="Value" syncable="YES"/>
         <relationship name="worker" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Worker" inverseName="connections" inverseEntity="Worker" syncable="YES"/>
     </entity>
     <entity name="Job" representedClassName="Job" syncable="YES">
@@ -81,7 +81,7 @@
         <relationship name="jobs" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Job" inverseName="worker" inverseEntity="Job" syncable="YES"/>
         <relationship name="languages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Language" inverseName="worker" inverseEntity="Language" syncable="YES"/>
         <relationship name="schools" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="School" inverseName="worker" inverseEntity="School" syncable="YES"/>
-        <relationship name="values" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Value" inverseName="worker" inverseEntity="Value" syncable="YES"/>
+        <relationship name="values" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Value" inverseName="worker" inverseEntity="Value" syncable="YES"/>
     </entity>
     <elements>
         <element name="Job" positionX="-3944" positionY="-441" width="128" height="193"/>

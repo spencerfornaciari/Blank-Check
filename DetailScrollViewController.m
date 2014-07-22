@@ -68,17 +68,17 @@
 //    userNameLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:20.0];
 //    Value *value = [[self.connection valueForKey:@"values"] lastObject];
 //    NSLog(@"Value: %@", [self.connection valueForKey:@"values"]);
-    Value *currentValue;
+    Value *currentValue = [self.connection.values lastObject];
     
-    for (Value *value in self.connection.values) {
-        if (!currentValue) {
-            currentValue = value;
-        }
-        
-        if (value.date >= currentValue.date) {
-            currentValue = value;
-        }
-    }
+//    for (Value *value in self.connection.values) {
+//        if (!currentValue) {
+//            currentValue = value;
+//        }
+//        
+//        if (value.date >= currentValue.date) {
+//            currentValue = value;
+//        }
+//    }
     
     NSNumberFormatter *formatter = [NSNumberFormatter new];
     [formatter setNumberStyle:NSNumberFormatterDecimalStyle];

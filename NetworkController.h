@@ -24,7 +24,7 @@
 
 @protocol NetworkControllerDelegate <NSObject>
 
--(void)setGamerData:(Gamer *)gamer;
+-(void)setGamerData;
 
 @end
 

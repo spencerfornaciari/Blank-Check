@@ -12,6 +12,7 @@
 @interface FeedBrowserTableViewController ()
 
 @property (nonatomic) Gamer *one, *two, *three;
+@property (nonatomic) Worker *worker;
 //@property (nonatomic) NSMutableArray *feedArray;
 @property (nonatomic) NSArray *feedArray;
 
@@ -36,31 +37,31 @@
     self.menuButtonBool = FALSE;
     self.downloadingUserData = FALSE;
 
-    [self loadCoreData];
+//    [self loadCoreData];
 //    self.controller = [NetworkController new];
 //    self.controller.delegate = self;
     [NetworkController sharedController].delegate = self;
     
     self.operationQueue = [(AppDelegate *)[[UIApplication sharedApplication] delegate] blankQueue];
     //load user data
-//    if (!self.one && self.downloadingUserData == FALSE) {
-//        [self.operationQueue addOperationWithBlock:^{
-//            [[NetworkController sharedController] loadUserData];
-//
-////            self.one = [[NetworkController sharedController] loadCurrentUserData];
-////            NSLog(@"User Count: %lu", (unsigned long)self.one.connectionIDArray.count);
+    if (self.downloadingUserData == FALSE) { //Need to check if DB exists
+        [self.operationQueue addOperationWithBlock:^{
+            [[NetworkController sharedController] loadUserData];
+
+//            self.one = [[NetworkController sharedController] loadCurrentUserData];
+//            NSLog(@"User Count: %lu", (unsigned long)self.one.connectionIDArray.count);
+            
+//            self.feedArray = [NSMutableArray new];
+//            self.feedArray = self.one.connectionIDArray;
 //            
-////            self.feedArray = [NSMutableArray new];
-////            self.feedArray = self.one.connectionIDArray;
-////            
-////            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-////                [self.loadingView.activityIndicator stopAnimating];
-////                [self.loadingView removeFromSuperview];
-////                
-////                [self.tableView reloadData];
-////            }];
-//        }];
-//    }
+//            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+//                [self.loadingView.activityIndicator stopAnimating];
+//                [self.loadingView removeFromSuperview];
+//                
+//                [self.tableView reloadData];
+//            }];
+        }];
+    }
     
     //Core Data Example
 //    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
@@ -191,7 +192,7 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [Amplitude logEvent:[NSString stringWithFormat:@"Feed Browser - %@", self.one.fullName]];
+    [Amplitude logEvent:[NSString stringWithFormat:@"Feed Browser - %@ %@", self.worker.firstName, self.worker.lastName]];
 //    id tracker = [[GAI sharedInstance] defaultTracker];
 //    [tracker set:kGAIScreenName value:@"Feed Browser Table"];
 //    
@@ -275,7 +276,7 @@
     
     if ([segue.identifier isEqualToString:@"searchView"]) {
         SearchViewController *viewController = segue.destinationViewController;
-        viewController.connectionsArray = self.one.connectionIDArray;
+        viewController.connectionsArray = self.feedArray;
     }
     
 }
@@ -365,8 +366,8 @@
 //    
 //}
 
--(void)setGamerData:(Gamer *)gamer {
-    self.one = gamer;
+-(void)setGamerData {
+//    self.one = gamer;
     
     self.feedArray = [NSMutableArray new];
     
@@ -378,7 +379,7 @@
     
     NSLog(@"Objects Count: %lu", (long)objects.count);
     
-    self.feedArray = self.one.connectionIDArray;
+    self.feedArray = [self loadCoreDataToTable];
     
     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
         [self.loadingView.activityIndicator stopAnimating];
@@ -386,6 +387,21 @@
         
         [self.tableView reloadData];
     }];
+}
+
+-(NSArray *)loadCoreDataToTable {
+    NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"Worker" inManagedObjectContext:[CoreDataHelper managedContext]];
+    NSFetchRequest *request = [NSFetchRequest new];
+    [request setEntity:entityDesc];
+    
+    NSError *error;
+    NSArray *objects = [[CoreDataHelper managedContext] executeFetchRequest:request error:&error];
+    
+    
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]
+                                        initWithKey:@"lastName" ascending:YES];
+    self.worker = objects[0];
+    return [[objects[0] valueForKey:@"connections"] sortedArrayUsingDescriptors:@[sortDescriptor]];
 }
 
 -(void)loadCoreData {
@@ -402,6 +418,7 @@
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]
                                         initWithKey:@"lastName" ascending:YES];
     self.feedArray = [[objects[0] valueForKey:@"connections"] sortedArrayUsingDescriptors:@[sortDescriptor]];
+    self.worker = objects[0];
 
     //    Connection *newConn = [self.feedArray objectAtIndex:0];
 

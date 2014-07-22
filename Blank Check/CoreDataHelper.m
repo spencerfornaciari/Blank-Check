@@ -51,4 +51,14 @@
     return [objects firstObject];
 }
 
++(void)saveContext {
+    NSError *error = nil;
+    if (! [[CoreDataHelper managedContext] save:&error]) {
+        // Uh, oh. An error happened. :(
+        NSLog(@"%@", error.localizedDescription);
+    } else {
+        NSLog(@"Context Saved");
+    }
+}
+
 @end
