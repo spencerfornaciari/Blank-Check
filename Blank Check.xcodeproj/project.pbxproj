@@ -22,6 +22,7 @@
 		8971C72D197EC9F90024D3A1 /* Worker.m in Sources */ = {isa = PBXBuildFile; fileRef = 8971C72C197EC9F90024D3A1 /* Worker.m */; };
 		8971C730197EC9F90024D3A1 /* Connection.m in Sources */ = {isa = PBXBuildFile; fileRef = 8971C72F197EC9F90024D3A1 /* Connection.m */; };
 		8971C733197EC9F90024D3A1 /* Value.m in Sources */ = {isa = PBXBuildFile; fileRef = 8971C732197EC9F90024D3A1 /* Value.m */; };
+		8971C736197F0E390024D3A1 /* ProblemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8971C735197F0E390024D3A1 /* ProblemView.m */; };
 		89779DE819633C7600AC81CA /* Insights.m in Sources */ = {isa = PBXBuildFile; fileRef = 89779DE719633C7600AC81CA /* Insights.m */; };
 		89779DF0196488E600AC81CA /* ExpertInsightView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89779DEF196488E600AC81CA /* ExpertInsightView.m */; };
 		89779DF319648AAC00AC81CA /* UserInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89779DF219648AAC00AC81CA /* UserInfoView.m */; };
@@ -123,6 +124,8 @@
 		8971C72F197EC9F90024D3A1 /* Connection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Connection.m; sourceTree = "<group>"; };
 		8971C731197EC9F90024D3A1 /* Value.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Value.h; sourceTree = "<group>"; };
 		8971C732197EC9F90024D3A1 /* Value.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Value.m; sourceTree = "<group>"; };
+		8971C734197F0E390024D3A1 /* ProblemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProblemView.h; sourceTree = "<group>"; };
+		8971C735197F0E390024D3A1 /* ProblemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProblemView.m; sourceTree = "<group>"; };
 		89779DE619633C7600AC81CA /* Insights.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Insights.h; sourceTree = "<group>"; };
 		89779DE719633C7600AC81CA /* Insights.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Insights.m; sourceTree = "<group>"; };
 		89779DEE196488E600AC81CA /* ExpertInsightView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExpertInsightView.h; path = ../ExpertInsightView.h; sourceTree = "<group>"; };
@@ -378,6 +381,8 @@
 				895AF664195235FD00B20DA6 /* FeedTableViewCell.m */,
 				891B94641948C9FF00BEAEC9 /* BlankCheckViewCell.h */,
 				891B94651948C9FF00BEAEC9 /* BlankCheckViewCell.m */,
+				8971C734197F0E390024D3A1 /* ProblemView.h */,
+				8971C735197F0E390024D3A1 /* ProblemView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -617,6 +622,7 @@
 				8971C733197EC9F90024D3A1 /* Value.m in Sources */,
 				89800C481979DAB60051A844 /* Position.m in Sources */,
 				895AF665195235FD00B20DA6 /* FeedTableViewCell.m in Sources */,
+				8971C736197F0E390024D3A1 /* ProblemView.m in Sources */,
 				895AF662195235A700B20DA6 /* FeedBrowserTableViewController.m in Sources */,
 				89779E0A1965DCF700AC81CA /* SearchViewController.m in Sources */,
 				89C973C8192564AF00EC6004 /* ViewController.m in Sources */,

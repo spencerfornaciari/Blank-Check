@@ -11,6 +11,7 @@
 #import "UIColor+BlankCheckColors.h"
 #import "Flurry.h"
 #import "AppDelegate.h"
+#import "ProblemView.h"
 
 @interface DetailScrollViewController ()
 
@@ -48,7 +49,11 @@
     
     [self addButtonMenu];
     
+    int size = ((self.view.frame.size.height - 65) - 40);
     
+    ProblemView *problem = [[ProblemView alloc] initWithFrame:CGRectMake(20, 85, scrollView.frame.size.width - 40, size)];
+    problem.layer.zPosition = 5;
+    [self.view addSubview:problem];
     
 //    UIImageView *graph = [[UIImageView alloc] initWithFrame:CGRectMake(20, 230, self.view.frame.size.width-40, 236)]; //height should be: self.view.frame.size.width-40 , origin: 20, 210
 //    graph.image = [UIImage imageNamed:@"graph"];
@@ -104,7 +109,7 @@
     
     NSNumberFormatter *formatter = [NSNumberFormatter new];
     [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
-    valueLabel.text = [NSString stringWithFormat:@"%@", [formatter stringFromNumber:currentValue.marketPrice]];
+    valueLabel.text = [NSString stringWithFormat:@"$%@", [formatter stringFromNumber:currentValue.marketPrice]];
 //    valueLabel.text = [NSString stringWithFormat:@"$%@", value.marketPrice];
 //    valueLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:17.0];
     
@@ -266,6 +271,8 @@
     findSimilarLabel.textAlignment = NSTextAlignmentCenter;
     [scrollView addSubview:findSimilarLabel];
 }
+
+#pragma mark - Button Actions
 
 -(void)followAction {
     NSLog(@"Follow Action");
@@ -507,7 +514,7 @@
 }
 
 - (CFTimeInterval)animationDurationForLineAtIndex:(NSInteger)index {
-    return 0; //[[@[@1, @1.6, @2.2, @1.4] objectAtIndex:index] doubleValue];
+    return 0; //[[@[@0.5, @0.8, @1.1, @0.7] objectAtIndex:index] doubleValue];
 }
 
 - (NSString *)titleForLineAtIndex:(NSInteger)index {
@@ -558,6 +565,8 @@
             break;
     }
 }
+
+#pragma mark - URL Session delegate methods
 
 -(void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(NSURL *)location {
     
