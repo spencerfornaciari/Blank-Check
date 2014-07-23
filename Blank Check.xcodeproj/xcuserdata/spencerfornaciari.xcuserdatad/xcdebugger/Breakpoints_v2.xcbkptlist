@@ -202,11 +202,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NetworkController.m"
-            timestampString = "427764356.943122"
+            timestampString = "427843820.444271"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "613"
-            endingLineNumber = "613"
+            startingLineNumber = "618"
+            endingLineNumber = "618"
             landmarkName = "-checkProfileText:"
             landmarkType = "5">
          </BreakpointContent>

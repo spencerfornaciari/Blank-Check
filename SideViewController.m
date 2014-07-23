@@ -9,6 +9,7 @@
 #import "SideViewController.h"
 #import "SearchViewController.h"
 #import "AppDelegate.h"
+#import "Worker.h"
 
 @interface SideViewController ()
 
@@ -34,6 +35,9 @@
     
     NSError *error;
     NSArray *array = [[CoreDataHelper managedContext] executeFetchRequest:request error:&error];
+    Worker *worker = array[0];
+    
+    UIImage *image = [UIImage imageWithContentsOfFile:worker.imageLocation];
     
     UIButton *userProfileButton = [UIButton buttonWithType:UIButtonTypeCustom];
 //    userProfileButton.backgroundColor = [UIColor magentaColor];
@@ -42,7 +46,8 @@
     [userProfileButton setTitleEdgeInsets:UIEdgeInsetsMake(0, -140, 0, 0)];
     userProfileButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:17.0];
     
-    [userProfileButton setImage:[UIImage imageNamed:@"default-user"] forState:UIControlStateNormal];
+    
+    [userProfileButton setImage:image forState:UIControlStateNormal];
     [userProfileButton setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 240)];
     userProfileButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
     userProfileButton.imageView.layer.cornerRadius = 40;

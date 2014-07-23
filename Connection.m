@@ -2,7 +2,7 @@
 //  Connection.m
 //  Blank Check
 //
-//  Created by Spencer Fornaciari on 7/22/14.
+//  Created by Spencer Fornaciari on 7/23/14.
 //  Copyright (c) 2014 Blank Check Labs. All rights reserved.
 //
 
@@ -16,28 +16,28 @@
 
 @implementation Connection
 
+@dynamic distance;
 @dynamic firstName;
-@dynamic lastName;
 @dynamic headline;
+@dynamic idNumber;
 @dynamic imageLocation;
 @dynamic imageURL;
-@dynamic smallImageLocation;
-@dynamic smallImageURL;
-@dynamic linkedinURL;
-@dynamic numConnections;
-@dynamic zipCode;
-@dynamic numRecommenders;
-@dynamic distance;
+@dynamic industry;
 @dynamic invitationSent;
 @dynamic lastLinkedinUpdate;
-@dynamic industry;
-@dynamic id;
+@dynamic lastName;
+@dynamic linkedinURL;
 @dynamic location;
-@dynamic worker;
-@dynamic schools;
+@dynamic numConnections;
+@dynamic numRecommenders;
+@dynamic smallImageLocation;
+@dynamic smallImageURL;
+@dynamic zipCode;
 @dynamic jobs;
 @dynamic languages;
+@dynamic schools;
 @dynamic values;
+@dynamic worker;
 
 - (void)addNewValueObject:(Value *)value {
     NSMutableOrderedSet* tempSet = [NSMutableOrderedSet orderedSetWithOrderedSet:self.values];

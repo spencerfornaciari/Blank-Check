@@ -2,7 +2,7 @@
 //  Worker.m
 //  Blank Check
 //
-//  Created by Spencer Fornaciari on 7/22/14.
+//  Created by Spencer Fornaciari on 7/23/14.
 //  Copyright (c) 2014 Blank Check Labs. All rights reserved.
 //
 
@@ -16,8 +16,10 @@
 
 @implementation Worker
 
+@dynamic emailAddress;
 @dynamic firstName;
 @dynamic headline;
+@dynamic idNumber;
 @dynamic imageLocation;
 @dynamic imageURL;
 @dynamic industry;
@@ -30,12 +32,10 @@
 @dynamic smallImageLocation;
 @dynamic smallImageURL;
 @dynamic zipCode;
-@dynamic id;
-@dynamic emailAddress;
+@dynamic connections;
 @dynamic jobs;
 @dynamic languages;
 @dynamic schools;
-@dynamic connections;
 @dynamic values;
 
 - (void)addNewValueObject:(Value *)value {

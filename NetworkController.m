@@ -206,8 +206,9 @@
         newPosition.title = [positionDictionary valueForKey:@"title"];
         newPosition.startDate = [formatter dateFromString:startDate];
         newPosition.monthsInCurrentJob = [NSNumber numberWithFloat:(employmentLength / 60 / 60 / 24 / 365) * 12];
+        newPosition.idNumber = [positionDictionary valueForKeyPath:@"company.id"];
   
-        [newPosition setValue:[positionDictionary valueForKeyPath:@"company.id"] forKey:@"id"];
+//        [newPosition setValue: forKey:@"id"];
         
         [newWorker addJobsObject:newPosition];
         
@@ -255,8 +256,8 @@
         newSchool.fieldOfStudy = [educationDictionary valueForKey:@"fieldOfStudy"];
         newSchool.startYear = [formatter dateFromString:startDate];
         newSchool.endYear = [formatter dateFromString:endDate];
-        
-        [newSchool setValue:[educationDictionary valueForKey:@"id"] forKey:@"id"];
+        newSchool.idNumber = [educationDictionary valueForKey:@"id"];
+//        [newSchool setValue: forKey:@"id"];
         
         [newWorker addSchoolsObject:newSchool];
         
@@ -272,8 +273,8 @@
     
     for (NSDictionary *languageDictionary in languageArray) {
         Language *language = [NSEntityDescription insertNewObjectForEntityForName:@"Language" inManagedObjectContext:[CoreDataHelper managedContext]];
-        [language setValue:[languageDictionary valueForKey:@"id"] forKey:@"id"];
-        [language setValue:[languageDictionary valueForKeyPath:@"language.name"] forKey:@"name"];
+        language.idNumber = [languageDictionary valueForKey:@"id"];
+        language.name = [languageDictionary valueForKeyPath:@"language.name"];
         [newWorker addLanguagesObject:language];
     }
     
@@ -313,8 +314,7 @@
     
     //Saving user info
 
-    [newWorker setValue:dictionary[@"id"] forKey:@"id"];
-    
+    newWorker.idNumber = dictionary[@"id"];
     newWorker.firstName = dictionary[@"firstName"];
     newWorker.lastName = dictionary[@"lastName"];
     NSString *fullName = [NSString stringWithFormat:@"%@%@", newWorker.firstName, newWorker.lastName];
@@ -331,8 +331,13 @@
     newWorker.imageURL = [dictionary valueForKeyPath:@"pictureUrls.values"][0];
     newWorker.imageLocation = [NSString stringWithFormat:@"%@/%@.jpg", [NetworkController documentsDirectoryPath], fullName];
     
+    NSURLSession *photoSession = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:self delegateQueue:nil];
+    
     NSURL *largeURL = [NSURL URLWithString:newWorker.imageURL];
-    NSURLSessionDownloadTask *downloadLarge = [self.session downloadTaskWithRequest:[NSURLRequest requestWithURL:largeURL] completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
+    NSLog(@"Large: %@", largeURL);
+    NSLog(@"URL: %@", [dictionary valueForKeyPath:@"pictureUrls.values"][0]);
+    
+    NSURLSessionDownloadTask *downloadLarge = [photoSession downloadTaskWithRequest:[NSURLRequest requestWithURL:largeURL] completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
         NSData *largeImageData = [NSData dataWithContentsOfURL:location];
         [largeImageData writeToFile:newWorker.imageLocation atomically:YES];
     }];
@@ -343,7 +348,7 @@
     newWorker.smallImageLocation = [NSString stringWithFormat:@"%@/%@_small.jpg", [NetworkController documentsDirectoryPath], fullName];
     
     NSURL *smallURL = [NSURL URLWithString:newWorker.smallImageURL];
-    NSURLSessionDownloadTask *downloadSmall = [self.session downloadTaskWithRequest:[NSURLRequest requestWithURL:smallURL] completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
+    NSURLSessionDownloadTask *downloadSmall = [photoSession downloadTaskWithRequest:[NSURLRequest requestWithURL:smallURL] completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
         NSData *smallImageData = [NSData dataWithContentsOfURL:location];
         [smallImageData writeToFile:newWorker.smallImageLocation atomically:YES];
     }];
@@ -367,8 +372,6 @@
 }
 
 -(void)grabUserConnections:(Worker *)worker inContext:(NSManagedObjectContext *)context {
-    NSMutableArray *connectionsArray = [NSMutableArray new];
-    
     NSString *accessToken = [[NSUserDefaults standardUserDefaults] stringForKey:@"accessToken"];
     
     NSString *connectionAccess = [NSString stringWithFormat:@"%@%@&format=json", @"https://api.linkedin.com/v1/people/~/connections:(id,first-name,last-name,num-connections,num-connections-capped,positions,public-profile-url,headline,industry,location,pictureUrl,picture-urls::(original))?oauth2_access_token=", accessToken];
@@ -395,6 +398,8 @@
                 //Add to Core Data
                 Connection *newConnection = [NSEntityDescription insertNewObjectForEntityForName:@"Connection" inManagedObjectContext:[CoreDataHelper managedContext]];
                 
+                newConnection.idNumber = connection[@"id"];
+
                 newConnection.firstName = connection[@"firstName"];
                 newConnection.lastName = connection[@"lastName"];
                 newConnection.location = [connection valueForKeyPath:@"location.name"];
@@ -410,8 +415,6 @@
                 newConnection.industry = connection[@"industry"];
                 newConnection.numConnections = connection[@"numConnections"];
                 newConnection.linkedinURL = connection[@"publicProfileUrl"];
-                
-                [newConnection setValue:connection[@"id"] forKey:@"id"];
                 
                 NSArray *connectionPositionArray = [connection valueForKeyPath:@"positions.values"];
                 
@@ -441,13 +444,12 @@
                     //            position.monthsInCurrentJob = (employmentLength / 60 / 60 / 24 / 365) * 12;
                     
                     //Core Data
+                    newJob.idNumber = [company objectForKey:@"id"];
                     newJob.name = [company objectForKey:@"name"];
                     newJob.industry = [company objectForKey:@"industry"];
                     newJob.title = [positionDictionary valueForKey:@"title"];
                     newJob.startDate = [formatter dateFromString:startDate];
                     newJob.monthsInCurrentJob = [NSNumber numberWithFloat:(employmentLength / 60 / 60 / 24 / 365) * 12];
-                    
-                    [newJob setValue:[company objectForKey:@"id"] forKey:@"id"];
                     
                     [newConnection addJobsObject:newJob];
 
@@ -464,10 +466,14 @@
                 [worker addConnectionsObject:newConnection];
             }
         }
-
+        
+        [CoreDataHelper saveContext];
+        [self.delegate setGamerData];
     }];
     
-    NSData *connectionData = [NSData dataWithContentsOfURL:connectionURL];
+    [dataTask resume];
+    
+//    NSData *connectionData = [NSData dataWithContentsOfURL:connectionURL];
     
 //    NSSortDescriptor *nameDescriptor = [[NSSortDescriptor alloc] initWithKey:@"lastName" ascending:YES];
 //    NSArray *sortDescriptors = [NSArray arrayWithObject:nameDescriptor];
@@ -497,7 +503,7 @@
     //        gamerConnection.linkedinURL = [NSURL URLWithString:connection[@"publicProfileUrl"]];
     //        gamerConnection.currentPositionArray = tempConnectionArray;
     
-    [CoreDataHelper saveContext];
+    
 }
 
 #pragma mark - Documents Path
@@ -719,7 +725,7 @@
     
     if ([dataTask.taskDescription isEqualToString:@"currentUser"]) {
         [self parseUserData:data];
-        [self.delegate setGamerData];
+//        [self.delegate setGamerData];
         
     } else {
         NSLog(@"It is not");

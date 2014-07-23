@@ -2,7 +2,7 @@
 //  Connection.h
 //  Blank Check
 //
-//  Created by Spencer Fornaciari on 7/22/14.
+//  Created by Spencer Fornaciari on 7/23/14.
 //  Copyright (c) 2014 Blank Check Labs. All rights reserved.
 //
 
@@ -13,36 +13,31 @@
 
 @interface Connection : NSManagedObject
 
+@property (nonatomic, retain) NSNumber * distance;
 @property (nonatomic, retain) NSString * firstName;
-@property (nonatomic, retain) NSString * lastName;
 @property (nonatomic, retain) NSString * headline;
+@property (nonatomic, retain) NSString * idNumber;
 @property (nonatomic, retain) NSString * imageLocation;
 @property (nonatomic, retain) NSString * imageURL;
-@property (nonatomic, retain) NSString * smallImageLocation;
-@property (nonatomic, retain) NSString * smallImageURL;
-@property (nonatomic, retain) NSString * linkedinURL;
-@property (nonatomic, retain) NSNumber * numConnections;
-@property (nonatomic, retain) NSNumber * zipCode;
-@property (nonatomic, retain) NSNumber * numRecommenders;
-@property (nonatomic, retain) NSNumber * distance;
+@property (nonatomic, retain) NSString * industry;
 @property (nonatomic, retain) NSNumber * invitationSent;
 @property (nonatomic, retain) NSDate * lastLinkedinUpdate;
-@property (nonatomic, retain) NSString * industry;
-@property (nonatomic, retain) NSString * id;
+@property (nonatomic, retain) NSString * lastName;
+@property (nonatomic, retain) NSString * linkedinURL;
 @property (nonatomic, retain) NSString * location;
-@property (nonatomic, retain) Worker *worker;
-@property (nonatomic, retain) NSSet *schools;
+@property (nonatomic, retain) NSNumber * numConnections;
+@property (nonatomic, retain) NSNumber * numRecommenders;
+@property (nonatomic, retain) NSString * smallImageLocation;
+@property (nonatomic, retain) NSString * smallImageURL;
+@property (nonatomic, retain) NSNumber * zipCode;
 @property (nonatomic, retain) NSSet *jobs;
 @property (nonatomic, retain) NSSet *languages;
+@property (nonatomic, retain) NSSet *schools;
 @property (nonatomic, retain) NSOrderedSet *values;
+@property (nonatomic, retain) Worker *worker;
 @end
 
 @interface Connection (CoreDataGeneratedAccessors)
-
-- (void)addSchoolsObject:(School *)value;
-- (void)removeSchoolsObject:(School *)value;
-- (void)addSchools:(NSSet *)values;
-- (void)removeSchools:(NSSet *)values;
 
 - (void)addJobsObject:(Job *)value;
 - (void)removeJobsObject:(Job *)value;
@@ -53,6 +48,11 @@
 - (void)removeLanguagesObject:(Language *)value;
 - (void)addLanguages:(NSSet *)values;
 - (void)removeLanguages:(NSSet *)values;
+
+- (void)addSchoolsObject:(School *)value;
+- (void)removeSchoolsObject:(School *)value;
+- (void)addSchools:(NSSet *)values;
+- (void)removeSchools:(NSSet *)values;
 
 - (void)insertObject:(Value *)value inValuesAtIndex:(NSUInteger)idx;
 - (void)removeObjectFromValuesAtIndex:(NSUInteger)idx;

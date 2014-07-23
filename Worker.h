@@ -2,7 +2,7 @@
 //  Worker.h
 //  Blank Check
 //
-//  Created by Spencer Fornaciari on 7/22/14.
+//  Created by Spencer Fornaciari on 7/23/14.
 //  Copyright (c) 2014 Blank Check Labs. All rights reserved.
 //
 
@@ -13,8 +13,10 @@
 
 @interface Worker : NSManagedObject
 
+@property (nonatomic, retain) NSString * emailAddress;
 @property (nonatomic, retain) NSString * firstName;
 @property (nonatomic, retain) NSString * headline;
+@property (nonatomic, retain) NSString * idNumber;
 @property (nonatomic, retain) NSString * imageLocation;
 @property (nonatomic, retain) NSString * imageURL;
 @property (nonatomic, retain) NSString * industry;
@@ -27,16 +29,19 @@
 @property (nonatomic, retain) NSString * smallImageLocation;
 @property (nonatomic, retain) NSString * smallImageURL;
 @property (nonatomic, retain) NSNumber * zipCode;
-@property (nonatomic, retain) NSString * id;
-@property (nonatomic, retain) NSString * emailAddress;
+@property (nonatomic, retain) NSSet *connections;
 @property (nonatomic, retain) NSSet *jobs;
 @property (nonatomic, retain) NSSet *languages;
 @property (nonatomic, retain) NSSet *schools;
-@property (nonatomic, retain) NSSet *connections;
 @property (nonatomic, retain) NSOrderedSet *values;
 @end
 
 @interface Worker (CoreDataGeneratedAccessors)
+
+- (void)addConnectionsObject:(Connection *)value;
+- (void)removeConnectionsObject:(Connection *)value;
+- (void)addConnections:(NSSet *)values;
+- (void)removeConnections:(NSSet *)values;
 
 - (void)addJobsObject:(Job *)value;
 - (void)removeJobsObject:(Job *)value;
@@ -52,11 +57,6 @@
 - (void)removeSchoolsObject:(School *)value;
 - (void)addSchools:(NSSet *)values;
 - (void)removeSchools:(NSSet *)values;
-
-- (void)addConnectionsObject:(Connection *)value;
-- (void)removeConnectionsObject:(Connection *)value;
-- (void)addConnections:(NSSet *)values;
-- (void)removeConnections:(NSSet *)values;
 
 - (void)insertObject:(Value *)value inValuesAtIndex:(NSUInteger)idx;
 - (void)removeObjectFromValuesAtIndex:(NSUInteger)idx;

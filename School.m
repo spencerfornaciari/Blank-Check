@@ -2,7 +2,7 @@
 //  School.m
 //  Blank Check
 //
-//  Created by Spencer Fornaciari on 7/21/14.
+//  Created by Spencer Fornaciari on 7/23/14.
 //  Copyright (c) 2014 Blank Check Labs. All rights reserved.
 //
 
@@ -16,10 +16,10 @@
 @dynamic degree;
 @dynamic endYear;
 @dynamic fieldOfStudy;
-@dynamic id;
+@dynamic idNumber;
 @dynamic name;
 @dynamic startYear;
-@dynamic worker;
 @dynamic connection;
+@dynamic worker;
 
 @end

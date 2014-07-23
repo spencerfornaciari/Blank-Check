@@ -2,7 +2,7 @@
 //  Value.m
 //  Blank Check
 //
-//  Created by Spencer Fornaciari on 7/22/14.
+//  Created by Spencer Fornaciari on 7/23/14.
 //  Copyright (c) 2014 Blank Check Labs. All rights reserved.
 //
 
@@ -13,10 +13,10 @@
 
 @implementation Value
 
-@dynamic marketPrice;
-@dynamic date;
 @dynamic change;
-@dynamic worker;
+@dynamic date;
+@dynamic marketPrice;
 @dynamic connection;
+@dynamic worker;
 
 @end
