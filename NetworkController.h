@@ -28,7 +28,7 @@
 
 @end
 
-@interface NetworkController : NSObject <NSURLSessionDelegate, NSURLSessionDataDelegate>
+@interface NetworkController : NSObject <NSURLSessionDelegate, NSURLSessionDataDelegate, NSURLSessionDownloadDelegate>
 
 @property (nonatomic) NSString *accessToken;
 @property (nonatomic, weak) id<NetworkControllerDelegate>delegate;

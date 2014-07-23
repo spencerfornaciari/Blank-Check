@@ -375,126 +375,127 @@
     
     NSURL *connectionURL = [NSURL URLWithString:connectionAccess];
     
+    NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration ephemeralSessionConfiguration];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfig delegate:self delegateQueue:nil];
+                             
+    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:[NSURLRequest requestWithURL:connectionURL]completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        
+        NSDictionary *connectionDictionary = [NSJSONSerialization JSONObjectWithData:data
+                                                                             options:NSJSONReadingMutableLeaves
+                                                                               error:nil];
+        NSArray *connectionArray = connectionDictionary[@"values"];
+        //    NSLog(@"Connections: %lu", (unsigned long)connectionArray.count);
+        
+        for (NSDictionary *connection in connectionArray) {
+            if ([connection[@"firstName"] isEqualToString:@"private"]) {
+                //Private Users - contain no info
+            } else {
+                //            [connectionsArray addObject:gamerConnection];
+                
+                //Add to Core Data
+                Connection *newConnection = [NSEntityDescription insertNewObjectForEntityForName:@"Connection" inManagedObjectContext:[CoreDataHelper managedContext]];
+                
+                newConnection.firstName = connection[@"firstName"];
+                newConnection.lastName = connection[@"lastName"];
+                newConnection.location = [connection valueForKeyPath:@"location.name"];
+                
+                NSString *fullName = [NSString stringWithFormat:@"%@%@", newConnection.firstName, newConnection.lastName];
+                newConnection.imageURL = [connection valueForKeyPath:@"pictureUrls.values"][0];
+                newConnection.imageLocation = [NSString stringWithFormat:@"%@/%@.jpg", [NetworkController documentsDirectoryPath], fullName];
+                newConnection.smallImageURL = [connection valueForKey:@"pictureUrl"];
+                newConnection.smallImageLocation = [NSString stringWithFormat:@"%@/%@_small.jpg", [NetworkController documentsDirectoryPath], fullName];
+                
+                newConnection.invitationSent = @0;
+                newConnection.headline = connection[@"headline"];
+                newConnection.industry = connection[@"industry"];
+                newConnection.numConnections = connection[@"numConnections"];
+                newConnection.linkedinURL = connection[@"publicProfileUrl"];
+                
+                [newConnection setValue:connection[@"id"] forKey:@"id"];
+                
+                NSArray *connectionPositionArray = [connection valueForKeyPath:@"positions.values"];
+                
+                for (NSDictionary *positionDictionary in connectionPositionArray) {
+                    //            Position *position = [Position new];
+                    Job *newJob = [NSEntityDescription insertNewObjectForEntityForName:@"Job" inManagedObjectContext:[CoreDataHelper managedContext]];
+                    
+                    //            position.isCurrent = [positionDictionary[@"isCurrent"] integerValue];
+                    
+                    NSDictionary *company = positionDictionary[@"company"];
+                    
+                    //            position.idNumber = [company objectForKey:@"id"];
+                    //            position.companyName = [company objectForKey:@"name"];
+                    //            position.industry = [company objectForKey:@"industry"];
+                    //            position.title = [positionDictionary valueForKey:@"title"];
+                    
+                    //Parse start date
+                    NSString *startDate = [NSString stringWithFormat:@"%@/%@", [positionDictionary valueForKeyPath:@"startDate.month"], [positionDictionary valueForKeyPath:@"startDate.year"]];
+                    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+                    [formatter setDateFormat:@"MM/yyyy"];
+                    //            position.startDate = [formatter dateFromString:startDate];
+                    
+                    NSDate *date = [NSDate date];
+                    NSTimeInterval employmentLength = [date timeIntervalSinceDate:[formatter dateFromString:startDate]];
+                    
+                    //Conversion from seconds to months
+                    //            position.monthsInCurrentJob = (employmentLength / 60 / 60 / 24 / 365) * 12;
+                    
+                    //Core Data
+                    newJob.name = [company objectForKey:@"name"];
+                    newJob.industry = [company objectForKey:@"industry"];
+                    newJob.title = [positionDictionary valueForKey:@"title"];
+                    newJob.startDate = [formatter dateFromString:startDate];
+                    newJob.monthsInCurrentJob = [NSNumber numberWithFloat:(employmentLength / 60 / 60 / 24 / 365) * 12];
+                    
+                    [newJob setValue:[company objectForKey:@"id"] forKey:@"id"];
+                    
+                    [newConnection addJobsObject:newJob];
+
+                }
+                
+                
+                Value *newValue = [NSEntityDescription insertNewObjectForEntityForName:@"Value" inManagedObjectContext:[CoreDataHelper managedContext]];
+                
+                newValue.marketPrice = @1000000;
+                newValue.date = [NSDate date];
+                
+                [newConnection addNewValueObject:newValue];
+                
+                [worker addConnectionsObject:newConnection];
+            }
+        }
+
+    }];
+    
     NSData *connectionData = [NSData dataWithContentsOfURL:connectionURL];
-    NSDictionary *connectionDictionary = [NSJSONSerialization JSONObjectWithData:connectionData
-                                                                         options:NSJSONReadingMutableLeaves
-                                                                           error:nil];
-    NSArray *connectionArray = connectionDictionary[@"values"];
-    NSLog(@"Connections: %lu", (unsigned long)connectionArray.count);
     
-    for (NSDictionary *connection in connectionArray) {
-        Gamer *gamerConnection = [Gamer new];
-        Connection *newConnection = [NSEntityDescription insertNewObjectForEntityForName:@"Connection" inManagedObjectContext:[CoreDataHelper managedContext]];
-        
-        Value *newValue = [NSEntityDescription insertNewObjectForEntityForName:@"Value" inManagedObjectContext:[CoreDataHelper managedContext]];
-        
-        newValue.marketPrice = @1000000;
-        newValue.date = [NSDate date];
-        
-        [newConnection addNewValueObject:newValue];
-        
-        gamerConnection.gamerID = connection[@"id"];
-        gamerConnection.firstName = connection[@"firstName"];
-        gamerConnection.lastName = connection[@"lastName"];
-        gamerConnection.fullName = [NSString stringWithFormat:@"%@ %@", gamerConnection.firstName, gamerConnection.lastName];
-        gamerConnection.invitationSent = FALSE;
-        
-        //Add a base value
-        gamerConnection.valueArray = [NSMutableArray new];
-        [gamerConnection.valueArray addObject:@"1,000,000"];
-        
-        gamerConnection.headline = connection[@"headline"];
-        gamerConnection.industry = connection[@"industry"];
-        
-        
-
-        gamerConnection.numConnections = connection[@"numConnections"];
-        gamerConnection.imageURL = [NSURL URLWithString:[connection valueForKeyPath:@"pictureUrls.values"][0]];
-        gamerConnection.smallImageURL = [NSURL URLWithString:[connection valueForKey:@"pictureUrl"]];
-
-        gamerConnection.location = [connection valueForKeyPath:@"location.name"];
-        gamerConnection.linkedinURL = [NSURL URLWithString:connection[@"publicProfileUrl"]];
-        
-        
-        NSMutableArray *tempConnectionArray = [NSMutableArray new];
-        NSArray *connectionPositionArray = [connection valueForKeyPath:@"positions.values"];
-        
-        for (NSDictionary *positionDictionary in connectionPositionArray) {
-            Position *position = [Position new];
-            Job *newJob = [NSEntityDescription insertNewObjectForEntityForName:@"Job" inManagedObjectContext:[CoreDataHelper managedContext]];
-            
-            position.isCurrent = [positionDictionary[@"isCurrent"] integerValue];
-            
-            NSDictionary *company = positionDictionary[@"company"];
-            
-            position.idNumber = [company objectForKey:@"id"];
-            position.companyName = [company objectForKey:@"name"];
-            position.industry = [company objectForKey:@"industry"];
-            
-            position.title = [positionDictionary valueForKey:@"title"];
-            
-            //Parse start date
-            NSString *startDate = [NSString stringWithFormat:@"%@/%@", [positionDictionary valueForKeyPath:@"startDate.month"], [positionDictionary valueForKeyPath:@"startDate.year"]];
-            NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
-            [formatter setDateFormat:@"MM/yyyy"];
-            position.startDate = [formatter dateFromString:startDate];
-            
-            NSDate *date = [NSDate date];
-            NSTimeInterval employmentLength = [date timeIntervalSinceDate:position.startDate];
-            
-            //Conversion from seconds to months
-            position.monthsInCurrentJob = (employmentLength / 60 / 60 / 24 / 365) * 12;
-            
-            //Core Data
-            [newJob setValue:[company objectForKey:@"id"] forKey:@"id"];
-            [newJob setValue:[company objectForKey:@"name"] forKey:@"name"];
-            [newJob setValue:[company objectForKey:@"industry"] forKey:@"industry"];
-            [newJob setValue:[positionDictionary valueForKey:@"title"] forKey:@"title"];
-            [newJob setValue:[formatter dateFromString:startDate] forKey:@"startDate"];
-            [newJob setValue:[NSNumber numberWithFloat:(employmentLength / 60 / 60 / 24 / 365) * 12] forKey:@"monthsInCurrentJob"];
-            
-            [newConnection addJobsObject:newJob];
-            
-            [tempConnectionArray addObject:position];
-        }
-        
-        gamerConnection.currentPositionArray = tempConnectionArray;
-        
-        if ([gamerConnection.firstName isEqualToString:@"private"]) {
-            //Private Users - contain no info
-        } else {
-            [connectionsArray addObject:gamerConnection];
-                        
-            //Add to Core Data
-            [newConnection setValue:connection[@"id"] forKey:@"id"];
-            [newConnection setValue:connection[@"firstName"] forKey:@"firstName"];
-            [newConnection setValue:connection[@"lastName"] forKey:@"lastName"];
-            [newConnection setValue:[connection valueForKeyPath:@"location.name"] forKey:@"location"];
-            
-            NSString *fullName = [NSString stringWithFormat:@"%@%@", newConnection.firstName, newConnection.lastName];
-            
-            newConnection.imageLocation = [NSString stringWithFormat:@"%@/%@.jpg", [NetworkController documentsDirectoryPath], fullName];
-            newConnection.smallImageLocation = [NSString stringWithFormat:@"%@/%@_small.jpg", [NetworkController documentsDirectoryPath], fullName];
-
-//            [newConnection setValue: forKey:@"imageLocation"];
-//            [newConnection setValue:, fullName] forKey:@"imageSmallLocation"];
-            
-            [newConnection setValue:@0 forKey:@"invitationSent"];
-            [newConnection setValue:connection[@"headline"] forKey:@"headline"];
-            [newConnection setValue:connection[@"industry"] forKey:@"industry"];
-            [newConnection setValue:connection[@"numConnections"] forKey:@"numConnections"];
-            [newConnection setValue:[connection valueForKeyPath:@"pictureUrls.values"][0] forKey:@"imageURL"];
-            [newConnection setValue:[connection valueForKey:@"pictureUrl"] forKey:@"smallImageURL"];
-
-            [newConnection setValue:connection[@"publicProfileUrl"] forKey:@"linkedinURL"];
-            
-            [worker addConnectionsObject:newConnection];
-        }
-    }
+//    NSSortDescriptor *nameDescriptor = [[NSSortDescriptor alloc] initWithKey:@"lastName" ascending:YES];
+//    NSArray *sortDescriptors = [NSArray arrayWithObject:nameDescriptor];
+//    NSArray *sortedArray = [connectionsArray sortedArrayUsingDescriptors:sortDescriptors];
     
-    NSSortDescriptor *nameDescriptor = [[NSSortDescriptor alloc] initWithKey:@"lastName" ascending:YES];
-    NSArray *sortDescriptors = [NSArray arrayWithObject:nameDescriptor];
-    NSArray *sortedArray = [connectionsArray sortedArrayUsingDescriptors:sortDescriptors];
+    //        Gamer *gamerConnection = [Gamer new];
+    //        gamerConnection.gamerID = connection[@"id"];
+    //        gamerConnection.firstName = connection[@"firstName"];
+    //        gamerConnection.lastName = connection[@"lastName"];
+    //        gamerConnection.fullName = [NSString stringWithFormat:@"%@ %@", gamerConnection.firstName, gamerConnection.lastName];
+    //        gamerConnection.invitationSent = FALSE;
+    //
+    //        //Add a base value
+    //        gamerConnection.valueArray = [NSMutableArray new];
+    //        [gamerConnection.valueArray addObject:@"1,000,000"];
+    //
+    //        gamerConnection.headline = connection[@"headline"];
+    //        gamerConnection.industry = connection[@"industry"];
+    //
+    //
+    //
+    //        gamerConnection.numConnections = connection[@"numConnections"];
+    //        gamerConnection.imageURL = [NSURL URLWithString:[connection valueForKeyPath:@"pictureUrls.values"][0]];
+    //        gamerConnection.smallImageURL = [NSURL URLWithString:[connection valueForKey:@"pictureUrl"]];
+    //
+    //        gamerConnection.location = [connection valueForKeyPath:@"location.name"];
+    //        gamerConnection.linkedinURL = [NSURL URLWithString:connection[@"publicProfileUrl"]];
+    //        gamerConnection.currentPositionArray = tempConnectionArray;
     
     [CoreDataHelper saveContext];
 }
