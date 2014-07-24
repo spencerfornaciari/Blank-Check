@@ -34,7 +34,7 @@
     [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
     self.scoreLabel.text = [NSString stringWithFormat:@"$%@", [formatter stringFromNumber:currentValue.marketPrice]];
     
-    NSLog(@"%@", connection.smallImageURL);
+//    NSLog(@"%@", connection.smallImageURL);
     
     NSURL *url = [NSURL URLWithString:connection.smallImageURL];
     //Set Profile Image

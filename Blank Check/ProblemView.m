@@ -18,17 +18,9 @@
         // Initialization code
         
         self.problemArray = [NSArray arrayWithObjects:@"General Feedback", @"Flag an Inaccurate Listing", @"Something is Not Working", nil];
-    
-//        UILabel *problemLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 10, self.frame.size.width, 30)];
-//        problemLabel.textAlignment = NSTextAlignmentCenter;
-//        problemLabel.text = @"Report a Problem";
-//        problemLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0];
-//        problemLabel.textColor = [UIColor whiteColor];
-//        problemLabel.alpha = 1;
-//        [self addSubview:problemLabel];
         
         self.tableView = [[UITableView alloc] initWithFrame:self.bounds];
-        self.tableView.backgroundColor = [UIColor blankCheckLightBlue];
+        self.tableView.backgroundColor = [UIColor blankCheckBlue];
         self.tableView.alpha = 0.9;
         self.tableView.delegate = self;
         self.tableView.dataSource = self;
@@ -80,6 +72,20 @@
     cell.backgroundColor = [UIColor blankCheckLightBlue];
     
     return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (indexPath.row == 0) {
+        NSLog(@"General Feedback");
+    } else if (indexPath.row == 1) {
+        NSLog(@"Flag an Inaccurate Listing");
+    } else {
+        NSLog(@"Something is Not Working");
+    }
+    
+    [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
+
 }
 
 /*

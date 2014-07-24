@@ -455,13 +455,19 @@
     NSLog(@"%@", stringResponse);
 }
 
--(void)shareOnLinkedin:(Gamer *)gamer {
+-(void)shareOnLinkedin:(id)sender {
     
     NSString *accessToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"accessToken"];
     NSString *urlString = [NSString stringWithFormat:@"https://api.linkedin.com/v1/people/~/shares?oauth2_access_token=%@", accessToken];
     
+    if ([sender isKindOfClass:[Connection class]]) {
+        Connection *connection = (Connection *)sender;
+    }
+    
     NSURL *url = [NSURL URLWithString:urlString];
     
+    NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration ephemeralSessionConfiguration];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfig];
     
     NSDictionary *contentDictionary = @{@"title":@"Utilize Blank Check Labs to see my value...and YOURS!",
                                         @"description":@"New app utilizing Linkedin's API to determine job value",
@@ -478,6 +484,8 @@
     
     NSData *shareData = [NSJSONSerialization dataWithJSONObject:shareDictionary options:NSJSONWritingPrettyPrinted error:&jsonError];
     
+
+    
     NSMutableURLRequest *request = [NSMutableURLRequest new];
     [request setURL:url];
     [request setHTTPBody:shareData];
@@ -485,13 +493,22 @@
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [request setValue:@"json" forHTTPHeaderField:@"x-li-format"];
     
-    NSURLResponse *response;
-    NSError *error;
+    NSURLSessionUploadTask *uploadTask = [session uploadTaskWithRequest:request fromData:shareData completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        NSString *stringResponse = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
+        
+        NSLog(@"%@", stringResponse);
+
+    }];
     
-    NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-    NSString *stringResponse = [[NSString alloc] initWithData:responseData encoding:NSASCIIStringEncoding];
+//    NSURLResponse *response;
+//    NSError *error;
+//    
+//    NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+//    NSString *stringResponse = [[NSString alloc] initWithData:responseData encoding:NSASCIIStringEncoding];
+//    
+//    NSLog(@"%@", stringResponse);
     
-    NSLog(@"%@", stringResponse);
+    [uploadTask resume];
     
 }
 

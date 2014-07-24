@@ -18,18 +18,21 @@
         SLComposeViewController *facebookView = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
         
         if ([sender isKindOfClass:[Worker class]]) {
-            Worker *worker = (Worker *)sender;
+//            Worker *worker = (Worker *)sender;
             
             [facebookView setInitialText:@"Come check out my value!"];
+            
+
+
 //            [facebookView addImage:gamer.profileImage];
             [facebookView addURL:[NSURL URLWithString:@"http://comingsoon.blankchecklabs.com/"]];
         }
         
         if ([sender isKindOfClass:[Connection class]]) {
             Connection *connection = (Connection *)sender;
-            
+        
             [facebookView setInitialText:@"Come check out my value!"];
-//            [facebookView addImage:gamer.profileImage];
+            [facebookView addImage:[SocialController socialImage:connection]];
             [facebookView addURL:[NSURL URLWithString:@"http://comingsoon.blankchecklabs.com/"]];
         }
         
@@ -45,7 +48,7 @@
         SLComposeViewController *twitterView = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
         
         if ([sender isKindOfClass:[Worker class]]) {
-            Worker *worker = (Worker *)sender;
+//            Worker *worker = (Worker *)sender;
             
             [twitterView setInitialText:@"Come check out my value!"];
 //            [twitterView addImage:gamer.profileImage];
@@ -56,7 +59,7 @@
             Connection *connection = (Connection *)sender;
             
             [twitterView setInitialText:@"Come check out my value!"];
-//            [twitterView addImage:gamer.profileImage];
+            [twitterView addImage:[SocialController socialImage:connection]];
             [twitterView addURL:[NSURL URLWithString:@"http://comingsoon.blankchecklabs.com/"]];
         }
         
@@ -78,6 +81,30 @@
     }
     
 //    [[NetworkController sharedController] shareOnLinkedin:gamer];
+}
+
++(UIImage *)socialImage:(id)sender {
+    
+    if ([sender isKindOfClass:[Connection class]]) {
+        Connection *connection = (Connection *)sender;
+        BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:connection.smallImageLocation];
+        BOOL fileExists2 = [[NSFileManager defaultManager] fileExistsAtPath:connection.imageLocation];
+        
+        UIImage *image;
+        
+        if (fileExists2) {
+            image = [UIImage imageWithContentsOfFile:connection.imageLocation];
+        } else if (fileExists) {
+            image = [UIImage imageWithContentsOfFile:connection.smallImageLocation];
+        } else {
+            image = [UIImage imageNamed:@"default-user"];
+        }
+        
+        return image;
+    }
+    
+    return nil;
+    
 }
 
 @end

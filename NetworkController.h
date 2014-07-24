@@ -7,10 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Gamer.h"
-#import "Position.h"
-#import "Education.h"
-#import "Language.h"
 #import "Recommendation.h"
 #import "Insights.h"
 
@@ -50,7 +46,7 @@
 
 //Social Networking methods
 -(void)sendInvitationToUserID:(NSString *)userID;
--(void)shareOnLinkedin:(Gamer *)gamer;
+-(void)shareOnLinkedin:(id)sender;
 
 //Textalytics API Calls
 -(void)checkProfileText:(NSString *)string;
