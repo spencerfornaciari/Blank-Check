@@ -7,7 +7,8 @@
 //
 
 #import "AppDelegate.h"
-#import "SideViewController.h"
+#import "SideTableViewController.h"
+//#import "SideViewController.h"
 #import "LoginViewController.h"
 #import <HockeySDK/HockeySDK.h>
 #import "Flurry.h"
@@ -79,7 +80,7 @@
         if (tokenIsCurrent) {
             NSLog(@"Token is current");
             
-            SideViewController *viewController = [mainStoryboard instantiateViewControllerWithIdentifier: @"sideView"];
+            SideTableViewController *viewController = [mainStoryboard instantiateViewControllerWithIdentifier: @"sideView"];
             self.window.rootViewController = viewController;
             
         } else {
@@ -89,7 +90,6 @@
             self.window.rootViewController = viewController;
         }
     }
-    
     
     return YES;
 }

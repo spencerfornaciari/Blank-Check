@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "NetworkController.h"
-#import "Gamer.h"
 #import "UIColor+BlankCheckColors.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate, NSURLSessionDelegate>
@@ -21,7 +20,6 @@
 @property (nonatomic, strong, readonly) NSManagedObjectModel *managedObjectModel;
 @property (nonatomic, strong, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
-@property (nonatomic) Gamer *gamer;
 @property (nonatomic) NSURLSession *session;
 
 -(void)saveContext;

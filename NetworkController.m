@@ -53,8 +53,7 @@
     NSArray *components = [query componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"=&"]];
     NSMutableArray *mutComponents = [components mutableCopy];
     
-    NSLog(@"Components: %@", mutComponents);
-    
+//    NSLog(@"Components: %@", mutComponents);
     
     if ([mutComponents[0]  isEqual: @"code"]) {
         [mutComponents removeObjectAtIndex:0];
@@ -86,6 +85,7 @@
     NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
     
    NSString *tokenResponse = [[NSString alloc] initWithData:responseData encoding:NSASCIIStringEncoding];
+    
     NSLog(@"Token Response: %@", tokenResponse);
     
     NSDictionary *jsonObject=[NSJSONSerialization
@@ -108,6 +108,14 @@
 
     NSURL *url = [NSURL URLWithString:accessURL];
     
+//    NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration ephemeralSessionConfiguration];
+//    NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfig delegate:self delegateQueue:nil];
+//    
+//    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:[NSURLRequest requestWithURL:url] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+//        NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+//        
+//    }];
+    
     NSData *data = [NSData dataWithContentsOfURL:url];
     
     NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
@@ -119,8 +127,6 @@
     } else {
         return TRUE;
     }
- 
-    
 }
 
 #pragma mark - Load current user data
@@ -146,10 +152,6 @@
 
 -(void)parseUserData:(NSData *)data {
     
-//    Gamer *gamer = [Gamer new];
-    
-//    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-//    NSManagedObjectContext *context = [appDelegate managedObjectContext];
     Worker *newWorker = [NSEntityDescription insertNewObjectForEntityForName:@"Worker" inManagedObjectContext:[CoreDataHelper managedContext]];
 
     Value *newValue = [NSEntityDescription insertNewObjectForEntityForName:@"Value" inManagedObjectContext:[CoreDataHelper managedContext]];
@@ -162,42 +164,21 @@
     
     [newWorker addNewValueObject:newValue];
     
-//    gamer.firstName = dictionary[@"firstName"];
-//    gamer.lastName = dictionary[@"lastName"];
-//    gamer.fullName = [NSString stringWithFormat:@"%@ %@", gamer.firstName, gamer.lastName];
-//    gamer.gamerID = dictionary[@"id"];
-//    gamer.gamerEmail = dictionary[@"emailAddress"];
-//    gamer.location = [dictionary valueForKeyPath:@"location.name"];
-//    gamer.linkedinURL = dictionary[@"publicProfileUrl"];
-//    gamer.numConnections = dictionary[@"numConnections"];
-//    gamer.numRecommenders = dictionary[@"numRecommenders"];
-//    gamer.invitationSent = TRUE;
 //    gamer.expertInsightsArray = [NSMutableArray new];
     
     //Working on parsing current positions
-//    NSMutableArray *tempArray = [NSMutableArray new];
     NSArray *positionArray = [dictionary valueForKeyPath:@"threeCurrentPositions.values"];
     
     for (NSDictionary *positionDictionary in positionArray) {
         Job *newPosition = [NSEntityDescription insertNewObjectForEntityForName:@"Job" inManagedObjectContext:[CoreDataHelper managedContext]];
-        
-//        Position *position = [Position new];
-//        position.isCurrent = TRUE;
-//        position.companyName = [positionDictionary valueForKeyPath:@"company.name"];
-//        position.idNumber = [positionDictionary valueForKeyPath:@"company.id"];
-//        position.industry = [positionDictionary valueForKeyPath:@"company.industry"];
-//        position.title = [positionDictionary valueForKey:@"title"];
-        
+
         //Parse start date
         NSString *startDate = [NSString stringWithFormat:@"%@/%@", [positionDictionary valueForKeyPath:@"startDate.month"], [positionDictionary valueForKeyPath:@"startDate.year"]];
         NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
         [formatter setDateFormat:@"MM/yyyy"];
-//        position.startDate = [formatter dateFromString:startDate];
         
         NSDate *date = [NSDate date];
         NSTimeInterval employmentLength = [date timeIntervalSinceDate:[formatter dateFromString:startDate]];
-        //Conversion from seconds to months
-//        position.monthsInCurrentJob = (employmentLength / 60 / 60 / 24 / 365) * 12;
         
         //Core Data
         newPosition.isCurrent = @1;
@@ -205,19 +186,15 @@
         newPosition.industry = [positionDictionary valueForKeyPath:@"company.industry"];
         newPosition.title = [positionDictionary valueForKey:@"title"];
         newPosition.startDate = [formatter dateFromString:startDate];
+        //Conversion from seconds to months
         newPosition.monthsInCurrentJob = [NSNumber numberWithFloat:(employmentLength / 60 / 60 / 24 / 365) * 12];
         newPosition.idNumber = [positionDictionary valueForKeyPath:@"company.id"];
   
-//        [newPosition setValue: forKey:@"id"];
         
         [newWorker addJobsObject:newPosition];
         
-//        [tempArray addObject:position];
     }
     
-//    gamer.currentPositionArray = tempArray;
-    
-    //    NSLog(@"%@", positionArray[0]);
     
     //Parsing skills
 //    gamer.gamerSkills = [NSMutableArray new];
@@ -229,46 +206,29 @@
 //    }
     
     //Parsing Educational Institutions
-//    gamer.educationArray = [NSMutableArray new];
-    
     NSArray *educationArray = [dictionary valueForKeyPath:@"educations.values"];
     
     for (NSDictionary *educationDictionary in educationArray) {
         School *newSchool = [NSEntityDescription insertNewObjectForEntityForName:@"School" inManagedObjectContext:[CoreDataHelper managedContext]];
         
-//        Education *institution = [Education new];
-//        institution.schoolID = [educationDictionary valueForKey:@"id"];
-//        institution.schoolName = [educationDictionary valueForKey:@"schoolName"];
-//        institution.degree = [educationDictionary valueForKey:@"degree"];
-//        institution.fieldOfStudy = [educationDictionary valueForKey:@"fieldOfStudy"];
-        
         NSString *startDate = [NSString stringWithFormat:@"%@", [educationDictionary valueForKeyPath:@"startDate.year"]];
         NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
         [formatter setDateFormat:@"yyyy"];
-//        institution.startYear = [formatter dateFromString:startDate];
         
         NSString *endDate = [NSString stringWithFormat:@"%@", [educationDictionary valueForKeyPath:@"endDate.year"]];
-//        institution.endYear = [formatter dateFromString:endDate];
         
         //Core Data
+        newSchool.idNumber = [educationDictionary valueForKey:@"id"];
         newSchool.name = [educationDictionary valueForKey:@"schoolName"];
         newSchool.degree = [educationDictionary valueForKey:@"degree"];
         newSchool.fieldOfStudy = [educationDictionary valueForKey:@"fieldOfStudy"];
         newSchool.startYear = [formatter dateFromString:startDate];
         newSchool.endYear = [formatter dateFromString:endDate];
-        newSchool.idNumber = [educationDictionary valueForKey:@"id"];
-//        [newSchool setValue: forKey:@"id"];
         
         [newWorker addSchoolsObject:newSchool];
-        
-        
-//        [gamer.educationArray addObject:institution];
-        
     }
     
     //Parsing Languages
-//    gamer.GamerLanguages = [NSMutableArray new];
-    
     NSArray *languageArray = [dictionary valueForKeyPath:@"languages.values"];
     
     for (NSDictionary *languageDictionary in languageArray) {
@@ -295,25 +255,7 @@
 //        [gamer.gamerRecommendations addObject:recommendation];
     }
     
-    //Parsing last updated time (and millisecond conversion)
-    NSNumber *date = [dictionary valueForKey:@"lastModifiedTimestamp"];
-    float newDate = [date floatValue] / 1000;
-//    gamer.lastLinkedinUpdate = [NSDate dateWithTimeIntervalSince1970:newDate];
-    
-    //Converting NSDate to local time zone
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    dateFormatter.timeZone = [NSTimeZone localTimeZone];
-    dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm";
-//    NSString *timeStamp = [dateFormatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:newDate]];
-    
-    //Grabbing the image URL
-    
-    
-//    gamer.imageURL = [NSURL URLWithString:[dictionary valueForKeyPath:@"pictureUrls.values"][0]];
-//    gamer.smallImageURL = [NSURL URLWithString:[dictionary valueForKey:@"pictureUrl"]];
-    
     //Saving user info
-
     newWorker.idNumber = dictionary[@"id"];
     newWorker.firstName = dictionary[@"firstName"];
     newWorker.lastName = dictionary[@"lastName"];
@@ -325,7 +267,16 @@
     newWorker.numConnections = dictionary[@"numConnections"];
     newWorker.numRecommenders = dictionary[@"numRecommenders"];
     
+    //Parsing last updated time (and millisecond conversion)
+    NSNumber *date = [dictionary valueForKey:@"lastModifiedTimestamp"];
+    float newDate = [date floatValue] / 1000;
     newWorker.lastLinkedinUpdate = [NSDate dateWithTimeIntervalSince1970:newDate];
+    
+    //Converting NSDate to local time zone
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.timeZone = [NSTimeZone localTimeZone];
+    dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm";
+    //    NSString *timeStamp = [dateFormatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:newDate]];
     
     //Grab Large Image
     newWorker.imageURL = [dictionary valueForKeyPath:@"pictureUrls.values"][0];
@@ -333,10 +284,8 @@
     
     NSURLSession *photoSession = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:self delegateQueue:nil];
     
+    //Grab Large Image
     NSURL *largeURL = [NSURL URLWithString:newWorker.imageURL];
-    NSLog(@"Large: %@", largeURL);
-    NSLog(@"URL: %@", [dictionary valueForKeyPath:@"pictureUrls.values"][0]);
-    
     NSURLSessionDownloadTask *downloadLarge = [photoSession downloadTaskWithRequest:[NSURLRequest requestWithURL:largeURL] completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
         NSData *largeImageData = [NSData dataWithContentsOfURL:location];
         [largeImageData writeToFile:newWorker.imageLocation atomically:YES];
@@ -366,9 +315,6 @@
     
     //Parsing Connection info
     [self grabUserConnections:newWorker inContext:[CoreDataHelper managedContext]];
-    
-//    return gamer;
-
 }
 
 -(void)grabUserConnections:(Worker *)worker inContext:(NSManagedObjectContext *)context {
@@ -393,8 +339,6 @@
             if ([connection[@"firstName"] isEqualToString:@"private"]) {
                 //Private Users - contain no info
             } else {
-                //            [connectionsArray addObject:gamerConnection];
-                
                 //Add to Core Data
                 Connection *newConnection = [NSEntityDescription insertNewObjectForEntityForName:@"Connection" inManagedObjectContext:[CoreDataHelper managedContext]];
                 
@@ -419,29 +363,17 @@
                 NSArray *connectionPositionArray = [connection valueForKeyPath:@"positions.values"];
                 
                 for (NSDictionary *positionDictionary in connectionPositionArray) {
-                    //            Position *position = [Position new];
                     Job *newJob = [NSEntityDescription insertNewObjectForEntityForName:@"Job" inManagedObjectContext:[CoreDataHelper managedContext]];
                     
-                    //            position.isCurrent = [positionDictionary[@"isCurrent"] integerValue];
-                    
                     NSDictionary *company = positionDictionary[@"company"];
-                    
-                    //            position.idNumber = [company objectForKey:@"id"];
-                    //            position.companyName = [company objectForKey:@"name"];
-                    //            position.industry = [company objectForKey:@"industry"];
-                    //            position.title = [positionDictionary valueForKey:@"title"];
                     
                     //Parse start date
                     NSString *startDate = [NSString stringWithFormat:@"%@/%@", [positionDictionary valueForKeyPath:@"startDate.month"], [positionDictionary valueForKeyPath:@"startDate.year"]];
                     NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
                     [formatter setDateFormat:@"MM/yyyy"];
-                    //            position.startDate = [formatter dateFromString:startDate];
                     
                     NSDate *date = [NSDate date];
                     NSTimeInterval employmentLength = [date timeIntervalSinceDate:[formatter dateFromString:startDate]];
-                    
-                    //Conversion from seconds to months
-                    //            position.monthsInCurrentJob = (employmentLength / 60 / 60 / 24 / 365) * 12;
                     
                     //Core Data
                     newJob.idNumber = [company objectForKey:@"id"];
@@ -449,12 +381,12 @@
                     newJob.industry = [company objectForKey:@"industry"];
                     newJob.title = [positionDictionary valueForKey:@"title"];
                     newJob.startDate = [formatter dateFromString:startDate];
+                    
+                    //Conversion from seconds to months
                     newJob.monthsInCurrentJob = [NSNumber numberWithFloat:(employmentLength / 60 / 60 / 24 / 365) * 12];
                     
                     [newConnection addJobsObject:newJob];
-
                 }
-                
                 
                 Value *newValue = [NSEntityDescription insertNewObjectForEntityForName:@"Value" inManagedObjectContext:[CoreDataHelper managedContext]];
                 
@@ -472,38 +404,6 @@
     }];
     
     [dataTask resume];
-    
-//    NSData *connectionData = [NSData dataWithContentsOfURL:connectionURL];
-    
-//    NSSortDescriptor *nameDescriptor = [[NSSortDescriptor alloc] initWithKey:@"lastName" ascending:YES];
-//    NSArray *sortDescriptors = [NSArray arrayWithObject:nameDescriptor];
-//    NSArray *sortedArray = [connectionsArray sortedArrayUsingDescriptors:sortDescriptors];
-    
-    //        Gamer *gamerConnection = [Gamer new];
-    //        gamerConnection.gamerID = connection[@"id"];
-    //        gamerConnection.firstName = connection[@"firstName"];
-    //        gamerConnection.lastName = connection[@"lastName"];
-    //        gamerConnection.fullName = [NSString stringWithFormat:@"%@ %@", gamerConnection.firstName, gamerConnection.lastName];
-    //        gamerConnection.invitationSent = FALSE;
-    //
-    //        //Add a base value
-    //        gamerConnection.valueArray = [NSMutableArray new];
-    //        [gamerConnection.valueArray addObject:@"1,000,000"];
-    //
-    //        gamerConnection.headline = connection[@"headline"];
-    //        gamerConnection.industry = connection[@"industry"];
-    //
-    //
-    //
-    //        gamerConnection.numConnections = connection[@"numConnections"];
-    //        gamerConnection.imageURL = [NSURL URLWithString:[connection valueForKeyPath:@"pictureUrls.values"][0]];
-    //        gamerConnection.smallImageURL = [NSURL URLWithString:[connection valueForKey:@"pictureUrl"]];
-    //
-    //        gamerConnection.location = [connection valueForKeyPath:@"location.name"];
-    //        gamerConnection.linkedinURL = [NSURL URLWithString:connection[@"publicProfileUrl"]];
-    //        gamerConnection.currentPositionArray = tempConnectionArray;
-    
-    
 }
 
 #pragma mark - Documents Path
@@ -740,5 +640,16 @@
     
 }
 
+-(void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(NSURL *)location {
+    
+}
+
+-(void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didResumeAtOffset:(int64_t)fileOffset expectedTotalBytes:(int64_t)expectedTotalBytes {
+    
+}
+
+-(void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didWriteData:(int64_t)bytesWritten totalBytesWritten:(int64_t)totalBytesWritten totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite {
+    
+}
 
 @end

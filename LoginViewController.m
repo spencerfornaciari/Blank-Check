@@ -7,7 +7,8 @@
 //
 
 #import "LoginViewController.h"
-#import "SideViewController.h"
+#import "SideTableViewController.h"
+//#import "SideViewController.h"
 #import "NetworkController.h"
 
 @interface LoginViewController ()
@@ -62,8 +63,6 @@
         NSURL *url = [NSURL URLWithString:string];
         NSURLRequest *request = [NSURLRequest requestWithURL:url];
         [self.webView loadRequest:request];
-        
-        
     }];
 }
 
@@ -97,7 +96,7 @@
 //            [self.networkController loadCurrentUserData];
             
             UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
-            SideViewController *viewController = [mainStoryboard instantiateViewControllerWithIdentifier: @"sideView"];
+            SideTableViewController *viewController = [mainStoryboard instantiateViewControllerWithIdentifier: @"sideView"];
             
             [self presentViewController:viewController animated:YES completion:nil];
             //        self.haveRunJSON = TRUE;

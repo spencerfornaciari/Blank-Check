@@ -1,33 +1,41 @@
 //
-//  SideViewController.m
+//  SideTableViewController.m
 //  Blank Check
 //
-//  Created by Spencer Fornaciari on 6/4/14.
+//  Created by Spencer Fornaciari on 7/24/14.
 //  Copyright (c) 2014 Blank Check Labs. All rights reserved.
 //
 
-#import "SideViewController.h"
-#import "SearchViewController.h"
-#import "AppDelegate.h"
+#import "SideTableViewController.h"
+#import "UIColor+BlankCheckColors.h"
+#import "CoreDataHelper.h"
 #import "Worker.h"
 
-@interface SideViewController ()
+@interface SideTableViewController ()
 
-//@property (nonatomic) ViewController *mainViewController, *topViewController;
 @property (nonatomic) UINavigationController *mainViewController, *topViewController;
 
 @property (nonatomic) FeedBrowserTableViewController *controller;
 
 @end
 
-@implementation SideViewController
+@implementation SideTableViewController
 
+- (id)initWithStyle:(UITableViewStyle)style
+{
+    self = [super initWithStyle:style];
+    if (self) {
+        // Custom initialization
+    }
+    return self;
+}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.title = @"Blank Check Labs";
-    self.view.backgroundColor = [UIColor blankCheckBrown];
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 20)];
     
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Worker" inManagedObjectContext:[CoreDataHelper managedContext]];
     NSFetchRequest *request = [NSFetchRequest new];
@@ -39,21 +47,15 @@
     
     UIImage *image = [UIImage imageWithContentsOfFile:worker.imageLocation];
     
-    UIButton *userProfileButton = [UIButton buttonWithType:UIButtonTypeCustom];
-//    userProfileButton.backgroundColor = [UIColor magentaColor];
-    userProfileButton.frame = CGRectMake(0, 40, 320, 80);
-    [userProfileButton setTitle:@"Spencer Fornaciari" forState:UIControlStateNormal];
-    [userProfileButton setTitleEdgeInsets:UIEdgeInsetsMake(0, -140, 0, 0)];
-    userProfileButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:17.0];
+    //Set user profile cell link
+    self.userCell.imageView.image = image;
+    self.userCell.imageView.layer.cornerRadius = 33.0;
+    self.userCell.imageView.layer.masksToBounds = TRUE;
+    self.userCell.textLabel.text = [NSString stringWithFormat:@"%@ %@", worker.firstName, worker.lastName];
     
-    
-    [userProfileButton setImage:image forState:UIControlStateNormal];
-    [userProfileButton setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 240)];
-    userProfileButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
-    userProfileButton.imageView.layer.cornerRadius = 40;
-    userProfileButton.imageView.layer.masksToBounds = true;
-    [self.view addSubview:userProfileButton];
+    self.logoutCell.separatorInset = UIEdgeInsetsMake(0, 0, 0, self.logoutCell.bounds.size.width);
 
+    //Instantiate Child View Controller
     self.controller = [self.storyboard instantiateViewControllerWithIdentifier:@"mainViewController"];
     self.controller.delegate = self;
     
@@ -65,14 +67,63 @@
     
     self.topViewController = self.mainViewController;
     [self setupPanGesture];
-
-//    self.mainViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"mainViewController"];
-//    [self addChildViewController:self.mainViewController];
-//    self.mainViewController.view.frame = self.view.frame;
-//    [self.view addSubview:self.mainViewController.view];
-//    [self.mainViewController didMoveToParentViewController:self];
     
-    // Do any additional setup after loading the view.
+    // Uncomment the following line to preserve selection between presentations.
+    // self.clearsSelectionOnViewWillAppear = NO;
+    
+    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    // Return the number of sections.
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    // Return the number of rows in the section.
+    return 8;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row == 0) {
+        NSLog(@"My profile");
+
+    }
+    if (indexPath.row == 1) {
+        NSLog(@"Messages");
+    }
+    if (indexPath.row == 2) {
+        NSLog(@"Notifications");
+    }
+    if (indexPath.row == 3) {
+        NSLog(@"Notes");
+    }
+    if (indexPath.row == 4) {
+        NSLog(@"Report a Problem");
+    }
+    if (indexPath.row == 5) {
+        NSLog(@"Terms & Policies");
+    }
+    if (indexPath.row == 6) {
+        NSLog(@"Help");
+    }
+    if (indexPath.row == 7) {
+        NSLog(@"Logout");
+    }
+    
+    [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
 -(void)setupPanGesture
@@ -153,11 +204,54 @@
 }
 
 
-- (void)didReceiveMemoryWarning
+/*
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+    
+    // Configure the cell...
+    
+    return cell;
 }
+*/
+
+/*
+// Override to support conditional editing of the table view.
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // Return NO if you do not want the specified item to be editable.
+    return YES;
+}
+*/
+
+/*
+// Override to support editing the table view.
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        // Delete the row from the data source
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
+        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+    }   
+}
+*/
+
+/*
+// Override to support rearranging the table view.
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
+{
+}
+*/
+
+/*
+// Override to support conditional rearranging of the table view.
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // Return NO if you do not want the item to be re-orderable.
+    return YES;
+}
+*/
 
 /*
 #pragma mark - Navigation
@@ -169,10 +263,5 @@
     // Pass the selected object to the new view controller.
 }
 */
-
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
-    
-}
 
 @end
