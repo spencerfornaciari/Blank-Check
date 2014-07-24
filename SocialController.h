@@ -8,7 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import <Social/Social.h>
-#import "Gamer.h"
+#import "Worker.h"
+#import "Connection.h"
 
 @interface SocialController : NSObject
 

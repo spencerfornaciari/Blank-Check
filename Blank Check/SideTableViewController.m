@@ -10,10 +10,13 @@
 #import "UIColor+BlankCheckColors.h"
 #import "CoreDataHelper.h"
 #import "Worker.h"
+#import "ProblemView.h"
 
 @interface SideTableViewController ()
 
 @property (nonatomic) UINavigationController *mainViewController, *topViewController;
+
+@property (nonatomic) ProblemView *problemView;
 
 @property (nonatomic) FeedBrowserTableViewController *controller;
 
@@ -36,23 +39,8 @@
     self.title = @"Blank Check Labs";
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 20)];
-    
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Worker" inManagedObjectContext:[CoreDataHelper managedContext]];
-    NSFetchRequest *request = [NSFetchRequest new];
-    [request setEntity:entity];
-    
-    NSError *error;
-    NSArray *array = [[CoreDataHelper managedContext] executeFetchRequest:request error:&error];
-    Worker *worker = array[0];
-    
-    UIImage *image = [UIImage imageWithContentsOfFile:worker.imageLocation];
-    
-    //Set user profile cell link
-    self.userCell.imageView.image = image;
-    self.userCell.imageView.layer.cornerRadius = 33.0;
-    self.userCell.imageView.layer.masksToBounds = TRUE;
-    self.userCell.textLabel.text = [NSString stringWithFormat:@"%@ %@", worker.firstName, worker.lastName];
-    
+
+    //Remove cell seperate from last cell
     self.logoutCell.separatorInset = UIEdgeInsetsMake(0, 0, 0, self.logoutCell.bounds.size.width);
 
     //Instantiate Child View Controller
@@ -73,6 +61,26 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Worker" inManagedObjectContext:[CoreDataHelper managedContext]];
+    NSFetchRequest *request = [NSFetchRequest new];
+    [request setEntity:entity];
+    
+    NSError *error;
+    NSArray *array = [[CoreDataHelper managedContext] executeFetchRequest:request error:&error];
+    Worker *worker = array[0];
+    
+    UIImage *image = [UIImage imageWithContentsOfFile:worker.imageLocation];
+    
+    //Set user profile cell link
+    self.userCell.imageView.image = image;
+    self.userCell.imageView.layer.cornerRadius = 33.0;
+    self.userCell.imageView.layer.masksToBounds = TRUE;
+    self.userCell.textLabel.text = [NSString stringWithFormat:@"%@ %@", worker.firstName, worker.lastName];
 }
 
 - (void)didReceiveMemoryWarning
@@ -99,6 +107,8 @@
 {
     if (indexPath.row == 0) {
         NSLog(@"My profile");
+//        DetailScrollViewController *detailedView = segue.destinationViewController;
+//        detailedView = gamer;
 
     }
     if (indexPath.row == 1) {
@@ -112,6 +122,15 @@
     }
     if (indexPath.row == 4) {
         NSLog(@"Report a Problem");
+        
+        int size = (self.view.frame.size.height - 40);
+
+        self.problemView = [[ProblemView alloc] initWithFrame:CGRectMake(20, 20, self.view.frame.size.width - 40, size)];
+//        self.problemView.layer.zPosition = 5;
+        
+        [self.problemView.closeButton addTarget:self action:@selector(closeAction:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [self.tableView addSubview:self.problemView];
     }
     if (indexPath.row == 5) {
         NSLog(@"Terms & Policies");
@@ -124,6 +143,10 @@
     }
     
     [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
+}
+
+-(IBAction)closeAction:(id)sender {
+    [self.problemView removeFromSuperview];
 }
 
 -(void)setupPanGesture

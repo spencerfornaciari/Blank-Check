@@ -17,11 +17,21 @@
     if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook]) {
         SLComposeViewController *facebookView = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
         
-        Gamer *gamer = (Gamer *)sender;
+        if ([sender isKindOfClass:[Worker class]]) {
+            Worker *worker = (Worker *)sender;
+            
+            [facebookView setInitialText:@"Come check out my value!"];
+//            [facebookView addImage:gamer.profileImage];
+            [facebookView addURL:[NSURL URLWithString:@"http://comingsoon.blankchecklabs.com/"]];
+        }
         
-        [facebookView setInitialText:@"Come check out my value!"];
-        [facebookView addImage:gamer.profileImage];
-        [facebookView addURL:[NSURL URLWithString:@"http://comingsoon.blankchecklabs.com/"]];
+        if ([sender isKindOfClass:[Connection class]]) {
+            Connection *connection = (Connection *)sender;
+            
+            [facebookView setInitialText:@"Come check out my value!"];
+//            [facebookView addImage:gamer.profileImage];
+            [facebookView addURL:[NSURL URLWithString:@"http://comingsoon.blankchecklabs.com/"]];
+        }
         
         return facebookView;
     }
@@ -34,11 +44,21 @@
     if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter]) {
         SLComposeViewController *twitterView = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
         
-        Gamer *gamer = (Gamer *)sender;
+        if ([sender isKindOfClass:[Worker class]]) {
+            Worker *worker = (Worker *)sender;
+            
+            [twitterView setInitialText:@"Come check out my value!"];
+//            [twitterView addImage:gamer.profileImage];
+            [twitterView addURL:[NSURL URLWithString:@"http://comingsoon.blankchecklabs.com/"]];
+        }
         
-        [twitterView setInitialText:@"Come check out my value!"];
-        [twitterView addImage:gamer.profileImage];
-        [twitterView addURL:[NSURL URLWithString:@"http://comingsoon.blankchecklabs.com/"]];
+        if ([sender isKindOfClass:[Connection class]]) {
+            Connection *connection = (Connection *)sender;
+            
+            [twitterView setInitialText:@"Come check out my value!"];
+//            [twitterView addImage:gamer.profileImage];
+            [twitterView addURL:[NSURL URLWithString:@"http://comingsoon.blankchecklabs.com/"]];
+        }
         
         return twitterView;
     }
@@ -47,9 +67,17 @@
 }
 
 +(void)shareOnLinkedin:(id)sender {
-    Gamer *gamer = (Gamer *)sender;
+    if ([sender isKindOfClass:[Worker class]]) {
+        Worker *worker = (Worker *)sender;
+
+    }
     
-    [[NetworkController sharedController] shareOnLinkedin:gamer];
+    if ([sender isKindOfClass:[Connection class]]) {
+        Connection *connection = (Connection *)sender;
+
+    }
+    
+//    [[NetworkController sharedController] shareOnLinkedin:gamer];
 }
 
 @end

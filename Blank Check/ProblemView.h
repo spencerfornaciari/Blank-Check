@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ProblemView : UIView
+@interface ProblemView : UIView <UITableViewDataSource, UITableViewDelegate>
+
+@property (nonatomic, weak) UIButton *closeButton;
+@property (nonatomic) UITableView *tableView;
+
+@property (nonatomic) NSArray *problemArray;
 
 @end

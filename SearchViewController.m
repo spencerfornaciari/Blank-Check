@@ -129,7 +129,7 @@
         }
 
         DetailScrollViewController *detailedView = segue.destinationViewController;
-        detailedView.gamer = gamer;
+//        detailedView.gamer = gamer;
         
     }
 

@@ -22,7 +22,7 @@
     IBOutlet UILabel *valueLabel; 
 }
 
-@property (nonatomic) Gamer *gamer;
 @property (nonatomic) Connection *connection;
+@property (nonatomic) Worker *worker;
 
 @end

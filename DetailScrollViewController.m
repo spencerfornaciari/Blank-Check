@@ -48,12 +48,6 @@
     [self loadExpertAppraisal];
     
     [self addButtonMenu];
-    
-//    int size = ((self.view.frame.size.height - 65) - 40);
-//    
-//    ProblemView *problem = [[ProblemView alloc] initWithFrame:CGRectMake(20, 85, scrollView.frame.size.width - 40, size)];
-//    problem.layer.zPosition = 5;
-//    [self.view addSubview:problem];
 
     self.fileExists = [[NSFileManager defaultManager] fileExistsAtPath:self.connection.imageLocation];
     
@@ -510,7 +504,7 @@
         case 0:
         {
             NSLog(@"LinkedIn");
-            [SocialController shareOnLinkedin:self.gamer];;
+            [SocialController shareOnLinkedin:self.connection];;
             //            [socialController shareOnFacebook:<#(Gamer *)#>]
             
         }    //            SLComposeViewController *viewController = [SocialController shareOnFacebook:gamer];
@@ -519,7 +513,7 @@
         case 1:
         {
             NSLog(@"Twitter");
-            SLComposeViewController *twitterViewController = [SocialController shareOnTwitter:self.gamer];
+            SLComposeViewController *twitterViewController = [SocialController shareOnTwitter:self.connection];
             
             if (twitterViewController) {
                 [self presentViewController:twitterViewController animated:YES completion:nil];
@@ -533,7 +527,7 @@
         case 2:
         {
             NSLog(@"Facebook");
-            SLComposeViewController *facebookViewController = [SocialController shareOnFacebook:self.gamer];
+            SLComposeViewController *facebookViewController = [SocialController shareOnFacebook:self.connection];
             //
             if (facebookViewController) {
                 [self presentViewController:facebookViewController animated:YES completion:nil];
