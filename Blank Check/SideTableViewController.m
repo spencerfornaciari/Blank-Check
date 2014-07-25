@@ -126,8 +126,6 @@
         int size = (self.view.frame.size.height - 40);
 
         self.problemView = [[ProblemView alloc] initWithFrame:CGRectMake(20, 20, self.view.frame.size.width - 40, size)];
-//        self.problemView.layer.zPosition = 5;
-        
         [self.problemView.closeButton addTarget:self action:@selector(closeAction:) forControlEvents:UIControlEventTouchUpInside];
         
         [self.tableView addSubview:self.problemView];

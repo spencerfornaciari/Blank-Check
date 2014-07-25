@@ -20,11 +20,13 @@
         self.problemArray = [NSArray arrayWithObjects:@"General Feedback", @"Flag an Inaccurate Listing", @"Something is Not Working", nil];
         
         self.tableView = [[UITableView alloc] initWithFrame:self.bounds];
-        self.tableView.backgroundColor = [UIColor blankCheckBlue];
-        self.tableView.alpha = 0.9;
+        self.tableView.backgroundColor = [UIColor blankCheckLightBlue];
+//        self.tableView.alpha = 0.9;
         self.tableView.delegate = self;
         self.tableView.dataSource = self;
         [self.tableView setSeparatorColor:[UIColor blackColor]];
+        self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+        [self.tableView setSeparatorInset:UIEdgeInsetsZero];
         [self addSubview:self.tableView];
 
         
@@ -43,12 +45,20 @@
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, 30)];
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, 40)];
+    
+    CGRect sepFrame = CGRectMake(0, headerView.frame.size.height-1, self.frame.size.width, 1);
+    UIView *seperatorView = [[UIView alloc] initWithFrame:sepFrame];
+    seperatorView.backgroundColor = [UIColor colorWithWhite:144.0/255.0 alpha:1.0];
+    [headerView addSubview:seperatorView];
+    
+    UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, 40)];
     lbl.text = @"Report a Problem";
     lbl.textAlignment = NSTextAlignmentCenter;
     lbl.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:20.0];
+    [headerView addSubview:lbl];
     
-    return lbl;
+    return headerView;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
