@@ -118,18 +118,21 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"detailedView"]) {
         NSLog(@"Prepare segue");
-        Gamer *gamer;
+        
+        Connection *connection;
         
         if (self.searchDisplayController.active) {
             NSIndexPath *indexPath = [self.searchDisplayController.searchResultsTableView indexPathForSelectedRow];
-            gamer =  self.searchResultsArray[indexPath.row];
+            
+            connection = (Connection *)self.searchResultsArray[indexPath.row];
         } else {
             NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-            gamer =  self.connectionsArray[indexPath.row];
+            
+            connection = (Connection *)self.searchResultsArray[indexPath.row];
         }
 
         DetailScrollViewController *detailedView = segue.destinationViewController;
-//        detailedView.gamer = gamer;
+        detailedView.detail = connection;
         
     }
 

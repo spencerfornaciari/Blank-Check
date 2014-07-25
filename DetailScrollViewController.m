@@ -25,6 +25,7 @@
 @property (nonatomic) BOOL fileExists;
 
 @property (nonatomic) int frameHeight;
+@property (nonatomic) UIImageView *profileImage;
 
 @end
 
@@ -35,6 +36,8 @@
     [super viewDidLoad];
     self.title = @"Blank Check Labs";
 
+
+    
     Value *currentValue;
     
     if ([self.detail isKindOfClass:[Connection class]]) {
@@ -110,20 +113,21 @@
 }
 
 -(void)setProfileImage {
-    UIImageView *profileImage = [[UIImageView alloc] initWithFrame:CGRectMake(20, 80, 120, 120)];
 
+    self.profileImage = [[UIImageView alloc] initWithFrame:CGRectMake(20, 80, 120, 120)];
     
-    profileImage.layer.cornerRadius = 60.f;
-    profileImage.layer.masksToBounds = TRUE;
+    
+    self.profileImage.layer.cornerRadius = 60.f;
+    self.profileImage.layer.masksToBounds = TRUE;
     
     if ([self.detail isKindOfClass:[Connection class]]) {
         if (self.fileExists) {
             NSData *data = [NSData dataWithContentsOfMappedFile:self.connection.imageLocation];
             UIImage *image = [UIImage imageWithData:data];
-            profileImage.image = image;
+            self.profileImage.image = image;
             
         } else {
-            profileImage.image = [UIImage imageNamed:@"default-user"];
+            self.profileImage.image = [UIImage imageNamed:@"default-user"];
         }
     }
     
@@ -131,16 +135,15 @@
         if (self.fileExists) {
             NSData *data = [NSData dataWithContentsOfMappedFile:self.worker.imageLocation];
             UIImage *image = [UIImage imageWithData:data];
-            profileImage.image = image;
+            self.profileImage.image = image;
             [self.view setNeedsDisplay];
             
-            
         } else {
-            profileImage.image = [UIImage imageNamed:@"default-user"];
+            self.profileImage.image = [UIImage imageNamed:@"default-user"];
         }
     }
     
-    [scrollView addSubview:profileImage];
+    [scrollView addSubview:self.profileImage];
 
 }
 
@@ -614,12 +617,16 @@
 -(void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(NSURL *)location {
     
     NSData *data = [NSData dataWithContentsOfURL:location];
-    [data writeToFile:self.connection.imageLocation atomically:YES];
     UIImage *image = [UIImage imageWithData:data];
+    [data writeToFile:self.connection.imageLocation atomically:YES];
+    self.profileImage.image = image;
+    
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        [self.profileImage setNeedsDisplay];
+//    });
     
     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-//        profileImage.image = image;
-//        [profileImage setNeedsDisplay];
+        [self.profileImage setNeedsDisplay];
     }];
 }
 

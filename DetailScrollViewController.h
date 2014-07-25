@@ -22,7 +22,6 @@
     IBOutlet UILabel *valueLabel; 
 }
 
-@property (strong, nonatomic) IBOutlet UIImageView *profileImage;
 @property (nonatomic) Connection *connection;
 @property (nonatomic) Worker *worker;
 
