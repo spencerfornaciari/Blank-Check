@@ -35,6 +35,37 @@
     [super viewDidLoad];
     self.title = @"Blank Check Labs";
     
+    Value *currentValue;
+    
+    if ([self.detail isKindOfClass:[Connection class]]) {
+        self.connection = (Connection *)self.detail;
+        
+        self.fileExists = [[NSFileManager defaultManager] fileExistsAtPath:self.connection.imageLocation];
+        
+        NSString *firstLetter = [self.connection.lastName substringWithRange:NSMakeRange(0, 1)];
+        userNameLabel.text = [NSString stringWithFormat:@"%@ %@.", self.connection.firstName, firstLetter];
+        
+        currentValue = [self.connection.values lastObject];
+
+    }
+    
+    if ([self.detail isKindOfClass:[Worker class]]) {
+        self.worker = (Worker *)self.detail;
+        
+        self.fileExists = [[NSFileManager defaultManager] fileExistsAtPath:self.worker.imageLocation];
+        
+        NSString *firstLetter = [self.worker.lastName substringWithRange:NSMakeRange(0, 1)];
+        userNameLabel.text = [NSString stringWithFormat:@"%@ %@.", self.worker.firstName, firstLetter];
+        
+        currentValue = [self.worker.values lastObject];
+
+    }
+    
+    NSNumberFormatter *formatter = [NSNumberFormatter new];
+    [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+    valueLabel.text = [NSString stringWithFormat:@"$%@", [formatter stringFromNumber:currentValue.marketPrice]];
+
+    
     scrollView.delegate = self;
     [scrollView setScrollEnabled:YES];
     
@@ -49,27 +80,18 @@
     
     [self addButtonMenu];
 
-    self.fileExists = [[NSFileManager defaultManager] fileExistsAtPath:self.connection.imageLocation];
+//    [self setProfileImage:self.detail];
     
-    if (self.fileExists) {
-        NSData *data = [NSData dataWithContentsOfMappedFile:self.connection.imageLocation];
-        UIImage *image = [UIImage imageWithData:data];
-        profileImage.image = image;
-
-    } else {
-        profileImage.image = [UIImage imageNamed:@"default-user"];
-    }
+    profileImage.image = [UIImage imageNamed:@"default-user"];
     
     profileImage.layer.cornerRadius = 60.f;
     profileImage.layer.masksToBounds = TRUE;
     
-    NSString *firstLetter = [self.connection.lastName substringWithRange:NSMakeRange(0, 1)];
+    [profileImage setNeedsDisplay];
     
-    userNameLabel.text = [NSString stringWithFormat:@"%@ %@.", self.connection.firstName, firstLetter];
-//    userNameLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:20.0];
+    //    userNameLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:20.0];
 //    Value *value = [[self.connection valueForKey:@"values"] lastObject];
 //    NSLog(@"Value: %@", [self.connection valueForKey:@"values"]);
-    Value *currentValue = [self.connection.values lastObject];
     
 //    for (Value *value in self.connection.values) {
 //        if (!currentValue) {
@@ -81,51 +103,90 @@
 //        }
 //    }
     
-    NSNumberFormatter *formatter = [NSNumberFormatter new];
-    [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
-    valueLabel.text = [NSString stringWithFormat:@"$%@", [formatter stringFromNumber:currentValue.marketPrice]];
+
 //    valueLabel.text = [NSString stringWithFormat:@"$%@", value.marketPrice];
 //    valueLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:17.0];
     
 }
 
+-(void)setProfileImage:(id)sender {
+    
+    if ([self.detail isKindOfClass:[Connection class]]) {
+        if (self.fileExists) {
+            NSData *data = [NSData dataWithContentsOfMappedFile:self.connection.imageLocation];
+            UIImage *image = [UIImage imageWithData:data];
+            profileImage.image = image;
+            
+        } else {
+            profileImage.image = [UIImage imageNamed:@"default-user"];
+        }
+    }
+    
+    if ([self.detail isKindOfClass:[Worker class]]) {
+        if (self.fileExists) {
+            NSData *data = [NSData dataWithContentsOfMappedFile:self.worker.imageLocation];
+            UIImage *image = [UIImage imageWithData:data];
+            profileImage.image = image;
+            [self.view setNeedsDisplay];
+            
+            
+        } else {
+            profileImage.image = [UIImage imageNamed:@"default-user"];
+        }
+    }
+}
+
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    [Amplitude logEvent:[NSString stringWithFormat:@"Detail page - %@ %@", self.connection.firstName, self.connection.lastName]];
-    
-    NSDictionary *articleParams = [NSDictionary dictionaryWithObjectsAndKeys:
-                                   @"John Q", @"Author",
-                                   [NSString stringWithFormat:@"%@ %@", self.connection.firstName, self.connection.lastName], @"Detailed_Info",
-                                   nil];
-    
-    [Flurry logEvent:@"Detailed_View" withParameters:articleParams timed:YES];
-    
-    
-    // In a function that captures when a user navigates away from article
-    // You can pass in additional params or update existing ones here as well
+
+
     [Flurry endTimedEvent:@"Detailed_View" withParameters:nil];
     
-    if ([self.connection.invitationSent integerValue] == 1) {
-        [scrollView setContentSize:CGSizeMake(self.view.frame.size.width, self.frameHeight)];
-    } else {
-        [self loadInviteView];
-        [scrollView setContentSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height)];
+    if ([self.detail isKindOfClass:[Connection class]]) {
+        [Amplitude logEvent:[NSString stringWithFormat:@"Detail page - %@ %@", self.connection.firstName, self.connection.lastName]];
+        
+        NSDictionary *articleParams = [NSDictionary dictionaryWithObjectsAndKeys:
+                                       @"John Q", @"Author",
+                                       [NSString stringWithFormat:@"%@ %@", self.connection.firstName, self.connection.lastName], @"Detailed_Info",
+                                       nil];
+        
+        [Flurry logEvent:@"Detailed_View" withParameters:articleParams timed:YES];
+        
+        if ([self.connection.invitationSent integerValue] == 1) {
+            [scrollView setContentSize:CGSizeMake(self.view.frame.size.width, self.frameHeight)];
+        } else {
+            [self loadInviteView];
+            [scrollView setContentSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height)];
+        }
+        
+        if (!self.fileExists) {
+            if (self.connection.imageURL) {
+                NSURL *url = [NSURL URLWithString:self.connection.imageURL];
+                NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url];
+                
+                NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
+                NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfiguration
+                                                                      delegate:self
+                                                                 delegateQueue:nil];
+                
+                NSURLSessionDownloadTask *downloadTask = [session downloadTaskWithRequest:urlRequest];
+                [downloadTask resume];
+            }
+        }
     }
     
-    if (!self.fileExists) {
-        if (self.connection.imageURL) {
-            NSURL *url = [NSURL URLWithString:self.connection.imageURL];
-            NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url];
-            
-            NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
-            NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfiguration
-                                                                  delegate:self
-                                                             delegateQueue:nil];
-            
-            NSURLSessionDownloadTask *downloadTask = [session downloadTaskWithRequest:urlRequest];
-            [downloadTask resume];
-        }
+    if ([self.detail isKindOfClass:[Worker class]]) {
+        [Amplitude logEvent:[NSString stringWithFormat:@"Detail page - %@ %@", self.worker.firstName, self.worker.lastName]];
+        
+        NSDictionary *articleParams = [NSDictionary dictionaryWithObjectsAndKeys:
+                                       @"John Q", @"Author",
+                                       [NSString stringWithFormat:@"%@ %@", self.worker.firstName, self.worker.lastName], @"Detailed_Info",
+                                       nil];
+        
+        [Flurry logEvent:@"Detailed_View" withParameters:articleParams timed:YES];
+        
+        [scrollView setContentSize:CGSizeMake(self.view.frame.size.width, self.frameHeight)];
     }
 }
 

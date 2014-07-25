@@ -25,4 +25,6 @@
 @property (nonatomic) Connection *connection;
 @property (nonatomic) Worker *worker;
 
+@property (nonatomic) id detail;
+
 @end

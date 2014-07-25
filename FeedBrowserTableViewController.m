@@ -265,7 +265,7 @@
 //        Gamer *gamer = self.feedArray[indexPath.row];
         
         DetailScrollViewController *viewController = segue.destinationViewController;
-        viewController.connection = [self.feedArray objectAtIndex:indexPath.row];
+        viewController.detail = [self.feedArray objectAtIndex:indexPath.row];
 //        viewController.gamer = gamer;
     }
     

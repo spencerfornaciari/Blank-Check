@@ -14,11 +14,14 @@
 
 @interface SideTableViewController ()
 
-@property (nonatomic) UINavigationController *mainViewController, *topViewController;
+@property (nonatomic) UINavigationController *mainViewController, *topViewController, *profileController;
 
 @property (nonatomic) ProblemView *problemView;
 
 @property (nonatomic) FeedBrowserTableViewController *controller;
+@property (nonatomic) DetailScrollViewController *workerView;
+
+@property (nonatomic) Worker *worker;
 
 @end
 
@@ -36,6 +39,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.worker = [CoreDataHelper currentUser];
+    
     self.title = @"Blank Check Labs";
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 20)];
@@ -56,6 +61,16 @@
     self.topViewController = self.mainViewController;
     [self setupPanGesture];
     
+    
+    //Worker Profile
+    self.workerView = [self.storyboard instantiateViewControllerWithIdentifier:@"profileView"];
+    self.workerView.detail = self.worker;
+
+    self.profileController = [[UINavigationController alloc] initWithRootViewController:self.workerView];
+    [self addChildViewController:self.profileController];
+    self.profileController.view.frame = self.view.frame;
+    [self.profileController didMoveToParentViewController:self];
+
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -66,21 +81,13 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Worker" inManagedObjectContext:[CoreDataHelper managedContext]];
-    NSFetchRequest *request = [NSFetchRequest new];
-    [request setEntity:entity];
-    
-    NSError *error;
-    NSArray *array = [[CoreDataHelper managedContext] executeFetchRequest:request error:&error];
-    Worker *worker = array[0];
-    
-    UIImage *image = [UIImage imageWithContentsOfFile:worker.imageLocation];
+    UIImage *image = [UIImage imageWithContentsOfFile:self.worker.imageLocation];
     
     //Set user profile cell link
     self.userCell.imageView.image = image;
     self.userCell.imageView.layer.cornerRadius = 33.0;
     self.userCell.imageView.layer.masksToBounds = TRUE;
-    self.userCell.textLabel.text = [NSString stringWithFormat:@"%@ %@", worker.firstName, worker.lastName];
+    self.userCell.textLabel.text = [NSString stringWithFormat:@"%@ %@", self.worker.firstName, self.worker.lastName];
 }
 
 - (void)didReceiveMemoryWarning
@@ -107,8 +114,12 @@
 {
     if (indexPath.row == 0) {
         NSLog(@"My profile");
-//        DetailScrollViewController *detailedView = segue.destinationViewController;
-//        detailedView = gamer;
+        self.profileController.view.frame = self.topViewController.view.frame;
+        [self.topViewController.view removeFromSuperview];
+        self.topViewController = self.profileController;
+        [self.view addSubview:self.profileController.view];
+        [self setupPanGesture];
+        [self closeMenu];
 
     }
     if (indexPath.row == 1) {
@@ -274,7 +285,7 @@
 }
 */
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -283,6 +294,6 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
 }
-*/
+
 
 @end
