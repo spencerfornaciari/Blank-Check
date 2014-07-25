@@ -17,11 +17,12 @@
 
 @interface DetailScrollViewController : UIViewController <UIScrollViewDelegate,GKLineGraphDataSource, UIActionSheetDelegate, NSURLSessionDelegate, NSURLSessionDownloadDelegate> {
     IBOutlet UIScrollView *scrollView;
-    IBOutlet UIImageView *profileImage;
+//    IBOutlet UIImageView *profileImage;
     IBOutlet UILabel *userNameLabel;
     IBOutlet UILabel *valueLabel; 
 }
 
+@property (strong, nonatomic) IBOutlet UIImageView *profileImage;
 @property (nonatomic) Connection *connection;
 @property (nonatomic) Worker *worker;
 

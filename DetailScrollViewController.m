@@ -34,13 +34,15 @@
 {
     [super viewDidLoad];
     self.title = @"Blank Check Labs";
-    
+
     Value *currentValue;
     
     if ([self.detail isKindOfClass:[Connection class]]) {
         self.connection = (Connection *)self.detail;
         
         self.fileExists = [[NSFileManager defaultManager] fileExistsAtPath:self.connection.imageLocation];
+        
+        [self setProfileImage];
         
         NSString *firstLetter = [self.connection.lastName substringWithRange:NSMakeRange(0, 1)];
         userNameLabel.text = [NSString stringWithFormat:@"%@ %@.", self.connection.firstName, firstLetter];
@@ -53,6 +55,8 @@
         self.worker = (Worker *)self.detail;
         
         self.fileExists = [[NSFileManager defaultManager] fileExistsAtPath:self.worker.imageLocation];
+        
+        [self setProfileImage];
         
         NSString *firstLetter = [self.worker.lastName substringWithRange:NSMakeRange(0, 1)];
         userNameLabel.text = [NSString stringWithFormat:@"%@ %@.", self.worker.firstName, firstLetter];
@@ -82,12 +86,8 @@
 
 //    [self setProfileImage:self.detail];
     
-    profileImage.image = [UIImage imageNamed:@"default-user"];
-    
-    profileImage.layer.cornerRadius = 60.f;
-    profileImage.layer.masksToBounds = TRUE;
-    
-    [profileImage setNeedsDisplay];
+
+//    [profileImage setNeedsDisplay];
     
     //    userNameLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:20.0];
 //    Value *value = [[self.connection valueForKey:@"values"] lastObject];
@@ -109,7 +109,12 @@
     
 }
 
--(void)setProfileImage:(id)sender {
+-(void)setProfileImage {
+    UIImageView *profileImage = [[UIImageView alloc] initWithFrame:CGRectMake(20, 80, 120, 120)];
+
+    
+    profileImage.layer.cornerRadius = 60.f;
+    profileImage.layer.masksToBounds = TRUE;
     
     if ([self.detail isKindOfClass:[Connection class]]) {
         if (self.fileExists) {
@@ -134,6 +139,9 @@
             profileImage.image = [UIImage imageNamed:@"default-user"];
         }
     }
+    
+    [scrollView addSubview:profileImage];
+
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -610,8 +618,8 @@
     UIImage *image = [UIImage imageWithData:data];
     
     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-        profileImage.image = image;
-        [profileImage setNeedsDisplay];
+//        profileImage.image = image;
+//        [profileImage setNeedsDisplay];
     }];
 }
 

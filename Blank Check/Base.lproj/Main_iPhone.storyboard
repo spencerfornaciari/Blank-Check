@@ -454,10 +454,6 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                     </view>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="vYb-5U-jIi">
-                                        <rect key="frame" x="20" y="78" width="120" height="120"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </imageView>
                                 </subviews>
                                 <inset key="contentInset" minX="0.0" minY="-65" maxX="0.0" maxY="0.0"/>
                             </scrollView>
@@ -469,7 +465,6 @@
                     <size key="freeformSize" width="320" height="1000"/>
                     <connections>
                         <outlet property="graph" destination="XfU-8l-7DU" id="yZw-Gi-Ghj"/>
-                        <outlet property="profileImage" destination="vYb-5U-jIi" id="3Z6-If-B9o"/>
                         <outlet property="scrollView" destination="SIf-Ah-SYe" id="put-iP-i9z"/>
                         <outlet property="userNameLabel" destination="ChD-fP-6Lk" id="OvD-Dx-G0e"/>
                         <outlet property="valueLabel" destination="7uf-dT-bsb" id="HDG-2p-WPq"/>
@@ -501,7 +496,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sO3-OH-YHl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-391" y="-214"/>
+            <point key="canvasLocation" x="-91" y="-208"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="EyE-y9-yxw">
@@ -531,6 +526,6 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="X5l-K0-Z1M"/>
+        <segue reference="UVr-ZQ-uL9"/>
     </inferredMetricsTieBreakers>
 </document>
