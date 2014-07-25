@@ -17,7 +17,6 @@
 
 @interface DetailScrollViewController : UIViewController <UIScrollViewDelegate,GKLineGraphDataSource, UIActionSheetDelegate, NSURLSessionDelegate, NSURLSessionDownloadDelegate> {
     IBOutlet UIScrollView *scrollView;
-//    IBOutlet UIImageView *profileImage;
     IBOutlet UILabel *userNameLabel;
     IBOutlet UILabel *valueLabel; 
 }

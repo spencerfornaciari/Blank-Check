@@ -35,38 +35,39 @@
 {
     [super viewDidLoad];
     self.title = @"Blank Check Labs";
-
-
+    
+    self.profileImage = [[UIImageView alloc] initWithFrame:CGRectMake(20, 80, 120, 120)];
+    self.profileImage.layer.cornerRadius = 60.f;
+    self.profileImage.layer.masksToBounds = TRUE;
     
     Value *currentValue;
     
     if ([self.detail isKindOfClass:[Connection class]]) {
         self.connection = (Connection *)self.detail;
         
-        self.fileExists = [[NSFileManager defaultManager] fileExistsAtPath:self.connection.imageLocation];
-        
-        [self setProfileImage];
-        
         NSString *firstLetter = [self.connection.lastName substringWithRange:NSMakeRange(0, 1)];
         userNameLabel.text = [NSString stringWithFormat:@"%@ %@.", self.connection.firstName, firstLetter];
         
         currentValue = [self.connection.values lastObject];
-
+        
     }
     
     if ([self.detail isKindOfClass:[Worker class]]) {
         self.worker = (Worker *)self.detail;
         
-        self.fileExists = [[NSFileManager defaultManager] fileExistsAtPath:self.worker.imageLocation];
-        
-        [self setProfileImage];
         
         NSString *firstLetter = [self.worker.lastName substringWithRange:NSMakeRange(0, 1)];
         userNameLabel.text = [NSString stringWithFormat:@"%@ %@.", self.worker.firstName, firstLetter];
         
         currentValue = [self.worker.values lastObject];
-
+        
     }
+    
+    [self setProfileImage];
+    
+
+
+
     
     NSNumberFormatter *formatter = [NSNumberFormatter new];
     [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
@@ -114,24 +115,36 @@
 
 -(void)setProfileImage {
 
-    self.profileImage = [[UIImageView alloc] initWithFrame:CGRectMake(20, 80, 120, 120)];
-    
-    
-    self.profileImage.layer.cornerRadius = 60.f;
-    self.profileImage.layer.masksToBounds = TRUE;
+
     
     if ([self.detail isKindOfClass:[Connection class]]) {
+        self.fileExists = [[NSFileManager defaultManager] fileExistsAtPath:self.connection.imageLocation];
+
         if (self.fileExists) {
             NSData *data = [NSData dataWithContentsOfMappedFile:self.connection.imageLocation];
             UIImage *image = [UIImage imageWithData:data];
             self.profileImage.image = image;
-            
         } else {
-            self.profileImage.image = [UIImage imageNamed:@"default-user"];
+            if (self.connection.imageURL) {
+                NSURL *url = [NSURL URLWithString:self.connection.imageURL];
+                NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url];
+                
+                NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
+                NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfiguration
+                                                                      delegate:self
+                                                                 delegateQueue:nil];
+                
+                NSURLSessionDownloadTask *downloadTask = [session downloadTaskWithRequest:urlRequest];
+                [downloadTask resume];
+            } else {
+                self.profileImage.image = [UIImage imageNamed:@"default-user"];
+            }
         }
     }
     
     if ([self.detail isKindOfClass:[Worker class]]) {
+        self.fileExists = [[NSFileManager defaultManager] fileExistsAtPath:self.worker.imageLocation];
+
         if (self.fileExists) {
             NSData *data = [NSData dataWithContentsOfMappedFile:self.worker.imageLocation];
             UIImage *image = [UIImage imageWithData:data];
@@ -169,21 +182,6 @@
         } else {
             [self loadInviteView];
             [scrollView setContentSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height)];
-        }
-        
-        if (!self.fileExists) {
-            if (self.connection.imageURL) {
-                NSURL *url = [NSURL URLWithString:self.connection.imageURL];
-                NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url];
-                
-                NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
-                NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfiguration
-                                                                      delegate:self
-                                                                 delegateQueue:nil];
-                
-                NSURLSessionDownloadTask *downloadTask = [session downloadTaskWithRequest:urlRequest];
-                [downloadTask resume];
-            }
         }
     }
     
@@ -619,15 +617,17 @@
     NSData *data = [NSData dataWithContentsOfURL:location];
     UIImage *image = [UIImage imageWithData:data];
     [data writeToFile:self.connection.imageLocation atomically:YES];
-    self.profileImage.image = image;
     
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//        [self.profileImage setNeedsDisplay];
-//    });
     
-    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.profileImage.image = image;
         [self.profileImage setNeedsDisplay];
-    }];
+        
+    });
+    
+//    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+//        [self.profileImage setNeedsDisplay];
+//    }];
 }
 
 -(void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didWriteData:(int64_t)bytesWritten totalBytesWritten:(int64_t)totalBytesWritten totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite {
