@@ -10,7 +10,6 @@
 #import "PresetSearchViewController.h"
 #import "DetailScrollViewController.h"
 #import "UIColor+BlankCheckColors.h"
-#import "Gamer.h"
 
 @interface SearchViewController ()
 
@@ -22,6 +21,7 @@
 @property (nonatomic) NSArray *searchResultsArray;
 
 @property (nonatomic) UIView *overView;
+@property (nonatomic) Connection *selectedConnection;
 
 @end
 
@@ -74,6 +74,8 @@
         if ([self.scopeString isEqualToString:@"Name"]) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
                                     reuseIdentifier:@"Cell"];
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            cell.selectionStyle = UITableViewCellSelectionStyleDefault;
             cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", connection.firstName, connection.lastName];
 //
         } else if ([self.scopeString isEqualToString:@"Title"]) {
@@ -101,44 +103,45 @@
     return cell;
 }
 
-//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//   
-//    if (tableView == self.searchDisplayController.searchResultsTableView) {
-//        NSLog(@"Did select");
-////        [self performSegueWithIdentifier: @"detailedView" sender: self];
-////        NSIndexPath *indexPath = [self.searchDisplayController.searchResultsTableView indexPathForSelectedRow];
-//        self.selectedGamer =  self.searchResultsArray[indexPath.row];
-//        //
-////        DetailScrollViewController *detailedView = segue.destinationViewController;
-////        detailedView.gamer = gamer;
-//    } else {
-//        self.selectedGamer = self.connectionsArray[indexPath.row];
-//    }
-//}
-//
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"detailedView"]) {
-        NSLog(@"Prepare segue");
-        
-        Connection *connection;
-        
-        if (self.searchDisplayController.active) {
-            NSIndexPath *indexPath = [self.searchDisplayController.searchResultsTableView indexPathForSelectedRow];
-            
-            connection = (Connection *)self.searchResultsArray[indexPath.row];
-        } else {
-            NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-            
-            connection = (Connection *)self.searchResultsArray[indexPath.row];
-        }
-
-        DetailScrollViewController *detailedView = segue.destinationViewController;
-        detailedView.detail = connection;
-        
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+   
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        NSLog(@"Did select");
+        [self performSegueWithIdentifier:@"detailedView" sender:self];
+//        [self performSegueWithIdentifier: @"detailedView" sender: self];
+//        NSIndexPath *indexPath = [self.searchDisplayController.searchResultsTableView indexPathForSelectedRow];
+//        self.selectedConnection =  (Connection *)self.searchResultsArray[indexPath.row];
+        //
+//        DetailScrollViewController *detailedView = segue.destinationViewController;
+//        detailedView.gamer = gamer;
+    } else {
+//       self.selectedConnection = (Connection *)self.connectionsArray[indexPath.row];
     }
-
 }
+//
+//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+//    if ([segue.identifier isEqualToString:@"detailedView"]) {
+//        NSLog(@"Prepare segue");
+//        
+//        Connection *connection;
+//        
+//        if (self.searchDisplayController.active) {
+//            NSIndexPath *indexPath = [self.searchDisplayController.searchResultsTableView indexPathForSelectedRow];
+//            
+//            connection = (Connection *)self.searchResultsArray[indexPath.row];
+//        } else {
+//            NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+//            
+//            connection = (Connection *)self.searchResultsArray[indexPath.row];
+//        }
+//
+//        DetailScrollViewController *detailedView = segue.destinationViewController;
+//        detailedView.detail = connection;
+//        
+//    }
+//
+//}
 
 - (void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope
 {
