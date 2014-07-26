@@ -40,6 +40,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     self.worker = [CoreDataHelper currentUser];
     
     self.title = @"Blank Check Labs";
@@ -71,6 +72,8 @@
     [self addChildViewController:self.profileController];
     self.profileController.view.frame = self.view.frame;
     [self.profileController didMoveToParentViewController:self];
+    
+
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;

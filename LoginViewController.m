@@ -95,6 +95,7 @@
 //            self.currentGamer = [[NetworkController sharedController] loadCurrentUserData];
 //            [self.networkController loadCurrentUserData];
             
+            //
             UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
             SideTableViewController *viewController = [mainStoryboard instantiateViewControllerWithIdentifier: @"sideView"];
             

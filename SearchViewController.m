@@ -72,8 +72,10 @@
         Connection *connection = [self.searchResultsArray objectAtIndex:indexPath.row];
         
         if ([self.scopeString isEqualToString:@"Name"]) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                    reuseIdentifier:@"Cell"];
             cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", connection.firstName, connection.lastName];
-//            cell.detailTextLabel.text = @"NAME";
+//
         } else if ([self.scopeString isEqualToString:@"Title"]) {
             cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", connection.firstName, connection.lastName];
           

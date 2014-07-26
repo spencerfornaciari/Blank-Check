@@ -64,11 +64,14 @@
     self.blankQueue = [NSOperationQueue new];
     
     //Create NSURLSession
-    NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration ephemeralSessionConfiguration];
-    self.session = [NSURLSession sessionWithConfiguration:sessionConfig delegate:self delegateQueue:nil];
-    
+//    NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration ephemeralSessionConfiguration];
+//    self.session = [NSURLSession sessionWithConfiguration:sessionConfig delegate:self delegateQueue:nil];
+//    
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main_iPhone"
                                                              bundle: nil];
+//
+//    SideTableViewController *viewController = [mainStoryboard instantiateViewControllerWithIdentifier: @"sideView"];
+//    self.window.rootViewController = viewController;
 
     if (![[NSUserDefaults standardUserDefaults] stringForKey:@"accessToken"]) {
         NSLog(@"No Token");
