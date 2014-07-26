@@ -7,6 +7,7 @@
 //
 
 #import "SideTableViewController.h"
+#import "LoginViewController.h"
 #import "UIColor+BlankCheckColors.h"
 #import "CoreDataHelper.h"
 #import "Worker.h"
@@ -149,6 +150,11 @@
     }
     if (indexPath.row == 7) {
         NSLog(@"Logout");
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"accessToken"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        LoginViewController *loginView = [LoginViewController new];
+        [self presentViewController:loginView animated:YES completion:nil];
     }
     
     [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
