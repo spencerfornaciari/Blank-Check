@@ -71,12 +71,12 @@
 
 +(void)shareOnLinkedin:(id)sender {
     if ([sender isKindOfClass:[Worker class]]) {
-        Worker *worker = (Worker *)sender;
+//        Worker *worker = (Worker *)sender;
 
     }
     
     if ([sender isKindOfClass:[Connection class]]) {
-        Connection *connection = (Connection *)sender;
+//        Connection *connection = (Connection *)sender;
 
     }
     

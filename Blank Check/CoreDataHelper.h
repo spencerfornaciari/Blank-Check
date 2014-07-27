@@ -11,8 +11,14 @@
 
 @interface CoreDataHelper : NSObject
 
+//Manage Context
 +(NSManagedObjectContext *)managedContext;
+
+//User Methods
 +(Worker *)currentUser;
++(NSArray *)fetchUserConnections;
+
+//Save Context
 +(void)saveContext;
 
 @end

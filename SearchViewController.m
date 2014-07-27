@@ -72,11 +72,12 @@
         Connection *connection = [self.searchResultsArray objectAtIndex:indexPath.row];
         
         if ([self.scopeString isEqualToString:@"Name"]) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                    reuseIdentifier:@"Cell"];
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+//            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+//                                    reuseIdentifier:@"Cell"];
+//            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+//            cell.selectionStyle = UITableViewCellSelectionStyleDefault;
             cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", connection.firstName, connection.lastName];
+//            cell.detailTextLabel.text = NSString
 //
         } else if ([self.scopeString isEqualToString:@"Title"]) {
             cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", connection.firstName, connection.lastName];
@@ -145,13 +146,6 @@
 
 - (void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope
 {
-//    NSPredicate *resultPredicate = [NSPredicate
-//                                    predicateWithFormat:@"SELF contains[cd] %@",
-//                                    searchText];
-//    
-//        NSPredicate *namePredicate = [NSPredicate predicateWithFormat:@"(firstName BEGINSWITH[cd] %@) OR (lastName BEGINSWITH[cd] %@)", searchText];
-
-    
     self.scopeString = scope;
     self.searchString = searchText;
     

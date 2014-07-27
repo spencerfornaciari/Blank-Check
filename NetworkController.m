@@ -164,8 +164,6 @@
     
     [newWorker addNewValueObject:newValue];
     
-//    gamer.expertInsightsArray = [NSMutableArray new];
-    
     //Working on parsing current positions
     NSArray *positionArray = [dictionary valueForKeyPath:@"threeCurrentPositions.values"];
     
@@ -241,19 +239,19 @@
     //Parsing Recommendations
 //    gamer.gamerRecommendations = [NSMutableArray new];
     
-    NSArray *recommendationArray = [dictionary valueForKeyPath:@"recommendationsReceived.values"];
-    
-    for (NSDictionary *recommendationDictionary in recommendationArray) {
-        Recommendation *recommendation = [Recommendation new];
-        recommendation.recommendationID = [recommendationDictionary valueForKey:@"id"];
-        recommendation.recommendationText = [recommendationDictionary valueForKey:@"recommendationText"];
-        recommendation.recommendationType = [recommendationDictionary valueForKeyPath:@"recommendationType.code"];
-        recommendation.recommenderID = [recommendationDictionary valueForKeyPath:@"recommender.id"];
-        recommendation.firstName = [recommendationDictionary valueForKeyPath:@"recommender.firstName"];
-        recommendation.lastName = [recommendationDictionary valueForKeyPath:@"recommender.lastName"];
-        
-//        [gamer.gamerRecommendations addObject:recommendation];
-    }
+//    NSArray *recommendationArray = [dictionary valueForKeyPath:@"recommendationsReceived.values"];
+//    
+//    for (NSDictionary *recommendationDictionary in recommendationArray) {
+//        Recommendation *recommendation = [Recommendation new];
+//        recommendation.recommendationID = [recommendationDictionary valueForKey:@"id"];
+//        recommendation.recommendationText = [recommendationDictionary valueForKey:@"recommendationText"];
+//        recommendation.recommendationType = [recommendationDictionary valueForKeyPath:@"recommendationType.code"];
+//        recommendation.recommenderID = [recommendationDictionary valueForKeyPath:@"recommender.id"];
+//        recommendation.firstName = [recommendationDictionary valueForKeyPath:@"recommender.firstName"];
+//        recommendation.lastName = [recommendationDictionary valueForKeyPath:@"recommender.lastName"];
+//        
+////        [gamer.gamerRecommendations addObject:recommendation];
+//    }
     
     //Saving user info
     newWorker.idNumber = dictionary[@"id"];
@@ -461,7 +459,7 @@
     NSString *urlString = [NSString stringWithFormat:@"https://api.linkedin.com/v1/people/~/shares?oauth2_access_token=%@", accessToken];
     
     if ([sender isKindOfClass:[Connection class]]) {
-        Connection *connection = (Connection *)sender;
+//        Connection *connection = (Connection *)sender;
     }
     
     NSURL *url = [NSURL URLWithString:urlString];

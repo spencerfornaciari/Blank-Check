@@ -79,7 +79,7 @@
     }
     
     cell.textLabel.text = self.problemArray[indexPath.row];
-    cell.backgroundColor = [UIColor blankCheckLightBlue];
+    cell.backgroundColor = [UIColor blankCheckBlue];
     
     return cell;
 }

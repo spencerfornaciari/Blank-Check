@@ -40,4 +40,20 @@
     }
 }
 
++(NSArray *)fetchUserConnections {
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Worker" inManagedObjectContext:[CoreDataHelper managedContext]];
+    NSFetchRequest *request = [NSFetchRequest new];
+    [request setEntity:entity];
+    
+    NSError *error;
+    NSArray *array = [[CoreDataHelper managedContext] executeFetchRequest:request error:&error];
+    
+    Worker *worker = array[0];
+    
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]
+                                        initWithKey:@"lastName" ascending:YES];
+    
+    return [[worker valueForKey:@"connections"] sortedArrayUsingDescriptors:@[sortDescriptor]];
+}
+
 @end
