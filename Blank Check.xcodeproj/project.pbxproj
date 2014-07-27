@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4F6ABBBCFE2E42399BFFEFC8 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D88B6EE341E4BB49404DDD2 /* libPods.a */; };
+		8901298519854AB100D9874A /* NoteView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8901298419854AB100D9874A /* NoteView.m */; };
 		8910F3291937ADB700955812 /* Education.m in Sources */ = {isa = PBXBuildFile; fileRef = 8910F3281937ADB700955812 /* Education.m */; };
 		8910F32F1937ADEA00955812 /* Recommendation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8910F32E1937ADEA00955812 /* Recommendation.m */; };
 		891B94631948C84600BEAEC9 /* FeedControllerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 891B94621948C84600BEAEC9 /* FeedControllerViewController.m */; };
@@ -95,6 +96,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8901298319854AB100D9874A /* NoteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoteView.h; sourceTree = "<group>"; };
+		8901298419854AB100D9874A /* NoteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoteView.m; sourceTree = "<group>"; };
 		8910F3271937ADB700955812 /* Education.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Education.h; sourceTree = "<group>"; };
 		8910F3281937ADB700955812 /* Education.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Education.m; sourceTree = "<group>"; };
 		8910F32D1937ADEA00955812 /* Recommendation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Recommendation.h; sourceTree = "<group>"; };
@@ -383,6 +386,8 @@
 				891B94651948C9FF00BEAEC9 /* BlankCheckViewCell.m */,
 				8971C734197F0E390024D3A1 /* ProblemView.h */,
 				8971C735197F0E390024D3A1 /* ProblemView.m */,
+				8901298319854AB100D9874A /* NoteView.h */,
+				8901298419854AB100D9874A /* NoteView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -627,6 +632,7 @@
 				895AF662195235A700B20DA6 /* FeedBrowserTableViewController.m in Sources */,
 				89779E0A1965DCF700AC81CA /* SearchViewController.m in Sources */,
 				89C973C8192564AF00EC6004 /* ViewController.m in Sources */,
+				8901298519854AB100D9874A /* NoteView.m in Sources */,
 				89A143901940E65700FDEC4F /* UIColor+BlankCheckColors.m in Sources */,
 				89800C471979DAB60051A844 /* Gamer.m in Sources */,
 				89C973BF192564AF00EC6004 /* AppDelegate.m in Sources */,

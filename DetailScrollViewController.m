@@ -328,6 +328,8 @@
 
 -(void)noteAction {
     NSLog(@"Note Action");
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Help" message:@"Help message will go here." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Alternate Button 1", @"Alertnate Button 2", nil];
+    [alertView show];
 }
 
 -(void)shareAction {

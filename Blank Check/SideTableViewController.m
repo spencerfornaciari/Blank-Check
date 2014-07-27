@@ -134,6 +134,11 @@
     }
     if (indexPath.row == 3) {
         NSLog(@"Notes");
+        //TableView Controller
+        //Notes Needs
+        //Connection name/id
+        //Note Text
+        //Note Date
     }
     if (indexPath.row == 4) {
         NSLog(@"Report a Problem");
@@ -150,6 +155,8 @@
     }
     if (indexPath.row == 6) {
         NSLog(@"Help");
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Help" message:@"Help message will go here." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Alternate Button 1", @"Alertnate Button 2", nil];
+        [alertView show];
     }
     if (indexPath.row == 7) {
         NSLog(@"Logout");
