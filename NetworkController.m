@@ -8,7 +8,6 @@
 
 #import "NetworkController.h"
 #import "AppDelegate.h"
-#import "Gamer.h"
 
 #define LINKEDIN_OAUTH_URL @"https://www.linkedin.com/uas/oauth2/authorization?response_type=code"
 #define LINKEDIN_TOKEN_URL @"https://www.linkedin.com/uas/oauth2/accessToken?grant_type=authorization_code"
@@ -239,19 +238,20 @@
     //Parsing Recommendations
 //    gamer.gamerRecommendations = [NSMutableArray new];
     
-//    NSArray *recommendationArray = [dictionary valueForKeyPath:@"recommendationsReceived.values"];
-//    
-//    for (NSDictionary *recommendationDictionary in recommendationArray) {
-//        Recommendation *recommendation = [Recommendation new];
-//        recommendation.recommendationID = [recommendationDictionary valueForKey:@"id"];
-//        recommendation.recommendationText = [recommendationDictionary valueForKey:@"recommendationText"];
-//        recommendation.recommendationType = [recommendationDictionary valueForKeyPath:@"recommendationType.code"];
-//        recommendation.recommenderID = [recommendationDictionary valueForKeyPath:@"recommender.id"];
-//        recommendation.firstName = [recommendationDictionary valueForKeyPath:@"recommender.firstName"];
-//        recommendation.lastName = [recommendationDictionary valueForKeyPath:@"recommender.lastName"];
-//        
-////        [gamer.gamerRecommendations addObject:recommendation];
-//    }
+    NSArray *recommendationArray = [dictionary valueForKeyPath:@"recommendationsReceived.values"];
+
+    for (NSDictionary *recommendationDictionary in recommendationArray) {
+        Recommendation *recommendation = [NSEntityDescription insertNewObjectForEntityForName:@"Recommendation" inManagedObjectContext:[CoreDataHelper managedContext]];
+        
+        recommendation.idNumber = [recommendationDictionary valueForKey:@"id"];
+        recommendation.text = [recommendationDictionary valueForKey:@"recommendationText"];
+//        recommendation. = [recommendationDictionary valueForKeyPath:@"recommendationType.code"];
+        recommendation.recommenderID = [recommendationDictionary valueForKeyPath:@"recommender.id"];
+        recommendation.firstName = [recommendationDictionary valueForKeyPath:@"recommender.firstName"];
+        recommendation.lastName = [recommendationDictionary valueForKeyPath:@"recommender.lastName"];
+        
+        [newWorker addNewRecommendationObject:recommendation];
+    }
     
     //Saving user info
     newWorker.idNumber = dictionary[@"id"];

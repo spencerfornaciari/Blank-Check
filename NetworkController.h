@@ -7,8 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Recommendation.h"
-#import "Insights.h"
 
 #import "CoreDataHelper.h"
 #import "Worker.h"
@@ -17,6 +15,7 @@
 #import "Language.h"
 #import "Connection.h"
 #import "Value.h"
+#import "Recommendation.h"
 
 @protocol NetworkControllerDelegate <NSObject>
 

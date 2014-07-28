@@ -347,7 +347,7 @@
     NSLog(@"Find Similar Action");
 }
 
--(void)inviteTarget:(Gamer *)gamer {
+-(void)inviteTarget {
     NSLog(@"Invitation Sent");
     [self.connection setValue:@1 forKey:@"invitationSent"];
     
@@ -401,7 +401,7 @@
     inviteButton.frame = CGRectMake(0, descriptionLabel.frame.origin.y + 100, 200, 60);
     inviteButton.center = CGPointMake(self.overView.frame.size.width / 2, descriptionLabel.center.y + 100);
     [inviteButton setTitle:[NSString stringWithFormat:@"Invite %@", self.connection.firstName] forState:UIControlStateNormal];
-    [inviteButton addTarget:self action:@selector(inviteTarget:) forControlEvents:UIControlEventTouchUpInside];
+    [inviteButton addTarget:self action:@selector(inviteTarget) forControlEvents:UIControlEventTouchUpInside];
     [inviteButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     inviteButton.backgroundColor = [UIColor whiteColor];
     [self.overView addSubview:inviteButton];

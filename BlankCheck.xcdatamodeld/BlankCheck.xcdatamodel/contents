@@ -18,11 +18,25 @@
         <attribute name="smallImageLocation" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="smallImageURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="zipCode" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <relationship name="insights" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Insight" inverseName="connection" inverseEntity="Insight" syncable="YES"/>
         <relationship name="jobs" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Job" inverseName="connection" inverseEntity="Job" syncable="YES"/>
         <relationship name="languages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Language" inverseName="connection" inverseEntity="Language" syncable="YES"/>
+        <relationship name="notes" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Note" inverseName="connection" inverseEntity="Note" syncable="YES"/>
+        <relationship name="recommendations" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Recommendation" inverseName="connection" inverseEntity="Recommendation" syncable="YES"/>
         <relationship name="schools" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="School" inverseName="connection" inverseEntity="School" syncable="YES"/>
         <relationship name="values" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Value" inverseName="connection" inverseEntity="Value" syncable="YES"/>
         <relationship name="worker" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Worker" inverseName="connections" inverseEntity="Worker" syncable="YES"/>
+    </entity>
+    <entity name="Insight" representedClassName="Insight" syncable="YES">
+        <attribute name="comments" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="company" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="location" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="position" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="profileImage" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="connection" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Connection" inverseName="insights" inverseEntity="Connection" syncable="YES"/>
+        <relationship name="worker" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Worker" inverseName="insights" inverseEntity="Worker" syncable="YES"/>
     </entity>
     <entity name="Job" representedClassName="Job" syncable="YES">
         <attribute name="idNumber" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
@@ -42,6 +56,21 @@
         <attribute name="proficiency" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <relationship name="connection" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Connection" inverseName="languages" inverseEntity="Connection" syncable="YES"/>
         <relationship name="worker" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Worker" inverseName="languages" inverseEntity="Worker" syncable="YES"/>
+    </entity>
+    <entity name="Note" representedClassName="Note" syncable="YES">
+        <attribute name="comments" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
+        <relationship name="connection" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Connection" inverseName="notes" inverseEntity="Connection" syncable="YES"/>
+        <relationship name="worker" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Worker" inverseName="notes" inverseEntity="Worker" syncable="YES"/>
+    </entity>
+    <entity name="Recommendation" representedClassName="Recommendation" syncable="YES">
+        <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="idNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="recommenderID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="connection" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Connection" inverseName="recommendations" inverseEntity="Connection" syncable="YES"/>
+        <relationship name="worker" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Worker" inverseName="recommendations" inverseEntity="Worker" syncable="YES"/>
     </entity>
     <entity name="School" representedClassName="School" syncable="YES">
         <attribute name="degree" optional="YES" attributeType="String" syncable="YES"/>
@@ -78,17 +107,23 @@
         <attribute name="smallImageURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="zipCode" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <relationship name="connections" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Connection" inverseName="worker" inverseEntity="Connection" syncable="YES"/>
+        <relationship name="insights" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Insight" inverseName="worker" inverseEntity="Insight" syncable="YES"/>
         <relationship name="jobs" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Job" inverseName="worker" inverseEntity="Job" syncable="YES"/>
         <relationship name="languages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Language" inverseName="worker" inverseEntity="Language" syncable="YES"/>
+        <relationship name="notes" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Note" inverseName="worker" inverseEntity="Note" syncable="YES"/>
+        <relationship name="recommendations" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Recommendation" inverseName="worker" inverseEntity="Recommendation" syncable="YES"/>
         <relationship name="schools" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="School" inverseName="worker" inverseEntity="School" syncable="YES"/>
         <relationship name="values" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Value" inverseName="worker" inverseEntity="Value" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Connection" positionX="-4277" positionY="-115" width="128" height="375"/>
+        <element name="Connection" positionX="-4277" positionY="-40" width="128" height="418"/>
         <element name="Job" positionX="-3944" positionY="-441" width="128" height="195"/>
         <element name="Language" positionX="-3944" positionY="-175" width="128" height="120"/>
-        <element name="School" positionX="-3996" positionY="-22" width="128" height="165"/>
+        <element name="School" positionX="-3906" positionY="-21" width="128" height="165"/>
         <element name="Value" positionX="-4097" positionY="-450" width="128" height="118"/>
-        <element name="Worker" positionX="-4284" positionY="-535" width="128" height="360"/>
+        <element name="Worker" positionX="-4284" positionY="-535" width="128" height="403"/>
+        <element name="Note" positionX="-3944" positionY="-639" width="128" height="103"/>
+        <element name="Insight" positionX="-3951" positionY="-871" width="128" height="178"/>
+        <element name="Recommendation" positionX="-3996" positionY="180" width="128" height="148"/>
     </elements>
 </model>

@@ -12,7 +12,6 @@
 #import "AppDelegate.h"
 #import "FeedTableViewCell.h"
 #import "NetworkController.h"
-#import "Gamer.h"
 #import "LoadingView.h"
 #import "Worker.h"
 #import "Job.h"

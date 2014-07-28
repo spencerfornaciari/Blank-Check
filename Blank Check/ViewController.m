@@ -10,10 +10,7 @@
 #import "NetworkController.h"
 #import "PresetSearchViewController.h"
 #import "Gamer.h"
-#import "Position.h"
-#import "Education.h"
 #import "Language.h"
-#import "Recommendation.h"
 
 #define TEST_UPDATE FALSE
 

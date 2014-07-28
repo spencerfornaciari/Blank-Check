@@ -1,5 +1,5 @@
 //
-//  Recommendation.h
+//  Insight.h
 //  Blank Check
 //
 //  Created by Spencer Fornaciari on 7/28/14.
@@ -11,13 +11,15 @@
 
 @class Connection, Worker;
 
-@interface Recommendation : NSManagedObject
+@interface Insight : NSManagedObject
 
-@property (nonatomic, retain) NSString * idNumber;
-@property (nonatomic, retain) NSString * text;
-@property (nonatomic, retain) NSString * recommenderID;
 @property (nonatomic, retain) NSString * firstName;
 @property (nonatomic, retain) NSString * lastName;
+@property (nonatomic, retain) NSString * position;
+@property (nonatomic, retain) NSString * company;
+@property (nonatomic, retain) NSString * location;
+@property (nonatomic, retain) NSString * comments;
+@property (nonatomic, retain) NSString * profileImage;
 @property (nonatomic, retain) Worker *worker;
 @property (nonatomic, retain) Connection *connection;
 

@@ -8,8 +8,7 @@
 
 #import "PresetSearchViewController.h"
 #import "PresetViewController.h"
-#import "Gamer.h"
-#import "Position.h"
+//#import "Gamer.h"
 #import "UIColor+BlankCheckColors.h"
 
 @interface PresetSearchViewController ()

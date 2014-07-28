@@ -11,7 +11,6 @@
 
 @interface FeedBrowserTableViewController ()
 
-@property (nonatomic) Gamer *one, *two, *three;
 @property (nonatomic) Worker *worker;
 //@property (nonatomic) NSMutableArray *feedArray;
 @property (nonatomic) NSArray *feedArray;
