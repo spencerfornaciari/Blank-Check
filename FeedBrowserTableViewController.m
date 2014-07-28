@@ -367,8 +367,6 @@
 //}
 
 -(void)setGamerData {
-//    self.one = gamer;
-    
     self.feedArray = [NSMutableArray new];
     
     NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"Worker" inManagedObjectContext:[CoreDataHelper managedContext]];

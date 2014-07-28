@@ -117,13 +117,13 @@
     </entity>
     <elements>
         <element name="Connection" positionX="-4277" positionY="-40" width="128" height="418"/>
+        <element name="Insight" positionX="-3951" positionY="-871" width="128" height="178"/>
         <element name="Job" positionX="-3944" positionY="-441" width="128" height="195"/>
         <element name="Language" positionX="-3944" positionY="-175" width="128" height="120"/>
+        <element name="Note" positionX="-3944" positionY="-639" width="128" height="105"/>
+        <element name="Recommendation" positionX="-3996" positionY="180" width="128" height="148"/>
         <element name="School" positionX="-3906" positionY="-21" width="128" height="165"/>
         <element name="Value" positionX="-4097" positionY="-450" width="128" height="118"/>
         <element name="Worker" positionX="-4284" positionY="-535" width="128" height="403"/>
-        <element name="Note" positionX="-3944" positionY="-639" width="128" height="103"/>
-        <element name="Insight" positionX="-3951" positionY="-871" width="128" height="178"/>
-        <element name="Recommendation" positionX="-3996" positionY="180" width="128" height="148"/>
     </elements>
 </model>

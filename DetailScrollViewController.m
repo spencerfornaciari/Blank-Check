@@ -13,6 +13,7 @@
 #import "AppDelegate.h"
 #import "ProblemView.h"
 #import "Insight.h"
+#import "Note.h"
 
 @interface DetailScrollViewController ()
 
@@ -332,8 +333,18 @@
 
 -(void)noteAction {
     NSLog(@"Note Action");
+    Note *note = [NSEntityDescription insertNewObjectForEntityForName:@"Note" inManagedObjectContext:[CoreDataHelper managedContext]];
+    
+    note.date = [NSDate date];
+    note.comments = [NSString stringWithFormat:@"%@ %@ is a hard worker", self.connection.firstName, self.connection.lastName];
+    note.connection = self.connection;
+    
+    [[CoreDataHelper currentUser] addNewNoteObject:note];
+    
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Help" message:@"Help message will go here." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Alternate Button 1", @"Alertnate Button 2", nil];
     [alertView show];
+    
+    [CoreDataHelper saveContext];
 }
 
 -(void)shareAction {

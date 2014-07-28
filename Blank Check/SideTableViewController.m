@@ -41,7 +41,7 @@
 {
     [super viewDidLoad];
     
-//    self.worker = [CoreDataHelper currentUser];
+    self.worker = [CoreDataHelper currentUser];
     
     self.title = @"Blank Check Labs";
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -85,13 +85,13 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-//    UIImage *image = [UIImage imageWithContentsOfFile:self.worker.imageLocation];
+    UIImage *image = [UIImage imageWithContentsOfFile:self.worker.imageLocation];
     
     //Set user profile cell link
-//    self.userCell.imageView.image = image;
-//    self.userCell.imageView.layer.cornerRadius = 33.0;
-//    self.userCell.imageView.layer.masksToBounds = TRUE;
-//    self.userCell.textLabel.text = [NSString stringWithFormat:@"%@ %@", self.worker.firstName, self.worker.lastName];
+    self.userCell.imageView.image = image;
+    self.userCell.imageView.layer.cornerRadius = 33.0;
+    self.userCell.imageView.layer.masksToBounds = TRUE;
+    self.userCell.textLabel.text = [NSString stringWithFormat:@"%@ %@", self.worker.firstName, self.worker.lastName];
 }
 
 - (void)didReceiveMemoryWarning
@@ -134,6 +134,14 @@
     }
     if (indexPath.row == 3) {
         NSLog(@"Notes");
+        
+//        NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]
+//                                            initWithKey:@"date" ascending:YES];
+//        NSArray *array = [[self.worker valueForKey:@"notes"] sortedArrayUsingDescriptors:@[sortDescriptor]];
+//        
+//        self.worker.connections value
+//        
+        NSLog(@"Notes Count: %li", (unsigned long)self.worker.notes.count);
         //TableView Controller
         //Notes Needs
         //Connection name/id
