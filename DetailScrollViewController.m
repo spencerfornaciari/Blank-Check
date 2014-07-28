@@ -29,6 +29,8 @@
 @property (nonatomic) int frameHeight;
 @property (nonatomic) UIImageView *profileImage;
 
+@property (nonatomic) UIAlertView *alertView;
+
 @end
 
 @implementation DetailScrollViewController
@@ -333,18 +335,16 @@
 
 -(void)noteAction {
     NSLog(@"Note Action");
-    Note *note = [NSEntityDescription insertNewObjectForEntityForName:@"Note" inManagedObjectContext:[CoreDataHelper managedContext]];
+//    UIAlertView *alertView = [[UIAlertView alloc] initWithFrame:CGRectMake(50, 100, 220, 300)];
+    self.alertView = [[UIAlertView alloc] initWithTitle:@"Enter Your Notes Below" message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Complete", nil];
     
-    note.date = [NSDate date];
-    note.comments = [NSString stringWithFormat:@"%@ %@ is a hard worker", self.connection.firstName, self.connection.lastName];
-    note.connection = self.connection;
+    self.alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
     
-    [[CoreDataHelper currentUser] addNewNoteObject:note];
+    UITextField *textfield = [self.alertView textFieldAtIndex:0];
+    textfield.delegate = self;
+    textfield.placeholder = @"Start typing here";
     
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Help" message:@"Help message will go here." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Alternate Button 1", @"Alertnate Button 2", nil];
-    [alertView show];
-    
-    [CoreDataHelper saveContext];
+    [self.alertView show];
 }
 
 -(void)shareAction {
@@ -656,5 +656,28 @@
 -(void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didResumeAtOffset:(int64_t)fileOffset expectedTotalBytes:(int64_t)expectedTotalBytes {
     
 }
+
+#pragma mark - Alertview methods
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 0) {
+        
+    } else {
+        UITextField *noteText = [alertView textFieldAtIndex:0];
+        
+        Note *note = [NSEntityDescription insertNewObjectForEntityForName:@"Note" inManagedObjectContext:[CoreDataHelper managedContext]];
+
+        note.date = [NSDate date];
+        note.comments = noteText.text;
+        note.connection = self.connection;
+
+        [[CoreDataHelper currentUser] addNewNoteObject:note];
+        
+        [CoreDataHelper saveContext];
+        
+        NSLog(@"Note: %@", noteText.text);
+    }
+}
+
+
 
 @end
