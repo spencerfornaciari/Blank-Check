@@ -8,10 +8,10 @@
 
 #import "AppDelegate.h"
 #import "SideTableViewController.h"
-//#import "SideViewController.h"
 #import "LoginViewController.h"
 #import <HockeySDK/HockeySDK.h>
 #import "Flurry.h"
+#import "GAI.h"
 
 @implementation AppDelegate
 
@@ -41,16 +41,16 @@
 
     //Google Analytics Setup
     // Optional: automatically send uncaught exceptions to Google Analytics.
-//    [GAI sharedInstance].trackUncaughtExceptions = YES;
-//    
-//    // Optional: set Google Analytics dispatch interval to e.g. 20 seconds.
-//    [GAI sharedInstance].dispatchInterval = 20;
-//    
-//    // Optional: set Logger to VERBOSE for debug information.
-//    [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelVerbose];
-//    
-//    // Initialize tracker. Replace with your tracking ID.
-//    [[GAI sharedInstance] trackerWithTrackingId:@"UA-52905521-1"];
+    [GAI sharedInstance].trackUncaughtExceptions = YES;
+    
+    // Optional: set Google Analytics dispatch interval to e.g. 20 seconds.
+    [GAI sharedInstance].dispatchInterval = 20;
+    
+    // Optional: set Logger to VERBOSE for debug information.
+    [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelVerbose];
+    
+    // Initialize tracker. Replace with your tracking ID.
+    [[GAI sharedInstance] trackerWithTrackingId:@"UA-52905521-1"];
     
     [[UINavigationBar appearance] setBarTintColor:[UIColor blankCheckBlue]];
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];

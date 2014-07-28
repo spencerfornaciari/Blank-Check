@@ -358,6 +358,18 @@
                 newConnection.numConnections = connection[@"numConnections"];
                 newConnection.linkedinURL = connection[@"publicProfileUrl"];
                 
+                //Add Insight
+                Insight *model = [NSEntityDescription insertNewObjectForEntityForName:@"Insight" inManagedObjectContext:[CoreDataHelper managedContext]];
+
+                model.firstName = @"Johnny";
+                model.lastName = @"Appleseed";
+                model.position = @"Expert";
+                model.location = @"Cupertino, CA";
+                model.comments = @"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
+                model.company = @"Apple, Inc.";
+                
+                [newConnection addNewInsightObject:model];
+                
                 NSArray *connectionPositionArray = [connection valueForKeyPath:@"positions.values"];
                 
                 for (NSDictionary *positionDictionary in connectionPositionArray) {

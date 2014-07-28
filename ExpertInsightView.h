@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ExpertInsight.h"
+#import "Insight.h"
 
 @interface ExpertInsightView : UIView
 
@@ -18,6 +18,6 @@
 @property (nonatomic) UILabel *locationLabel;
 @property (nonatomic) UILabel *commentLabel;
 
--(id)initWithFrame:(CGRect)frame andExpertInsight:(ExpertInsight *)insight;
+-(id)initWithFrame:(CGRect)frame andExpertInsight:(Insight *)insight;
 
 @end

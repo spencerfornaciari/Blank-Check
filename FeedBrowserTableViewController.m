@@ -185,7 +185,13 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.tableView reloadData]; 
+    [self.tableView reloadData];
+    
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    
+    [tracker send:[[[GAIDictionaryBuilder createAppView] set:@"Feed View"
+                                                      forKey:kGAIScreenName] build]];
+    
     [Amplitude logEvent:[NSString stringWithFormat:@"Feed Browser - %@ %@", self.worker.firstName, self.worker.lastName]];
 //    id tracker = [[GAI sharedInstance] defaultTracker];
 //    [tracker set:kGAIScreenName value:@"Feed Browser Table"];

@@ -48,6 +48,11 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    
+    [tracker send:[[[GAIDictionaryBuilder createAppView] set:@"Search View"
+                                                      forKey:kGAIScreenName] build]];
+    
     [Amplitude logEvent:[NSString stringWithFormat:@"Search Browser"]];
 
 }

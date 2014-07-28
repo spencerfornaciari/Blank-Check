@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "Connection.h"
-//#import "GAITrackedViewController.h"
 
 @interface SearchViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate>
 @property (strong, nonatomic) IBOutlet UITableView *tableView;

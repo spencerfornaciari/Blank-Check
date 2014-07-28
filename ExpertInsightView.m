@@ -10,13 +10,13 @@
 
 @implementation ExpertInsightView
 
--(id)initWithFrame:(CGRect)frame andExpertInsight:(ExpertInsight *)insight {
+-(id)initWithFrame:(CGRect)frame andExpertInsight:(Insight *)insight {
     if (self = [super initWithFrame:frame]) {
         self.frame = frame;
         self.backgroundColor = [UIColor whiteColor];
         
         self.profileImage = [[UIImageView alloc] initWithFrame:CGRectMake(10, 0, 100, 100)];
-        self.profileImage.image = insight.profileImage;
+        self.profileImage.image = [UIImage imageNamed:@"default-user"];
         [self addSubview:self.profileImage];
 
         self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 105, 100, 20)];
