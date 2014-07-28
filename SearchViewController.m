@@ -52,8 +52,6 @@
     
     [tracker send:[[[GAIDictionaryBuilder createAppView] set:@"Search View"
                                                       forKey:kGAIScreenName] build]];
-    
-    [Amplitude logEvent:[NSString stringWithFormat:@"Search Browser"]];
 
 }
 

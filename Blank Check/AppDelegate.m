@@ -34,10 +34,6 @@
     // Replace YOUR_API_KEY with the api key in the downloaded package
     [Flurry startSession:@"PK5YRTZRCPKZSTWSDHJ5"];
 //    [[BITHockeyManager sharedHockeyManager] testIdentifier];
-    
-//    [Amplitude initializeApiKey:@"ed7d7df567cd80075d2a83fb069a0fe7"];
-    
-    [Amplitude initializeApiKey:@"ed7d7df567cd80075d2a83fb069a0fe7" userId:[[UIDevice currentDevice] name]];
 
     //Google Analytics Setup
     // Optional: automatically send uncaught exceptions to Google Analytics.

@@ -175,8 +175,6 @@
     [Flurry endTimedEvent:@"Detailed_View" withParameters:nil];
     
     if ([self.detail isKindOfClass:[Connection class]]) {
-        [Amplitude logEvent:[NSString stringWithFormat:@"Detail page - %@ %@", self.connection.firstName, self.connection.lastName]];
-        
         NSDictionary *articleParams = [NSDictionary dictionaryWithObjectsAndKeys:
                                        @"John Q", @"Author",
                                        [NSString stringWithFormat:@"%@ %@", self.connection.firstName, self.connection.lastName], @"Detailed_Info",
@@ -193,8 +191,6 @@
     }
     
     if ([self.detail isKindOfClass:[Worker class]]) {
-        [Amplitude logEvent:[NSString stringWithFormat:@"Detail page - %@ %@", self.worker.firstName, self.worker.lastName]];
-        
         NSDictionary *articleParams = [NSDictionary dictionaryWithObjectsAndKeys:
                                        @"John Q", @"Author",
                                        [NSString stringWithFormat:@"%@ %@", self.worker.firstName, self.worker.lastName], @"Detailed_Info",

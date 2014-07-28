@@ -28,7 +28,6 @@
 		89779DF919648ACF00AC81CA /* ExpertAppraisalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89779DF819648ACF00AC81CA /* ExpertAppraisalView.m */; };
 		89779E0A1965DCF700AC81CA /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89779E091965DCF700AC81CA /* SearchViewController.m */; };
 		89779E13196B12F600AC81CA /* LoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89779E12196B12F600AC81CA /* LoadingView.m */; };
-		89779E16196C52D900AC81CA /* ExpertInsight.m in Sources */ = {isa = PBXBuildFile; fileRef = 89779E15196C52D900AC81CA /* ExpertInsight.m */; };
 		89779E19196C530100AC81CA /* ExpertAppraisal.m in Sources */ = {isa = PBXBuildFile; fileRef = 89779E18196C530100AC81CA /* ExpertAppraisal.m */; };
 		89779E1C196C588C00AC81CA /* TimelineEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 89779E1B196C588C00AC81CA /* TimelineEvent.m */; };
 		8978FBCB193E562600BF0921 /* PresetSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8978FBCA193E562600BF0921 /* PresetSearchViewController.m */; };
@@ -142,8 +141,6 @@
 		89779E091965DCF700AC81CA /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchViewController.m; path = ../SearchViewController.m; sourceTree = "<group>"; };
 		89779E11196B12F600AC81CA /* LoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoadingView.h; path = ../LoadingView.h; sourceTree = "<group>"; };
 		89779E12196B12F600AC81CA /* LoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoadingView.m; path = ../LoadingView.m; sourceTree = "<group>"; };
-		89779E14196C52D900AC81CA /* ExpertInsight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpertInsight.h; sourceTree = "<group>"; };
-		89779E15196C52D900AC81CA /* ExpertInsight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpertInsight.m; sourceTree = "<group>"; };
 		89779E17196C530100AC81CA /* ExpertAppraisal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpertAppraisal.h; sourceTree = "<group>"; };
 		89779E18196C530100AC81CA /* ExpertAppraisal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpertAppraisal.m; sourceTree = "<group>"; };
 		89779E1A196C588C00AC81CA /* TimelineEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimelineEvent.h; sourceTree = "<group>"; };
@@ -262,8 +259,6 @@
 				89800C4F1979E2C10051A844 /* Core Data */,
 				89800C431979DAB60051A844 /* Gamer.h */,
 				89800C441979DAB60051A844 /* Gamer.m */,
-				89779E14196C52D900AC81CA /* ExpertInsight.h */,
-				89779E15196C52D900AC81CA /* ExpertInsight.m */,
 				89779E17196C530100AC81CA /* ExpertAppraisal.h */,
 				89779E18196C530100AC81CA /* ExpertAppraisal.m */,
 				89779E1A196C588C00AC81CA /* TimelineEvent.h */,
@@ -692,7 +687,6 @@
 				8971C71E197D85600024D3A1 /* CoreDataHelper.m in Sources */,
 				89B571F5198059F3006FBF14 /* Job.m in Sources */,
 				899616B919464DF600C75B99 /* LanguageProcessing.m in Sources */,
-				89779E16196C52D900AC81CA /* ExpertInsight.m in Sources */,
 				89779DF319648AAC00AC81CA /* UserInfoView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

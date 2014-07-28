@@ -192,14 +192,6 @@
     [tracker send:[[[GAIDictionaryBuilder createAppView] set:@"Feed View"
                                                       forKey:kGAIScreenName] build]];
     
-    [Amplitude logEvent:[NSString stringWithFormat:@"Feed Browser - %@ %@", self.worker.firstName, self.worker.lastName]];
-//    id tracker = [[GAI sharedInstance] defaultTracker];
-//    [tracker set:kGAIScreenName value:@"Feed Browser Table"];
-//    
-//    [tracker send:[[GAIDictionaryBuilder createAppView] build]];
-    
-//    [NSKeyedArchiver archiveRootObject:self.one toFile:[Gamer gamerPath]];
-    
     if (!self.downloadingUserData) {
         self.downloadingUserData = TRUE;
         self.loadingView = [[LoadingView alloc] initWithFrame:CGRectMake(160,320,100,100)];
