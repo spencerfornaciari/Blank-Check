@@ -236,20 +236,8 @@
         newPosition.monthsInCurrentJob = [NSNumber numberWithFloat:(employmentLength / 60 / 60 / 24 / 365) * 12];
         newPosition.idNumber = [positionDictionary valueForKeyPath:@"company.id"];
   
-        
         [newWorker addJobsObject:newPosition];
-        
     }
-    
-    
-    //Parsing skills
-//    gamer.gamerSkills = [NSMutableArray new];
-//    NSArray *skillsArray = [dictionary valueForKeyPath:@"skills.values"];
-//    
-//    for (NSDictionary *skillsDictionary in skillsArray) {
-//        NSString *skill = [skillsDictionary valueForKeyPath:@"skill.name"];
-//        [gamer.gamerSkills addObject:skill];
-//    }
     
     //Parsing Educational Institutions
     NSArray *educationArray = [dictionary valueForKeyPath:@"educations.values"];
@@ -263,7 +251,6 @@
         
         NSString *endDate = [NSString stringWithFormat:@"%@", [educationDictionary valueForKeyPath:@"endDate.year"]];
         
-        //Core Data
         newSchool.idNumber = [educationDictionary valueForKey:@"id"];
         newSchool.name = [educationDictionary valueForKey:@"schoolName"];
         newSchool.degree = [educationDictionary valueForKey:@"degree"];
@@ -306,19 +293,21 @@
     [CoreDataHelper saveContext];
 
     //Parsing Connection info
-//    [self grabUserConnections:newWorker inContext:[CoreDataHelper managedContext]];
+//    [self grabUserConnections:newWorker inContext:[CoreDataHelper managedContext] atRange:0];
 }
 
--(void)grabUserConnections:(Worker *)worker inContext:(NSManagedObjectContext *)context {
++(void)grabUserConnections:(Worker *)worker inContext:(NSManagedObjectContext *)context atRange:(NSInteger)range {
     NSString *accessToken = [[NSUserDefaults standardUserDefaults] stringForKey:@"accessToken"];
     
-    NSString *connectionAccess = [NSString stringWithFormat:@"%@%@&format=json", @"https://api.linkedin.com/v1/people/~/connections:(id,first-name,last-name,num-connections,num-connections-capped,positions,public-profile-url,headline,industry,location,pictureUrl,picture-urls::(original))?oauth2_access_token=", accessToken];
+    NSString *connectionAccess = [NSString stringWithFormat:@"%@%@&format=json&start=%ld&count=50", @"https://api.linkedin.com/v1/people/~/connections:(id,first-name,last-name,num-connections,num-connections-capped,positions,public-profile-url,headline,industry,location,pictureUrl,picture-urls::(original))?oauth2_access_token=", accessToken, range];
     
     NSURL *connectionURL = [NSURL URLWithString:connectionAccess];
     
     NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration ephemeralSessionConfiguration];
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfig delegate:self delegateQueue:nil];
-                             
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfig];
+    
+//    [NSURLSession sessionWithConfiguration:sessionConfig delegate:self delegateQueue:nil];
+    
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:[NSURLRequest requestWithURL:connectionURL]completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         
         NSDictionary *connectionDictionary = [NSJSONSerialization JSONObjectWithData:data
@@ -404,7 +393,7 @@
         }
         
         [CoreDataHelper saveContext];
-        [self.delegate setGamerData];
+//        [self.delegate setGamerData];
     }];
     
     [dataTask resume];

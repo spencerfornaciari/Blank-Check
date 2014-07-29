@@ -35,10 +35,10 @@
     self.menuButtonBool = FALSE;
     self.downloadingUserData = FALSE;
     
-    [NetworkController sharedController].delegate = self;
+//    [NetworkController sharedController].delegate = self;
     self.operationQueue = [(AppDelegate *)[[UIApplication sharedApplication] delegate] blankQueue];
     
-    [[NetworkController sharedController] loadUserData];
+//    [[NetworkController sharedController] loadUserData];
 
 //    NSURL *storeURL = [[NSURL URLWithString:[self documentsDirectoryPath]] URLByAppendingPathComponent:@"CoreData.sqlite"];
 //    NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -129,28 +129,6 @@
         }
     }
 */
-
-//    NSArray *myArray = [NetworkController grabUserConnections];
-//    NSLog(@"Count: %ld", (long)myArray.count);
-    
-//    [NSKeyedArchiver archiveRootObject:self.one toFile:[Gamer gamerPath]];
-    
-//    Gamer *gamerNew = [NSKeyedUnarchiver unarchiveObjectWithFile:[Gamer gamerPath]];
-//    
-//    NSLog(@"Full name: %@", gamerNew.fullName);
-//    
-//    NSLog(@"Full name: %@", gamerNew.imageLocalLocation);
-//    NSLog(@"Connection Count: %lu", (unsigned long)gamerNew.connectionIDArray.count);
-    
-    
-//    if (self.one) {
-//        if (!self.seenController.seenArray)
-//        {
-//            self.seenController.seenArray = [NSMutableArray new];
-//        }
-//        
-//        [self.seenController.seenArray addObject:film];
-//        [NSKeyedArchiver archiveRootObject:self.seenController.seenArray toFile:_seenItPath];
 //    
     
     
@@ -174,14 +152,6 @@
     //    NSArray *array = [self.networkController commonConnectionsWithUser:@"mXtsRDLoyK"];
     //    NSLog(@"%@", array);
     //    NSLog(@"Count: %lu", (unsigned long)array.count);
-    
-
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -344,24 +314,9 @@
 
 }
 
-//-(void)add {
+//-(void)setGamerData {
+//    self.feedArray = [NSMutableArray new];
 //    
-//    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-//    NSManagedObjectContext *context = [appDelegate managedObjectContext];
-//    NSManagedObject *newContact;
-//    newContact = [NSEntityDescription insertNewObjectForEntityForName:@"Gamer" inManagedObjectContext:context];
-//    [newContact setValue:@"Bob" forKey:@"firstName"];
-//    [newContact setValue:@"Johnson" forKey:@"lastName"];
-//    [newContact setValue:@"Seattle" forKey:@"location"];
-//    
-//    NSError *error;
-//    [context save:&error];
-//    
-//}
-
--(void)setGamerData {
-    self.feedArray = [NSMutableArray new];
-    
 //    NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"Worker" inManagedObjectContext:[CoreDataHelper managedContext]];
 //    NSFetchRequest *request = [NSFetchRequest new];
 //    [request setEntity:entityDesc];
@@ -378,6 +333,19 @@
 //        
 //        [self.tableView reloadData];
 //    }];
+//}
+
+-(void)loadData {
+    self.feedArray = [NSMutableArray new];
+
+    self.feedArray = [self loadCoreDataToTable];
+
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+        [self.loadingView.activityIndicator stopAnimating];
+        [self.loadingView removeFromSuperview];
+
+        [self.tableView reloadData];
+    }];
 }
 
 -(NSArray *)loadCoreDataToTable {

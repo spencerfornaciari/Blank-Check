@@ -7,6 +7,7 @@
 //
 
 #import "SideTableViewController.h"
+#import "NetworkController.h"
 #import "LoginViewController.h"
 #import "UIColor+BlankCheckColors.h"
 #import "CoreDataHelper.h"
@@ -40,6 +41,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [NetworkController sharedController].delegate = self;
+    
+    [[NetworkController sharedController] loadUserData];
     
 //    self.worker = [CoreDataHelper currentUser];
     
@@ -85,13 +89,13 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-//    UIImage *image = [UIImage imageWithContentsOfFile:self.worker.imageLocation];
-//    
-//    //Set user profile cell link
-//    self.userCell.imageView.image = image;
-//    self.userCell.imageView.layer.cornerRadius = 33.0;
-//    self.userCell.imageView.layer.masksToBounds = TRUE;
-//    self.userCell.textLabel.text = [NSString stringWithFormat:@"%@ %@", self.worker.firstName, self.worker.lastName];
+    UIImage *image = [UIImage imageWithContentsOfFile:self.worker.imageLocation];
+    
+    //Set user profile cell link
+    self.userCell.imageView.image = image;
+    self.userCell.imageView.layer.cornerRadius = 33.0;
+    self.userCell.imageView.layer.masksToBounds = TRUE;
+    self.userCell.textLabel.text = [NSString stringWithFormat:@"%@ %@", self.worker.firstName, self.worker.lastName];
 }
 
 - (void)didReceiveMemoryWarning
@@ -308,6 +312,39 @@
     return YES;
 }
 */
+
+-(void)setGamerData {
+
+    
+    NSOperationQueue *queue = [NSOperationQueue new];
+    [queue addOperationWithBlock:^{
+        [NetworkController grabUserConnections:[CoreDataHelper currentUser] inContext:[CoreDataHelper managedContext] atRange:0];
+        
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            [self.controller loadData];
+        }];
+        
+        
+    }];
+//    self.feedArray = [NSMutableArray new];
+//    
+//    NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"Worker" inManagedObjectContext:[CoreDataHelper managedContext]];
+//    NSFetchRequest *request = [NSFetchRequest new];
+//    [request setEntity:entityDesc];
+//    NSError *error;
+//    NSArray *objects = [[CoreDataHelper managedContext] executeFetchRequest:request error:&error];
+//    
+//    NSLog(@"Objects Count: %lu", (long)objects.count);
+//    
+//    self.feedArray = [self loadCoreDataToTable];
+//    
+//    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+//        [self.loadingView.activityIndicator stopAnimating];
+//        [self.loadingView removeFromSuperview];
+//        
+//        [self.tableView reloadData];
+//    }];
+}
 
 
 #pragma mark - Navigation
