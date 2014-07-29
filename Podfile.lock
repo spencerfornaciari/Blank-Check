@@ -1,5 +1,4 @@
 PODS:
-  - Amplitude-iOS (2.1.0)
   - FrameAccessor (1.3.2)
   - GraphKit (1.1.0):
     - FrameAccessor (~> 1.3.2)
@@ -7,12 +6,10 @@ PODS:
   - MKFoundationKit/NSArray (1.2.2)
 
 DEPENDENCIES:
-  - Amplitude-iOS (~> 2.1)
   - GraphKit (~> 1.1)
 
 SPEC CHECKSUMS:
-  Amplitude-iOS: f0e9a04e7bb7003a3576f2b0954fa2d1d128adc2
-  FrameAccessor: 8bf7a2c66f86005ff9bcd1c9cbd0a3eb4970910b
+  FrameAccessor: 5eec95b29b5e9a3afe72a7a2e9ed25b000d3bcc3
   GraphKit: 14d522398f8c56650d835ce9bfefed6d12ce5a1c
   MKFoundationKit: f8a268133483c1aa686f208d3944624cc0e68dd2
 

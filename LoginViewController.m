@@ -8,7 +8,6 @@
 
 #import "LoginViewController.h"
 #import "SideTableViewController.h"
-//#import "SideViewController.h"
 #import "NetworkController.h"
 
 @interface LoginViewController ()
@@ -93,15 +92,10 @@
         
         // Rethink logic here
         if (self.tokenBOOL == TRUE) {
-//            self.currentGamer = [[NetworkController sharedController] loadCurrentUserData];
-//            [self.networkController loadCurrentUserData];
-            
-            //
             UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
             SideTableViewController *viewController = [mainStoryboard instantiateViewControllerWithIdentifier: @"sideView"];
             
             [self presentViewController:viewController animated:YES completion:nil];
-            //        self.haveRunJSON = TRUE;
         }
     }
     

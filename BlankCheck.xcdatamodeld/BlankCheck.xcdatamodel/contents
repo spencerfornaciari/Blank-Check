@@ -64,8 +64,9 @@
         <relationship name="worker" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Worker" inverseName="notes" inverseEntity="Worker" syncable="YES"/>
     </entity>
     <entity name="Recommendation" representedClassName="Recommendation" syncable="YES">
+        <attribute name="code" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="idNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="idNumber" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="recommenderID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
@@ -121,7 +122,7 @@
         <element name="Job" positionX="-3944" positionY="-441" width="128" height="195"/>
         <element name="Language" positionX="-3944" positionY="-175" width="128" height="120"/>
         <element name="Note" positionX="-3944" positionY="-639" width="128" height="105"/>
-        <element name="Recommendation" positionX="-3996" positionY="180" width="128" height="148"/>
+        <element name="Recommendation" positionX="-3996" positionY="180" width="128" height="165"/>
         <element name="School" positionX="-3906" positionY="-21" width="128" height="165"/>
         <element name="Value" positionX="-4097" positionY="-450" width="128" height="118"/>
         <element name="Worker" positionX="-4284" positionY="-535" width="128" height="403"/>

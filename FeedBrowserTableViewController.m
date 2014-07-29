@@ -12,7 +12,6 @@
 @interface FeedBrowserTableViewController ()
 
 @property (nonatomic) Worker *worker;
-//@property (nonatomic) NSMutableArray *feedArray;
 @property (nonatomic) NSArray *feedArray;
 
 
@@ -38,22 +37,24 @@
     
     [NetworkController sharedController].delegate = self;
     self.operationQueue = [(AppDelegate *)[[UIApplication sharedApplication] delegate] blankQueue];
+    
+    [[NetworkController sharedController] loadUserData];
 
 //    NSURL *storeURL = [[NSURL URLWithString:[self documentsDirectoryPath]] URLByAppendingPathComponent:@"CoreData.sqlite"];
 //    NSFileManager *fileManager = [NSFileManager defaultManager];
     
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"dataExists"]) {
-        [self loadCoreData];
-    } else {
-        if (self.downloadingUserData == FALSE) { //Need to check if DB exists
-            [self.operationQueue addOperationWithBlock:^{
-
-                [[NetworkController sharedController] loadUserData];
-
-            }];
-        }
-
-    }
+//    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"dataExists"]) {
+//        [self loadCoreData];
+//    } else {
+//        if (self.downloadingUserData == FALSE) { //Need to check if DB exists
+//            [self.operationQueue addOperationWithBlock:^{
+//
+////                [[NetworkController sharedController] loadUserData];
+//
+//            }];
+//        }
+//
+//    }
 
     
     
@@ -361,22 +362,22 @@
 -(void)setGamerData {
     self.feedArray = [NSMutableArray new];
     
-    NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"Worker" inManagedObjectContext:[CoreDataHelper managedContext]];
-    NSFetchRequest *request = [NSFetchRequest new];
-    [request setEntity:entityDesc];
-    NSError *error;
-    NSArray *objects = [[CoreDataHelper managedContext] executeFetchRequest:request error:&error];
-    
-    NSLog(@"Objects Count: %lu", (long)objects.count);
-    
-    self.feedArray = [self loadCoreDataToTable];
-    
-    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-        [self.loadingView.activityIndicator stopAnimating];
-        [self.loadingView removeFromSuperview];
-        
-        [self.tableView reloadData];
-    }];
+//    NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"Worker" inManagedObjectContext:[CoreDataHelper managedContext]];
+//    NSFetchRequest *request = [NSFetchRequest new];
+//    [request setEntity:entityDesc];
+//    NSError *error;
+//    NSArray *objects = [[CoreDataHelper managedContext] executeFetchRequest:request error:&error];
+//    
+//    NSLog(@"Objects Count: %lu", (long)objects.count);
+//    
+//    self.feedArray = [self loadCoreDataToTable];
+//    
+//    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+//        [self.loadingView.activityIndicator stopAnimating];
+//        [self.loadingView removeFromSuperview];
+//        
+//        [self.tableView reloadData];
+//    }];
 }
 
 -(NSArray *)loadCoreDataToTable {

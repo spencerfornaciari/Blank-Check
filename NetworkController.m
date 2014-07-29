@@ -158,6 +158,55 @@
     NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data
                                                                options:NSJSONReadingMutableLeaves
                                                                  error:nil];
+    
+    //Saving user info
+    newWorker.idNumber = dictionary[@"id"];
+    newWorker.firstName = dictionary[@"firstName"];
+    newWorker.lastName = dictionary[@"lastName"];
+    NSString *fullName = [NSString stringWithFormat:@"%@%@", newWorker.firstName, newWorker.lastName];
+    
+    newWorker.location = [dictionary valueForKeyPath:@"location.name"];
+    newWorker.linkedinURL = dictionary[@"publicProfileUrl"];
+    newWorker.emailAddress = dictionary[@"emailAddress"];
+    newWorker.numConnections = dictionary[@"numConnections"];
+    newWorker.numRecommenders = dictionary[@"numRecommenders"];
+    
+    //Parsing last updated time (and millisecond conversion)
+    NSNumber *date = [dictionary valueForKey:@"lastModifiedTimestamp"];
+    float newDate = [date floatValue] / 1000;
+    newWorker.lastLinkedinUpdate = [NSDate dateWithTimeIntervalSince1970:newDate];
+    
+    //Converting NSDate to local time zone
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.timeZone = [NSTimeZone localTimeZone];
+    dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm";
+    //    NSString *timeStamp = [dateFormatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:newDate]];
+    
+    //Grab Large Image
+    newWorker.imageURL = [dictionary valueForKeyPath:@"pictureUrls.values"][0];
+    newWorker.imageLocation = [NSString stringWithFormat:@"%@/%@.jpg", [NetworkController documentsDirectoryPath], fullName];
+    
+    NSURLSession *photoSession = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:self delegateQueue:nil];
+    
+    //Grab Large Image
+    NSURL *largeURL = [NSURL URLWithString:newWorker.imageURL];
+    NSURLSessionDownloadTask *downloadLarge = [photoSession downloadTaskWithRequest:[NSURLRequest requestWithURL:largeURL] completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
+        NSData *largeImageData = [NSData dataWithContentsOfURL:location];
+        [largeImageData writeToFile:newWorker.imageLocation atomically:YES];
+    }];
+    [downloadLarge resume];
+    
+    //Grab Small Image
+    newWorker.smallImageURL = [dictionary valueForKey:@"pictureUrl"];
+    newWorker.smallImageLocation = [NSString stringWithFormat:@"%@/%@_small.jpg", [NetworkController documentsDirectoryPath], fullName];
+    
+    NSURL *smallURL = [NSURL URLWithString:newWorker.smallImageURL];
+    NSURLSessionDownloadTask *downloadSmall = [photoSession downloadTaskWithRequest:[NSURLRequest requestWithURL:smallURL] completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
+        NSData *smallImageData = [NSData dataWithContentsOfURL:location];
+        [smallImageData writeToFile:newWorker.smallImageLocation atomically:YES];
+    }];
+    [downloadSmall resume];
+    
     newValue.marketPrice = @1000000;
     newValue.date = [NSDate date];
     
@@ -236,8 +285,6 @@
     }
     
     //Parsing Recommendations
-//    gamer.gamerRecommendations = [NSMutableArray new];
-    
     NSArray *recommendationArray = [dictionary valueForKeyPath:@"recommendationsReceived.values"];
 
     for (NSDictionary *recommendationDictionary in recommendationArray) {
@@ -245,74 +292,21 @@
         
         recommendation.idNumber = [recommendationDictionary valueForKey:@"id"];
         recommendation.text = [recommendationDictionary valueForKey:@"recommendationText"];
-//        recommendation. = [recommendationDictionary valueForKeyPath:@"recommendationType.code"];
+        recommendation.code = [recommendationDictionary valueForKeyPath:@"recommendationType.code"];
         recommendation.recommenderID = [recommendationDictionary valueForKeyPath:@"recommender.id"];
         recommendation.firstName = [recommendationDictionary valueForKeyPath:@"recommender.firstName"];
         recommendation.lastName = [recommendationDictionary valueForKeyPath:@"recommender.lastName"];
-        
+
         [newWorker addNewRecommendationObject:recommendation];
     }
     
-    //Saving user info
-    newWorker.idNumber = dictionary[@"id"];
-    newWorker.firstName = dictionary[@"firstName"];
-    newWorker.lastName = dictionary[@"lastName"];
-    NSString *fullName = [NSString stringWithFormat:@"%@%@", newWorker.firstName, newWorker.lastName];
-
-    newWorker.location = [dictionary valueForKeyPath:@"location.name"];
-    newWorker.linkedinURL = dictionary[@"publicProfileUrl"];
-    newWorker.emailAddress = dictionary[@"emailAddress"];
-    newWorker.numConnections = dictionary[@"numConnections"];
-    newWorker.numRecommenders = dictionary[@"numRecommenders"];
-    
-    //Parsing last updated time (and millisecond conversion)
-    NSNumber *date = [dictionary valueForKey:@"lastModifiedTimestamp"];
-    float newDate = [date floatValue] / 1000;
-    newWorker.lastLinkedinUpdate = [NSDate dateWithTimeIntervalSince1970:newDate];
-    
-    //Converting NSDate to local time zone
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    dateFormatter.timeZone = [NSTimeZone localTimeZone];
-    dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm";
-    //    NSString *timeStamp = [dateFormatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:newDate]];
-    
-    //Grab Large Image
-    newWorker.imageURL = [dictionary valueForKeyPath:@"pictureUrls.values"][0];
-    newWorker.imageLocation = [NSString stringWithFormat:@"%@/%@.jpg", [NetworkController documentsDirectoryPath], fullName];
-    
-    NSURLSession *photoSession = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:self delegateQueue:nil];
-    
-    //Grab Large Image
-    NSURL *largeURL = [NSURL URLWithString:newWorker.imageURL];
-    NSURLSessionDownloadTask *downloadLarge = [photoSession downloadTaskWithRequest:[NSURLRequest requestWithURL:largeURL] completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
-        NSData *largeImageData = [NSData dataWithContentsOfURL:location];
-        [largeImageData writeToFile:newWorker.imageLocation atomically:YES];
-    }];
-    [downloadLarge resume];
-    
-    //Grab Small Image
-    newWorker.smallImageURL = [dictionary valueForKey:@"pictureUrl"];
-    newWorker.smallImageLocation = [NSString stringWithFormat:@"%@/%@_small.jpg", [NetworkController documentsDirectoryPath], fullName];
-    
-    NSURL *smallURL = [NSURL URLWithString:newWorker.smallImageURL];
-    NSURLSessionDownloadTask *downloadSmall = [photoSession downloadTaskWithRequest:[NSURLRequest requestWithURL:smallURL] completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
-        NSData *smallImageData = [NSData dataWithContentsOfURL:location];
-        [smallImageData writeToFile:newWorker.smallImageLocation atomically:YES];
-    }];
-    [downloadSmall resume];
-    
-
-
 //    [newWorker setValue:gamer.headline forKey:@"headline"];
 //    [newWorker setValue:gamer.industry forKey:@"industry"];
 
-    
-//
     [CoreDataHelper saveContext];
-    
-    
+
     //Parsing Connection info
-    [self grabUserConnections:newWorker inContext:[CoreDataHelper managedContext]];
+//    [self grabUserConnections:newWorker inContext:[CoreDataHelper managedContext]];
 }
 
 -(void)grabUserConnections:(Worker *)worker inContext:(NSManagedObjectContext *)context {

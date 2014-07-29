@@ -11,7 +11,6 @@
 #import "SocialController.h"
 #import "NetworkController.h"
 #import "BlankCheckViewCell.h"
-#import "Gamer.h"
 
 @interface FeedControllerViewController ()
 
@@ -36,26 +35,12 @@
     
 //    self.one = [self.networkController loadCurrentUserData];
     
-    self.two = [Gamer new];
-    self.three = [Gamer new];
-    
-    self.two.firstName = @"Lewis";
-    self.two.lastName = @"Lin";
-    
-    self.three.firstName = @"Johnny";
-    self.three.lastName = @"Appleseed";
     
     
 //    [self.networkController sendInvitationToUserID:self.one.gamerID];
 //    NSArray *array = [self.networkController commonConnectionsWithUser:@"mXtsRDLoyK"];
 //    NSLog(@"%@", array);
 //    NSLog(@"Count: %lu", (unsigned long)array.count);
-    
-    self.feedArray = [NSMutableArray new];
-    
-    [self.feedArray addObject:self.one];
-    [self.feedArray addObject:self.two];
-    [self.feedArray addObject:self.three];
     
     
     self.blankCheckCollectionView.delegate = self;

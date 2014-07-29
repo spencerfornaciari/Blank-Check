@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Worker.h"
+#import "Connection.h"
 
 @interface CoreDataHelper : NSObject
 

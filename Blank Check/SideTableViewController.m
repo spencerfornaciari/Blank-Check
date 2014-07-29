@@ -41,7 +41,7 @@
 {
     [super viewDidLoad];
     
-    self.worker = [CoreDataHelper currentUser];
+//    self.worker = [CoreDataHelper currentUser];
     
     self.title = @"Blank Check Labs";
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -65,13 +65,13 @@
     
     
     //Worker Profile
-    self.workerView = [self.storyboard instantiateViewControllerWithIdentifier:@"profileView"];
-    self.workerView.detail = self.worker;
-
-    self.profileController = [[UINavigationController alloc] initWithRootViewController:self.workerView];
-    [self addChildViewController:self.profileController];
-    self.profileController.view.frame = self.view.frame;
-    [self.profileController didMoveToParentViewController:self];
+//    self.workerView = [self.storyboard instantiateViewControllerWithIdentifier:@"profileView"];
+//    self.workerView.detail = self.worker;
+//
+//    self.profileController = [[UINavigationController alloc] initWithRootViewController:self.workerView];
+//    [self addChildViewController:self.profileController];
+//    self.profileController.view.frame = self.view.frame;
+//    [self.profileController didMoveToParentViewController:self];
     
 
 
@@ -85,13 +85,13 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    UIImage *image = [UIImage imageWithContentsOfFile:self.worker.imageLocation];
-    
-    //Set user profile cell link
-    self.userCell.imageView.image = image;
-    self.userCell.imageView.layer.cornerRadius = 33.0;
-    self.userCell.imageView.layer.masksToBounds = TRUE;
-    self.userCell.textLabel.text = [NSString stringWithFormat:@"%@ %@", self.worker.firstName, self.worker.lastName];
+//    UIImage *image = [UIImage imageWithContentsOfFile:self.worker.imageLocation];
+//    
+//    //Set user profile cell link
+//    self.userCell.imageView.image = image;
+//    self.userCell.imageView.layer.cornerRadius = 33.0;
+//    self.userCell.imageView.layer.masksToBounds = TRUE;
+//    self.userCell.textLabel.text = [NSString stringWithFormat:@"%@ %@", self.worker.firstName, self.worker.lastName];
 }
 
 - (void)didReceiveMemoryWarning

@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		4F6ABBBCFE2E42399BFFEFC8 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D88B6EE341E4BB49404DDD2 /* libPods.a */; };
 		8901298519854AB100D9874A /* NoteView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8901298419854AB100D9874A /* NoteView.m */; };
-		890129A31986BE1000D9874A /* Recommendation.m in Sources */ = {isa = PBXBuildFile; fileRef = 890129A21986BE1000D9874A /* Recommendation.m */; };
 		890129AF1986BE3300D9874A /* Note.m in Sources */ = {isa = PBXBuildFile; fileRef = 890129AE1986BE3300D9874A /* Note.m */; };
 		890129B51986BEA600D9874A /* Worker.m in Sources */ = {isa = PBXBuildFile; fileRef = 890129B41986BEA600D9874A /* Worker.m */; };
 		890129B81986BEA700D9874A /* Insight.m in Sources */ = {isa = PBXBuildFile; fileRef = 890129B71986BEA700D9874A /* Insight.m */; };
@@ -100,12 +99,8 @@
 /* Begin PBXFileReference section */
 		8901298319854AB100D9874A /* NoteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoteView.h; sourceTree = "<group>"; };
 		8901298419854AB100D9874A /* NoteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoteView.m; sourceTree = "<group>"; };
-		890129A11986BE1000D9874A /* Recommendation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Recommendation.h; sourceTree = "<group>"; };
-		890129A21986BE1000D9874A /* Recommendation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Recommendation.m; sourceTree = "<group>"; };
 		890129AD1986BE3300D9874A /* Note.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Note.h; sourceTree = "<group>"; };
 		890129AE1986BE3300D9874A /* Note.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Note.m; sourceTree = "<group>"; };
-		890129B01986BE3300D9874A /* Recommendation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Recommendation.h; sourceTree = "<group>"; };
-		890129B11986BE3300D9874A /* Recommendation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Recommendation.m; sourceTree = "<group>"; };
 		890129B31986BEA600D9874A /* Worker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Worker.h; sourceTree = "<group>"; };
 		890129B41986BEA600D9874A /* Worker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Worker.m; sourceTree = "<group>"; };
 		890129B61986BEA700D9874A /* Insight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Insight.h; sourceTree = "<group>"; };
@@ -121,6 +116,8 @@
 		8937E7611976FE82004BA64D /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		8937E7631976FE89004BA64D /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		8937E7651976FE98004BA64D /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		8945706019881FE00082D462 /* Recommendation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Recommendation.h; sourceTree = "<group>"; };
+		8945706119881FE00082D462 /* Recommendation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Recommendation.m; sourceTree = "<group>"; };
 		895AF660195235A700B20DA6 /* FeedBrowserTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedBrowserTableViewController.h; path = ../FeedBrowserTableViewController.h; sourceTree = "<group>"; };
 		895AF661195235A700B20DA6 /* FeedBrowserTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedBrowserTableViewController.m; path = ../FeedBrowserTableViewController.m; sourceTree = "<group>"; };
 		895AF663195235FD00B20DA6 /* FeedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedTableViewCell.h; path = ../FeedTableViewCell.h; sourceTree = "<group>"; };
@@ -281,14 +278,14 @@
 				89B571F4198059F3006FBF14 /* Job.m */,
 				890129AD1986BE3300D9874A /* Note.h */,
 				890129AE1986BE3300D9874A /* Note.m */,
-				890129B01986BE3300D9874A /* Recommendation.h */,
-				890129B11986BE3300D9874A /* Recommendation.m */,
 				890129B31986BEA600D9874A /* Worker.h */,
 				890129B41986BEA600D9874A /* Worker.m */,
 				890129B91986BEA700D9874A /* Connection.h */,
 				890129BA1986BEA700D9874A /* Connection.m */,
 				890129B61986BEA700D9874A /* Insight.h */,
 				890129B71986BEA700D9874A /* Insight.m */,
+				8945706019881FE00082D462 /* Recommendation.h */,
+				8945706119881FE00082D462 /* Recommendation.m */,
 			);
 			name = "Core Data";
 			sourceTree = "<group>";
@@ -459,8 +456,6 @@
 			isa = PBXGroup;
 			children = (
 				89D417A7197858D300A0CA4F /* BlankCheck.xcdatamodeld */,
-				890129A11986BE1000D9874A /* Recommendation.h */,
-				890129A21986BE1000D9874A /* Recommendation.m */,
 				89C973E9192565D800EC6004 /* Constants.h */,
 				89C973EA192565D800EC6004 /* Constants.m */,
 				899616B719464DF600C75B99 /* LanguageProcessing.h */,
@@ -656,7 +651,6 @@
 				89779DF619648ABC00AC81CA /* TimelineView.m in Sources */,
 				89779E1C196C588C00AC81CA /* TimelineEvent.m in Sources */,
 				89779DF0196488E600AC81CA /* ExpertInsightView.m in Sources */,
-				890129A31986BE1000D9874A /* Recommendation.m in Sources */,
 				89779DF919648ACF00AC81CA /* ExpertAppraisalView.m in Sources */,
 				89C973EB192565D800EC6004 /* Constants.m in Sources */,
 				89C973E81925650C00EC6004 /* NetworkController.m in Sources */,

@@ -167,10 +167,10 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
-    
-    [tracker send:[[[GAIDictionaryBuilder createAppView] set:@"Detail View"
-                                                      forKey:kGAIScreenName] build]];
+//    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+//    
+//    [tracker send:[[[GAIDictionaryBuilder createAppView] set:@"Detail View"
+//                                                      forKey:kGAIScreenName] build]];
 
     [Flurry endTimedEvent:@"Detailed_View" withParameters:nil];
     

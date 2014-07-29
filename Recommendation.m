@@ -2,7 +2,7 @@
 //  Recommendation.m
 //  Blank Check
 //
-//  Created by Spencer Fornaciari on 7/28/14.
+//  Created by Spencer Fornaciari on 7/29/14.
 //  Copyright (c) 2014 Blank Check Labs. All rights reserved.
 //
 
@@ -13,12 +13,13 @@
 
 @implementation Recommendation
 
-@dynamic idNumber;
-@dynamic text;
-@dynamic recommenderID;
 @dynamic firstName;
+@dynamic idNumber;
 @dynamic lastName;
-@dynamic worker;
+@dynamic recommenderID;
+@dynamic text;
+@dynamic code;
 @dynamic connection;
+@dynamic worker;
 
 @end
