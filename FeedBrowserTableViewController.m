@@ -35,9 +35,9 @@
     self.menuButtonBool = FALSE;
     self.downloadingUserData = FALSE;
     
-//    [NetworkController sharedController].delegate = self;
+
     self.operationQueue = [(AppDelegate *)[[UIApplication sharedApplication] delegate] blankQueue];
-    
+    [NetworkController sharedController].delegate = self;
 //    [[NetworkController sharedController] loadUserData];
 
 //    NSURL *storeURL = [[NSURL URLWithString:[self documentsDirectoryPath]] URLByAppendingPathComponent:@"CoreData.sqlite"];
@@ -314,9 +314,9 @@
 
 }
 
-//-(void)setGamerData {
-//    self.feedArray = [NSMutableArray new];
-//    
+-(void)setGamerData {
+    self.feedArray = [NSMutableArray new];
+    
 //    NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"Worker" inManagedObjectContext:[CoreDataHelper managedContext]];
 //    NSFetchRequest *request = [NSFetchRequest new];
 //    [request setEntity:entityDesc];
@@ -324,29 +324,31 @@
 //    NSArray *objects = [[CoreDataHelper managedContext] executeFetchRequest:request error:&error];
 //    
 //    NSLog(@"Objects Count: %lu", (long)objects.count);
-//    
-//    self.feedArray = [self loadCoreDataToTable];
-//    
-//    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-//        [self.loadingView.activityIndicator stopAnimating];
-//        [self.loadingView removeFromSuperview];
-//        
-//        [self.tableView reloadData];
-//    }];
-//}
-
--(void)loadData {
-    self.feedArray = [NSMutableArray new];
-
+    
+    [NetworkController grabUserConnections:[CoreDataHelper currentUser] inContext:[CoreDataHelper managedContext] atRange:0];
+    
     self.feedArray = [self loadCoreDataToTable];
-
+    
     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
         [self.loadingView.activityIndicator stopAnimating];
         [self.loadingView removeFromSuperview];
-
+        
         [self.tableView reloadData];
     }];
 }
+
+//-(void)loadData {
+//    self.feedArray = [NSMutableArray new];
+//
+//    self.feedArray = [self loadCoreDataToTable];
+//
+//    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+//        [self.loadingView.activityIndicator stopAnimating];
+//        [self.loadingView removeFromSuperview];
+//
+//        [self.tableView reloadData];
+//    }];
+//}
 
 -(NSArray *)loadCoreDataToTable {
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"dataExists"];

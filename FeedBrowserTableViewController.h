@@ -24,7 +24,7 @@
 
 @end
 
-@interface FeedBrowserTableViewController : UITableViewController //<NetworkControllerDelegate>
+@interface FeedBrowserTableViewController : UITableViewController <NetworkControllerDelegate>
 
 @property (nonatomic, weak) id<FeedBrowserTableViewControllerDelegate> delegate;
 -(void)loadData;

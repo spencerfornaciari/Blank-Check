@@ -41,11 +41,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [NetworkController sharedController].delegate = self;
+//    [NetworkController sharedController].delegate = self;
     
-    [[NetworkController sharedController] loadUserData];
-    
-//    self.worker = [CoreDataHelper currentUser];
+//    [[NetworkController sharedController] loadUserData];
     
     self.title = @"Blank Check Labs";
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -89,13 +87,7 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    UIImage *image = [UIImage imageWithContentsOfFile:self.worker.imageLocation];
     
-    //Set user profile cell link
-    self.userCell.imageView.image = image;
-    self.userCell.imageView.layer.cornerRadius = 33.0;
-    self.userCell.imageView.layer.masksToBounds = TRUE;
-    self.userCell.textLabel.text = [NSString stringWithFormat:@"%@ %@", self.worker.firstName, self.worker.lastName];
 }
 
 - (void)didReceiveMemoryWarning
@@ -313,19 +305,28 @@
 }
 */
 
--(void)setGamerData {
-
-    
-    NSOperationQueue *queue = [NSOperationQueue new];
-    [queue addOperationWithBlock:^{
-        [NetworkController grabUserConnections:[CoreDataHelper currentUser] inContext:[CoreDataHelper managedContext] atRange:0];
-        
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            [self.controller loadData];
-        }];
-        
-        
-    }];
+//-(void)setGamerData {
+//    self.worker = [CoreDataHelper currentUser];
+//    UIImage *image = [UIImage imageWithContentsOfFile:self.worker.imageLocation];
+//    
+//    //Set user profile cell link
+//    self.userCell.imageView.image = image;
+//    self.userCell.imageView.layer.cornerRadius = 33.0;
+//    self.userCell.imageView.layer.masksToBounds = TRUE;
+//    self.userCell.textLabel.text = [NSString stringWithFormat:@"%@ %@", self.worker.firstName, self.worker.lastName];
+//    
+//    NSOperationQueue *queue = [NSOperationQueue new];
+//    [queue addOperationWithBlock:^{
+//
+//        
+//        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+//            [self.tableView reloadData];
+//            [NetworkController grabUserConnections:[CoreDataHelper currentUser] inContext:[CoreDataHelper managedContext] atRange:0];
+//            [self.controller loadData];
+//        }];
+//        
+//        
+//    }];
 //    self.feedArray = [NSMutableArray new];
 //    
 //    NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"Worker" inManagedObjectContext:[CoreDataHelper managedContext]];
@@ -344,7 +345,7 @@
 //        
 //        [self.tableView reloadData];
 //    }];
-}
+//}
 
 
 #pragma mark - Navigation

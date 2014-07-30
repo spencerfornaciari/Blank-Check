@@ -72,32 +72,58 @@
 
     //Generating the NSMutableURLRequest with the base LinkedIN URL with token extension in the HTTP Body
     NSURL *url = [NSURL URLWithString:LINKEDIN_TOKEN_URL];
+    NSLog(@"URL: %@", url);
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+////    [request setHTTPMethod:@"GET"];
     [request setHTTPMethod:@"POST"];
     [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
     [request setHTTPBody:[token dataUsingEncoding:NSUTF8StringEncoding]];
     [request setValue:@"json" forHTTPHeaderField:@"x-li-format"]; // per Linkedin API: https://developer.linkedin.com/documents/api-requests-json
+//
+//    NSURLResponse *response;
+//    NSError *error;
     
-    NSURLResponse *response;
-    NSError *error;
+    NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfig];
     
-    NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        
+        NSString *tokenResponse = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
+        
+        NSLog(@"Token Response: %@", tokenResponse);
+        
+        NSDictionary *jsonObject=[NSJSONSerialization
+                                  JSONObjectWithData:data
+                                  options:NSJSONReadingMutableContainers
+                                  error:nil];
+        self.accessToken = [jsonObject objectForKey:@"access_token"];
+        NSLog(@"Access: %@", self.accessToken);
+
+        [[NSUserDefaults standardUserDefaults] setObject:self.accessToken forKey:@"accessToken"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+
+        [self loadUserData];
+    }];
     
-   NSString *tokenResponse = [[NSString alloc] initWithData:responseData encoding:NSASCIIStringEncoding];
+    [dataTask resume];
     
-    NSLog(@"Token Response: %@", tokenResponse);
-    
-    NSDictionary *jsonObject=[NSJSONSerialization
-                              JSONObjectWithData:responseData
-                              options:NSJSONReadingMutableContainers
-                              error:nil];
-    self.accessToken = [jsonObject objectForKey:@"access_token"];
-    NSLog(@"Access: %@", self.accessToken);
-    
-    [[NSUserDefaults standardUserDefaults] setObject:self.accessToken forKey:@"accessToken"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    
-    NSLog(@"Token is currently: %d", [self checkTokenIsCurrent]);
+//    NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+//    
+//   NSString *tokenResponse = [[NSString alloc] initWithData:responseData encoding:NSASCIIStringEncoding];
+//    
+//    NSLog(@"Token Response: %@", tokenResponse);
+//    
+//    NSDictionary *jsonObject=[NSJSONSerialization
+//                              JSONObjectWithData:responseData
+//                              options:NSJSONReadingMutableContainers
+//                              error:nil];
+//    self.accessToken = [jsonObject objectForKey:@"access_token"];
+//    NSLog(@"Access: %@", self.accessToken);
+//
+//    [[NSUserDefaults standardUserDefaults] setObject:self.accessToken forKey:@"accessToken"];
+//    [[NSUserDefaults standardUserDefaults] synchronize];
+//
+//    NSLog(@"Token is currently: %d", [self checkTokenIsCurrent]);
     
 }
 
@@ -132,6 +158,9 @@
 
 -(void)loadUserData {
     NSString *accessToken = [[NSUserDefaults standardUserDefaults] stringForKey:@"accessToken"];
+    
+    NSLog(@"My access token: %@", accessToken);
+    
     //Generating the NSMutableURLRequest with the base LinkedIN URL with token extension in the HTTP Body
     //    NSString *string = [NSString stringWithFormat:@"https://api.linkedin.com/v1/people/~"]
     NSString *accessURL = [NSString stringWithFormat:@"%@%@&format=json", @"https://api.linkedin.com/v1/people/~:(id,first-name,last-name,industry,headline,location:(name),num-connections,picture-url,picture-urls::(original),email-address,last-modified-timestamp,interests,languages,skills,certifications,three-current-positions,public-profile-url,educations,num-recommenders,recommendations-received)?oauth2_access_token=", accessToken];
@@ -289,9 +318,11 @@
     
 //    [newWorker setValue:gamer.headline forKey:@"headline"];
 //    [newWorker setValue:gamer.industry forKey:@"industry"];
-
+    
+    NSLog(@"User: %@ %@", newWorker.firstName, newWorker.lastName);
+    
     [CoreDataHelper saveContext];
-
+    [self.delegate setGamerData];
     //Parsing Connection info
 //    [self grabUserConnections:newWorker inContext:[CoreDataHelper managedContext] atRange:0];
 }
