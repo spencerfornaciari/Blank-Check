@@ -43,13 +43,13 @@
 //    NSURL *storeURL = [[NSURL URLWithString:[self documentsDirectoryPath]] URLByAppendingPathComponent:@"CoreData.sqlite"];
 //    NSFileManager *fileManager = [NSFileManager defaultManager];
     
-//    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"dataExists"]) {
+//    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"dataExists"]) {
 //        [self loadCoreData];
 //    } else {
 //        if (self.downloadingUserData == FALSE) { //Need to check if DB exists
 //            [self.operationQueue addOperationWithBlock:^{
 //
-////                [[NetworkController sharedController] loadUserData];
+//                [[NetworkController sharedController] loadUserData];
 //
 //            }];
 //        }

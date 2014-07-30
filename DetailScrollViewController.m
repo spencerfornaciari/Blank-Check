@@ -167,10 +167,10 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-//    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
-//    
-//    [tracker send:[[[GAIDictionaryBuilder createAppView] set:@"Detail View"
-//                                                      forKey:kGAIScreenName] build]];
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    
+    [tracker send:[[[GAIDictionaryBuilder createAppView] set:@"Detail View"
+                                                      forKey:kGAIScreenName] build]];
 
     [Flurry endTimedEvent:@"Detailed_View" withParameters:nil];
     
@@ -451,10 +451,10 @@
     expertLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0];
     [self.expertInsightsView addSubview:expertLabel];
     
-//    Insight *model = self.connection.insights[0];
-////    
-//    ExpertInsightView *expert = [[ExpertInsightView alloc] initWithFrame:CGRectMake(0, 40, 320, 240) andExpertInsight:model];
-//    [self.expertInsightsView addSubview:expert];
+    Insight *model = self.connection.insights[0];
+//    
+    ExpertInsightView *expert = [[ExpertInsightView alloc] initWithFrame:CGRectMake(0, 40, 320, 240) andExpertInsight:model];
+    [self.expertInsightsView addSubview:expert];
     
     
 }

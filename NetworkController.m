@@ -74,16 +74,12 @@
     NSURL *url = [NSURL URLWithString:LINKEDIN_TOKEN_URL];
     NSLog(@"URL: %@", url);
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-////    [request setHTTPMethod:@"GET"];
     [request setHTTPMethod:@"POST"];
     [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
     [request setHTTPBody:[token dataUsingEncoding:NSUTF8StringEncoding]];
     [request setValue:@"json" forHTTPHeaderField:@"x-li-format"]; // per Linkedin API: https://developer.linkedin.com/documents/api-requests-json
-//
-//    NSURLResponse *response;
-//    NSError *error;
     
-    NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration ephemeralSessionConfiguration];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfig];
     
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
@@ -97,33 +93,13 @@
                                   options:NSJSONReadingMutableContainers
                                   error:nil];
         self.accessToken = [jsonObject objectForKey:@"access_token"];
-        NSLog(@"Access: %@", self.accessToken);
 
         [[NSUserDefaults standardUserDefaults] setObject:self.accessToken forKey:@"accessToken"];
         [[NSUserDefaults standardUserDefaults] synchronize];
 
-        [self loadUserData];
     }];
     
     [dataTask resume];
-    
-//    NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-//    
-//   NSString *tokenResponse = [[NSString alloc] initWithData:responseData encoding:NSASCIIStringEncoding];
-//    
-//    NSLog(@"Token Response: %@", tokenResponse);
-//    
-//    NSDictionary *jsonObject=[NSJSONSerialization
-//                              JSONObjectWithData:responseData
-//                              options:NSJSONReadingMutableContainers
-//                              error:nil];
-//    self.accessToken = [jsonObject objectForKey:@"access_token"];
-//    NSLog(@"Access: %@", self.accessToken);
-//
-//    [[NSUserDefaults standardUserDefaults] setObject:self.accessToken forKey:@"accessToken"];
-//    [[NSUserDefaults standardUserDefaults] synchronize];
-//
-//    NSLog(@"Token is currently: %d", [self checkTokenIsCurrent]);
     
 }
 
@@ -137,6 +113,7 @@
 //    NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfig delegate:self delegateQueue:nil];
 //    
 //    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:[NSURLRequest requestWithURL:url] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+//        
 //        NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
 //        
 //    }];
