@@ -35,7 +35,6 @@
     self.menuButtonBool = FALSE;
     self.downloadingUserData = FALSE;
     
-
     self.operationQueue = [(AppDelegate *)[[UIApplication sharedApplication] delegate] blankQueue];
     [NetworkController sharedController].delegate = self;
 //    [[NetworkController sharedController] loadUserData];
@@ -45,6 +44,22 @@
     
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"dataExists"]) {
         [self loadCoreData];
+        NSArray *array = [CoreDataHelper fetchUserConnections];
+        NSLog(@"Fetch User Connections: %lu", (unsigned long)array.count);
+        
+        NSEntityDescription *entity = [NSEntityDescription entityForName:@"Worker" inManagedObjectContext:[CoreDataHelper managedContext]];
+        NSFetchRequest *request = [NSFetchRequest new];
+        [request setEntity:entity];
+        
+        NSError *error;
+        NSArray *array2 = [[CoreDataHelper managedContext] executeFetchRequest:request error:&error];
+        NSLog(@"Core Data: %lu", (unsigned long)array2.count);
+        
+        Worker *worker = array2[1];
+        
+        NSLog(@"Friends: %lu", (unsigned long)worker.connections.count);
+
+
     }
 //    } else {
 //        if (self.downloadingUserData == FALSE) { //Need to check if DB exists
@@ -364,6 +379,7 @@
                                         initWithKey:@"lastName" ascending:YES];
     self.worker = objects[0];
     
+    
     return [[objects[0] valueForKey:@"connections"] sortedArrayUsingDescriptors:@[sortDescriptor]];
 }
 
@@ -382,7 +398,13 @@
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]
                                         initWithKey:@"lastName" ascending:YES];
     self.feedArray = [[objects[0] valueForKey:@"connections"] sortedArrayUsingDescriptors:@[sortDescriptor]];
+    
+    NSLog(@"Connection Count: %lu", (unsigned long)self.feedArray.count);
+
     self.worker = objects[0];
+    
+    NSArray *array = [CoreDataHelper fetchUserConnections];
+    NSLog(@"Array Connection Count: %lu", (unsigned long)array.count);
 
     
 }

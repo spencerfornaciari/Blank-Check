@@ -156,6 +156,10 @@
 -(void)loadUserData {
 //    NSString *accessToken = [[NSUserDefaults standardUserDefaults] stringForKey:@"accessToken"];
     
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"accessToken"]) {
+        self.accessToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"accessToken"];
+    }
+    
     NSLog(@"My access token: %@", self.accessToken);
     
     //Generating the NSMutableURLRequest with the base LinkedIN URL with token extension in the HTTP Body
@@ -327,7 +331,8 @@
 //    [newWorker setValue:gamer.headline forKey:@"headline"];
 //    [newWorker setValue:gamer.industry forKey:@"industry"];
     
-    NSLog(@"User: %@ %@", newWorker.firstName, newWorker.lastName);
+    
+    NSLog(@"Worker New Connections: %li", (long)newWorker.connections);
     
     [CoreDataHelper saveContext];
     [self grabUserConnections:[CoreDataHelper currentUser] inContext:[CoreDataHelper managedContext] atRange:0];
@@ -435,6 +440,7 @@
         }
         
         [CoreDataHelper saveContext];
+        
         [self.delegate setGamerData];
     }];
 

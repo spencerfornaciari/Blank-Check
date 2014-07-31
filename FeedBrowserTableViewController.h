@@ -28,7 +28,7 @@
 @interface FeedBrowserTableViewController : UITableViewController <NetworkControllerDelegate>
 
 @property (nonatomic, weak) id<FeedBrowserTableViewControllerDelegate> delegate;
--(void)loadData;
+//-(void)loadData;
 
 - (IBAction)handleMenuButton:(id)sender;
 

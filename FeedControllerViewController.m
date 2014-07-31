@@ -63,14 +63,16 @@
     
     BlankCheckViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
     
-    Gamer *gamer = self.feedArray[indexPath.row];
     
-    [cell setCell:gamer];
-    cell.socialButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    [cell.socialButton setFrame:CGRectMake(260, 100, 20, 20)];
-    [cell addSubview:cell.socialButton];
-    [cell.socialButton setBackgroundImage:[UIImage imageNamed:@"Social-Share"] forState:UIControlStateNormal];
-    [cell.socialButton addTarget:self action:@selector(buttonPress) forControlEvents:UIControlEventTouchDown];
+//    
+//    Gamer *gamer = self.feedArray[indexPath.row];
+//    
+//    [cell setCell:gamer];
+//    cell.socialButton = [UIButton buttonWithType:UIButtonTypeSystem];
+//    [cell.socialButton setFrame:CGRectMake(260, 100, 20, 20)];
+//    [cell addSubview:cell.socialButton];
+//    [cell.socialButton setBackgroundImage:[UIImage imageNamed:@"Social-Share"] forState:UIControlStateNormal];
+//    [cell.socialButton addTarget:self action:@selector(buttonPress) forControlEvents:UIControlEventTouchDown];
     
     return cell;
 }

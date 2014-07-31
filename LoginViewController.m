@@ -27,9 +27,7 @@
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
-    [NetworkController sharedController].delegate = self;
-    
+    [super viewDidLoad];    
 //    self.operationQueue = [(AppDelegate *)[[UIApplication sharedApplication] delegate] blankQueue];
 //    self.currentGamer = [(AppDelegate *)[[UIApplication sharedApplication] delegate] gamer];
     
@@ -105,10 +103,7 @@
         }
     }
     
-    
-    
-    
-    
+
     //    if ([[NSUserDefaults standardUserDefaults] stringForKey:@"accessToken"]) {
     //        NSString *string = [NSString stringWithFormat:@"https://api.linkedin.com/v1/people/~?oauth2_access_token=%@&%@", [[NSUserDefaults standardUserDefaults] stringForKey:@"accessToken"], @"format=json"];
     //        NSLog(@"String: %@", string);

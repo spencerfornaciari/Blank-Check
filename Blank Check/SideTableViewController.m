@@ -86,7 +86,12 @@
         [self addChildViewController:self.profileController];
         self.profileController.view.frame = self.view.frame;
         [self.profileController didMoveToParentViewController:self];
+        
+        NSLog(@"Worker: %@ %@", self.worker.firstName, self.worker.lastName);
+        NSLog(@"W Count: %lu", (unsigned long)self.worker.connections.count);
     }
+   
+   
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;

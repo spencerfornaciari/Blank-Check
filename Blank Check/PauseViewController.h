@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "NetworkController.h"
 
-@interface PauseViewController : UIViewController <NetworkControllerDelegate>
+@interface PauseViewController : UIViewController
 @property (strong, nonatomic) IBOutlet UIButton *pauseButton;
 - (IBAction)pauseAction:(id)sender;
 
