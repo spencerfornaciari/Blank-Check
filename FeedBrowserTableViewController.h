@@ -21,6 +21,7 @@
 
 -(void)openMenu;
 -(void)closeMenu;
+-(void)updateUser;
 
 @end
 

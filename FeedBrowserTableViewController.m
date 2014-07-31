@@ -323,6 +323,7 @@
     
     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
         [self endIndicator];
+        [self.delegate updateUser];
 
         [self.tableView reloadData];
     }];

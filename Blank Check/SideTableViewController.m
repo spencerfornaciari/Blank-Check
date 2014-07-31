@@ -13,6 +13,7 @@
 #import "CoreDataHelper.h"
 #import "Worker.h"
 #import "ProblemView.h"
+#import "NoteView.h"
 
 @interface SideTableViewController ()
 
@@ -134,17 +135,31 @@
         self.topViewController = self.profileController;
         [self.view addSubview:self.profileController.view];
         [self setupPanGesture];
-        [self closeMenu];
 
     }
+    
     if (indexPath.row == 1) {
+        self.mainViewController.view.frame = self.topViewController.view.frame;
+        [self.topViewController.view removeFromSuperview];
+        self.topViewController = self.mainViewController;
+        [self.view addSubview:self.mainViewController.view];
+        [self setupPanGesture];
+    }
+    
+    if (indexPath.row == 2) {
         NSLog(@"Messages");
     }
-    if (indexPath.row == 2) {
+    if (indexPath.row == 3) {
         NSLog(@"Notifications");
     }
-    if (indexPath.row == 3) {
+    if (indexPath.row == 4) {
         NSLog(@"Notes");
+        
+        int size = (self.view.frame.size.height - 40);
+        
+        NoteView *noteView = [[NoteView alloc] initWithFrame:CGRectMake(20, 20, self.view.frame.size.width - 40, size)];
+        
+        [self.tableView addSubview:noteView];
         
 //        NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]
 //                                            initWithKey:@"date" ascending:YES];
@@ -159,7 +174,7 @@
         //Note Text
         //Note Date
     }
-    if (indexPath.row == 4) {
+    if (indexPath.row == 5) {
         NSLog(@"Report a Problem");
         
         int size = (self.view.frame.size.height - 40);
@@ -169,15 +184,15 @@
         
         [self.tableView addSubview:self.problemView];
     }
-    if (indexPath.row == 5) {
+    if (indexPath.row == 6) {
         NSLog(@"Terms & Policies");
     }
-    if (indexPath.row == 6) {
+    if (indexPath.row == 7) {
         NSLog(@"Help");
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Help" message:@"Help message will go here." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Alternate Button 1", @"Alertnate Button 2", nil];
         [alertView show];
     }
-    if (indexPath.row == 7) {
+    if (indexPath.row == 8) {
         NSLog(@"Logout");
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"accessToken"];
         [[NSUserDefaults standardUserDefaults] synchronize];
@@ -320,7 +335,7 @@
 }
 */
 
--(void)setGamerData {
+-(void)updateUser {
     self.worker = [CoreDataHelper currentUser];
     UIImage *image = [UIImage imageWithContentsOfFile:self.worker.imageLocation];
     

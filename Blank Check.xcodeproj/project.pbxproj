@@ -63,6 +63,7 @@
 		89C973EB192565D800EC6004 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C973EA192565D800EC6004 /* Constants.m */; };
 		89D24ACF198AA7870042967E /* PauseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89D24ACE198AA7870042967E /* PauseViewController.m */; };
 		89D417A9197858D300A0CA4F /* BlankCheck.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 89D417A7197858D300A0CA4F /* BlankCheck.xcdatamodeld */; };
+		89DC4ED9198AC24F006E6A2A /* NoteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89DC4ED8198AC24F006E6A2A /* NoteViewController.m */; };
 		89F1F8D2197042B100ECC1B3 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89F1F8D1197042B100ECC1B3 /* QuartzCore.framework */; };
 		89F1F8D4197042B500ECC1B3 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89F1F8D3197042B500ECC1B3 /* CoreText.framework */; };
 		89F1F8D6197042BD00ECC1B3 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89F1F8D5197042BD00ECC1B3 /* Security.framework */; };
@@ -205,6 +206,8 @@
 		89D24ACD198AA7870042967E /* PauseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PauseViewController.h; sourceTree = "<group>"; };
 		89D24ACE198AA7870042967E /* PauseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PauseViewController.m; sourceTree = "<group>"; };
 		89D417A8197858D300A0CA4F /* BlankCheck.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BlankCheck.xcdatamodel; sourceTree = "<group>"; };
+		89DC4ED7198AC24F006E6A2A /* NoteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoteViewController.h; sourceTree = "<group>"; };
+		89DC4ED8198AC24F006E6A2A /* NoteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoteViewController.m; sourceTree = "<group>"; };
 		89F1F8D1197042B100ECC1B3 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		89F1F8D3197042B500ECC1B3 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		89F1F8D5197042BD00ECC1B3 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -420,6 +423,8 @@
 				8971C735197F0E390024D3A1 /* ProblemView.m */,
 				8901298319854AB100D9874A /* NoteView.h */,
 				8901298419854AB100D9874A /* NoteView.m */,
+				89DC4ED7198AC24F006E6A2A /* NoteViewController.h */,
+				89DC4ED8198AC24F006E6A2A /* NoteViewController.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -677,6 +682,7 @@
 				891B94661948C9FF00BEAEC9 /* BlankCheckViewCell.m in Sources */,
 				89B571EF198059F3006FBF14 /* Value.m in Sources */,
 				8978FBCB193E562600BF0921 /* PresetSearchViewController.m in Sources */,
+				89DC4ED9198AC24F006E6A2A /* NoteViewController.m in Sources */,
 				89B571EC198059F3006FBF14 /* Language.m in Sources */,
 				89C973BB192564AF00EC6004 /* main.m in Sources */,
 				890129B51986BEA600D9874A /* Worker.m in Sources */,
