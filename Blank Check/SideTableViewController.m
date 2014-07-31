@@ -20,6 +20,7 @@
 @property (nonatomic) UINavigationController *mainViewController, *topViewController, *profileController;
 
 @property (nonatomic) ProblemView *problemView;
+@property (nonatomic) NoteView *noteView;
 
 @property (nonatomic) FeedBrowserTableViewController *controller;
 @property (nonatomic) DetailScrollViewController *workerView;
@@ -69,11 +70,19 @@
     
     //Worker Profile
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"dataExists"]) {
+        self.worker = [CoreDataHelper currentUser];
         self.workerView = [self.storyboard instantiateViewControllerWithIdentifier:@"profileView"];
-        self.workerView.worker = self.worker;
         self.workerView.detail = self.worker;
 
         self.profileController = [[UINavigationController alloc] initWithRootViewController:self.workerView];
+        
+//        UIBarButtonItem *menuButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"menu"]
+//                                                                       style:UIBarButtonItemStylePlain
+//                                                                      target:self
+//                                                                      action:@selector(openMenu)];
+//        
+//        self.profileController.navigationItem.leftBarButtonItem = menuButton;
+        
         [self addChildViewController:self.profileController];
         self.profileController.view.frame = self.view.frame;
         [self.profileController didMoveToParentViewController:self];
@@ -90,7 +99,7 @@
     [super viewWillAppear:animated];
     
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"dataExists"]) {
-        self.worker = [CoreDataHelper currentUser];
+        
         UIImage *image = [UIImage imageWithContentsOfFile:self.worker.imageLocation];
         
         //Set user profile cell link
@@ -157,9 +166,9 @@
         
         int size = (self.view.frame.size.height - 40);
         
-        NoteView *noteView = [[NoteView alloc] initWithFrame:CGRectMake(20, 20, self.view.frame.size.width - 40, size)];
-        
-        [self.tableView addSubview:noteView];
+        self.noteView = [[NoteView alloc] initWithFrame:CGRectMake(20, 20, self.view.frame.size.width - 40, size)];
+        [self.noteView.closeButton addTarget:self action:@selector(closeAction:) forControlEvents:UIControlEventTouchUpInside];
+        [self.tableView addSubview:self.noteView];
         
 //        NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]
 //                                            initWithKey:@"date" ascending:YES];
@@ -205,7 +214,16 @@
 }
 
 -(IBAction)closeAction:(id)sender {
-    [self.problemView removeFromSuperview];
+    
+    if (sender == self.problemView.closeButton) {
+        [self.problemView removeFromSuperview];
+    }
+    
+    if (sender == self.noteView.closeButton) {
+        [self.noteView removeFromSuperview];
+    }
+
+    
 }
 
 -(void)setupPanGesture

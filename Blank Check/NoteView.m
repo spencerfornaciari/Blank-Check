@@ -18,14 +18,17 @@
         // Initialization code
         
         self.worker = [CoreDataHelper currentUser];
+        self.backgroundColor = [UIColor blankCheckLightBlue];
         
         NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]
-                                            initWithKey:@"date" ascending:YES];
+                                            initWithKey:@"date" ascending:NO];
         
         
         self.noteArray = [[self.worker valueForKey:@"notes"] sortedArrayUsingDescriptors:@[sortDescriptor]];
         
-        self.tableView = [[UITableView alloc] initWithFrame:self.bounds];
+        CGRect newRect = CGRectMake(self.bounds.origin.x, self.bounds.origin.y, self.bounds.size.width, self.bounds.size.height - 50);
+        
+        self.tableView = [[UITableView alloc] initWithFrame:newRect];
         self.tableView.backgroundColor = [UIColor blankCheckLightBlue];
         //        self.tableView.alpha = 0.9;
         self.tableView.delegate = self;
@@ -35,6 +38,13 @@
         [self.tableView setSeparatorInset:UIEdgeInsetsZero];
         [self addSubview:self.tableView];
         
+        self.closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        self.closeButton.frame = CGRectMake(50, self.bounds.size.height - 50, 100, 40);
+        self.closeButton.center = CGPointMake(self.frame.size.width / 2, self.bounds.size.height - 25);
+        [self.closeButton setTitle:@"Close" forState:UIControlStateNormal];
+        [self.closeButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        self.closeButton.backgroundColor = [UIColor whiteColor];
+        [self addSubview:self.closeButton];
     }
     return self;
 }
@@ -56,8 +66,12 @@
     
     Connection *connection = note.connection;
     
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"MM/dd/yyyy hh:mma"];
+    NSString *dateString = [dateFormatter stringFromDate:note.date];
+    
     cell.textLabel.text = note.comments;
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ %@", connection.firstName, connection.lastName];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ %@ - %@", connection.firstName, connection.lastName, dateString];
     
     return cell;
 }
