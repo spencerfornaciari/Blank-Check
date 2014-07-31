@@ -9,6 +9,7 @@
 #import "LoginViewController.h"
 #import "SideTableViewController.h"
 #import "NetworkController.h"
+#import "PauseViewController.h"
 
 @interface LoginViewController ()
 
@@ -27,6 +28,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [NetworkController sharedController].delegate = self;
     
 //    self.operationQueue = [(AppDelegate *)[[UIApplication sharedApplication] delegate] blankQueue];
 //    self.currentGamer = [(AppDelegate *)[[UIApplication sharedApplication] delegate] gamer];
@@ -92,8 +94,12 @@
         
         // Rethink logic here
         if (self.tokenBOOL == TRUE) {
+//            [[NetworkController sharedController] loadUserData];
+
             UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
+            
             SideTableViewController *viewController = [mainStoryboard instantiateViewControllerWithIdentifier: @"sideView"];
+//            PauseViewController *viewController = [mainStoryboard instantiateViewControllerWithIdentifier: @"pauseView"];
             
             [self presentViewController:viewController animated:YES completion:nil];
         }

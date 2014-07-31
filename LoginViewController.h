@@ -10,6 +10,6 @@
 #import "NetworkController.h"
 #import "AppDelegate.h"
 
-@interface LoginViewController : UIViewController <UIWebViewDelegate>
+@interface LoginViewController : UIViewController <UIWebViewDelegate, NetworkControllerDelegate>
 
 @end

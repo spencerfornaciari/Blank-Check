@@ -41,7 +41,7 @@
 //Grabbing user data from Linkedin API
 -(void)loadUserData;
 //-(Gamer *)loadCurrentUserData;
-+(void)grabUserConnections:(Worker *)worker inContext:(NSManagedObjectContext *)context atRange:(NSInteger)range;
+-(void)grabUserConnections:(Worker *)worker inContext:(NSManagedObjectContext *)context atRange:(NSInteger)range;
 -(NSArray *)commonConnectionsWithUser:(NSString *)userID;
 
 //Social Networking methods

@@ -69,35 +69,55 @@
     //Generating data for token extension
     NSString *token = [NSString stringWithFormat:@"&code=%@&redirect_uri=%@&client_id=%@&client_secret=%@", code, LINKEDIN_REDIRECT, kLINKEDIN_API_KEY, kLINKEDIN_SECRET_KEY];
     NSLog(@"Token: %@", token);
+    
+    NSString *urlString = [NSString stringWithFormat:@"%@%@", LINKEDIN_TOKEN_URL, token];
 
     //Generating the NSMutableURLRequest with the base LinkedIN URL with token extension in the HTTP Body
-    NSURL *url = [NSURL URLWithString:LINKEDIN_TOKEN_URL];
+//    NSURL *url = [NSURL URLWithString:LINKEDIN_TOKEN_URL];
+    NSURL *url = [NSURL URLWithString:urlString];
     NSLog(@"URL: %@", url);
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     [request setHTTPMethod:@"POST"];
     [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-    [request setHTTPBody:[token dataUsingEncoding:NSUTF8StringEncoding]];
+//    [request setHTTPBody:[token dataUsingEncoding:NSUTF8StringEncoding]];
     [request setValue:@"json" forHTTPHeaderField:@"x-li-format"]; // per Linkedin API: https://developer.linkedin.com/documents/api-requests-json
     
-    NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration ephemeralSessionConfiguration];
+    NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfig];
     
-    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        
-        NSString *tokenResponse = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
-        
-        NSLog(@"Token Response: %@", tokenResponse);
+    NSURLSessionDataTask *dataTask = [session dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         
         NSDictionary *jsonObject=[NSJSONSerialization
                                   JSONObjectWithData:data
                                   options:NSJSONReadingMutableContainers
                                   error:nil];
-        self.accessToken = [jsonObject objectForKey:@"access_token"];
+        
+        NSLog(@"Token Response: %@", jsonObject);
 
+        self.accessToken = [jsonObject objectForKey:@"access_token"];
+        
         [[NSUserDefaults standardUserDefaults] setObject:self.accessToken forKey:@"accessToken"];
         [[NSUserDefaults standardUserDefaults] synchronize];
-
+        [self loadUserData];
+        
     }];
+    
+//    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+//        
+//        NSString *tokenResponse = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
+//        
+//        NSLog(@"Token Response: %@", tokenResponse);
+//        
+//        NSDictionary *jsonObject=[NSJSONSerialization
+//                                  JSONObjectWithData:data
+//                                  options:NSJSONReadingMutableContainers
+//                                  error:nil];
+//        self.accessToken = [jsonObject objectForKey:@"access_token"];
+//
+//        [[NSUserDefaults standardUserDefaults] setObject:self.accessToken forKey:@"accessToken"];
+//        [[NSUserDefaults standardUserDefaults] synchronize];
+//        [self loadUserData];
+//    }];
     
     [dataTask resume];
     
@@ -134,21 +154,26 @@
 #pragma mark - Load current user data
 
 -(void)loadUserData {
-    NSString *accessToken = [[NSUserDefaults standardUserDefaults] stringForKey:@"accessToken"];
+//    NSString *accessToken = [[NSUserDefaults standardUserDefaults] stringForKey:@"accessToken"];
     
-    NSLog(@"My access token: %@", accessToken);
+    NSLog(@"My access token: %@", self.accessToken);
     
     //Generating the NSMutableURLRequest with the base LinkedIN URL with token extension in the HTTP Body
     //    NSString *string = [NSString stringWithFormat:@"https://api.linkedin.com/v1/people/~"]
-    NSString *accessURL = [NSString stringWithFormat:@"%@%@&format=json", @"https://api.linkedin.com/v1/people/~:(id,first-name,last-name,industry,headline,location:(name),num-connections,picture-url,picture-urls::(original),email-address,last-modified-timestamp,interests,languages,skills,certifications,three-current-positions,public-profile-url,educations,num-recommenders,recommendations-received)?oauth2_access_token=", accessToken];
+    NSString *accessURL = [NSString stringWithFormat:@"%@%@&format=json", @"https://api.linkedin.com/v1/people/~:(id,first-name,last-name,industry,headline,location:(name),num-connections,picture-url,picture-urls::(original),email-address,last-modified-timestamp,interests,languages,skills,certifications,three-current-positions,public-profile-url,educations,num-recommenders,recommendations-received)?oauth2_access_token=", self.accessToken];
     
     NSLog(@"%@", accessURL);
     
     NSURL *url = [NSURL URLWithString:accessURL];
     
-    self.session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:self delegateQueue:nil];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:self delegateQueue:nil];
     
-    NSURLSessionDataTask *dataTask = [self.session dataTaskWithURL:url];
+//    NSURLSessionDataTask *dataTask = [session dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+//        [self parseUserData:data];
+//        [self.delegate setGamerData];
+//    }];
+    
+    NSURLSessionDataTask *dataTask = [session dataTaskWithURL:url];
     [dataTask setTaskDescription:@"currentUser"];
     
     [dataTask resume];
@@ -165,9 +190,15 @@
                                                                options:NSJSONReadingMutableLeaves
                                                                  error:nil];
     
+    
+    
+    NSLog(@"Name: %@", dictionary[@"firstName"]);
+    
     //Saving user info
     newWorker.idNumber = dictionary[@"id"];
     newWorker.firstName = dictionary[@"firstName"];
+    
+    NSLog(@"Name %@", dictionary[@"firstName"]);
     newWorker.lastName = dictionary[@"lastName"];
     NSString *fullName = [NSString stringWithFormat:@"%@%@", newWorker.firstName, newWorker.lastName];
     
@@ -299,15 +330,18 @@
     NSLog(@"User: %@ %@", newWorker.firstName, newWorker.lastName);
     
     [CoreDataHelper saveContext];
-    [self.delegate setGamerData];
+    [self grabUserConnections:[CoreDataHelper currentUser] inContext:[CoreDataHelper managedContext] atRange:0];
+    
     //Parsing Connection info
 //    [self grabUserConnections:newWorker inContext:[CoreDataHelper managedContext] atRange:0];
 }
 
-+(void)grabUserConnections:(Worker *)worker inContext:(NSManagedObjectContext *)context atRange:(NSInteger)range {
+-(void)grabUserConnections:(Worker *)worker inContext:(NSManagedObjectContext *)context atRange:(NSInteger)range {
     NSString *accessToken = [[NSUserDefaults standardUserDefaults] stringForKey:@"accessToken"];
     
-    NSString *connectionAccess = [NSString stringWithFormat:@"%@%@&format=json&start=%ld&count=50", @"https://api.linkedin.com/v1/people/~/connections:(id,first-name,last-name,num-connections,num-connections-capped,positions,public-profile-url,headline,industry,location,pictureUrl,picture-urls::(original))?oauth2_access_token=", accessToken, range];
+//    NSString *connectionAccess = [NSString stringWithFormat:@"%@%@&format=json&start=%ld&count=50", @"https://api.linkedin.com/v1/people/~/connections:(id,first-name,last-name,num-connections,num-connections-capped,positions,public-profile-url,headline,industry,location,pictureUrl,picture-urls::(original))?oauth2_access_token=", accessToken, (long)range];
+    
+    NSString *connectionAccess = [NSString stringWithFormat:@"%@%@&format=json", @"https://api.linkedin.com/v1/people/~/connections:(id,first-name,last-name,num-connections,num-connections-capped,positions,public-profile-url,headline,industry,location,pictureUrl,picture-urls::(original))?oauth2_access_token=", accessToken];
     
     NSURL *connectionURL = [NSURL URLWithString:connectionAccess];
     
@@ -401,9 +435,9 @@
         }
         
         [CoreDataHelper saveContext];
-//        [self.delegate setGamerData];
+        [self.delegate setGamerData];
     }];
-    
+
     [dataTask resume];
 }
 
@@ -485,8 +519,6 @@
     
     NSData *shareData = [NSJSONSerialization dataWithJSONObject:shareDictionary options:NSJSONWritingPrettyPrinted error:&jsonError];
     
-
-    
     NSMutableURLRequest *request = [NSMutableURLRequest new];
     [request setURL:url];
     [request setHTTPBody:shareData];
@@ -500,7 +532,6 @@
         NSLog(@"%@", stringResponse);
 
     }];
-    
 //    NSURLResponse *response;
 //    NSError *error;
 //    
@@ -634,7 +665,6 @@
 //    NSString *stringResponse = [[NSString alloc] initWithData:responseData encoding:NSASCIIStringEncoding];
 //    
 //    NSLog(@"%@", stringResponse);
-    
 }
 
 #pragma mark - NSURLSession Delegate Methods
@@ -642,9 +672,7 @@
 -(void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didReceiveData:(NSData *)data {
     
     if ([dataTask.taskDescription isEqualToString:@"currentUser"]) {
-        [self parseUserData:data];
-//        [self.delegate setGamerData];
-        
+        [self parseUserData:data];        
     } else {
         NSLog(@"It is not");
     }

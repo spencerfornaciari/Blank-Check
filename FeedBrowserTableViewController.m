@@ -43,13 +43,14 @@
 //    NSURL *storeURL = [[NSURL URLWithString:[self documentsDirectoryPath]] URLByAppendingPathComponent:@"CoreData.sqlite"];
 //    NSFileManager *fileManager = [NSFileManager defaultManager];
     
-//    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"dataExists"]) {
-//        [self loadCoreData];
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"dataExists"]) {
+        [self loadCoreData];
+    }
 //    } else {
 //        if (self.downloadingUserData == FALSE) { //Need to check if DB exists
 //            [self.operationQueue addOperationWithBlock:^{
 //
-//                [[NetworkController sharedController] loadUserData];
+////                [[NetworkController sharedController] loadUserData];
 //
 //            }];
 //        }
@@ -209,18 +210,8 @@
 {
     FeedTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     
-    // Configure the cell...
-//    Gamer *gamer = self.feedArray[indexPath.row];
-    
-    
-//    
-//    [cell setCell:gamer];
     Connection *connection = [self.feedArray objectAtIndex:indexPath.row];
     [cell setCell:connection];
-//    cell.userNameLabel.text = [NSString stringWithFormat:@"%@ %@", connection.firstName, connection.lastName];
-
-    
-//    [cell setCoreCell:connection];
     
     return cell;
 }
@@ -230,11 +221,8 @@
     if ([segue.identifier isEqualToString:@"detailedView"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         
-//        Gamer *gamer = self.feedArray[indexPath.row];
-        
         DetailScrollViewController *viewController = segue.destinationViewController;
         viewController.detail = [self.feedArray objectAtIndex:indexPath.row];
-//        viewController.gamer = gamer;
     }
     
     if ([segue.identifier isEqualToString:@"searchView"]) {
@@ -317,24 +305,33 @@
 -(void)setGamerData {
     self.feedArray = [NSMutableArray new];
     
-//    NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"Worker" inManagedObjectContext:[CoreDataHelper managedContext]];
-//    NSFetchRequest *request = [NSFetchRequest new];
-//    [request setEntity:entityDesc];
-//    NSError *error;
-//    NSArray *objects = [[CoreDataHelper managedContext] executeFetchRequest:request error:&error];
-//    
-//    NSLog(@"Objects Count: %lu", (long)objects.count);
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"dataExists"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
     
-    [NetworkController grabUserConnections:[CoreDataHelper currentUser] inContext:[CoreDataHelper managedContext] atRange:0];
+    NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"Worker" inManagedObjectContext:[CoreDataHelper managedContext]];
+    NSFetchRequest *request = [NSFetchRequest new];
+    [request setEntity:entityDesc];
     
-    self.feedArray = [self loadCoreDataToTable];
+    NSError *error;
+    NSArray *objects = [[CoreDataHelper managedContext] executeFetchRequest:request error:&error];
+    
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]
+                                        initWithKey:@"lastName" ascending:YES];
+    self.worker = objects[0];
+    
+    self.feedArray = [[objects[0] valueForKey:@"connections"] sortedArrayUsingDescriptors:@[sortDescriptor]];
     
     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-        [self.loadingView.activityIndicator stopAnimating];
-        [self.loadingView removeFromSuperview];
-        
+        [self endIndicator];
+
         [self.tableView reloadData];
     }];
+}
+
+-(void)endIndicator {
+    
+    [self.loadingView.activityIndicator stopAnimating];
+    [self.loadingView removeFromSuperview];
 }
 
 //-(void)loadData {
@@ -365,6 +362,7 @@
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]
                                         initWithKey:@"lastName" ascending:YES];
     self.worker = objects[0];
+    
     return [[objects[0] valueForKey:@"connections"] sortedArrayUsingDescriptors:@[sortDescriptor]];
 }
 

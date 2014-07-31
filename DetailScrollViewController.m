@@ -46,6 +46,8 @@
     
     Value *currentValue;
     
+    NSLog(@"%@", self.worker.firstName);
+    
     if ([self.detail isKindOfClass:[Connection class]]) {
         self.connection = (Connection *)self.detail;
         

@@ -67,16 +67,17 @@
     
     
     //Worker Profile
-//    self.workerView = [self.storyboard instantiateViewControllerWithIdentifier:@"profileView"];
-//    self.workerView.detail = self.worker;
-//
-//    self.profileController = [[UINavigationController alloc] initWithRootViewController:self.workerView];
-//    [self addChildViewController:self.profileController];
-//    self.profileController.view.frame = self.view.frame;
-//    [self.profileController didMoveToParentViewController:self];
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"dataExists"]) {
+        self.workerView = [self.storyboard instantiateViewControllerWithIdentifier:@"profileView"];
+        self.workerView.worker = self.worker;
+        self.workerView.detail = self.worker;
+
+        self.profileController = [[UINavigationController alloc] initWithRootViewController:self.workerView];
+        [self addChildViewController:self.profileController];
+        self.profileController.view.frame = self.view.frame;
+        [self.profileController didMoveToParentViewController:self];
+    }
     
-
-
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -87,7 +88,21 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"dataExists"]) {
+        self.worker = [CoreDataHelper currentUser];
+        UIImage *image = [UIImage imageWithContentsOfFile:self.worker.imageLocation];
+        
+        //Set user profile cell link
+        self.userCell.imageView.image = image;
+        self.userCell.imageView.layer.cornerRadius = 33.0;
+        self.userCell.imageView.layer.masksToBounds = TRUE;
+        self.userCell.textLabel.text = [NSString stringWithFormat:@"%@ %@", self.worker.firstName, self.worker.lastName];
+        
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            [self.tableView reloadData];
+            
+        }];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -305,47 +320,21 @@
 }
 */
 
-//-(void)setGamerData {
-//    self.worker = [CoreDataHelper currentUser];
-//    UIImage *image = [UIImage imageWithContentsOfFile:self.worker.imageLocation];
-//    
-//    //Set user profile cell link
-//    self.userCell.imageView.image = image;
-//    self.userCell.imageView.layer.cornerRadius = 33.0;
-//    self.userCell.imageView.layer.masksToBounds = TRUE;
-//    self.userCell.textLabel.text = [NSString stringWithFormat:@"%@ %@", self.worker.firstName, self.worker.lastName];
-//    
-//    NSOperationQueue *queue = [NSOperationQueue new];
-//    [queue addOperationWithBlock:^{
-//
-//        
-//        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-//            [self.tableView reloadData];
-//            [NetworkController grabUserConnections:[CoreDataHelper currentUser] inContext:[CoreDataHelper managedContext] atRange:0];
-//            [self.controller loadData];
-//        }];
-//        
-//        
-//    }];
-//    self.feedArray = [NSMutableArray new];
-//    
-//    NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"Worker" inManagedObjectContext:[CoreDataHelper managedContext]];
-//    NSFetchRequest *request = [NSFetchRequest new];
-//    [request setEntity:entityDesc];
-//    NSError *error;
-//    NSArray *objects = [[CoreDataHelper managedContext] executeFetchRequest:request error:&error];
-//    
-//    NSLog(@"Objects Count: %lu", (long)objects.count);
-//    
-//    self.feedArray = [self loadCoreDataToTable];
-//    
-//    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-//        [self.loadingView.activityIndicator stopAnimating];
-//        [self.loadingView removeFromSuperview];
-//        
-//        [self.tableView reloadData];
-//    }];
-//}
+-(void)setGamerData {
+    self.worker = [CoreDataHelper currentUser];
+    UIImage *image = [UIImage imageWithContentsOfFile:self.worker.imageLocation];
+    
+    //Set user profile cell link
+    self.userCell.imageView.image = image;
+    self.userCell.imageView.layer.cornerRadius = 33.0;
+    self.userCell.imageView.layer.masksToBounds = TRUE;
+    self.userCell.textLabel.text = [NSString stringWithFormat:@"%@ %@", self.worker.firstName, self.worker.lastName];
+    
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+        [self.tableView reloadData];
+        
+    }];
+}
 
 
 #pragma mark - Navigation
@@ -353,8 +342,10 @@
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
+    
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+
 }
 
 
