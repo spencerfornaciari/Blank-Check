@@ -41,25 +41,9 @@
 
 //    NSURL *storeURL = [[NSURL URLWithString:[self documentsDirectoryPath]] URLByAppendingPathComponent:@"CoreData.sqlite"];
 //    NSFileManager *fileManager = [NSFileManager defaultManager];
-    
+//    
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"dataExists"]) {
         [self loadCoreData];
-        NSArray *array = [CoreDataHelper fetchUserConnections];
-        NSLog(@"Fetch User Connections: %lu", (unsigned long)array.count);
-        
-        NSEntityDescription *entity = [NSEntityDescription entityForName:@"Worker" inManagedObjectContext:[CoreDataHelper managedContext]];
-        NSFetchRequest *request = [NSFetchRequest new];
-        [request setEntity:entity];
-        
-        NSError *error;
-        NSArray *array2 = [[CoreDataHelper managedContext] executeFetchRequest:request error:&error];
-        NSLog(@"Core Data: %lu", (unsigned long)array2.count);
-        
-        Worker *worker = array2[1];
-        
-        NSLog(@"Friends: %lu", (unsigned long)worker.connections.count);
-
-
     }
 //    } else {
 //        if (self.downloadingUserData == FALSE) { //Need to check if DB exists

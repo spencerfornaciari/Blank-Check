@@ -98,7 +98,27 @@
         
         [[NSUserDefaults standardUserDefaults] setObject:self.accessToken forKey:@"accessToken"];
         [[NSUserDefaults standardUserDefaults] synchronize];
-        [self loadUserData];
+        
+        @try {
+            [self loadUserData];
+            NSLog(@"Try");
+        }
+        @catch (NSException *exception) {
+            NSLog(@"Exception");
+            
+            while (![self checkTokenIsCurrent]) {
+                NSLog(@"Not ready to grab data");
+            }
+            
+            [self loadUserData];
+        }
+        @finally {
+            NSLog(@"Testing");
+        }
+        
+        
+        
+        
         
     }];
     
@@ -155,10 +175,12 @@
 
 -(void)loadUserData {
 //    NSString *accessToken = [[NSUserDefaults standardUserDefaults] stringForKey:@"accessToken"];
-    
-    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"accessToken"]) {
-        self.accessToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"accessToken"];
-    }
+//    
+//    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"accessToken"]) {
+//        self.accessToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"accessToken"];
+//    } else {
+//        
+//    }
     
     NSLog(@"My access token: %@", self.accessToken);
     
@@ -332,25 +354,27 @@
 //    [newWorker setValue:gamer.industry forKey:@"industry"];
     
     
-    NSLog(@"Worker New Connections: %li", (long)newWorker.connections);
-    
+
     [CoreDataHelper saveContext];
-    [self grabUserConnections:[CoreDataHelper currentUser] inContext:[CoreDataHelper managedContext] atRange:0];
+    [self grabUserConnections:newWorker inContext:[CoreDataHelper managedContext] atRange:0];
     
     //Parsing Connection info
 //    [self grabUserConnections:newWorker inContext:[CoreDataHelper managedContext] atRange:0];
 }
 
 -(void)grabUserConnections:(Worker *)worker inContext:(NSManagedObjectContext *)context atRange:(NSInteger)range {
-    NSString *accessToken = [[NSUserDefaults standardUserDefaults] stringForKey:@"accessToken"];
+    NSString *accessToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"accessToken"];
     
-//    NSString *connectionAccess = [NSString stringWithFormat:@"%@%@&format=json&start=%ld&count=50", @"https://api.linkedin.com/v1/people/~/connections:(id,first-name,last-name,num-connections,num-connections-capped,positions,public-profile-url,headline,industry,location,pictureUrl,picture-urls::(original))?oauth2_access_token=", accessToken, (long)range];
+    NSString *connectionAccess = [NSString stringWithFormat:@"%@%@&format=json&start=%ld&count=200", @"https://api.linkedin.com/v1/people/~/connections:(id,first-name,last-name,num-connections,num-connections-capped,positions,public-profile-url,headline,industry,location,pictureUrl,picture-urls::(original))?oauth2_access_token=", accessToken, (long)range];
     
-    NSString *connectionAccess = [NSString stringWithFormat:@"%@%@&format=json", @"https://api.linkedin.com/v1/people/~/connections:(id,first-name,last-name,num-connections,num-connections-capped,positions,public-profile-url,headline,industry,location,pictureUrl,picture-urls::(original))?oauth2_access_token=", accessToken];
+    NSLog(@"Worker Name: %@ %@", worker.firstName, worker.lastName);
+
+    
+//    NSString *connectionAccess = [NSString stringWithFormat:@"%@%@&format=json", @"https://api.linkedin.com/v1/people/~/connections:(id,first-name,last-name,num-connections,num-connections-capped,positions,public-profile-url,headline,industry,location,pictureUrl,picture-urls::(original))?oauth2_access_token=", accessToken];
     
     NSURL *connectionURL = [NSURL URLWithString:connectionAccess];
     
-    NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration ephemeralSessionConfiguration];
+    NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfig];
     
 //    [NSURLSession sessionWithConfiguration:sessionConfig delegate:self delegateQueue:nil];
@@ -438,6 +462,9 @@
                 [worker addConnectionsObject:newConnection];
             }
         }
+        
+        NSLog(@"Worker New Connections: %li", (long)worker.connections.count);
+
         
         [CoreDataHelper saveContext];
         
