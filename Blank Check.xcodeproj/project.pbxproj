@@ -16,6 +16,7 @@
 		891B94631948C84600BEAEC9 /* FeedControllerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 891B94621948C84600BEAEC9 /* FeedControllerViewController.m */; };
 		891B94661948C9FF00BEAEC9 /* BlankCheckViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 891B94651948C9FF00BEAEC9 /* BlankCheckViewCell.m */; };
 		89287EA719817DD600382C81 /* SideTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89287EA619817DD600382C81 /* SideTableViewController.m */; };
+		89571BAD199ACFE600475614 /* SocialHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 89571BAC199ACFE600475614 /* SocialHelper.m */; };
 		895AF662195235A700B20DA6 /* FeedBrowserTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 895AF661195235A700B20DA6 /* FeedBrowserTableViewController.m */; };
 		895AF665195235FD00B20DA6 /* FeedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 895AF664195235FD00B20DA6 /* FeedTableViewCell.m */; };
 		8971C6EE197C6FF80024D3A1 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8937E7631976FE89004BA64D /* CoreData.framework */; };
@@ -120,6 +121,8 @@
 		8937E7651976FE98004BA64D /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		8945706019881FE00082D462 /* Recommendation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Recommendation.h; sourceTree = "<group>"; };
 		8945706119881FE00082D462 /* Recommendation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Recommendation.m; sourceTree = "<group>"; };
+		89571BAB199ACFE600475614 /* SocialHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocialHelper.h; sourceTree = "<group>"; };
+		89571BAC199ACFE600475614 /* SocialHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocialHelper.m; sourceTree = "<group>"; };
 		895AF660195235A700B20DA6 /* FeedBrowserTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedBrowserTableViewController.h; path = ../FeedBrowserTableViewController.h; sourceTree = "<group>"; };
 		895AF661195235A700B20DA6 /* FeedBrowserTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedBrowserTableViewController.m; path = ../FeedBrowserTableViewController.m; sourceTree = "<group>"; };
 		895AF663195235FD00B20DA6 /* FeedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedTableViewCell.h; path = ../FeedTableViewCell.h; sourceTree = "<group>"; };
@@ -432,6 +435,8 @@
 		89C973F11925797B00EC6004 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				89571BAB199ACFE600475614 /* SocialHelper.h */,
+				89571BAC199ACFE600475614 /* SocialHelper.m */,
 				89779E081965DCF700AC81CA /* SearchViewController.h */,
 				89779E091965DCF700AC81CA /* SearchViewController.m */,
 				897F02301958A4B200A770A6 /* DetailScrollViewController.h */,
@@ -659,6 +664,7 @@
 				89779E13196B12F600AC81CA /* LoadingView.m in Sources */,
 				897F02351958E8D000A770A6 /* LoginViewController.m in Sources */,
 				89779DF619648ABC00AC81CA /* TimelineView.m in Sources */,
+				89571BAD199ACFE600475614 /* SocialHelper.m in Sources */,
 				89779E1C196C588C00AC81CA /* TimelineEvent.m in Sources */,
 				89779DF0196488E600AC81CA /* ExpertInsightView.m in Sources */,
 				89779DF919648ACF00AC81CA /* ExpertAppraisalView.m in Sources */,

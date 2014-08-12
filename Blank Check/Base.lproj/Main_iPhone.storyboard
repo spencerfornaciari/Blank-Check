@@ -382,6 +382,7 @@
                             <outlet property="delegate" destination="S3p-3f-r5F" id="3Ne-BO-bGw"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" id="6NQ-VF-Ycz"/>
                     <connections>
                         <outlet property="logoutCell" destination="d11-kz-9RH" id="h5T-u0-3ea"/>
                         <outlet property="userCell" destination="19n-e5-KbS" id="BEh-Ei-e2C"/>
@@ -389,7 +390,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Tp-zH-obh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="462" y="449"/>
+            <point key="canvasLocation" x="994" y="449"/>
         </scene>
         <!--Feed Browser Table View Controller-->
         <scene sceneID="f48-VL-gjv">
@@ -422,7 +423,6 @@
                                             <rect key="frame" x="140" y="40" width="160" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="16"/>
-                                            <color key="textColor" red="0.90588235289999997" green="0.29803921570000003" blue="0.23529411759999999" alpha="1" colorSpace="deviceRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Est. Base Salary" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="IFu-3k-p5x">
@@ -486,7 +486,6 @@
                                         <rect key="frame" x="176" y="131" width="124" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="18"/>
-                                        <color key="textColor" red="1" green="0.074509803920000006" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Est. Base Salary" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="UZx-TF-PDM">
@@ -519,7 +518,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gk9-en-vEF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1443" y="219"/>
+            <point key="canvasLocation" x="1975" y="219"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="RsP-qC-ke5">
@@ -576,6 +575,6 @@
         </simulatedScreenMetrics>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="X5l-K0-Z1M"/>
+        <segue reference="UVr-ZQ-uL9"/>
     </inferredMetricsTieBreakers>
 </document>

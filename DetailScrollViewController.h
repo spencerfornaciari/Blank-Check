@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <GraphKit.h>
+#import "SocialHelper.h"
 #import "NetworkController.h"
 #import "ExpertInsightView.h"
 #import "ExpertAppraisalView.h"

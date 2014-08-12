@@ -56,15 +56,17 @@
         userNameLabel.text = [NSString stringWithFormat:@"%@ %@.", self.connection.firstName, firstLetter];
         
         currentValue = [self.connection.values lastObject];
+            
+//        for (Job *job in self.connection.jobs) {
+//            [NetworkController checkProfileText:job.title];
+//        }
         
-        NSArray *jobs = [self.connection.jobs allObjects];
-        NSString *string = [jobs[0] title];
+//        NSString *string = [jobs[0] title];
 //        [NetworkController checkProfileText:string];
     }
     
     if ([self.detail isKindOfClass:[Worker class]]) {
         self.worker = (Worker *)self.detail;
-        
         
         NSString *firstLetter = [self.worker.lastName substringWithRange:NSMakeRange(0, 1)];
         userNameLabel.text = [NSString stringWithFormat:@"%@ %@.", self.worker.firstName, firstLetter];
@@ -225,14 +227,14 @@
     }
     
     self.data = @[
-                  @[@20, @40, @20, @60, @40, @140, @80],
-                  @[@40, @20, @60, @100, @60, @20, @60],
-                  @[@80, @60, @40, @160, @100, @40, @110],
-                  @[@120, @150, @80, @120, @140, @100, @0]
+                  @[@20, @60, @40, @140, @80],
+                  @[@60, @100, @60, @20, @60],
+                  @[@40, @160, @100, @40, @110],
+                  @[@80, @120, @140, @100, @0]
 //                  array
                   ];
     
-    self.labels = @[@"2001", @"2002", @"2003", @"2004", @"2005", @"2006", @"2007"];
+    self.labels = @[@"2010", @"2011", @"2012", @"2013", @"2014"];
     
     self.graph.dataSource = self;
     self.graph.lineWidth = 3.0;
@@ -240,6 +242,18 @@
     self.graph.valueLabelCount = 6;
     
     [self.graph draw];
+    
+    UILabel *newLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.graph.frame.size.width - 150, self.graph.frame.size.height - 70, 80, 50)];
+    newLabel.text = @"-$50,000";
+    newLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:22.0];
+    [newLabel sizeToFit];
+    
+    CGRect newRect = CGRectMake((self.graph.frame.size.width - 25) - newLabel.frame.size.width, (self.graph.frame.size.height - 20) - newLabel.frame.size.height, newLabel.frame.size.width, newLabel.frame.size.height);
+    newLabel.frame = newRect;
+    
+    newLabel.textColor = [UIColor whiteColor];
+    newLabel.backgroundColor = [UIColor redColor];
+    [self.graph addSubview:newLabel];
 }
 
 /*
@@ -596,7 +610,8 @@
         case 0:
         {
             NSLog(@"LinkedIn");
-            [SocialController shareOnLinkedin:self.connection];;
+            [SocialHelper shareOnLinkedin:self.detail];
+//            [SocialController shareOnLinkedin:self.connection];;
             //            [socialController shareOnFacebook:<#(Gamer *)#>]
             
         }    //            SLComposeViewController *viewController = [SocialController shareOnFacebook:gamer];
@@ -605,28 +620,30 @@
         case 1:
         {
             NSLog(@"Twitter");
-            SLComposeViewController *twitterViewController = [SocialController shareOnTwitter:self.connection];
-            
-            if (twitterViewController) {
-                [self presentViewController:twitterViewController animated:YES completion:nil];
-            } else {
-                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"No Twitter Account Available" message:@"Please enable Twitter to do this" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
-                [alertView show];
-            }
+//            SLComposeViewController *twitterViewController = [SocialController shareOnTwitter:self.connection];
+//            
+//            if (twitterViewController) {
+//                [self presentViewController:twitterViewController animated:YES completion:nil];
+//            } else {
+//                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"No Twitter Account Available" message:@"Please enable Twitter to do this" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+//                [alertView show];
+//            }
+            [SocialHelper sendTwitterPost:self.detail];
         }
             break;
             
         case 2:
         {
             NSLog(@"Facebook");
-            SLComposeViewController *facebookViewController = [SocialController shareOnFacebook:self.connection];
-            //
-            if (facebookViewController) {
-                [self presentViewController:facebookViewController animated:YES completion:nil];
-            } else {
-                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"No Facebook Account Available" message:@"Please enable Facebook to do this" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
-                [alertView show];
-            }
+            [SocialHelper sendFacebookPost:self.detail];
+//            SLComposeViewController *facebookViewController = [SocialController shareOnFacebook:self.connection];
+//            //
+//            if (facebookViewController) {
+//                [self presentViewController:facebookViewController animated:YES completion:nil];
+//            } else {
+//                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"No Facebook Account Available" message:@"Please enable Facebook to do this" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+//                [alertView show];
+//            }
         }
             break;
     }

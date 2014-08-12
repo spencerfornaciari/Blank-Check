@@ -20,8 +20,8 @@
         self.problemArray = [NSArray arrayWithObjects:@"General Feedback", @"Flag an Inaccurate Listing", @"Something is Not Working", nil];
         
         self.tableView = [[UITableView alloc] initWithFrame:self.bounds];
-        self.tableView.backgroundColor = [UIColor blankCheckLightBlue];
-//        self.tableView.alpha = 0.9;
+        self.tableView.backgroundColor = [UIColor blankCheckBlue];
+        self.tableView.alpha = 0.9;
         self.tableView.delegate = self;
         self.tableView.dataSource = self;
         [self.tableView setSeparatorColor:[UIColor blackColor]];
@@ -56,6 +56,7 @@
     lbl.text = @"Report a Problem";
     lbl.textAlignment = NSTextAlignmentCenter;
     lbl.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:20.0];
+    lbl.textColor = [UIColor whiteColor];
     [headerView addSubview:lbl];
     
     return headerView;
@@ -80,6 +81,7 @@
     
     cell.textLabel.text = self.problemArray[indexPath.row];
     cell.backgroundColor = [UIColor blankCheckBlue];
+    cell.textLabel.textColor = [UIColor whiteColor];
     
     return cell;
 }

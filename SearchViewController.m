@@ -107,45 +107,45 @@
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-   
-    if (tableView == self.searchDisplayController.searchResultsTableView) {
-        NSLog(@"Did select");
-        [self performSegueWithIdentifier:@"detailedView" sender:self];
-//        [self performSegueWithIdentifier: @"detailedView" sender: self];
+//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//   
+//    if (tableView == self.searchDisplayController.searchResultsTableView) {
+//        NSLog(@"Did select");
+//        [self performSegueWithIdentifier:@"detailedView" sender:self];
+////        [self performSegueWithIdentifier: @"detailedView" sender: self];
 //        NSIndexPath *indexPath = [self.searchDisplayController.searchResultsTableView indexPathForSelectedRow];
 //        self.selectedConnection =  (Connection *)self.searchResultsArray[indexPath.row];
-        //
-//        DetailScrollViewController *detailedView = segue.destinationViewController;
-//        detailedView.gamer = gamer;
-    } else {
-//       self.selectedConnection = (Connection *)self.connectionsArray[indexPath.row];
-    }
-}
-//
-//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-//    if ([segue.identifier isEqualToString:@"detailedView"]) {
-//        NSLog(@"Prepare segue");
-//        
-//        Connection *connection;
-//        
-//        if (self.searchDisplayController.active) {
-//            NSIndexPath *indexPath = [self.searchDisplayController.searchResultsTableView indexPathForSelectedRow];
-//            
-//            connection = (Connection *)self.searchResultsArray[indexPath.row];
-//        } else {
-//            NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-//            
-//            connection = (Connection *)self.searchResultsArray[indexPath.row];
-//        }
-//
-//        DetailScrollViewController *detailedView = segue.destinationViewController;
-//        detailedView.detail = connection;
-//        
+//        //
+////        DetailScrollViewController *detailedView = segue.destinationViewController;
+////        detailedView.gamer = gamer;
+//    } else {
+////       self.selectedConnection = (Connection *)self.connectionsArray[indexPath.row];
 //    }
-//
 //}
+//
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"detailedView"]) {
+        NSLog(@"Prepare segue");
+        
+        Connection *connection;
+        
+        if (self.searchDisplayController.active) {
+            NSIndexPath *indexPath = [self.searchDisplayController.searchResultsTableView indexPathForSelectedRow];
+            
+            connection = (Connection *)self.searchResultsArray[indexPath.row];
+        } else {
+            NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+            
+            connection = (Connection *)self.searchResultsArray[indexPath.row];
+        }
+
+        DetailScrollViewController *detailedView = segue.destinationViewController;
+        detailedView.detail = connection;
+        
+    }
+
+}
 
 - (void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope
 {

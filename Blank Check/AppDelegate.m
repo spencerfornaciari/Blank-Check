@@ -23,6 +23,8 @@
 {
     // Override point for customization after application launch.
     
+    self.accounts = [ACAccountStore new];
+    
     //Hockey App Setup
     [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"a5e62e01653d9a9607b8f5d5dd48f65a"];
     [[BITHockeyManager sharedHockeyManager] startManager];

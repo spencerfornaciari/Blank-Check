@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Accounts/Accounts.h>
 #import "NetworkController.h"
 #import "UIColor+BlankCheckColors.h"
 
@@ -21,6 +22,7 @@
 @property (nonatomic, strong, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
 @property (nonatomic) NSURLSession *session;
+@property (nonatomic) ACAccountStore *accounts;
 
 -(void)saveContext;
 -(NSURL *)applicationDocumentsDirectory;
