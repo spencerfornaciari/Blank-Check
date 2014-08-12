@@ -194,6 +194,10 @@ shouldReloadTableForSearchString:(NSString *)searchString
     
     return YES;
 }
+
+-(void)searchBar:(UISearchBar *)searchBar selectedScopeButtonIndexDidChange:(NSInteger)selectedScope {
+    searchBar.text = @"";
+}
  
 
 -(void)loadOverview {

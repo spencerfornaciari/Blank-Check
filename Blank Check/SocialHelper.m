@@ -23,7 +23,7 @@
     if (twitterAccounts.count > 0) {
         return [twitterAccounts lastObject];
     } else {
-        return nil;
+        return [SocialHelper accessTwitterAccount];
     }
 }
 
@@ -143,7 +143,7 @@
     if (facebookAccounts.count > 0) {
         return [facebookAccounts lastObject];
     } else {
-        return nil;
+        return [SocialHelper accessFacebookAccount];
     }
 }
 
