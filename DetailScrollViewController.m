@@ -20,7 +20,7 @@
 @property (nonatomic) UIView *overView, *expertInsightsView, *timelineView, *expertAppraisalView;
 @property (nonatomic) UserInfoView *userInfoView;
 
-@property (nonatomic, weak) IBOutlet GKLineGraph *graph;
+@property (nonatomic) IBOutlet GKLineGraph *graph;
 @property (nonatomic, strong) NSArray *data;
 @property (nonatomic, strong) NSArray *labels;
 
@@ -59,7 +59,7 @@
         
         NSArray *jobs = [self.connection.jobs allObjects];
         NSString *string = [jobs[0] title];
-        [NetworkController checkProfileText:string];
+//        [NetworkController checkProfileText:string];
     }
     
     if ([self.detail isKindOfClass:[Worker class]]) {
@@ -83,9 +83,7 @@
     scrollView.delegate = self;
     [scrollView setScrollEnabled:YES];
     
-    
-    
-//    [self setupGraph];
+    [self setupGraph];
 
     self.frameHeight = 1390;
     
