@@ -217,11 +217,19 @@
 
 - (void)setupGraph {
     
+    NSMutableArray *array = [NSMutableArray new];
+//    NSArray *test = [self.connection.values array];
+    
+    for (Value *value in self.connection.values) {
+        [array addObject:value.marketPrice];
+    }
+    
     self.data = @[
                   @[@20, @40, @20, @60, @40, @140, @80],
                   @[@40, @20, @60, @100, @60, @20, @60],
                   @[@80, @60, @40, @160, @100, @40, @110],
                   @[@120, @150, @80, @120, @140, @100, @0]
+//                  array
                   ];
     
     self.labels = @[@"2001", @"2002", @"2003", @"2004", @"2005", @"2006", @"2007"];

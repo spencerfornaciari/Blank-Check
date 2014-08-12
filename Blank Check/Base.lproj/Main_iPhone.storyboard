@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6205" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="eIG-O4-5Zc">
     <dependencies>
+        <deployment defaultVersion="1808" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6198"/>
     </dependencies>
     <scenes>
@@ -382,6 +383,7 @@
                         </connections>
                     </tableView>
                     <connections>
+                        <outlet property="logoutCell" destination="d11-kz-9RH" id="h5T-u0-3ea"/>
                         <outlet property="userCell" destination="19n-e5-KbS" id="BEh-Ei-e2C"/>
                     </connections>
                 </tableViewController>
@@ -406,7 +408,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="3aW-C7-QWy">
-                                            <rect key="frame" x="19" y="13" width="70" height="70.5"/>
+                                            <rect key="frame" x="19" y="13" width="70" height="71"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         </imageView>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UserName" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="khr-tD-yqH">

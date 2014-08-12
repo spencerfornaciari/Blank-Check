@@ -48,8 +48,8 @@
 //    [[NetworkController sharedController] loadUserData];
     
     self.title = @"Blank Check Labs";
-    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 20)];
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 
     //Remove cell seperate from last cell
     self.logoutCell.separatorInset = UIEdgeInsetsMake(0, 0, 0, self.logoutCell.bounds.size.width);
@@ -87,8 +87,8 @@
         self.profileController.view.frame = self.view.frame;
         [self.profileController didMoveToParentViewController:self];
         
-        NSLog(@"Worker: %@ %@", self.worker.firstName, self.worker.lastName);
-        NSLog(@"W Count: %lu", (unsigned long)self.worker.connections.count);
+//        NSLog(@"Worker: %@ %@", self.worker.firstName, self.worker.lastName);
+//        NSLog(@"W Count: %lu", (unsigned long)self.worker.connections.count);
     }
    
    
@@ -137,7 +137,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return 8;
+    return 9;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
