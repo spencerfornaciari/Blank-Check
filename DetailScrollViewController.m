@@ -57,6 +57,9 @@
         
         currentValue = [self.connection.values lastObject];
         
+        NSArray *jobs = [self.connection.jobs allObjects];
+        NSString *string = [jobs[0] title];
+        [NetworkController checkProfileText:string];
     }
     
     if ([self.detail isKindOfClass:[Worker class]]) {
@@ -72,10 +75,6 @@
     
     [self setProfileImage];
     
-
-
-
-    
     NSNumberFormatter *formatter = [NSNumberFormatter new];
     [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
     valueLabel.text = [NSString stringWithFormat:@"$%@", [formatter stringFromNumber:currentValue.marketPrice]];
@@ -84,7 +83,9 @@
     scrollView.delegate = self;
     [scrollView setScrollEnabled:YES];
     
-    [self setupGraph];
+    
+    
+//    [self setupGraph];
 
     self.frameHeight = 1390;
     

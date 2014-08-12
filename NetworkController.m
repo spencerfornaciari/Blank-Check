@@ -116,10 +116,6 @@
             NSLog(@"Testing");
         }
         
-        
-        
-        
-        
     }];
     
 //    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
@@ -169,6 +165,38 @@
     } else {
         return TRUE;
     }
+}
+
+//-(BOOL)checkTokenIsCurrentWithCallback::(BOOL (^)(void))callback
+
+-(void)checkTokenIsCurrentWithCallback:(void (^)(BOOL finished))completion
+{
+    NSString *accessURL = [NSString stringWithFormat:@"%@%@&format=json", @"https://api.linkedin.com/v1/people/~:(id,first-name,last-name,industry,headline,location:(name),num-connections,picture-url,email-address,last-modified-timestamp,interests,languages,skills,certifications,three-current-positions,public-profile-url,educations,num-recommenders,recommendations-received)?oauth2_access_token=", [[NSUserDefaults standardUserDefaults] stringForKey:@"accessToken"]];
+    
+    NSURL *url = [NSURL URLWithString:accessURL];
+    
+    NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration ephemeralSessionConfiguration];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfig delegate:self delegateQueue:nil];
+
+    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:[NSURLRequest requestWithURL:url] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+
+        NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        
+        NSNumber *status = dictionary[@"status"];
+        
+        if ([[status stringValue] isEqualToString:@"401"]) {
+            completion(FALSE);
+        } else {
+            completion(TRUE);
+        }
+    }];
+    
+    [dataTask resume];
+    
+//    NSData *data = [NSData dataWithContentsOfURL:url];
+//    
+//    NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+//
 }
 
 #pragma mark - Load current user data
@@ -594,7 +622,7 @@
 
 #pragma mark - Textalytics
 
--(void)checkProfileText:(NSString *)string {
++(void)checkProfileText:(NSString *)string {
     
     string = [string stringByReplacingOccurrencesOfString:@" " withString:@"+"];
     

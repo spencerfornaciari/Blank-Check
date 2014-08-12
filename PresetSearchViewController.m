@@ -112,7 +112,7 @@
     } else if (self.searchSegmentController.selectedSegmentIndex == 1) {
         NSLog(@"Segment Controller #2");
         NSIndexPath *indexPath = [self.presetTableView indexPathForSelectedRow];
-        [[NetworkController sharedController] checkProfileText:self.titleArray[indexPath.row]];
+//        [[NetworkController sharedController] checkProfileText:self.titleArray[indexPath.row]];
     } else {
         NSLog(@"Segment Controller #3");
 

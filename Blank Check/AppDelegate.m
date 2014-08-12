@@ -76,6 +76,10 @@
         
         BOOL tokenIsCurrent = [[NetworkController sharedController] checkTokenIsCurrent];
         
+        [[NetworkController sharedController] checkTokenIsCurrentWithCallback:^(BOOL finished) {
+            NSLog(@"Token status is: %d", finished);
+        }];
+        
         if (tokenIsCurrent) {
             NSLog(@"Token is current");
             

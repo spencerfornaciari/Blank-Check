@@ -37,6 +37,7 @@
 -(void)handleCallbackURL:(NSString *)code;
 -(NSString *)convertURLToCode:(NSURL *)url;
 -(BOOL)checkTokenIsCurrent;
+-(void)checkTokenIsCurrentWithCallback:(void (^)(BOOL finished))completion;
 
 //Grabbing user data from Linkedin API
 -(void)loadUserData;
@@ -49,7 +50,7 @@
 -(void)shareOnLinkedin:(id)sender;
 
 //Textalytics API Calls
--(void)checkProfileText:(NSString *)string;
++(void)checkProfileText:(NSString *)string;
 -(void)listDictionaries;
 -(void)readDictionaryWithName:(NSString *)name;
 
