@@ -384,6 +384,9 @@
 -(void)inviteTarget {
     NSLog(@"Invitation Sent");
     [self.connection setValue:@1 forKey:@"invitationSent"];
+
+    //Method to send invite to target
+//    [SocialHelper sendInvitationToUserID:self.connection];
     
     [CoreDataHelper saveContext];
     

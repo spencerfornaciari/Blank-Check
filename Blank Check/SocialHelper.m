@@ -1,9 +1,8 @@
 //
 //  SocialHelper.m
-//  Dial
 //
 //  Created by Spencer Fornaciari on 8/12/14.
-//  Copyright (c) 2014 Dial. All rights reserved.
+//  Copyright (c) 2014 Spencer Fornaciari. All rights reserved.
 //
 
 #import "SocialHelper.h"
@@ -16,15 +15,22 @@
     return accounts;
 }
 
-+(ACAccount *)checkTwitterAccount {
++(BOOL)checkTwitterAccount {
     ACAccountType *twitterType = [[SocialHelper accessAccountStore] accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
     NSArray *twitterAccounts = [[SocialHelper accessAccountStore] accountsWithAccountType:twitterType];
     
     if (twitterAccounts.count > 0) {
-        return [twitterAccounts lastObject];
+        return TRUE;
     } else {
-        return [SocialHelper accessTwitterAccount];
+        return FALSE;
     }
+}
+
++(ACAccount *)twitterAccount {
+    ACAccountType *twitterType = [[SocialHelper accessAccountStore] accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
+    NSArray *twitterAccounts = [[SocialHelper accessAccountStore] accountsWithAccountType:twitterType];
+    
+    return [twitterAccounts lastObject];
 }
 
 +(ACAccount *)accessTwitterAccount {
@@ -72,7 +78,7 @@
     
     ACAccountType *twitterType = [[SocialHelper accessAccountStore] accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
     
-    ACAccount *twitterAccount = [SocialHelper checkTwitterAccount];
+    ACAccount *twitterAccount = [SocialHelper twitterAccount];
     
     SLRequestHandler requestHandler =
     ^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
@@ -116,8 +122,6 @@
                                                               URL:url
                                                        parameters:params];
             
-            
-            
             [request addMultipartData:imageData
                              withName:@"media[]"
                                  type:@"image/jpeg"
@@ -136,22 +140,28 @@
                                     completion:accountStoreHandler];
 }
 
-+(ACAccount *)checkFacebookAccount {
++(BOOL)checkFacebookAccount {
     ACAccountType *facebookType = [[SocialHelper accessAccountStore] accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierFacebook];
     NSArray *facebookAccounts = [[SocialHelper accessAccountStore] accountsWithAccountType:facebookType];
     
     if (facebookAccounts.count > 0) {
-        return [facebookAccounts lastObject];
+        return TRUE;
     } else {
-        return [SocialHelper accessFacebookAccount];
+        return FALSE;
     }
+}
+
++(ACAccount *)facebookAccount {
+    ACAccountType *facebookType = [[SocialHelper accessAccountStore] accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierFacebook];
+    NSArray *facebookAccounts = [[SocialHelper accessAccountStore] accountsWithAccountType:facebookType];
+    
+    return [facebookAccounts lastObject];
 }
 
 +(ACAccount *)accessFacebookAccount {
     ACAccountType *facebookType = [[SocialHelper accessAccountStore] accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierFacebook];
     
     __block ACAccount *facebookAccount;
-    
     
     NSDictionary *options = @{
                               ACFacebookAppIdKey : @"702582039796891",
@@ -181,9 +191,24 @@
 }
 
 +(void)sendFacebookPost:(id)sender {
-    ACAccount *facebookAccount = [SocialHelper checkFacebookAccount];
+    Worker *worker;
+    Connection *connection;
     
-    NSDictionary *parameters = @{@"message" : @"test", @"link": @"http://www.dialapp.co"};
+    BOOL isWorker = false;
+    
+    if ([sender isKindOfClass:[Worker class]]) {
+        worker = (Worker *)sender;
+        isWorker = TRUE;
+        
+    }
+    
+    if ([sender isKindOfClass:[Connection class]]) {
+        connection = (Connection *)sender;
+    }
+    
+    ACAccount *facebookAccount = [SocialHelper facebookAccount];
+    
+    NSDictionary *parameters = @{@"message" : @"test", @"link": @"http://www.BlankCheckLabs.com"};
     NSURL *URL = [NSURL URLWithString:@"https://graph.facebook.com/me/photos"];
     
     
@@ -192,7 +217,13 @@
                                                       URL:URL
                                                parameters:parameters];
     
-    NSData *imageData = UIImageJPEGRepresentation([UIImage imageNamed:@"Fish-1.jpg"], 1.f);
+    NSData *imageData;
+    if (isWorker) {
+        imageData = UIImageJPEGRepresentation([UIImage imageWithContentsOfFile:worker.imageLocation], 1.f);
+    } else {
+        imageData = UIImageJPEGRepresentation([UIImage imageWithContentsOfFile:connection.imageLocation], 1.f);
+    }
+    
     [request addMultipartData: imageData
                      withName:@"source"
                          type:@"multipart/form-data"
@@ -219,7 +250,6 @@
     if ([sender isKindOfClass:[Worker class]]) {
         worker = (Worker *)sender;
         isWorker = TRUE;
-        
     }
     
     if ([sender isKindOfClass:[Connection class]]) {
@@ -229,18 +259,25 @@
     NSString *accessToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"accessToken"];
     NSString *urlString = [NSString stringWithFormat:@"https://api.linkedin.com/v1/people/~/shares?oauth2_access_token=%@", accessToken];
     
-    if ([sender isKindOfClass:[Connection class]]) {
-        //        Connection *connection = (Connection *)sender;
-    }
-    
     NSURL *url = [NSURL URLWithString:urlString];
     
     NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration ephemeralSessionConfiguration];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfig];
     
-    NSDictionary *contentDictionary = @{@"title":@"Utilize Blank Check Labs to see my value...and YOURS!",
-                                        @"description":@"New app utilizing Linkedin's API to determine job value",
-                                        @"submitted-url":@"http://www.BlankCheckLabs.com"};
+    NSDictionary *contentDictionary;
+    if (isWorker) {
+        contentDictionary = @{@"title":@"Utilize Blank Check Labs to see my value...and YOURS!",
+                                            @"description":@"New app utilizing Linkedin's API to determine job value",
+                                            @"submitted-url":@"http://www.BlankCheckLabs.com",
+                                            @"submitted-image-url":worker.imageURL
+                                            };
+    } else {
+        contentDictionary = @{@"title":@"Utilize Blank Check Labs to find your value!",
+                                            @"description":@"New app utilizing Linkedin's API to determine job value",
+                                            @"submitted-url":@"http://www.BlankCheckLabs.com",
+                                            @"submitted-image-url":connection.imageURL
+                                            };
+    }
     
     NSDictionary *visibilityDictionary = @{@"code":@"anyone"};
     
@@ -251,7 +288,7 @@
                                           @"content":contentDictionary,
                                           @"visibility":visibilityDictionary};
     } else {
-        NSDictionary *shareDictionary = @{@"comment":@"Check out your value!",
+        shareDictionary = @{@"comment":@"Check out your value!",
                                           @"content":contentDictionary,
                                           @"visibility":visibilityDictionary};
     }
@@ -262,7 +299,6 @@
     
     NSMutableURLRequest *request = [NSMutableURLRequest new];
     [request setURL:url];
-    [request setHTTPBody:shareData];
     [request setHTTPMethod:@"POST"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [request setValue:@"json" forHTTPHeaderField:@"x-li-format"];
@@ -273,18 +309,73 @@
         NSLog(@"%@", stringResponse);
         
     }];
-    //    NSURLResponse *response;
-    //    NSError *error;
-    //
-    //    NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-    //    NSString *stringResponse = [[NSString alloc] initWithData:responseData encoding:NSASCIIStringEncoding];
-    //
-    //    NSLog(@"%@", stringResponse);
     
     [uploadTask resume];
 
+}
+
++(void)sendInvitationToUserID:(id)sender
+{
+    Worker *worker;
+    Connection *connection;
     
-    //    [[NetworkController sharedController] shareOnLinkedin:gamer];
+    BOOL isWorker = false;
+    
+    if ([sender isKindOfClass:[Worker class]]) {
+        worker = (Worker *)sender;
+        isWorker = TRUE;
+    }
+    
+    if ([sender isKindOfClass:[Connection class]]) {
+        connection = (Connection *)sender;
+    }
+    
+    NSString *string = [[NSUserDefaults standardUserDefaults] objectForKey:@"accessToken"];
+    NSString *url = [NSString stringWithFormat:@"https://api.linkedin.com/v1/people/~/mailbox?oauth2_access_token=%@", string];
+    
+    NSDictionary *recipientPathDictionary;
+    if (isWorker) {
+        recipientPathDictionary = @{@"_path":[NSString stringWithFormat:@"/people/%@", worker.idNumber]};
+
+    } else {
+        recipientPathDictionary = @{@"_path":[NSString stringWithFormat:@"/people/%@", connection.idNumber]};
+    }
+    
+    NSDictionary *recipientDictionary = @{@"person": recipientPathDictionary};
+    
+    NSArray *array = [NSArray arrayWithObjects:recipientDictionary, nil];
+    
+    NSDictionary *recipients = @{@"values":array};
+    
+    NSURL *linkURL = [NSURL URLWithString:@"http://comingsoon.blankchecklabs.com/"];
+    
+    NSString *body = [NSString stringWithFormat:@"Join me on the app Blank Check Labs. \n%@", linkURL];
+    
+    NSDictionary *messageDictionary = @{@"subject":@"Invitation to join Blank Check Labs",
+                                        @"body":body,
+                                        @"recipients":recipients};
+    
+    NSError *JSONError;
+    
+    NSData *postData = [NSJSONSerialization dataWithJSONObject:messageDictionary options:NSJSONWritingPrettyPrinted error:&JSONError];
+    
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    
+    [request setURL:[NSURL URLWithString:url]];
+    [request setHTTPMethod:@"POST"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setValue:@"json" forHTTPHeaderField:@"x-li-format"];
+    
+    NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfig];
+    
+    NSURLSessionUploadTask *uploadTask = [session uploadTaskWithRequest:request fromData:postData completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        NSString *stringResponse = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
+        
+        NSLog(@"%@", stringResponse);
+    }];
+    
+    [uploadTask resume];
 }
 
 
