@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "Worker.h"
+#import "Connection.h"
+#import "Note.h"
 
-@interface NoteTableViewController : UITableViewController
+@interface NoteTableViewController : UITableViewController <UIActionSheetDelegate>
 
 @property (nonatomic) NSArray *noteArray;
 @property (nonatomic) Worker *worker;

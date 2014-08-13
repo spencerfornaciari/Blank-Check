@@ -68,6 +68,10 @@
     if ([self.detail isKindOfClass:[Worker class]]) {
         self.worker = (Worker *)self.detail;
         
+        self.title = @"My Profile";
+        
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"menu"] style:UIBarButtonItemStylePlain target:self action:nil];
+        
         NSString *firstLetter = [self.worker.lastName substringWithRange:NSMakeRange(0, 1)];
         userNameLabel.text = [NSString stringWithFormat:@"%@ %@.", self.worker.firstName, firstLetter];
         

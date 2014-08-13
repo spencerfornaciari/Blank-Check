@@ -27,6 +27,14 @@
     
     self.noteArray = [[self.worker valueForKey:@"notes"] sortedArrayUsingDescriptors:@[sortDescriptor]];
     
+    self.title = @"My Notes";
+    
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"menu"] style:UIBarButtonItemStylePlain target:self action:@selector(menuAction)];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Sort" style:UIBarButtonItemStylePlain target:self action:@selector(sortButtonAction)];
+    
+    
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -82,6 +90,57 @@
     textView.font = [UIFont fontWithName:@"HelveticaNeue" size:17.0];
     [textView sizeToFit];
     return textView.frame.size.height;
+}
+
+#pragma mark - Action Sheet
+
+-(void)sortButtonAction {
+    UIActionSheet *sortActionSheet = [[UIActionSheet alloc] initWithTitle:@"Sort Criteria" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Last Name A-Z", @"Last Name Z-A", @"By Newest", @"By Oldest", nil];
+    
+    [sortActionSheet showInView:self.view];
+}
+
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    switch (buttonIndex) {
+        case 0: {
+            NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]
+                                                initWithKey:@"connection.lastName" ascending:YES];
+            
+            self.noteArray = [[self.worker valueForKey:@"notes"] sortedArrayUsingDescriptors:@[sortDescriptor]];
+            [self.tableView reloadData];
+        }
+            break;
+            
+        case 1: {
+            NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]
+                                                initWithKey:@"connection.lastName" ascending:NO];
+            
+            self.noteArray = [[self.worker valueForKey:@"notes"] sortedArrayUsingDescriptors:@[sortDescriptor]];
+            [self.tableView reloadData];
+        }
+            break;
+            
+        case 2: {
+            NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]
+                                                initWithKey:@"date" ascending:NO];
+            
+            self.noteArray = [[self.worker valueForKey:@"notes"] sortedArrayUsingDescriptors:@[sortDescriptor]];
+            [self.tableView reloadData];
+        }
+            break;
+            
+        case 3: {
+            NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]
+                                                initWithKey:@"date" ascending:YES];
+            
+            self.noteArray = [[self.worker valueForKey:@"notes"] sortedArrayUsingDescriptors:@[sortDescriptor]];
+            [self.tableView reloadData];
+        }
+            break;
+            
+        default:
+            break;
+    }
 }
 
 /*
