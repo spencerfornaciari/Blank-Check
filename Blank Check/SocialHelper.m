@@ -349,9 +349,20 @@
     
     NSURL *linkURL = [NSURL URLWithString:@"http://comingsoon.blankchecklabs.com/"];
     
-    NSString *body = [NSString stringWithFormat:@"Join me on the app Blank Check Labs. \n%@", linkURL];
+    NSString *subject;
+    NSString *body;
     
-    NSDictionary *messageDictionary = @{@"subject":@"Invitation to join Blank Check Labs",
+    if (isWorker) {
+        subject = [NSString stringWithFormat:@"%@, come join me at Blank Check Labs", worker.firstName];
+        body = [NSString stringWithFormat:@"Hi %@,\nI'd like to connect with you on Blank Check Labs. \n%@", worker.firstName, linkURL];
+    } else {
+        subject = [NSString stringWithFormat:@"%@, come join me at Blank Check Labs", connection.firstName];
+        body = [NSString stringWithFormat:@"Hi %@,\nI'd like to connect with you on Blank Check Labs. \n%@", connection.firstName, linkURL];
+    }
+    
+    NSDictionary *itemContent = @{@"invitation-request":@{@"connect-type":@"friend"}};
+    
+    NSDictionary *messageDictionary = @{@"subject":subject,
                                         @"body":body,
                                         @"recipients":recipients};
     

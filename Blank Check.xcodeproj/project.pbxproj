@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		4F6ABBBCFE2E42399BFFEFC8 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D88B6EE341E4BB49404DDD2 /* libPods.a */; };
-		8901298519854AB100D9874A /* NoteView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8901298419854AB100D9874A /* NoteView.m */; };
 		890129AF1986BE3300D9874A /* Note.m in Sources */ = {isa = PBXBuildFile; fileRef = 890129AE1986BE3300D9874A /* Note.m */; };
 		890129B51986BEA600D9874A /* Worker.m in Sources */ = {isa = PBXBuildFile; fileRef = 890129B41986BEA600D9874A /* Worker.m */; };
 		890129B81986BEA700D9874A /* Insight.m in Sources */ = {isa = PBXBuildFile; fileRef = 890129B71986BEA700D9874A /* Insight.m */; };
@@ -17,6 +16,8 @@
 		891B94661948C9FF00BEAEC9 /* BlankCheckViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 891B94651948C9FF00BEAEC9 /* BlankCheckViewCell.m */; };
 		89287EA719817DD600382C81 /* SideTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89287EA619817DD600382C81 /* SideTableViewController.m */; };
 		89571BAD199ACFE600475614 /* SocialHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 89571BAC199ACFE600475614 /* SocialHelper.m */; };
+		89571BB0199BE5E200475614 /* NoteTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89571BAF199BE5E200475614 /* NoteTableViewController.m */; };
+		89571BB3199BE71200475614 /* NoteTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 89571BB2199BE71200475614 /* NoteTableViewCell.m */; };
 		895AF662195235A700B20DA6 /* FeedBrowserTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 895AF661195235A700B20DA6 /* FeedBrowserTableViewController.m */; };
 		895AF665195235FD00B20DA6 /* FeedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 895AF664195235FD00B20DA6 /* FeedTableViewCell.m */; };
 		8971C6EE197C6FF80024D3A1 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8937E7631976FE89004BA64D /* CoreData.framework */; };
@@ -64,7 +65,6 @@
 		89C973EB192565D800EC6004 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C973EA192565D800EC6004 /* Constants.m */; };
 		89D24ACF198AA7870042967E /* PauseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89D24ACE198AA7870042967E /* PauseViewController.m */; };
 		89D417A9197858D300A0CA4F /* BlankCheck.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 89D417A7197858D300A0CA4F /* BlankCheck.xcdatamodeld */; };
-		89DC4ED9198AC24F006E6A2A /* NoteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89DC4ED8198AC24F006E6A2A /* NoteViewController.m */; };
 		89F1F8D2197042B100ECC1B3 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89F1F8D1197042B100ECC1B3 /* QuartzCore.framework */; };
 		89F1F8D4197042B500ECC1B3 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89F1F8D3197042B500ECC1B3 /* CoreText.framework */; };
 		89F1F8D6197042BD00ECC1B3 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89F1F8D5197042BD00ECC1B3 /* Security.framework */; };
@@ -100,8 +100,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		8901298319854AB100D9874A /* NoteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoteView.h; sourceTree = "<group>"; };
-		8901298419854AB100D9874A /* NoteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoteView.m; sourceTree = "<group>"; };
 		890129AD1986BE3300D9874A /* Note.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Note.h; sourceTree = "<group>"; };
 		890129AE1986BE3300D9874A /* Note.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Note.m; sourceTree = "<group>"; };
 		890129B31986BEA600D9874A /* Worker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Worker.h; sourceTree = "<group>"; };
@@ -123,6 +121,10 @@
 		8945706119881FE00082D462 /* Recommendation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Recommendation.m; sourceTree = "<group>"; };
 		89571BAB199ACFE600475614 /* SocialHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocialHelper.h; sourceTree = "<group>"; };
 		89571BAC199ACFE600475614 /* SocialHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocialHelper.m; sourceTree = "<group>"; };
+		89571BAE199BE5E200475614 /* NoteTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoteTableViewController.h; sourceTree = "<group>"; };
+		89571BAF199BE5E200475614 /* NoteTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoteTableViewController.m; sourceTree = "<group>"; };
+		89571BB1199BE71200475614 /* NoteTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoteTableViewCell.h; sourceTree = "<group>"; };
+		89571BB2199BE71200475614 /* NoteTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoteTableViewCell.m; sourceTree = "<group>"; };
 		895AF660195235A700B20DA6 /* FeedBrowserTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedBrowserTableViewController.h; path = ../FeedBrowserTableViewController.h; sourceTree = "<group>"; };
 		895AF661195235A700B20DA6 /* FeedBrowserTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedBrowserTableViewController.m; path = ../FeedBrowserTableViewController.m; sourceTree = "<group>"; };
 		895AF663195235FD00B20DA6 /* FeedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedTableViewCell.h; path = ../FeedTableViewCell.h; sourceTree = "<group>"; };
@@ -209,8 +211,6 @@
 		89D24ACD198AA7870042967E /* PauseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PauseViewController.h; sourceTree = "<group>"; };
 		89D24ACE198AA7870042967E /* PauseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PauseViewController.m; sourceTree = "<group>"; };
 		89D417A8197858D300A0CA4F /* BlankCheck.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BlankCheck.xcdatamodel; sourceTree = "<group>"; };
-		89DC4ED7198AC24F006E6A2A /* NoteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoteViewController.h; sourceTree = "<group>"; };
-		89DC4ED8198AC24F006E6A2A /* NoteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoteViewController.m; sourceTree = "<group>"; };
 		89F1F8D1197042B100ECC1B3 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		89F1F8D3197042B500ECC1B3 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		89F1F8D5197042BD00ECC1B3 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -424,10 +424,8 @@
 				891B94651948C9FF00BEAEC9 /* BlankCheckViewCell.m */,
 				8971C734197F0E390024D3A1 /* ProblemView.h */,
 				8971C735197F0E390024D3A1 /* ProblemView.m */,
-				8901298319854AB100D9874A /* NoteView.h */,
-				8901298419854AB100D9874A /* NoteView.m */,
-				89DC4ED7198AC24F006E6A2A /* NoteViewController.h */,
-				89DC4ED8198AC24F006E6A2A /* NoteViewController.m */,
+				89571BB1199BE71200475614 /* NoteTableViewCell.h */,
+				89571BB2199BE71200475614 /* NoteTableViewCell.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -463,6 +461,8 @@
 				89287EA619817DD600382C81 /* SideTableViewController.m */,
 				89D24ACD198AA7870042967E /* PauseViewController.h */,
 				89D24ACE198AA7870042967E /* PauseViewController.m */,
+				89571BAE199BE5E200475614 /* NoteTableViewController.h */,
+				89571BAF199BE5E200475614 /* NoteTableViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -678,17 +678,16 @@
 				895AF662195235A700B20DA6 /* FeedBrowserTableViewController.m in Sources */,
 				89779E0A1965DCF700AC81CA /* SearchViewController.m in Sources */,
 				89C973C8192564AF00EC6004 /* ViewController.m in Sources */,
-				8901298519854AB100D9874A /* NoteView.m in Sources */,
 				89A143901940E65700FDEC4F /* UIColor+BlankCheckColors.m in Sources */,
 				89800C471979DAB60051A844 /* Gamer.m in Sources */,
 				89C973BF192564AF00EC6004 /* AppDelegate.m in Sources */,
 				89D24ACF198AA7870042967E /* PauseViewController.m in Sources */,
 				89D417A9197858D300A0CA4F /* BlankCheck.xcdatamodeld in Sources */,
 				890129AF1986BE3300D9874A /* Note.m in Sources */,
+				89571BB3199BE71200475614 /* NoteTableViewCell.m in Sources */,
 				891B94661948C9FF00BEAEC9 /* BlankCheckViewCell.m in Sources */,
 				89B571EF198059F3006FBF14 /* Value.m in Sources */,
 				8978FBCB193E562600BF0921 /* PresetSearchViewController.m in Sources */,
-				89DC4ED9198AC24F006E6A2A /* NoteViewController.m in Sources */,
 				89B571EC198059F3006FBF14 /* Language.m in Sources */,
 				89C973BB192564AF00EC6004 /* main.m in Sources */,
 				890129B51986BEA600D9874A /* Worker.m in Sources */,
@@ -700,6 +699,7 @@
 				89B571F5198059F3006FBF14 /* Job.m in Sources */,
 				899616B919464DF600C75B99 /* LanguageProcessing.m in Sources */,
 				89779DF319648AAC00AC81CA /* UserInfoView.m in Sources */,
+				89571BB0199BE5E200475614 /* NoteTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

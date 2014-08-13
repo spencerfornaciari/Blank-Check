@@ -8,21 +8,21 @@
 
 #import "SideTableViewController.h"
 #import "NetworkController.h"
+#import "NoteTableViewController.h"
 #import "LoginViewController.h"
 #import "UIColor+BlankCheckColors.h"
 #import "CoreDataHelper.h"
 #import "Worker.h"
 #import "ProblemView.h"
-#import "NoteView.h"
 
 @interface SideTableViewController ()
 
-@property (nonatomic) UINavigationController *mainViewController, *topViewController, *profileController;
+@property (nonatomic) UINavigationController *mainViewController, *topViewController, *profileController, *noteNavigationController;
 
 @property (nonatomic) ProblemView *problemView;
-@property (nonatomic) NoteView *noteView;
 
 @property (nonatomic) FeedBrowserTableViewController *controller;
+@property (nonatomic) NoteTableViewController *noteController;
 @property (nonatomic) DetailScrollViewController *workerView;
 
 @property (nonatomic) Worker *worker;
@@ -86,6 +86,14 @@
         [self addChildViewController:self.profileController];
         self.profileController.view.frame = self.view.frame;
         [self.profileController didMoveToParentViewController:self];
+        
+        //Instantiate Notes Controller
+        self.noteController = [self.storyboard instantiateViewControllerWithIdentifier:@"noteController"];
+        self.noteNavigationController = [[UINavigationController alloc] initWithRootViewController:self.noteController];
+        
+        [self addChildViewController:self.noteNavigationController];
+        self.noteNavigationController.view.frame = self.view.frame;
+        [self.noteNavigationController didMoveToParentViewController:self];
         
 //        NSLog(@"Worker: %@ %@", self.worker.firstName, self.worker.lastName);
 //        NSLog(@"W Count: %lu", (unsigned long)self.worker.connections.count);
@@ -169,24 +177,11 @@
     if (indexPath.row == 4) {
         NSLog(@"Notes");
         
-        int size = (self.view.frame.size.height - 40);
-        
-        self.noteView = [[NoteView alloc] initWithFrame:CGRectMake(20, 20, self.view.frame.size.width - 40, size)];
-        [self.noteView.closeButton addTarget:self action:@selector(closeAction:) forControlEvents:UIControlEventTouchUpInside];
-        [self.tableView addSubview:self.noteView];
-        
-//        NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]
-//                                            initWithKey:@"date" ascending:YES];
-//        NSArray *array = [[self.worker valueForKey:@"notes"] sortedArrayUsingDescriptors:@[sortDescriptor]];
-//        
-//        self.worker.connections value
-//        
-        NSLog(@"Notes Count: %li", (unsigned long)self.worker.notes.count);
-        //TableView Controller
-        //Notes Needs
-        //Connection name/id
-        //Note Text
-        //Note Date
+        self.noteNavigationController.view.frame = self.topViewController.view.frame;
+        [self.topViewController.view removeFromSuperview];
+        self.topViewController = self.noteNavigationController;
+        [self.view addSubview:self.noteNavigationController.view];
+        [self setupPanGesture];
     }
     if (indexPath.row == 5) {
         NSLog(@"Report a Problem");
@@ -223,11 +218,6 @@
     if (sender == self.problemView.closeButton) {
         [self.problemView removeFromSuperview];
     }
-    
-    if (sender == self.noteView.closeButton) {
-        [self.noteView removeFromSuperview];
-    }
-
     
 }
 
