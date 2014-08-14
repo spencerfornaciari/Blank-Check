@@ -21,12 +21,6 @@
     
     self.worker = [CoreDataHelper currentUser];
     
-//    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]
-//                                        initWithKey:@"date" ascending:NO];
-//    
-//    
-//    self.noteArray = [[self.worker valueForKey:@"notes"] sortedArrayUsingDescriptors:@[sortDescriptor]];
-    
     self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 60, 0); //values passed are - top, left, bottom, right
     
     // Uncomment the following line to preserve selection between presentations.
@@ -34,6 +28,15 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    
+    [tracker send:[[[GAIDictionaryBuilder createAppView] set:@"Notes View"
+                                                      forKey:kGAIScreenName] build]];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -60,15 +63,9 @@
     NoteTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
     // Configure the cell...
-    if (cell == nil) {
-        
-    }
-    
-    NSLog(@"Cell Height: %f", cell.frame.size.height);
-    
     [cell setCell:self.noteArray[indexPath.row]];
     
-    [cell setClipsToBounds:YES];
+//    [cell setClipsToBounds:YES];
 
     return cell;
 }

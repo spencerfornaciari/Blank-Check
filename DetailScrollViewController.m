@@ -196,6 +196,11 @@
             [self loadInviteView];
             [scrollView setContentSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height)];
         }
+        
+        id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+        
+        [tracker send:[[[GAIDictionaryBuilder createAppView] set:@"Connection - Detail View"
+                                                          forKey:kGAIScreenName] build]];
     }
     
     if ([self.detail isKindOfClass:[Worker class]]) {
@@ -207,6 +212,11 @@
         [Flurry logEvent:@"Detailed_View" withParameters:articleParams timed:YES];
         
         [scrollView setContentSize:CGSizeMake(self.view.frame.size.width, self.frameHeight)];
+        
+        id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+        
+        [tracker send:[[[GAIDictionaryBuilder createAppView] set:@"Profile View"
+                                                          forKey:kGAIScreenName] build]];
     }
 }
 

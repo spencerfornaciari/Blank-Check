@@ -139,6 +139,10 @@
         
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
             [self.tableView reloadData];
+            
+            self.noteController.noteArray = [[self.worker valueForKey:@"notes"] sortedArrayUsingDescriptors:@[sortDescriptor]];
+
+            [self.noteController.tableView reloadData];
         }];
     }
 }
