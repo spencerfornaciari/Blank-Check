@@ -21,15 +21,11 @@
     
     self.worker = [CoreDataHelper currentUser];
     
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]
-                                        initWithKey:@"date" ascending:NO];
-    
-    
-    self.noteArray = [[self.worker valueForKey:@"notes"] sortedArrayUsingDescriptors:@[sortDescriptor]];
-    
-    self.title = @"My Notes";
-    
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Sort" style:UIBarButtonItemStylePlain target:self action:@selector(sortButtonAction)];
+//    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]
+//                                        initWithKey:@"date" ascending:NO];
+//    
+//    
+//    self.noteArray = [[self.worker valueForKey:@"notes"] sortedArrayUsingDescriptors:@[sortDescriptor]];
     
     self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 60, 0); //values passed are - top, left, bottom, right
     
@@ -59,12 +55,21 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NoteTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+    
+    static NSString *cellIdentifier = @"Cell";
+    NoteTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
     // Configure the cell...
+    if (cell == nil) {
+        
+    }
+    
+    NSLog(@"Cell Height: %f", cell.frame.size.height);
     
     [cell setCell:self.noteArray[indexPath.row]];
     
+    [cell setClipsToBounds:YES];
+
     return cell;
 }
 
@@ -72,8 +77,6 @@
     CGFloat cellHeight = 50;
     
     Note *note = self.noteArray[indexPath.row];
-    
-    [self calculateCellHeight:note.comments];
     
     CGFloat height = [self calculateCellHeight:note.comments];
     
@@ -92,57 +95,6 @@
     return cell.size.height;
 }
 
-#pragma mark - Action Sheet
-
--(void)sortButtonAction {
-    UIActionSheet *sortActionSheet = [[UIActionSheet alloc] initWithTitle:@"Sort Criteria" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Last Name A-Z", @"Last Name Z-A", @"By Newest", @"By Oldest", nil];
-    
-    [sortActionSheet showInView:self.view];
-}
-
--(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    switch (buttonIndex) {
-        case 0: {
-            NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]
-                                                initWithKey:@"connection.lastName" ascending:YES];
-            
-            self.noteArray = [[self.worker valueForKey:@"notes"] sortedArrayUsingDescriptors:@[sortDescriptor]];
-            [self.tableView reloadData];
-        }
-            break;
-            
-        case 1: {
-            NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]
-                                                initWithKey:@"connection.lastName" ascending:NO];
-            
-            self.noteArray = [[self.worker valueForKey:@"notes"] sortedArrayUsingDescriptors:@[sortDescriptor]];
-            [self.tableView reloadData];
-        }
-            break;
-            
-        case 2: {
-            NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]
-                                                initWithKey:@"date" ascending:NO];
-            
-            self.noteArray = [[self.worker valueForKey:@"notes"] sortedArrayUsingDescriptors:@[sortDescriptor]];
-            [self.tableView reloadData];
-        }
-            break;
-            
-        case 3: {
-            NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]
-                                                initWithKey:@"date" ascending:YES];
-            
-            self.noteArray = [[self.worker valueForKey:@"notes"] sortedArrayUsingDescriptors:@[sortDescriptor]];
-            [self.tableView reloadData];
-        }
-            break;
-            
-        default:
-            break;
-    }
-}
-
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -151,17 +103,16 @@
 }
 */
 
-/*
+
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+//        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
     }   
 }
-*/
 
 /*
 // Override to support rearranging the table view.

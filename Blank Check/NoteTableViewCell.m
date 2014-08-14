@@ -30,9 +30,20 @@
     
     self.dateLabel.text = dateString;
     
+    NSDictionary *attributes = @{NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue" size:17]};
+    
+    NSAttributedString *attString = [[NSAttributedString alloc] initWithString:note.comments attributes:attributes];
+    
     self.noteLabel.text = note.comments;
     self.noteLabel.numberOfLines = 0;
     [self.noteLabel sizeToFit];
+    
+    CGRect cell = [attString boundingRectWithSize:CGSizeMake(304, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin context:nil];
+    
+    self.noteLabel.frame = CGRectMake(self.noteLabel.frame.origin.x, self.noteLabel.frame.origin.y, 304, cell.size.height);
+    
+    
+//    [self.noteLabel sizeToFit];
 }
 
 @end

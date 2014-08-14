@@ -13,6 +13,8 @@
 
 @interface NoteTableViewController : UITableViewController <UIActionSheetDelegate>
 
+@property (nonatomic) UIBarButtonItem *sortButton;
+
 @property (nonatomic) NSArray *noteArray;
 @property (nonatomic) Worker *worker;
 

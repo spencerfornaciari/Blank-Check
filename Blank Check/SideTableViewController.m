@@ -85,7 +85,7 @@
         self.workerView = [self.storyboard instantiateViewControllerWithIdentifier:@"profileView"];
         self.workerView.detail = self.worker;
 
-        self.profileController = [[UINavigationController alloc] initWithRootViewController:self.workerView];
+//        self.profileController = [[UINavigationController alloc] initWithRootViewController:self.workerView];
         
 //        UIBarButtonItem *menuButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"menu"]
 //                                                                       style:UIBarButtonItemStylePlain
@@ -130,6 +130,12 @@
         self.userCell.imageView.layer.cornerRadius = 33.0;
         self.userCell.imageView.layer.masksToBounds = TRUE;
         self.userCell.textLabel.text = [NSString stringWithFormat:@"%@ %@", self.worker.firstName, self.worker.lastName];
+        
+        NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]
+                                            initWithKey:@"date" ascending:NO];
+        
+        
+        self.noteController.noteArray = [[self.worker valueForKey:@"notes"] sortedArrayUsingDescriptors:@[sortDescriptor]];
         
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
             [self.tableView reloadData];
@@ -197,7 +203,7 @@
         NSLog(@"Notes");
         self.title = @"My Notes";
         
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Sort" style:UIBarButtonItemStylePlain target:self action:nil];
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Sort" style:UIBarButtonItemStylePlain target:self action:@selector(sortButtonAction)];
         
         self.noteController.view.frame = self.topViewController.view.frame;
         [self.topViewController.view removeFromSuperview];
@@ -412,7 +418,55 @@
 
 }
 
+#pragma mark - Note Action Sheet
 
-- (IBAction)menuButtonAction:(id)sender {
+-(void)sortButtonAction {
+    UIActionSheet *sortActionSheet = [[UIActionSheet alloc] initWithTitle:@"Sort Criteria" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Last Name A-Z", @"Last Name Z-A", @"By Newest", @"By Oldest", nil];
+    
+    [sortActionSheet showInView:self.view];
 }
+
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    switch (buttonIndex) {
+        case 0: {
+            NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]
+                                                initWithKey:@"connection.lastName" ascending:YES];
+            
+            self.noteController.noteArray = [[self.worker valueForKey:@"notes"] sortedArrayUsingDescriptors:@[sortDescriptor]];
+            [self.noteController.tableView reloadData];
+        }
+            break;
+            
+        case 1: {
+            NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]
+                                                initWithKey:@"connection.lastName" ascending:NO];
+            
+            self.noteController.noteArray = [[self.worker valueForKey:@"notes"] sortedArrayUsingDescriptors:@[sortDescriptor]];
+            [self.noteController.tableView reloadData];
+        }
+            break;
+            
+        case 2: {
+            NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]
+                                                initWithKey:@"date" ascending:NO];
+            
+            self.noteController.noteArray = [[self.worker valueForKey:@"notes"] sortedArrayUsingDescriptors:@[sortDescriptor]];
+            [self.noteController.tableView reloadData];
+        }
+            break;
+            
+        case 3: {
+            NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]
+                                                initWithKey:@"date" ascending:YES];
+            
+            self.noteController.noteArray = [[self.worker valueForKey:@"notes"] sortedArrayUsingDescriptors:@[sortDescriptor]];
+            [self.noteController.tableView reloadData];
+        }
+            break;
+            
+        default:
+            break;
+    }
+}
+
 @end
