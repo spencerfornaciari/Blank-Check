@@ -211,7 +211,7 @@
         <!--Side Table View Controller-->
         <scene sceneID="Uj5-RI-5kJ">
             <objects>
-                <tableViewController storyboardIdentifier="sideView" id="S3p-3f-r5F" customClass="SideTableViewController" sceneMemberID="viewController">
+                <tableViewController id="S3p-3f-r5F" customClass="SideTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="JJC-aC-oWZ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -381,15 +381,24 @@
                             <outlet property="delegate" destination="S3p-3f-r5F" id="3Ne-BO-bGw"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="6NQ-VF-Ycz"/>
+                    <navigationItem key="navigationItem" id="6NQ-VF-Ycz">
+                        <barButtonItem key="leftBarButtonItem" image="menu" id="MAy-hD-9wZ" userLabel="Menu"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="Vyq-rO-Aax">
+                            <connections>
+                                <segue destination="jkK-ul-ytY" kind="push" id="HsI-kT-DSj"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="logoutCell" destination="d11-kz-9RH" id="h5T-u0-3ea"/>
+                        <outlet property="menuButton" destination="MAy-hD-9wZ" id="G7A-16-LZf"/>
+                        <outlet property="searchButton" destination="Vyq-rO-Aax" id="3f7-CL-Gue"/>
                         <outlet property="userCell" destination="19n-e5-KbS" id="BEh-Ei-e2C"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Tp-zH-obh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="994" y="449"/>
+            <point key="canvasLocation" x="1408" y="449"/>
         </scene>
         <!--Note Table View Controller-->
         <scene sceneID="Wpf-rc-ezv">
@@ -571,7 +580,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gk9-en-vEF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1975" y="219"/>
+            <point key="canvasLocation" x="2507" y="219"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="RsP-qC-ke5">
@@ -615,6 +624,24 @@
             </objects>
             <point key="canvasLocation" x="442" y="-214"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="KIK-Ud-2gw">
+            <objects>
+                <navigationController storyboardIdentifier="sideView" automaticallyAdjustsScrollViewInsets="NO" id="yCu-2r-Gfk" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Z9C-7t-7cN">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="S3p-3f-r5F" kind="relationship" relationship="rootViewController" id="qfF-8y-lmQ"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bo3-Hm-YUg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="994" y="449"/>
+        </scene>
     </scenes>
     <resources>
         <image name="menu" width="27" height="17"/>
@@ -628,6 +655,7 @@
         </simulatedScreenMetrics>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="HsI-kT-DSj"/>
         <segue reference="UVr-ZQ-uL9"/>
     </inferredMetricsTieBreakers>
 </document>

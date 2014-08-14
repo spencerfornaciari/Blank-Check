@@ -85,7 +85,10 @@
         if (tokenIsCurrent) {
             NSLog(@"Token is current");
             
-            SideTableViewController *viewController = [mainStoryboard instantiateViewControllerWithIdentifier: @"sideView"];
+            UINavigationController *viewController = [mainStoryboard instantiateViewControllerWithIdentifier: @"sideView"];
+
+            
+//            SideTableViewController *viewController = [mainStoryboard instantiateViewControllerWithIdentifier: @"sideView"];
             self.window.rootViewController = viewController;
             
         } else {

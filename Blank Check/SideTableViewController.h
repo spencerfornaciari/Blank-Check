@@ -14,4 +14,11 @@
 @property (strong, nonatomic) IBOutlet UITableViewCell *userCell;
 @property (strong, nonatomic) IBOutlet UITableViewCell *logoutCell;
 
+
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *menuButton;
+- (IBAction)menuButtonAction:(id)sender;
+
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *searchButton;
+
+
 @end

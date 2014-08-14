@@ -17,9 +17,13 @@
 
 @interface SideTableViewController ()
 
-@property (nonatomic) UINavigationController *mainViewController, *topViewController, *profileController, *noteNavigationController;
+@property (nonatomic) UINavigationController *mainViewController, *profileController, *noteNavigationController;
+
+@property (nonatomic) UIViewController *topViewController;
 
 @property (nonatomic) ProblemView *problemView;
+
+@property (nonatomic) BOOL menuOpen;
 
 @property (nonatomic) FeedBrowserTableViewController *controller;
 @property (nonatomic) NoteTableViewController *noteController;
@@ -43,6 +47,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.menuOpen = FALSE;
+    
+    self.menuButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"menu"] style:UIBarButtonItemStylePlain target:self action:@selector(menuAction)];
+    self.navigationItem.leftBarButtonItem = self.menuButton;
 //    [NetworkController sharedController].delegate = self;
     
 //    [[NetworkController sharedController] loadUserData];
@@ -58,14 +66,14 @@
     self.controller = [self.storyboard instantiateViewControllerWithIdentifier:@"mainViewController"];
     self.controller.delegate = self;
     
-    self.mainViewController = [[UINavigationController alloc] initWithRootViewController:self.controller];
+    self.mainViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"mainViewController"];
     [self addChildViewController:self.mainViewController];
     self.mainViewController.view.frame = self.view.frame;
     [self.view addSubview:self.mainViewController.view];
     [self.mainViewController didMoveToParentViewController:self];
     
     self.topViewController = self.mainViewController;
-    [self setupPanGesture];
+//    [self setupPanGesture];
     
     
     //Worker Profile
@@ -83,17 +91,16 @@
 //        
 //        self.profileController.navigationItem.leftBarButtonItem = menuButton;
         
-        [self addChildViewController:self.profileController];
-        self.profileController.view.frame = self.view.frame;
-        [self.profileController didMoveToParentViewController:self];
+        [self addChildViewController:self.workerView];
+        self.workerView.view.frame = self.view.frame;
+        [self.workerView didMoveToParentViewController:self];
         
         //Instantiate Notes Controller
         self.noteController = [self.storyboard instantiateViewControllerWithIdentifier:@"noteController"];
-        self.noteNavigationController = [[UINavigationController alloc] initWithRootViewController:self.noteController];
         
-        [self addChildViewController:self.noteNavigationController];
-        self.noteNavigationController.view.frame = self.view.frame;
-        [self.noteNavigationController didMoveToParentViewController:self];
+        [self addChildViewController:self.noteController];
+        self.noteController.view.frame = self.view.frame;
+        [self.noteController didMoveToParentViewController:self];
         
 //        NSLog(@"Worker: %@ %@", self.worker.firstName, self.worker.lastName);
 //        NSLog(@"W Count: %lu", (unsigned long)self.worker.connections.count);
@@ -152,20 +159,30 @@
 {
     if (indexPath.row == 0) {
         NSLog(@"My profile");
-        self.profileController.view.frame = self.topViewController.view.frame;
+        self.title = @"My Profile";
+        self.navigationItem.rightBarButtonItem = nil;
+
+        self.workerView.view.frame = self.topViewController.view.frame;
         [self.topViewController.view removeFromSuperview];
-        self.topViewController = self.profileController;
-        [self.view addSubview:self.profileController.view];
-        [self setupPanGesture];
+        self.topViewController = self.workerView;
+        [self.view addSubview:self.workerView.view];
+//        [self setupPanGesture];
+        [self menuAction];
 
     }
     
     if (indexPath.row == 1) {
+        self.title = @"My Feed";
+        self.navigationItem.rightBarButtonItem = self.searchButton;
+        
         self.mainViewController.view.frame = self.topViewController.view.frame;
         [self.topViewController.view removeFromSuperview];
         self.topViewController = self.mainViewController;
         [self.view addSubview:self.mainViewController.view];
-        [self setupPanGesture];
+//        [self setupPanGesture];
+        
+        [self menuAction];
+
     }
     
     if (indexPath.row == 2) {
@@ -176,17 +193,22 @@
     }
     if (indexPath.row == 4) {
         NSLog(@"Notes");
+        self.title = @"My Notes";
         
-        self.noteNavigationController.view.frame = self.topViewController.view.frame;
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Sort" style:UIBarButtonItemStylePlain target:self action:nil];
+        
+        self.noteController.view.frame = self.topViewController.view.frame;
         [self.topViewController.view removeFromSuperview];
-        self.topViewController = self.noteNavigationController;
-        [self.view addSubview:self.noteNavigationController.view];
-        [self setupPanGesture];
+        self.topViewController = self.noteController;
+        [self.view addSubview:self.noteController.view];
+//        [self setupPanGesture];
+        
+        [self menuAction];
     }
     if (indexPath.row == 5) {
         NSLog(@"Report a Problem");
         
-        int size = (self.view.frame.size.height - 40);
+        int size = (self.view.frame.size.height - 110);
 
         self.problemView = [[ProblemView alloc] initWithFrame:CGRectMake(20, 20, self.view.frame.size.width - 40, size)];
         [self.problemView.closeButton addTarget:self action:@selector(closeAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -268,8 +290,9 @@
 
 - (void)openMenu
 {
+    self.title = @"Blank Check Labs";
     [UIView animateWithDuration:.4 animations:^{
-        self.topViewController.view.frame = CGRectMake(self.view.frame.size.width * .8, self.topViewController.view.frame.origin.y, self.topViewController.view.frame.size.width, self.topViewController.view.frame.size.height);
+        self.topViewController.view.frame = CGRectMake(self.view.frame.size.width, self.topViewController.view.frame.origin.y, self.topViewController.view.frame.size.width, self.topViewController.view.frame.size.height);
     } completion:^(BOOL finished) {
         UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(slideBack:)];
         [self.topViewController.view addGestureRecognizer:pan];
@@ -296,6 +319,17 @@
     } completion:^(BOOL finished) {
         
     }];
+}
+
+-(void)menuAction {
+    if (self.menuOpen) {
+        [self closeMenu];
+        self.menuOpen = FALSE;
+    } else {
+        [self openMenu];
+        self.menuOpen = TRUE;
+
+    }
 }
 
 
@@ -377,4 +411,6 @@
 }
 
 
+- (IBAction)menuButtonAction:(id)sender {
+}
 @end

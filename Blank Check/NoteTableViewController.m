@@ -75,21 +75,23 @@
     
     Note *note = self.noteArray[indexPath.row];
     
-    CGFloat height = [self heightForText:note.comments];
+    [self calculateCellHeight:note.comments];
     
-    cellHeight += (height - 20);
+    CGFloat height = [self calculateCellHeight:note.comments];
+    
+    cellHeight += height;
     
     return cellHeight;
 }
 
--(CGFloat)heightForText:(NSString *)text
-{
-    NSInteger MAX_HEIGHT = 2000;
-    UITextView * textView = [[UITextView alloc] initWithFrame: CGRectMake(0, 0, 304, MAX_HEIGHT)];
-    textView.text = text;
-    textView.font = [UIFont fontWithName:@"HelveticaNeue" size:17.0];
-    [textView sizeToFit];
-    return textView.frame.size.height;
+-(CGFloat)calculateCellHeight:(NSString *)string {
+    NSDictionary *attributes = @{NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue" size:17]};
+    
+    NSAttributedString *attString = [[NSAttributedString alloc] initWithString:string attributes:attributes];
+    
+    CGRect cell = [attString boundingRectWithSize:CGSizeMake(304, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin context:nil];
+    
+    return cell.size.height;
 }
 
 #pragma mark - Action Sheet
