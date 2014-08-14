@@ -49,6 +49,9 @@
     [super viewDidLoad];
     self.menuOpen = FALSE;
     
+//    self.tableView.contentInset = UIEdgeInsetsMake(50, 0, 0, 0); //values passed are - top, left, bottom, right
+
+    
     self.menuButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"menu"] style:UIBarButtonItemStylePlain target:self action:@selector(menuAction)];
     self.navigationItem.leftBarButtonItem = self.menuButton;
 //    [NetworkController sharedController].delegate = self;
@@ -56,7 +59,7 @@
 //    [[NetworkController sharedController] loadUserData];
     
     self.title = @"Blank Check Labs";
-    self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 20)];
+//    self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 0)];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 
     //Remove cell seperate from last cell
@@ -130,7 +133,6 @@
         
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
             [self.tableView reloadData];
-            
         }];
     }
 }
