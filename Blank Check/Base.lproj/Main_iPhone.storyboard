@@ -385,7 +385,7 @@
                         <barButtonItem key="leftBarButtonItem" image="menu" id="MAy-hD-9wZ" userLabel="Menu"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="search" id="Vyq-rO-Aax">
                             <connections>
-                                <segue destination="jkK-ul-ytY" kind="push" id="HsI-kT-DSj"/>
+                                <segue destination="jkK-ul-ytY" kind="push" identifier="searchNavView" id="HsI-kT-DSj"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

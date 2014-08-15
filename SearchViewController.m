@@ -31,6 +31,9 @@
 {
     [super viewDidLoad];
     self.title = @"Search";
+    
+    self.connectionsArray = [CoreDataHelper fetchUserConnections];
+    
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
     self.searchBar.barTintColor = [UIColor blankCheckBlue];
