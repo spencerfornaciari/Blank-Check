@@ -27,9 +27,7 @@
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];    
-//    self.operationQueue = [(AppDelegate *)[[UIApplication sharedApplication] delegate] blankQueue];
-//    self.currentGamer = [(AppDelegate *)[[UIApplication sharedApplication] delegate] gamer];
+    [super viewDidLoad];
     
     self.tokenBOOL = FALSE;
     self.gottenUserData = FALSE;
@@ -37,12 +35,6 @@
     self.webView.delegate = self;
     
     [self newOAuth];
-    
-//    if (tokenIsCurrent) {
-//        NSLog(@"Token is current");
-//    } else {
-//        NSLog(@"Token is NOT current");
-//    }
 //    NSURL *url = [NSURL URLWithString:<#(NSString *)#>]
 //    
 //    [self.webView loadRequest:[NSURLRequest requestWithURL:<#(NSURL *)#>]
@@ -92,13 +84,8 @@
         
         // Rethink logic here
         if (self.tokenBOOL == TRUE) {
-//            [[NetworkController sharedController] loadUserData];
-
             UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
-            
             SideTableViewController *viewController = [mainStoryboard instantiateViewControllerWithIdentifier: @"sideView"];
-//            PauseViewController *viewController = [mainStoryboard instantiateViewControllerWithIdentifier: @"pauseView"];
-            
             [self presentViewController:viewController animated:YES completion:nil];
         }
     }

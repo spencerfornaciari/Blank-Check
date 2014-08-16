@@ -23,6 +23,7 @@
 {
     // Override point for customization after application launch.
     
+    //Social Account Store
     self.accounts = [ACAccountStore new];
     
     //Hockey App Setup
@@ -35,8 +36,7 @@
     
     // Replace YOUR_API_KEY with the api key in the downloaded package
     [Flurry startSession:@"PK5YRTZRCPKZSTWSDHJ5"];
-//    [[BITHockeyManager sharedHockeyManager] testIdentifier];
-
+    
     //Google Analytics Setup
 //     Optional: automatically send uncaught exceptions to Google Analytics.
     [GAI sharedInstance].trackUncaughtExceptions = YES;
@@ -50,26 +50,16 @@
     // Initialize tracker. Replace with your tracking ID.
     [[GAI sharedInstance] trackerWithTrackingId:@"UA-52905521-1"];
     
+    //Controller layout design
     [[UINavigationBar appearance] setBarTintColor:[UIColor blankCheckBlue]];
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-
-//    //Create instance of network controller
-//    self.networkController = [NetworkController new];
     
     //Create instance of operation queue
     self.blankQueue = [NSOperationQueue new];
-    
-    //Create NSURLSession
-//    NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration ephemeralSessionConfiguration];
-//    self.session = [NSURLSession sessionWithConfiguration:sessionConfig delegate:self delegateQueue:nil];
-//    
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main_iPhone"
                                                              bundle: nil];
-//
-//    SideTableViewController *viewController = [mainStoryboard instantiateViewControllerWithIdentifier: @"sideView"];
-//    self.window.rootViewController = viewController;
 
     if (![[NSUserDefaults standardUserDefaults] stringForKey:@"accessToken"]) {
         NSLog(@"No Token");
@@ -86,9 +76,6 @@
             NSLog(@"Token is current");
             
             UINavigationController *viewController = [mainStoryboard instantiateViewControllerWithIdentifier: @"sideView"];
-
-            
-//            SideTableViewController *viewController = [mainStoryboard instantiateViewControllerWithIdentifier: @"sideView"];
             self.window.rootViewController = viewController;
             
         } else {
