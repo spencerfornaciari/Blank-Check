@@ -57,103 +57,6 @@
 //        }
 //
 //    }
-
-    
-    
-    //Core Data Example
-//    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-//    NSManagedObjectContext *context = [appDelegate managedObjectContext];
-//    NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Worker" inManagedObjectContext:context];
-//    NSFetchRequest *request = [NSFetchRequest new];
-//    [request setEntity:entityDescription];
-//    
-//    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"firstName = %@", @"Spencer"];
-//    [request setPredicate:predicate];
-//    
-//    NSManagedObject *matches = nil;
-//    
-//    NSError *error;
-//    
-//    NSArray *objects = [context executeFetchRequest:request error:&error];
-//    
-//    NSLog(@"Objects: %u", (unsigned)objects.count);
-//    
-//    if ([objects count] == 0) {
-//        NSLog(@"No matches");
-//    } else {
-////        NSLog(@"Found a Jessica");
-//        for (int i = 0; i < objects.count; i++) {
-//            matches = objects[i];
-//            NSLog(@"%@ %@ %@", [matches valueForKey:@"firstName"], [matches valueForKey:@"lastName"], [matches valueForKey:@"location"]);
-//            for (Job *unit in [matches valueForKey:@"jobs"]) {
-//                NSLog(@"%@", [unit valueForKey:@"companyName"]);
-//                //I am not at a computer, so I cannot test, but this should work. You might have to access each property of the unit object to fire the fault, but I don't believe that is necessary.
-//            }
-////            NSLog(@"Jobs: %@", );
-//        }
-//    }
-
-    //    [self add];
-    
-/*
-   if ([self doesGamerExist]) {
-        self.downloadingUserData = TRUE;
-//        self.one = [NSKeyedUnarchiver unarchiveObjectWithFile:[Gamer gamerPath]];
-//        
-//        self.appDelegate = [[UIApplication sharedApplication] delegate];
-//        self.appDelegate.gamer = self.one;
-        
-        self.feedArray = [NSMutableArray new];
-        self.feedArray = self.one.connectionIDArray;
-    } else {
-        if (!self.one && self.downloadingUserData == FALSE) {
-            [self.operationQueue addOperationWithBlock:^{
-                self.one = [[NetworkController sharedController] loadCurrentUserData];
-                NSLog(@"User Count: %d", self.one.connectionIDArray.count);
-                
-//                [NSKeyedArchiver archiveRootObject:self.one toFile:[Gamer gamerPath]];
-//                
-//                self.appDelegate = [[UIApplication sharedApplication] delegate];
-//                self.appDelegate.gamer = self.one;
-                
-                self.feedArray = [NSMutableArray new];
-                self.feedArray = self.one.connectionIDArray;
-                
-                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                    [self.loadingView.activityIndicator stopAnimating];
-                    [self.loadingView removeFromSuperview];
-                    
-                    [self.tableView reloadData];
-                }];
-            }];
-        } else {
-            
-        }
-    }
-*/
-//    
-    
-    
-//    [self.networkController checkProfileText:@"Film Publicist"];
-//    [[NetworkController sharedController] createDictionary];
-//    [[NetworkController sharedController] listDictionaries];
-//    [[NetworkController sharedController] readDictionaryWithName:@"got"];
-//    [[NetworkController sharedController] updateDictionaryWithName:@"got"];
-    
-//    [self.operationQueue addOperationWithBlock:^{
-//        
-//        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-//            [self.tableView reloadData];
-//        }];
-//    }];
-    
-//    [self.networkController loadCurrentUserData:self.one];
-    
-    
-    //    [self.networkController sendInvitationToUserID:self.one.gamerID];
-    //    NSArray *array = [self.networkController commonConnectionsWithUser:@"mXtsRDLoyK"];
-    //    NSLog(@"%@", array);
-    //    NSLog(@"Count: %lu", (unsigned long)array.count);
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -179,11 +82,7 @@
     } else {
         
     }
-    
-
 }
-
-//-
 
 - (void)didReceiveMemoryWarning
 {
@@ -195,7 +94,6 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-
     // Return the number of sections.
     return 1;
 }

@@ -360,7 +360,7 @@
         body = [NSString stringWithFormat:@"Hi %@,\nI'd like to connect with you on Blank Check Labs. \n%@", connection.firstName, linkURL];
     }
     
-    NSDictionary *itemContent = @{@"invitation-request":@{@"connect-type":@"friend"}};
+//    NSDictionary *itemContent = @{@"invitation-request":@{@"connect-type":@"friend"}};
     
     NSDictionary *messageDictionary = @{@"subject":subject,
                                         @"body":body,

@@ -28,7 +28,6 @@
         UILabel *yourValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(120, 160, 160, 20)];
         yourValueLabel.text = @"Current Value";
         yourValueLabel.textAlignment = NSTextAlignmentRight;
-        //    [yourValueLabel sizeToFit];
         [self.view addSubview:yourValueLabel];
         
         UILabel *currentValue = [[UILabel alloc] initWithFrame:CGRectMake(180, 180, 100, 20)];
