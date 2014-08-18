@@ -28,8 +28,10 @@
     self.searchSegmentController.selectedSegmentIndex = 0;
     
     self.peopleArray = [NSArray arrayWithObjects:@"Steve Ballmer", @"Mark Zuckerberg", @"Tom Brady", @"Martha Steward", @"Brad Pitt", @"Oprah Winfrey", @"Beyonce Knowles", @"Lebron James", @"Kobe Bryant", @"Someone Else", nil];
+//    
+//    SOFTWARE ENGINEER, SOFTWARE DEVELOPER, BUSINESS ANALYST, SENIOR CONSULTANT, CONSULTANT, SENIOR SOFTWARE ENGINEER, PROJECT MANAGER, DATABASE ADMINISTRATOR, ASSISTANT PROFESSOR, WEB DEVELOPER, MECHANICAL ENGINEER, ACCOUNTANT, FINANCIAL ANALYST, POSTDOCTORAL FELLOW, INDUSTRIAL DESIGNER, MARKET RESEARCH ANALYST, PHYSICIAN, PRODUCT MANAGER, OTHER
     
-    self.titleArray = [NSArray arrayWithObjects:@"marketing manager", @"marketing director", @"marketing specialist", @"associate marketing manager", @"marketing intern", nil];
+    self.titleArray = [NSArray arrayWithObjects:@"Software Engineer", @"Software Developer", @"Business Analyst", @"Senior Consultants", @"Consultant", @"Senior Software Enginer", @"Project Manager", @"Database Administrator", @"Assistant Professor", @"Web Developer", @"Mechanical Engineer", @"Accountant", @"Financial Analyst", @"Postdoctoral Fellow", @"Industrial Designer", @"Market Research Analyst", @"Physician", @"Product Manager", @"Self", nil];
     
     self.locationArray = [NSArray arrayWithObjects:@"Seattle", @"Los Angeles", @"New York", @"Chicago", @"Phoenix", @"Las Vegas", @"San Francisco", @"Austin", @"Washington DC", @"Boston", nil];
     
@@ -96,37 +98,67 @@
     }
 }
 
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.searchSegmentController.selectedSegmentIndex == 0) {
-        if ([segue.identifier isEqualToString:@"presetView"]) {
-            NSIndexPath *indexPath = [self.presetTableView indexPathForSelectedRow];
-            PresetViewController *preset = segue.destinationViewController;
-            preset.pageTitle = self.listArray[indexPath.row];
-            preset.category = @"Person";
-        }
-    } else if (self.searchSegmentController.selectedSegmentIndex == 1) {
-        NSLog(@"Segment Controller #2");
-        NSIndexPath *indexPath = [self.presetTableView indexPathForSelectedRow];
-        [NetworkController checkProfileText:self.titleArray[indexPath.row]];
-    } else {
-//        if ([segue.identifier isEqualToString:@"presetView"]) {
-//            NSIndexPath *indexPath = [self.presetTableView indexPathForSelectedRow];
-//            PresetViewController *preset = segue.destinationViewController;
-//            preset.pageTitle = self.listArray[indexPath.row];
-//            preset.category = @"Person";
-//        }
-        NSIndexPath *indexPath = [self.presetTableView indexPathForSelectedRow];
-        
-        NSPredicate *locationPredicate = [NSPredicate predicateWithFormat:@"location CONTAINS[cd] %@", self.listArray[indexPath.row]];
-        
-        
-//        PresetSearchResultsTableViewController *preset = segue.destinationViewController;
-        NSArray *array = [[CoreDataHelper fetchUserConnections] filteredArrayUsingPredicate:locationPredicate];;
-        
-        NSLog(@"Segment Controller #3: %lu", (long)array.count);
-
+        [self performSegueWithIdentifier:@"presetView" sender:self];
+    }  else {
+        [self performSegueWithIdentifier:@"resultsTable" sender:self];
     }
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if ([segue.identifier isEqualToString:@"presetView"]) {
+        NSIndexPath *indexPath = [self.presetTableView indexPathForSelectedRow];
+        PresetViewController *preset = segue.destinationViewController;
+        preset.pageTitle = self.listArray[indexPath.row];
+        preset.category = @"Person";
+    } else {
+        if (self.searchSegmentController.selectedSegmentIndex == 1) {
+            NSIndexPath *indexPath = [self.presetTableView indexPathForSelectedRow];
+            
+            PresetSearchResultsTableViewController *preset = segue.destinationViewController;
+            NSPredicate *jobTitlePredicate = [NSPredicate predicateWithFormat:@"ANY SELF.jobs.title CONTAINS[cd] %@", self.listArray[indexPath.row]];
+            preset.results = [[CoreDataHelper fetchUserConnections] filteredArrayUsingPredicate:jobTitlePredicate];
+        } else {
+            NSIndexPath *indexPath = [self.presetTableView indexPathForSelectedRow];
+            
+            PresetSearchResultsTableViewController *preset = segue.destinationViewController;
+            NSPredicate *locationPredicate = [NSPredicate predicateWithFormat:@"location CONTAINS[cd] %@", self.listArray[indexPath.row]];
+            preset.results = [[CoreDataHelper fetchUserConnections] filteredArrayUsingPredicate:locationPredicate];
+        }
+        
+        
+
+        
+//                preset.pageTitle = self.listArray[indexPath.row];
+//        preset.category = @"Person";
+    }
+//    if (self.searchSegmentController.selectedSegmentIndex == 0) {
+//        
+//    } else if (self.searchSegmentController.selectedSegmentIndex == 1) {
+//        NSLog(@"Segment Controller #2");
+//        NSIndexPath *indexPath = [self.presetTableView indexPathForSelectedRow];
+//        [NetworkController checkProfileText:self.titleArray[indexPath.row]];
+//    } else {
+////        if ([segue.identifier isEqualToString:@"presetView"]) {
+////            NSIndexPath *indexPath = [self.presetTableView indexPathForSelectedRow];
+////            PresetViewController *preset = segue.destinationViewController;
+////            preset.pageTitle = self.listArray[indexPath.row];
+////            preset.category = @"Person";
+////        }
+//        NSIndexPath *indexPath = [self.presetTableView indexPathForSelectedRow];
+//        
+//        NSPredicate *locationPredicate = [NSPredicate predicateWithFormat:@"location CONTAINS[cd] %@", self.listArray[indexPath.row]];
+//        
+//        
+////        PresetSearchResultsTableViewController *preset = segue.destinationViewController;
+//        NSArray *array = [[CoreDataHelper fetchUserConnections] filteredArrayUsingPredicate:locationPredicate];;
+//        
+//        NSLog(@"Segment Controller #3: %lu", (long)array.count);
+//
+//    }
     
 }
 
