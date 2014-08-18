@@ -33,7 +33,13 @@
             NSNumber *jobExists = [self isJobInSet:job.name andConnection:connection];
             float num = ceil([jobExists integerValue] *.3);
             
-            self.workExperienceLabel.text = [NSString stringWithFormat:@"Work Exp: Top %.0f%%", num];
+            if (num > 0) {
+                self.workExperienceLabel.text = [NSString stringWithFormat:@"Work Exp: Top %.0f%%", num];
+            } else {
+                self.workExperienceLabel.text = [NSString stringWithFormat:@"Work Exp: Unranked"];
+            }
+            
+            
             
         } else {
             self.workExperienceLabel.text = [NSString stringWithFormat:@"Work Exp: Top 10%%"];

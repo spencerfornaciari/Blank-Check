@@ -56,10 +56,14 @@
         userNameLabel.text = [NSString stringWithFormat:@"%@ %@.", self.connection.firstName, firstLetter];
         
         currentValue = [self.connection.values lastObject];
-            
-//        for (Job *job in self.connection.jobs) {
+        NSArray *array = [self.connection.jobs allObjects];
+        
+        Job *job = array[0];
+//        [NetworkController checkProfileText:job.title];
+        
+        for (Job *job in self.connection.jobs) {
 //            [NetworkController checkProfileText:job.title];
-//        }
+        }
         
 //        NSString *string = [jobs[0] title];
 //        [NetworkController checkProfileText:string];
@@ -194,6 +198,8 @@
         
         [tracker send:[[[GAIDictionaryBuilder createAppView] set:@"Connection - Detail View"
                                                           forKey:kGAIScreenName] build]];
+
+
     }
     
     if ([self.detail isKindOfClass:[Worker class]]) {
