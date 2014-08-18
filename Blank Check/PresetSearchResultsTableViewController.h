@@ -10,4 +10,6 @@
 
 @interface PresetSearchResultsTableViewController : UITableViewController
 
+@property (nonatomic) NSArray *results;
+
 @end

@@ -821,6 +821,8 @@
                                     @"Cooley": @100
                                     };
 
+//    NSPredicate *jobPredicate =
+    
     if ([jobDictionary objectForKey:companyName]) {
         NSLog(@"Got it");
         return TRUE;

@@ -8,6 +8,7 @@
 
 #import "PresetSearchViewController.h"
 #import "PresetViewController.h"
+#import "PresetSearchResultsTableViewController.h"
 #import "UIColor+BlankCheckColors.h"
 
 @interface PresetSearchViewController ()
@@ -109,9 +110,21 @@
         NSIndexPath *indexPath = [self.presetTableView indexPathForSelectedRow];
         [NetworkController checkProfileText:self.titleArray[indexPath.row]];
     } else {
+//        if ([segue.identifier isEqualToString:@"presetView"]) {
+//            NSIndexPath *indexPath = [self.presetTableView indexPathForSelectedRow];
+//            PresetViewController *preset = segue.destinationViewController;
+//            preset.pageTitle = self.listArray[indexPath.row];
+//            preset.category = @"Person";
+//        }
         NSIndexPath *indexPath = [self.presetTableView indexPathForSelectedRow];
         
-        NSLog(@"Segment Controller #3");
+        NSPredicate *locationPredicate = [NSPredicate predicateWithFormat:@"location CONTAINS[cd] %@", self.listArray[indexPath.row]];
+        
+        
+//        PresetSearchResultsTableViewController *preset = segue.destinationViewController;
+        NSArray *array = [[CoreDataHelper fetchUserConnections] filteredArrayUsingPredicate:locationPredicate];;
+        
+        NSLog(@"Segment Controller #3: %lu", (long)array.count);
 
     }
     
