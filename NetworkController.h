@@ -50,7 +50,7 @@
 -(void)shareOnLinkedin:(id)sender;
 
 //Textalytics API Calls
-+(void)checkProfileText:(NSString *)string;
++(NSArray *)checkProfileText:(NSString *)string;
 -(void)listDictionaries;
 -(void)readDictionaryWithName:(NSString *)name;
 

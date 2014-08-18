@@ -527,45 +527,90 @@
 
 #pragma mark - Textalytics
 
-+(void)checkProfileText:(NSString *)string {
++(NSArray *)checkProfileText:(NSString *)string {
     
     string = [string stringByReplacingOccurrencesOfString:@" " withString:@"+"];
     
     NSString *searchString = [NSString stringWithFormat:@"tt=ecr&dic=chetsdpCA&key=1c03ecaeb9c146a07056c4049064cb3a&of=json&lang=en&txt=%@&txtf=plain&url=&_tte=e&_ttc=c&_ttr=r&dm=4&cont=&ud=spencer%%40impactinterview.com-en-got", [string uppercaseString]];
     
     NSData *data = [searchString dataUsingEncoding:NSUTF8StringEncoding];
-    
+//
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"https://textalytics.com/core/topics-1.2"]];
     [request setHTTPMethod:@"POST"];
     [request setHTTPBody:data];
-    
-    NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration ephemeralSessionConfiguration];
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfig];
-    
-    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request
-                                                completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-            NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
-            
-            NSArray *entityArray = [dictionary objectForKey:@"entity_list"];
-            
-            NSString *entityString;
-            if (entityArray) {
-                NSDictionary *entityDictionary = entityArray[0];
-                entityString = [entityDictionary valueForKeyPath:@"variant_list.form"];
-                NSLog(@"%@", entityString);
-            }
-    
-    }];
-    
-    [dataTask resume];
-    
-//    NSURLResponse *response;
-//    NSError *error;
+//
+//    NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration ephemeralSessionConfiguration];
+//    NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfig];
+////
+//    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request
+//                                                completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+//            NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+//                                                    
+////                                                    NSDictionary *entityDictionary = [dictionary valueForKeyPath:@"entity_list.variant_list.form"];
+////                                                    NSLog(@"%@", entityDictionary);
+////                                                    NSString *entityString = [dictionary valueForKeyPath:@"entity_list.variant_list.form"];
+////                                                    NSLog(@"String: %@", entityString);
+//
+////
+//            NSArray *entityArray = [dictionary objectForKey:@"entity_list"];
+//                                                    
+//            NSString *entityString;
+//            if (entityArray.count > 0) {
+//                NSDictionary *entityDictionary = entityArray[0];
+//                NSArray *variantArray = [entityDictionary valueForKey:@"variant_list"];
+//                NSDictionary *variantDictionary = variantArray[0];
+//                                         
+//                entityString = [variantDictionary valueForKeyPath:@"form"];
+//                NSLog(@"Array: %@", [NetworkController jobValue:entityString]);
+//            } else {
+//                NSLog(@"Array: %@", [NetworkController jobValue:@"OTHER"]);
+//            }
+//                                                    
+////
+////            NSString *entityString;
+////            if (entityArray) {
+////                NSDictionary *entityDictionary = ;
+////                entityString = [entityDictionary valueForKeyPath:@"variant_list.form"];
+////                NSLog(@"%@", entityString);
+////            }
 //    
-//    NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+//    }];
 //    
+//    [dataTask resume];
+    
+    NSURLResponse *response;
+    NSError *error;
+    
+    NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+    
+    NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableContainers error:&error];
+    
+    //                                                    NSDictionary *entityDictionary = [dictionary valueForKeyPath:@"entity_list.variant_list.form"];
+    //                                                    NSLog(@"%@", entityDictionary);
+    //                                                    NSString *entityString = [dictionary valueForKeyPath:@"entity_list.variant_list.form"];
+    //                                                    NSLog(@"String: %@", entityString);
+    
+    //
+    NSArray *entityArray = [dictionary objectForKey:@"entity_list"];
+    
+    NSString *entityString;
+    if (entityArray.count > 0) {
+        NSDictionary *entityDictionary = entityArray[0];
+        NSArray *variantArray = [entityDictionary valueForKey:@"variant_list"];
+        NSDictionary *variantDictionary = variantArray[0];
+        
+        entityString = [variantDictionary valueForKeyPath:@"form"];
+        NSLog(@"Array: %@", [NetworkController jobValue:entityString]);
+        return [NetworkController jobValue:entityString];
+    } else {
+        NSLog(@"Array: %@", [NetworkController jobValue:@"OTHER"]);
+        return [NetworkController jobValue:@"OTHER"];
+    }
+    
+    
+//
 //    NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableContainers error:&error];
-//    
+//
 //    NSArray *entityArray = [dictionary objectForKey:@"entity_list"];
 //    
 //    NSString *entityString;
@@ -584,6 +629,14 @@
      [request setHTTPBody:[token dataUsingEncoding:NSUTF8StringEncoding]];
      [request setValue:@"json" forHTTPHeaderField:@"x-li-format"]; // per Linkedin API: https://developer.linkedin.com/documents/api-requests-json*/
     
+//    NSLog(@"Entity Value: %@", [jobDictionary objectForKey:entityString]);
+    
+    /*
+     */
+    
+}
+
++(NSArray *)jobValue:(NSString *)title {
     NSDictionary *jobDictionary = @{@"SOFTWARE ENGINEER":@[@"$75,411",@"$27,877", @"37.0%"],
                                     @"SOFTWARE DEVELOPER":@[@"$72,510",@"$10,980", @"15.1%"],
                                     @"BUSINESS ANALYST":@[@"$65,841",@"$5,482",@"8.3%"],
@@ -605,11 +658,8 @@
                                     @"OTHER":@[@"$50,000",@"$7,122",@"14.2%"]
                                     };
     
-//    NSLog(@"Entity Value: %@", [jobDictionary objectForKey:entityString]);
     
-    /*
-     */
-    
+    return [jobDictionary valueForKey:title];
 }
 
 -(void)listDictionaries {

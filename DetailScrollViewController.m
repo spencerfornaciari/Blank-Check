@@ -56,17 +56,16 @@
         userNameLabel.text = [NSString stringWithFormat:@"%@ %@.", self.connection.firstName, firstLetter];
         
         currentValue = [self.connection.values lastObject];
+        
         NSArray *array = [self.connection.jobs allObjects];
-        
         Job *job = array[0];
-//        [NetworkController checkProfileText:job.title];
+        [NetworkController checkProfileText:job.title];
+//        NSLog(@"%@", );
         
-        for (Job *job in self.connection.jobs) {
-//            [NetworkController checkProfileText:job.title];
-        }
+//        for (Job *job in self.connection.jobs) {
+//           [NetworkController checkProfileText:job.title];
+//        }
         
-//        NSString *string = [jobs[0] title];
-//        [NetworkController checkProfileText:string];
     }
     
     if ([self.detail isKindOfClass:[Worker class]]) {
@@ -240,14 +239,13 @@
     }
     
     self.data = @[
-                  @[@20, @60, @40, @140, @80],
-                  @[@60, @100, @60, @20, @60],
-                  @[@40, @160, @100, @40, @110],
-                  @[@80, @120, @140, @100, @0]
-//                  array
+                  @[@20, @60, @40, @140, @80, @120],
+                  @[@60, @100, @60, @20, @60, @80],
+                  @[@40, @160, @100, @40, @110, @100],
+                  @[@80, @120, @140, @100, @0, @40]
                   ];
     
-    self.labels = @[@"2010", @"2011", @"2012", @"2013", @"2014"];
+    self.labels = @[@"01/12", @"07/12", @"01/13", @"07/13", @"01/14", @"07/14"];
     
     self.graph.dataSource = self;
     self.graph.lineWidth = 3.0;

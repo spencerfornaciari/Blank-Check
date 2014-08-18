@@ -39,8 +39,6 @@
                 self.workExperienceLabel.text = [NSString stringWithFormat:@"Work Exp: Unranked"];
             }
             
-            
-            
         } else {
             self.workExperienceLabel.text = [NSString stringWithFormat:@"Work Exp: Top 10%%"];
         }
@@ -184,7 +182,7 @@
 //    self.searchResultsArray = [self.connectionsArray filteredArrayUsingPredicate:jobTitlePredicate];
     
     for (Job *job in array) {
-        NSLog(@"Job: %@", job.name);
+//        NSLog(@"Job: %@", job.name);
         NSPredicate *jobPredicate = [NSPredicate predicateWithFormat:@"%@ MATCHES[CD] description", job.name];
         NSArray *filtered = [jobArray filteredArrayUsingPredicate:jobPredicate];
         if (filtered.count > 0) {
@@ -200,7 +198,7 @@
         }
     }
 
-    NSLog(@"Final Number: %ld", (long)[finalNumber integerValue]);
+//    NSLog(@"Final Number: %ld", (long)[finalNumber integerValue]);
 
     
 //    NSLog(@"Company Name: %@", companyName);

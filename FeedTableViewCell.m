@@ -28,10 +28,17 @@
     self.userNameLabel.text = [NSString stringWithFormat:@"%@ %@", connection.firstName, connection.lastName];
     
     //Set Value
+    NSArray *jobArray = [self.connection.jobs allObjects];
+    Job *job = jobArray[0];
+//    NSArray *array = [NetworkController checkProfileText:job.title];
+    
     Value *currentValue = [connection.values lastObject];
     
     NSNumberFormatter *formatter = [NSNumberFormatter new];
     [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+    
+//    self.scoreLabel.text = [NSString stringWithFormat:@"%@", array[0]];
+    
     self.scoreLabel.text = [NSString stringWithFormat:@"$%@", [formatter stringFromNumber:currentValue.marketPrice]];
     
 //    NSLog(@"%@", connection.smallImageURL);
