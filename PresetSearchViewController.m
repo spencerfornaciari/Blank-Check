@@ -11,11 +11,6 @@
 #import "UIColor+BlankCheckColors.h"
 
 @interface PresetSearchViewController ()
-@property (strong, nonatomic) IBOutlet UISegmentedControl *searchSegmentController;
-@property (strong, nonatomic) IBOutlet UITableView *presetTableView;
-@property (nonatomic) NSArray *peopleArray, *titleArray, *locationArray, *listArray, *predicateArray;
-
-- (IBAction)changeSegment:(id)sender;
 
 @end
 
@@ -114,6 +109,8 @@
         NSIndexPath *indexPath = [self.presetTableView indexPathForSelectedRow];
         [NetworkController checkProfileText:self.titleArray[indexPath.row]];
     } else {
+        NSIndexPath *indexPath = [self.presetTableView indexPathForSelectedRow];
+        
         NSLog(@"Segment Controller #3");
 
     }

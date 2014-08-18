@@ -50,8 +50,6 @@
         [self.getEstimateButton addTarget:self action:@selector(GetEstimate) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:self.getEstimateButton];
 
-
-        
         return self;
     }
     

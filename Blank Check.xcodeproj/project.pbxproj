@@ -35,6 +35,7 @@
 		897F02321958A4B200A770A6 /* DetailScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 897F02311958A4B200A770A6 /* DetailScrollViewController.m */; };
 		897F02351958E8D000A770A6 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 897F02341958E8D000A770A6 /* LoginViewController.m */; };
 		89800C471979DAB60051A844 /* Gamer.m in Sources */ = {isa = PBXBuildFile; fileRef = 89800C441979DAB60051A844 /* Gamer.m */; };
+		898A7D6419A1925D00AED48B /* PresetSearchResultsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 898A7D6319A1925D00AED48B /* PresetSearchResultsTableViewController.m */; };
 		899616B619461E3100C75B99 /* PresetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 899616B519461E3100C75B99 /* PresetViewController.m */; };
 		899616B919464DF600C75B99 /* LanguageProcessing.m in Sources */ = {isa = PBXBuildFile; fileRef = 899616B819464DF600C75B99 /* LanguageProcessing.m */; };
 		89A143901940E65700FDEC4F /* UIColor+BlankCheckColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A1438F1940E65700FDEC4F /* UIColor+BlankCheckColors.m */; };
@@ -157,6 +158,8 @@
 		897F02341958E8D000A770A6 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginViewController.m; path = ../LoginViewController.m; sourceTree = "<group>"; };
 		89800C431979DAB60051A844 /* Gamer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Gamer.h; sourceTree = "<group>"; };
 		89800C441979DAB60051A844 /* Gamer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Gamer.m; sourceTree = "<group>"; };
+		898A7D6219A1925D00AED48B /* PresetSearchResultsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PresetSearchResultsTableViewController.h; sourceTree = "<group>"; };
+		898A7D6319A1925D00AED48B /* PresetSearchResultsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PresetSearchResultsTableViewController.m; sourceTree = "<group>"; };
 		899616B419461E3100C75B99 /* PresetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PresetViewController.h; path = ../PresetViewController.h; sourceTree = "<group>"; };
 		899616B519461E3100C75B99 /* PresetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PresetViewController.m; path = ../PresetViewController.m; sourceTree = "<group>"; };
 		899616B719464DF600C75B99 /* LanguageProcessing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LanguageProcessing.h; path = ../LanguageProcessing.h; sourceTree = "<group>"; };
@@ -463,6 +466,8 @@
 				89D24ACE198AA7870042967E /* PauseViewController.m */,
 				89571BAE199BE5E200475614 /* NoteTableViewController.h */,
 				89571BAF199BE5E200475614 /* NoteTableViewController.m */,
+				898A7D6219A1925D00AED48B /* PresetSearchResultsTableViewController.h */,
+				898A7D6319A1925D00AED48B /* PresetSearchResultsTableViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -672,6 +677,7 @@
 				89C973E81925650C00EC6004 /* NetworkController.m in Sources */,
 				895AF665195235FD00B20DA6 /* FeedTableViewCell.m in Sources */,
 				890129BB1986BEA700D9874A /* Connection.m in Sources */,
+				898A7D6419A1925D00AED48B /* PresetSearchResultsTableViewController.m in Sources */,
 				890129B81986BEA700D9874A /* Insight.m in Sources */,
 				89B571F2198059F3006FBF14 /* School.m in Sources */,
 				8971C736197F0E390024D3A1 /* ProblemView.m in Sources */,
