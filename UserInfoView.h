@@ -15,6 +15,6 @@
 
 @property (nonatomic) UIButton *linkedinButton;
 
--(id)initWithFrame:(CGRect)frame;
+-(id)initWithFrame:(CGRect)frame andUser:(id)sender;
 
 @end

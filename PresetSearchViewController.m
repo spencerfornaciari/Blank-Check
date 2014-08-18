@@ -28,8 +28,6 @@
     self.searchSegmentController.selectedSegmentIndex = 0;
     
     self.peopleArray = [NSArray arrayWithObjects:@"Steve Ballmer", @"Mark Zuckerberg", @"Tom Brady", @"Martha Steward", @"Brad Pitt", @"Oprah Winfrey", @"Beyonce Knowles", @"Lebron James", @"Kobe Bryant", @"Someone Else", nil];
-//    
-//    SOFTWARE ENGINEER, SOFTWARE DEVELOPER, BUSINESS ANALYST, SENIOR CONSULTANT, CONSULTANT, SENIOR SOFTWARE ENGINEER, PROJECT MANAGER, DATABASE ADMINISTRATOR, ASSISTANT PROFESSOR, WEB DEVELOPER, MECHANICAL ENGINEER, ACCOUNTANT, FINANCIAL ANALYST, POSTDOCTORAL FELLOW, INDUSTRIAL DESIGNER, MARKET RESEARCH ANALYST, PHYSICIAN, PRODUCT MANAGER, OTHER
     
     self.titleArray = [NSArray arrayWithObjects:@"Software Engineer", @"Software Developer", @"Business Analyst", @"Senior Consultants", @"Consultant", @"Senior Software Engineer", @"Project Manager", @"Database Administrator", @"Assistant Professor", @"Web Developer", @"Mechanical Engineer", @"Accountant", @"Financial Analyst", @"Postdoctoral Fellow", @"Industrial Designer", @"Market Research Analyst", @"Physician", @"Product Manager", @"Self", nil];
     
