@@ -164,7 +164,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return 9;
+    return 7;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -197,13 +197,14 @@
 
     }
     
+//    if (indexPath.row == 2) {
+//        NSLog(@"Messages");
+//    }
+//    if (indexPath.row == 3) {
+//        NSLog(@"Notifications");
+//    }
+    
     if (indexPath.row == 2) {
-        NSLog(@"Messages");
-    }
-    if (indexPath.row == 3) {
-        NSLog(@"Notifications");
-    }
-    if (indexPath.row == 4) {
         NSLog(@"Notes");
         self.title = @"My Notes";
         
@@ -217,25 +218,28 @@
         
         [self menuAction];
     }
-    if (indexPath.row == 5) {
+    if (indexPath.row == 3) {
         NSLog(@"Report a Problem");
         
-        int size = (self.view.frame.size.height - 110);
-
-        self.problemView = [[ProblemView alloc] initWithFrame:CGRectMake(20, 20, self.view.frame.size.width - 40, size)];
-        [self.problemView.closeButton addTarget:self action:@selector(closeAction:) forControlEvents:UIControlEventTouchUpInside];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Report a Problem" message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"General Feedback", @"Flag an Inaccurate Listing", @"Something is Not Working", nil];//[[UIAlertView alloc] initWithFrame:frame];
+        [alertView show];
         
-        [self.tableView addSubview:self.problemView];
+//        int size = (self.view.frame.size.height - 110);
+//
+//        self.problemView = [[ProblemView alloc] initWithFrame:CGRectMake(20, 20, self.view.frame.size.width - 40, size)];
+//        [self.problemView.closeButton addTarget:self action:@selector(closeAction:) forControlEvents:UIControlEventTouchUpInside];
+//        
+//        [self.tableView addSubview:self.problemView];
     }
-    if (indexPath.row == 6) {
+    if (indexPath.row == 4) {
         NSLog(@"Terms & Policies");
     }
-    if (indexPath.row == 7) {
+    if (indexPath.row == 5) {
         NSLog(@"Help");
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Help" message:@"Help message will go here." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Alternate Button 1", @"Alertnate Button 2", nil];
         [alertView show];
     }
-    if (indexPath.row == 8) {
+    if (indexPath.row == 6) {
         NSLog(@"Logout");
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"accessToken"];
         [[NSUserDefaults standardUserDefaults] synchronize];
