@@ -7,6 +7,7 @@
 //
 
 #import "PresetSearchResultsTableViewController.h"
+#import "DetailScrollViewController.h"
 #import "Connection.h"
 
 @interface PresetSearchResultsTableViewController ()
@@ -89,14 +90,29 @@
 }
 */
 
-/*
+
 #pragma mark - Navigation
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self performSegueWithIdentifier:@"presetDetailView" sender:self];
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    if ([segue.identifier isEqualToString:@"presetDetailView"]) {
+        
+        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+        
+        DetailScrollViewController *detailedView = segue.destinationViewController;
+        detailedView.detail = self.results[indexPath.row];  
+    }
+    
+   
 }
-*/
+
 
 @end

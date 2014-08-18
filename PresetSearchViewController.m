@@ -31,7 +31,7 @@
 //    
 //    SOFTWARE ENGINEER, SOFTWARE DEVELOPER, BUSINESS ANALYST, SENIOR CONSULTANT, CONSULTANT, SENIOR SOFTWARE ENGINEER, PROJECT MANAGER, DATABASE ADMINISTRATOR, ASSISTANT PROFESSOR, WEB DEVELOPER, MECHANICAL ENGINEER, ACCOUNTANT, FINANCIAL ANALYST, POSTDOCTORAL FELLOW, INDUSTRIAL DESIGNER, MARKET RESEARCH ANALYST, PHYSICIAN, PRODUCT MANAGER, OTHER
     
-    self.titleArray = [NSArray arrayWithObjects:@"Software Engineer", @"Software Developer", @"Business Analyst", @"Senior Consultants", @"Consultant", @"Senior Software Enginer", @"Project Manager", @"Database Administrator", @"Assistant Professor", @"Web Developer", @"Mechanical Engineer", @"Accountant", @"Financial Analyst", @"Postdoctoral Fellow", @"Industrial Designer", @"Market Research Analyst", @"Physician", @"Product Manager", @"Self", nil];
+    self.titleArray = [NSArray arrayWithObjects:@"Software Engineer", @"Software Developer", @"Business Analyst", @"Senior Consultants", @"Consultant", @"Senior Software Engineer", @"Project Manager", @"Database Administrator", @"Assistant Professor", @"Web Developer", @"Mechanical Engineer", @"Accountant", @"Financial Analyst", @"Postdoctoral Fellow", @"Industrial Designer", @"Market Research Analyst", @"Physician", @"Product Manager", @"Self", nil];
     
     self.locationArray = [NSArray arrayWithObjects:@"Seattle", @"Los Angeles", @"New York", @"Chicago", @"Phoenix", @"Las Vegas", @"San Francisco", @"Austin", @"Washington DC", @"Boston", nil];
     
@@ -121,12 +121,14 @@
             PresetSearchResultsTableViewController *preset = segue.destinationViewController;
             NSPredicate *jobTitlePredicate = [NSPredicate predicateWithFormat:@"ANY SELF.jobs.title CONTAINS[cd] %@", self.listArray[indexPath.row]];
             preset.results = [[CoreDataHelper fetchUserConnections] filteredArrayUsingPredicate:jobTitlePredicate];
+            preset.title = self.listArray[indexPath.row];
         } else {
             NSIndexPath *indexPath = [self.presetTableView indexPathForSelectedRow];
             
             PresetSearchResultsTableViewController *preset = segue.destinationViewController;
             NSPredicate *locationPredicate = [NSPredicate predicateWithFormat:@"location CONTAINS[cd] %@", self.listArray[indexPath.row]];
             preset.results = [[CoreDataHelper fetchUserConnections] filteredArrayUsingPredicate:locationPredicate];
+            preset.title = self.listArray[indexPath.row];
         }
         
         

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6205" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="eIG-O4-5Zc">
     <dependencies>
-        <deployment defaultVersion="1808" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6198"/>
     </dependencies>
     <scenes>
@@ -209,6 +208,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="F7b-VN-ZUV"/>
+                    <connections>
+                        <segue destination="eI0-Mb-Nit" kind="push" identifier="presetDetailView" id="3vc-W0-F22"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="96m-9b-ZVH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -656,7 +658,7 @@
         </simulatedScreenMetrics>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="3vc-W0-F22"/>
         <segue reference="HsI-kT-DSj"/>
-        <segue reference="UVr-ZQ-uL9"/>
     </inferredMetricsTieBreakers>
 </document>
