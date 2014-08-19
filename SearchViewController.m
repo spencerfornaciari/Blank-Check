@@ -199,7 +199,7 @@ shouldReloadTableForSearchString:(NSString *)searchString
 }
 
 -(void)searchBar:(UISearchBar *)searchBar selectedScopeButtonIndexDidChange:(NSInteger)selectedScope {
-    searchBar.text = @"";
+    searchBar.text = self.searchString;
 }
  
 

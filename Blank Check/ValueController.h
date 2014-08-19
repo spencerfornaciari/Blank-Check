@@ -10,7 +10,7 @@
 
 @interface ValueController : NSObject
 
-+(NSString *)careerSearchWithString:(NSString *)title;
++(NSString *)careerSearch:(id)sender;
 
 +(NSArray *)jobValue:(NSString *)title;
 

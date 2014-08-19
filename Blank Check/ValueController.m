@@ -7,10 +7,13 @@
 //
 
 #import "ValueController.h"
+#import "Worker.h"
+#import "Connection.h"
+#import "Job.h"
 
 @implementation ValueController
 
-+(NSString *)careerSearchWithString:(NSString *)title {
++(NSString *)careerSearch:(id)sender {
     
     NSDictionary *careerDictionary = @{
                                        @"SOFTWARE ENGINEER":@"SOFTWARE ENGINEER",
@@ -198,23 +201,47 @@
     
     NSArray *careerArray = [careerDictionary allKeys];
     
-    NSPredicate *careerPredicate = [NSPredicate predicateWithFormat:@"%@ MATCHES[CD] description", title];
-    NSArray *filtered = [careerArray filteredArrayUsingPredicate:careerPredicate];
-    
-    if (filtered.count > 0) {
-        return filtered[0];
-        //            if (finalNumber == nil) {
-        //                finalNumber = [jobDictionary objectForKey:job.name];
-        //            } else if (finalNumber) {
-        //                if ([jobDictionary objectForKey:job.name] < finalNumber) {
-        //                    finalNumber = [jobDictionary objectForKey:job.name];
-        //                } else {
-        //
-        //                }
-        //            }
-    } else {
-        return @"OTHER";
+    if ([sender isKindOfClass:[Connection class]]) {
+        Connection *connection = (Connection *)sender;
+        NSArray *jobsArray = [connection.jobs allObjects];
+        
+        for (Job *job in jobsArray) {
+            NSPredicate *careerPredicate = [NSPredicate predicateWithFormat:@"%@ MATCHES[CD] description", job.title];
+            NSArray *filtered = [careerArray filteredArrayUsingPredicate:careerPredicate];
+            
+            if (filtered.count > 0) {
+                NSLog(@"Career: %@", filtered[0]);
+                //            if (finalNumber == nil) {
+                //                finalNumber = [jobDictionary objectForKey:job.name];
+                //            } else if (finalNumber) {
+                //                if ([jobDictionary objectForKey:job.name] < finalNumber) {
+                //                    finalNumber = [jobDictionary objectForKey:job.name];
+                //                } else {
+                //
+                //                }
+                //            }
+            } else {
+                NSLog(@"Career: Other");
+            }
+        }
     }
+    
+    return @"Hello";
+    
+//    if (filtered.count > 0) {
+//        return filtered[0];
+//        //            if (finalNumber == nil) {
+//        //                finalNumber = [jobDictionary objectForKey:job.name];
+//        //            } else if (finalNumber) {
+//        //                if ([jobDictionary objectForKey:job.name] < finalNumber) {
+//        //                    finalNumber = [jobDictionary objectForKey:job.name];
+//        //                } else {
+//        //
+//        //                }
+//        //            }
+//    } else {
+//        return @"OTHER";
+//    }
     
 //    for (NSString *string in careerArray) {
 //        //        NSLog(@"Job: %@", job.name);

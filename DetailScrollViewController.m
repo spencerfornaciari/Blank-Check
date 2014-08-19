@@ -58,9 +58,9 @@
         
         currentValue = [self.connection.values lastObject];
         
-        NSArray *array = [self.connection.jobs allObjects];
-        Job *job = array[0];
-        NSLog(@"Value Controller: %@", [ValueController careerSearchWithString:job.title]);
+//        NSArray *array = [self.connection.jobs allObjects];
+//        Job *job = array[0];
+        NSLog(@"Value Controller: %@", [ValueController careerSearch:self.connection]);
 //        [NetworkController checkProfileText:job.title];
         
         
