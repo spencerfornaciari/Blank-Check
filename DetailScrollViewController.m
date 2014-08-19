@@ -22,7 +22,7 @@
 @property (nonatomic) UserInfoView *userInfoView;
 
 @property (nonatomic) IBOutlet GKLineGraph *graph;
-@property (nonatomic, strong) NSArray *data;
+@property (nonatomic, strong) NSArray *data, *fauxData;
 @property (nonatomic, strong) NSArray *labels;
 
 @property (nonatomic) BOOL fileExists;
@@ -40,6 +40,10 @@
 {
     [super viewDidLoad];
     self.title = @"Blank Check Labs";
+    
+//    self.data = @[
+//                  @[@20, @60, @40, @140, @80, @120]
+//                  ];
     
     self.profileImage = [[UIImageView alloc] initWithFrame:CGRectMake(20, 80, 120, 120)];
     self.profileImage.layer.cornerRadius = 60.f;
@@ -60,22 +64,32 @@
         
 //        NSArray *array = [self.connection.jobs allObjects];
 //        Job *job = array[0];
-        NSLog(@"Value Controller: %@", [ValueController careerSearch:self.connection]);
-        NSLog(@"Value: %@", [ValueController jobValue:[ValueController careerSearch:self.connection]]);
+//        NSLog(@"Value Controller: %@", [ValueController careerSearch:self.connection]);
+//        NSLog(@"Value: %@", [ValueController jobValue:[ValueController careerSearch:self.connection]]);
 
         NSArray *array = [ValueController jobValue:[ValueController careerSearch:self.connection]];
-        NSLog(@"Value: $%ld", (long)[array[0] integerValue]);
+//        NSLog(@"Value: $%ld", (long)[array[0] integerValue]);
         
-        NSLog(@"Historical Values: %@", [ValueController generateBackValues:array[0]]);
+//        NSLog(@"Historical Values: %@", [ValueController generateBackValues:array[0]]);
+        
+        NSMutableArray *temp = [NSMutableArray new];
+        
+        for (NSDictionary *dict in [ValueController generateBackValues:array[0]]) {
+            NSUInteger num = [[dict objectForKey:@"value"] integerValue];
+            [temp addObject:[NSNumber numberWithInteger:num]];
+            NSLog(@"Faux: %@", [NSNumber numberWithInteger:num]);
+        }
+        
+        self.data = [NSArray arrayWithObjects:[temp copy], nil];
+        
+//        NSLog(@"Faux: %@", [ValueController generateBackValues:array[0]]);
         
         NSNumberFormatter *formatter = [NSNumberFormatter new];
         [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
         valueLabel.text = [NSString stringWithFormat:@"$%@", [formatter stringFromNumber:array[0]]];
 //        [NetworkController checkProfileText:job.title];
         
-        
-//        NSLog(@"%@", );
-        
+              
 //        for (Job *job in self.connection.jobs) {
 //           [NetworkController checkProfileText:job.title];
 //        }
@@ -85,6 +99,10 @@
     if ([self.detail isKindOfClass:[Worker class]]) {
         self.worker = (Worker *)self.detail;
         
+        self.data = @[
+                      @[@20, @60, @40, @140, @80, @120]
+                      ];
+//
         self.title = @"My Profile";
         
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"menu"] style:UIBarButtonItemStylePlain target:self action:nil];
@@ -245,19 +263,18 @@
 
 - (void)setupGraph {
     
-    NSMutableArray *array = [NSMutableArray new];
-//    NSArray *test = [self.connection.values array];
+//    for (Value *value in self.connection.values) {
+//        [array addObject:value.marketPrice];
+//    }
+//    self.data = @[
+//                  @[@20, @60, @40, @140, @80, @120]
+//                  @[@60, @100, @60, @20, @60, @80],
+//                  @[@40, @160, @100, @40, @110, @100],
+//                  @[@80, @120, @140, @100, @0, @40]
+//                  ];
+
     
-    for (Value *value in self.connection.values) {
-        [array addObject:value.marketPrice];
-    }
-    
-    self.data = @[
-                  @[@20, @60, @40, @140, @80, @120],
-                  @[@60, @100, @60, @20, @60, @80],
-                  @[@40, @160, @100, @40, @110, @100],
-                  @[@80, @120, @140, @100, @0, @40]
-                  ];
+//    self.data = self.fauxData;
     
     self.labels = @[@"01/12", @"07/12", @"01/13", @"07/13", @"01/14", @"07/14"];
     
@@ -611,10 +628,11 @@
 }
 
 - (UIColor *)colorForLineAtIndex:(NSInteger)index {
-    id colors = @[[UIColor gk_turquoiseColor],
-                  [UIColor gk_peterRiverColor],
-                  [UIColor gk_alizarinColor],
-                  [UIColor gk_sunflowerColor]
+    id colors = @[
+//                  [UIColor gk_turquoiseColor],
+//                  [UIColor gk_peterRiverColor],
+                  [UIColor gk_alizarinColor]
+//                  [UIColor gk_sunflowerColor]
                   ];
     return [colors objectAtIndex:index];
 }

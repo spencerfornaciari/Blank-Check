@@ -315,15 +315,22 @@
     
     float startingPoint = [value floatValue];
     
+    NSDictionary *change = @{@"value":[NSNumber numberWithFloat:startingPoint],
+                             @"change":[NSNumber numberWithFloat:0.0]};
+    
+    [backValuesArray addObject:change];
+    
     for (int i = 0; i < 5; i++) {
         float change = [ValueController randomFloatBetween:.25 and:1.75];
-        NSLog(@"Change: %f", change);
+//        NSLog(@"Change: %f", change);
         startingPoint = startingPoint * (1 - (change/100));
 //        NSLog(@"Floating %i: %f", i, startingPoint);
         NSDictionary *changeDictionary = @{@"value":[NSNumber numberWithFloat:startingPoint],
                                            @"change":[NSNumber numberWithFloat:change]};
         [backValuesArray addObject:changeDictionary];
     }
+    
+
     
     NSArray *reversedArray = [[backValuesArray reverseObjectEnumerator] allObjects];
     
