@@ -14,6 +14,7 @@
 #import "ProblemView.h"
 #import "Insight.h"
 #import "Note.h"
+#import "ValueController.h"
 
 @interface DetailScrollViewController ()
 
@@ -59,7 +60,10 @@
         
         NSArray *array = [self.connection.jobs allObjects];
         Job *job = array[0];
-        [NetworkController checkProfileText:job.title];
+        NSLog(@"Value Controller: %@", [ValueController careerSearchWithString:job.title]);
+//        [NetworkController checkProfileText:job.title];
+        
+        
 //        NSLog(@"%@", );
         
 //        for (Job *job in self.connection.jobs) {

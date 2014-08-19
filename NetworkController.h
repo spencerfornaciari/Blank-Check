@@ -45,10 +45,6 @@
 -(void)grabUserConnections:(Worker *)worker inContext:(NSManagedObjectContext *)context atRange:(NSInteger)range;
 -(NSArray *)commonConnectionsWithUser:(NSString *)userID;
 
-//Social Networking methods
--(void)sendInvitationToUserID:(NSString *)userID;
--(void)shareOnLinkedin:(id)sender;
-
 //Textalytics API Calls
 +(NSArray *)checkProfileText:(NSString *)string;
 -(void)listDictionaries;

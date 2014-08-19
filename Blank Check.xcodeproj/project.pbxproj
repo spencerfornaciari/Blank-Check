@@ -20,6 +20,7 @@
 		89571BB3199BE71200475614 /* NoteTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 89571BB2199BE71200475614 /* NoteTableViewCell.m */; };
 		895AF662195235A700B20DA6 /* FeedBrowserTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 895AF661195235A700B20DA6 /* FeedBrowserTableViewController.m */; };
 		895AF665195235FD00B20DA6 /* FeedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 895AF664195235FD00B20DA6 /* FeedTableViewCell.m */; };
+		896DB15F19A3B5FA00731649 /* ValueController.m in Sources */ = {isa = PBXBuildFile; fileRef = 896DB15E19A3B5FA00731649 /* ValueController.m */; };
 		8971C6EE197C6FF80024D3A1 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8937E7631976FE89004BA64D /* CoreData.framework */; };
 		8971C71E197D85600024D3A1 /* CoreDataHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 8971C71D197D85600024D3A1 /* CoreDataHelper.m */; };
 		8971C736197F0E390024D3A1 /* ProblemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8971C735197F0E390024D3A1 /* ProblemView.m */; };
@@ -130,6 +131,8 @@
 		895AF661195235A700B20DA6 /* FeedBrowserTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedBrowserTableViewController.m; path = ../FeedBrowserTableViewController.m; sourceTree = "<group>"; };
 		895AF663195235FD00B20DA6 /* FeedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedTableViewCell.h; path = ../FeedTableViewCell.h; sourceTree = "<group>"; };
 		895AF664195235FD00B20DA6 /* FeedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedTableViewCell.m; path = ../FeedTableViewCell.m; sourceTree = "<group>"; };
+		896DB15D19A3B5FA00731649 /* ValueController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ValueController.h; sourceTree = "<group>"; };
+		896DB15E19A3B5FA00731649 /* ValueController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ValueController.m; sourceTree = "<group>"; };
 		8971C71C197D85600024D3A1 /* CoreDataHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataHelper.h; sourceTree = "<group>"; };
 		8971C71D197D85600024D3A1 /* CoreDataHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataHelper.m; sourceTree = "<group>"; };
 		8971C734197F0E390024D3A1 /* ProblemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProblemView.h; sourceTree = "<group>"; };
@@ -468,6 +471,8 @@
 				89571BAF199BE5E200475614 /* NoteTableViewController.m */,
 				898A7D6219A1925D00AED48B /* PresetSearchResultsTableViewController.h */,
 				898A7D6319A1925D00AED48B /* PresetSearchResultsTableViewController.m */,
+				896DB15D19A3B5FA00731649 /* ValueController.h */,
+				896DB15E19A3B5FA00731649 /* ValueController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -678,6 +683,7 @@
 				895AF665195235FD00B20DA6 /* FeedTableViewCell.m in Sources */,
 				890129BB1986BEA700D9874A /* Connection.m in Sources */,
 				898A7D6419A1925D00AED48B /* PresetSearchResultsTableViewController.m in Sources */,
+				896DB15F19A3B5FA00731649 /* ValueController.m in Sources */,
 				890129B81986BEA700D9874A /* Insight.m in Sources */,
 				89B571F2198059F3006FBF14 /* School.m in Sources */,
 				8971C736197F0E390024D3A1 /* ProblemView.m in Sources */,
