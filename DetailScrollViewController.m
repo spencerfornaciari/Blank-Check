@@ -41,6 +41,8 @@
     [super viewDidLoad];
     self.title = @"Blank Check Labs";
     
+    self.fauxData = @[@50000, @50000, @50000, @50000, @50000, @50000];
+    
 //    self.data = @[
 //                  @[@20, @60, @40, @140, @80, @120]
 //                  ];
@@ -80,7 +82,7 @@
             NSLog(@"Faux: %@", [NSNumber numberWithInteger:num]);
         }
         
-        self.data = [NSArray arrayWithObjects:[temp copy], nil];
+        self.data = [NSArray arrayWithObjects:[temp copy], self.fauxData, nil];
         
 //        NSLog(@"Faux: %@", [ValueController generateBackValues:array[0]]);
         
@@ -100,6 +102,7 @@
         self.worker = (Worker *)self.detail;
         
         self.data = @[
+                      @[@60, @100, @60, @20, @60, @80],
                       @[@20, @60, @40, @140, @80, @120]
                       ];
 //
@@ -630,7 +633,7 @@
 - (UIColor *)colorForLineAtIndex:(NSInteger)index {
     id colors = @[
 //                  [UIColor gk_turquoiseColor],
-//                  [UIColor gk_peterRiverColor],
+                  [UIColor gk_peterRiverColor],
                   [UIColor gk_alizarinColor]
 //                  [UIColor gk_sunflowerColor]
                   ];

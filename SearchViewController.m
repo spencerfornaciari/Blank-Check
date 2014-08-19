@@ -147,7 +147,6 @@
         detailedView.detail = connection;
         
     }
-
 }
 
 - (void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope
@@ -209,5 +208,11 @@ shouldReloadTableForSearchString:(NSString *)searchString
     self.controller.view.frame = CGRectMake(0, 108, 320, 480);
     [self.view addSubview:self.controller.view];
     [self.controller didMoveToParentViewController:self];
+}
+
+-(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+    [searchBar resignFirstResponder];
+    self.searchResultsArray = self.connectionsArray;
+    [self loadOverview];
 }
 @end
