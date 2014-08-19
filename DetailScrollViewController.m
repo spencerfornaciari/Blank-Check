@@ -61,6 +61,16 @@
 //        NSArray *array = [self.connection.jobs allObjects];
 //        Job *job = array[0];
         NSLog(@"Value Controller: %@", [ValueController careerSearch:self.connection]);
+        NSLog(@"Value: %@", [ValueController jobValue:[ValueController careerSearch:self.connection]]);
+
+        NSArray *array = [ValueController jobValue:[ValueController careerSearch:self.connection]];
+        NSLog(@"Value: $%ld", (long)[array[0] integerValue]);
+        
+        NSLog(@"Historical Values: %@", [ValueController generateBackValues:array[0]]);
+        
+        NSNumberFormatter *formatter = [NSNumberFormatter new];
+        [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+        valueLabel.text = [NSString stringWithFormat:@"$%@", [formatter stringFromNumber:array[0]]];
 //        [NetworkController checkProfileText:job.title];
         
         
@@ -90,7 +100,7 @@
     
     NSNumberFormatter *formatter = [NSNumberFormatter new];
     [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
-    valueLabel.text = [NSString stringWithFormat:@"$%@", [formatter stringFromNumber:currentValue.marketPrice]];
+//    valueLabel.text = [NSString stringWithFormat:@"$%@", [formatter stringFromNumber:currentValue.marketPrice]];
 
     
     scrollView.delegate = self;

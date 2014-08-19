@@ -14,4 +14,6 @@
 
 +(NSArray *)jobValue:(NSString *)title;
 
++(NSArray *)generateBackValues:(NSNumber *)value;
+
 @end

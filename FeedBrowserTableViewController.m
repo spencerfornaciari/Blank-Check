@@ -47,16 +47,16 @@
         [self loadCoreData];
     }
     
-    float startingPoint = 50000;
-    
-    for (int i = 0; i < 5; i++) {
-        float change = [self randomFloatBetween:.25 and:1.75];
-        NSLog(@"Change: %f", change);
-        startingPoint = startingPoint * (1 - (change/100));
-        NSLog(@"Floating %i: %f", i, startingPoint);
-    }
-    
-    NSLog(@"Random: %f", [self randomFloatBetween:.25 and:1.75]);
+//    float startingPoint = 50000;
+//    
+//    for (int i = 0; i < 5; i++) {
+//        float change = [self randomFloatBetween:.25 and:1.75];
+//        NSLog(@"Change: %f", change);
+//        startingPoint = startingPoint * (1 - (change/100));
+//        NSLog(@"Floating %i: %f", i, startingPoint);
+//    }
+//    
+//    NSLog(@"Random: %f", [self randomFloatBetween:.25 and:1.75]);
     
 //    [SocialHelper sendInvitationToUserID:self.worker];
 //    } else {
@@ -71,10 +71,7 @@
 //    }
 }
 
-- (float)randomFloatBetween:(float)smallNumber and:(float)bigNumber {
-    float diff = bigNumber - smallNumber;
-    return (((float) (arc4random() % ((unsigned)RAND_MAX + 1)) / RAND_MAX) * diff) + smallNumber;
-}
+
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
