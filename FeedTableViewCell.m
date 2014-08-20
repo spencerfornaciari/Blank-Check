@@ -25,13 +25,9 @@
 
 -(void)setCell:(Connection *)connection {
     self.connection = connection;
+    
     //Set Name
     self.userNameLabel.text = [NSString stringWithFormat:@"%@ %@", connection.firstName, connection.lastName];
-    
-    //Set Value
-    NSArray *jobArray = [self.connection.jobs allObjects];
-//    Job *job = jobArray[0];
-//    NSArray *array = [NetworkController checkProfileText:job.title];
     
     //Generating Values
 //    NSArray *array = [ValueController jobValue:[ValueController careerSearch:self.connection]];

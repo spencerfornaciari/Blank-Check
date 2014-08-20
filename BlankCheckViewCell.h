@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import <Social/Social.h>
-#import "Gamer.h"
 #import "SocialController.h"
 #import "UIColor+BlankCheckColors.h"
 
@@ -19,9 +18,5 @@
 @property (strong, nonatomic) IBOutlet UIImageView *graphImage;
 
 @property (nonatomic) UIButton *socialButton;
-
-@property (nonatomic) Gamer *gamer;
-
--(void)setCell:(Gamer *)gamer;
 
 @end

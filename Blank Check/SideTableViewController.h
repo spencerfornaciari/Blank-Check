@@ -16,7 +16,7 @@
 
 
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *menuButton;
-- (IBAction)menuButtonAction:(id)sender;
+//- (IBAction)menuButtonAction:(id)sender;
 
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *searchButton;
 

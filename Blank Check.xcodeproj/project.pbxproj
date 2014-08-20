@@ -35,7 +35,6 @@
 		8978FBCB193E562600BF0921 /* PresetSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8978FBCA193E562600BF0921 /* PresetSearchViewController.m */; };
 		897F02321958A4B200A770A6 /* DetailScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 897F02311958A4B200A770A6 /* DetailScrollViewController.m */; };
 		897F02351958E8D000A770A6 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 897F02341958E8D000A770A6 /* LoginViewController.m */; };
-		89800C471979DAB60051A844 /* Gamer.m in Sources */ = {isa = PBXBuildFile; fileRef = 89800C441979DAB60051A844 /* Gamer.m */; };
 		898A7D6419A1925D00AED48B /* PresetSearchResultsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 898A7D6319A1925D00AED48B /* PresetSearchResultsTableViewController.m */; };
 		899616B619461E3100C75B99 /* PresetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 899616B519461E3100C75B99 /* PresetViewController.m */; };
 		899616B919464DF600C75B99 /* LanguageProcessing.m in Sources */ = {isa = PBXBuildFile; fileRef = 899616B819464DF600C75B99 /* LanguageProcessing.m */; };
@@ -159,8 +158,6 @@
 		897F02311958A4B200A770A6 /* DetailScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DetailScrollViewController.m; path = ../DetailScrollViewController.m; sourceTree = "<group>"; };
 		897F02331958E8D000A770A6 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginViewController.h; path = ../LoginViewController.h; sourceTree = "<group>"; };
 		897F02341958E8D000A770A6 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginViewController.m; path = ../LoginViewController.m; sourceTree = "<group>"; };
-		89800C431979DAB60051A844 /* Gamer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Gamer.h; sourceTree = "<group>"; };
-		89800C441979DAB60051A844 /* Gamer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Gamer.m; sourceTree = "<group>"; };
 		898A7D6219A1925D00AED48B /* PresetSearchResultsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PresetSearchResultsTableViewController.h; sourceTree = "<group>"; };
 		898A7D6319A1925D00AED48B /* PresetSearchResultsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PresetSearchResultsTableViewController.m; sourceTree = "<group>"; };
 		899616B419461E3100C75B99 /* PresetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PresetViewController.h; path = ../PresetViewController.h; sourceTree = "<group>"; };
@@ -269,8 +266,6 @@
 			isa = PBXGroup;
 			children = (
 				89800C4F1979E2C10051A844 /* Core Data */,
-				89800C431979DAB60051A844 /* Gamer.h */,
-				89800C441979DAB60051A844 /* Gamer.m */,
 				89779E17196C530100AC81CA /* ExpertAppraisal.h */,
 				89779E18196C530100AC81CA /* ExpertAppraisal.m */,
 				89779E1A196C588C00AC81CA /* TimelineEvent.h */,
@@ -691,7 +686,6 @@
 				89779E0A1965DCF700AC81CA /* SearchViewController.m in Sources */,
 				89C973C8192564AF00EC6004 /* ViewController.m in Sources */,
 				89A143901940E65700FDEC4F /* UIColor+BlankCheckColors.m in Sources */,
-				89800C471979DAB60051A844 /* Gamer.m in Sources */,
 				89C973BF192564AF00EC6004 /* AppDelegate.m in Sources */,
 				89D24ACF198AA7870042967E /* PauseViewController.m in Sources */,
 				89D417A9197858D300A0CA4F /* BlankCheck.xcdatamodeld in Sources */,

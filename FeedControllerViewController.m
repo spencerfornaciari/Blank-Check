@@ -16,7 +16,6 @@
 
 @property (weak, nonatomic) IBOutlet UICollectionView *blankCheckCollectionView;
 
-@property (nonatomic) Gamer *one, *two, *three;
 @property (nonatomic) NSMutableArray *feedArray;
 
 @property (nonatomic) NetworkController *networkController;
@@ -114,48 +113,48 @@
     [actionSheet showInView:self.view];
 }
 
--(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    
-    
-    switch (buttonIndex) {
-        case 0:
-        {
-            NSLog(@"LinkedIn");
-            [SocialController shareOnLinkedin:self.one];;
-            //            [socialController shareOnFacebook:<#(Gamer *)#>]
-            
-        }    //            SLComposeViewController *viewController = [SocialController shareOnFacebook:gamer];
-        break;
-            
-        case 1:
-        {
-            NSLog(@"Twitter");
-            SLComposeViewController *twitterViewController = [SocialController shareOnTwitter:self.one];
-            
-            if (twitterViewController) {
-                [self presentViewController:twitterViewController animated:YES completion:nil];
-            } else {
-                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"No Twitter Account Available" message:@"Please enable Twitter to do this" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
-                [alertView show];
-            }
-        }
-        break;
-            
-        case 2:
-        {
-            NSLog(@"Facebook");
-            SLComposeViewController *facebookViewController = [SocialController shareOnFacebook:self.one];
-            //
-            if (facebookViewController) {
-                [self presentViewController:facebookViewController animated:YES completion:nil];
-            } else {
-                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"No Facebook Account Available" message:@"Please enable Facebook to do this" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
-                [alertView show];
-            }
-        }
-        break;
-    }
-}
+//-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+//{
+//    
+//    
+//    switch (buttonIndex) {
+//        case 0:
+//        {
+//            NSLog(@"LinkedIn");
+//            [SocialController shareOnLinkedin:self.one];;
+//            //            [socialController shareOnFacebook:<#(Gamer *)#>]
+//            
+//        }    //            SLComposeViewController *viewController = [SocialController shareOnFacebook:gamer];
+//        break;
+//            
+//        case 1:
+//        {
+//            NSLog(@"Twitter");
+//            SLComposeViewController *twitterViewController = [SocialController shareOnTwitter:self.one];
+//            
+//            if (twitterViewController) {
+//                [self presentViewController:twitterViewController animated:YES completion:nil];
+//            } else {
+//                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"No Twitter Account Available" message:@"Please enable Twitter to do this" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+//                [alertView show];
+//            }
+//        }
+//        break;
+//            
+//        case 2:
+//        {
+//            NSLog(@"Facebook");
+//            SLComposeViewController *facebookViewController = [SocialController shareOnFacebook:self.one];
+//            //
+//            if (facebookViewController) {
+//                [self presentViewController:facebookViewController animated:YES completion:nil];
+//            } else {
+//                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"No Facebook Account Available" message:@"Please enable Facebook to do this" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+//                [alertView show];
+//            }
+//        }
+//        break;
+//    }
+//}
 
 @end

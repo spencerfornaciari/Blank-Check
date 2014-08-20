@@ -186,15 +186,6 @@
 }
 */
 
--(BOOL)doesGamerExist
-{
-    if (![[NSFileManager defaultManager] fileExistsAtPath:[Gamer gamerPath]]) {
-        return FALSE;
-    } else {
-        return TRUE;
-    }
-}
-
 - (IBAction)handleMenuButton:(id)sender {
     
     if (self.menuButtonBool == FALSE) {
