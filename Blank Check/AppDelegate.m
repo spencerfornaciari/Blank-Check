@@ -60,16 +60,28 @@
     self.blankQueue = [NSOperationQueue new];
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main_iPhone"
                                                              bundle: nil];
-    BOOL tokenIsCurrent;
-    if (![[NSUserDefaults standardUserDefaults] stringForKey:@"accessToken"]) {
-        NSLog(@"No Token");
-        tokenIsCurrent = FALSE;
-    } else {
-        NSLog(@"Token available");
-        tokenIsCurrent = [[NetworkController sharedController] checkTokenIsCurrent];
-    }
     
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"dataExists"]) {
+        UINavigationController *viewController = [mainStoryboard instantiateViewControllerWithIdentifier: @"sideView"];
+        self.window.rootViewController = viewController;
+    } else {
+        BOOL tokenIsCurrent;
+        if (![[NSUserDefaults standardUserDefaults] stringForKey:@"accessToken"]) {
+            NSLog(@"No Token");
+            tokenIsCurrent = FALSE;
+        } else {
+            NSLog(@"Token available");
+            tokenIsCurrent = [[NetworkController sharedController] checkTokenIsCurrent];
+        }
         
+        if (!tokenIsCurrent) {
+            LoginViewController *viewController = [mainStoryboard instantiateViewControllerWithIdentifier: @"loginView"];
+            self.window.rootViewController = viewController;
+        } else {
+        
+        }
+ 
+    }
     
     
 //        [[NetworkController sharedController] checkTokenIsCurrentWithCallback:^(BOOL finished) {
@@ -90,19 +102,7 @@
 //        }];
     
         
-        if (tokenIsCurrent) {
-            NSLog(@"Token is current");
-            
-            UINavigationController *viewController = [mainStoryboard instantiateViewControllerWithIdentifier: @"sideView"];
-            self.window.rootViewController = viewController;
-            
-        } else {
-            NSLog(@"Token is NOT current");
-            
-            LoginViewController *viewController = [mainStoryboard instantiateViewControllerWithIdentifier: @"loginView"];
-            self.window.rootViewController = viewController;
-        }
-//    }
+
 
     return YES;
 }

@@ -43,7 +43,7 @@
     //End Generating values
     
     if (connection.values.count == 0) {
-        self.scoreLabel.text = @"Click to see the value!";
+        self.scoreLabel.text = @"Click for the value!";
     } else {
         Value *currentValue = [connection.values lastObject];
         
@@ -51,7 +51,6 @@
         [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
         self.scoreLabel.text = [NSString stringWithFormat:@"$%@", [formatter stringFromNumber:currentValue.marketPrice]];
     }
-    
     
     NSURL *url = [NSURL URLWithString:connection.smallImageURL];
     //Set Profile Image

@@ -234,6 +234,37 @@
         }
     }
     
+    if ([sender isKindOfClass:[Worker class]]) {
+        Worker *worker = (Worker *)sender;
+        NSArray *jobsArray = [worker.jobs allObjects];
+        
+        for (Job *job in jobsArray) {
+            //            NSLog(@"Job Title: %@", job.title);
+            NSPredicate *careerPredicate = [NSPredicate predicateWithFormat:@"%@ CONTAINS[cd] SELF", job.title];
+            NSArray *filtered = [careerArray filteredArrayUsingPredicate:careerPredicate];
+            
+            if (filtered.count > 0) {
+                NSString *string = filtered[0];
+                if (finalString == nil) {
+                    finalString = string;
+                    
+                } else if ([finalString isEqualToString:@"OTHER"]) {
+                    if (![string isEqualToString:@"OTHER"]) {
+                        finalString = string;
+                        
+                    }
+                } else {
+                    
+                }
+            } else {
+                if (finalString == nil) {
+                    finalString = @"OTHER";
+                }
+                
+            }
+        }
+    }
+    
 //    NSLog(@"Final String: %@", finalString);
     
     return [careerDictionary valueForKey:finalString];
