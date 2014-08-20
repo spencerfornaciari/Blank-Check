@@ -141,6 +141,7 @@
 
 -(BOOL)checkTokenIsCurrent
 {
+    
     NSString *accessURL = [NSString stringWithFormat:@"%@%@&format=json", @"https://api.linkedin.com/v1/people/~:(id,first-name,last-name,industry,headline,location:(name),num-connections,picture-url,email-address,last-modified-timestamp,interests,languages,skills,certifications,three-current-positions,public-profile-url,educations,num-recommenders,recommendations-received)?oauth2_access_token=", [[NSUserDefaults standardUserDefaults] stringForKey:@"accessToken"]];
 
     NSURL *url = [NSURL URLWithString:accessURL];
@@ -480,12 +481,13 @@
                     [newConnection addJobsObject:newJob];
                 }
                 
-                Value *newValue = [NSEntityDescription insertNewObjectForEntityForName:@"Value" inManagedObjectContext:[CoreDataHelper managedContext]];
-                
-                newValue.marketPrice = @1000000;
-                newValue.date = [NSDate date];
-                
-                [newConnection addNewValueObject:newValue];
+                //Generating default value
+//                Value *newValue = [NSEntityDescription insertNewObjectForEntityForName:@"Value" inManagedObjectContext:[CoreDataHelper managedContext]];
+//                
+//                newValue.marketPrice = @1000000;
+//                newValue.date = [NSDate date];
+//                
+//                [newConnection addNewValueObject:newValue];
                 
                 [worker addConnectionsObject:newConnection];
             }

@@ -62,33 +62,70 @@
         NSString *firstLetter = [self.connection.lastName substringWithRange:NSMakeRange(0, 1)];
         userNameLabel.text = [NSString stringWithFormat:@"%@ %@.", self.connection.firstName, firstLetter];
         
-        currentValue = [self.connection.values lastObject];
-        
-//        NSArray *array = [self.connection.jobs allObjects];
-//        Job *job = array[0];
-//        NSLog(@"Value Controller: %@", [ValueController careerSearch:self.connection]);
-//        NSLog(@"Value: %@", [ValueController jobValue:[ValueController careerSearch:self.connection]]);
+        if (self.connection.values.count == 0) {
+            NSArray *array = [ValueController jobValue:[ValueController careerSearch:self.connection]];
+            
+            
+            for (NSDictionary *dict in [ValueController generateBackValues:array[0]]) {
+//                NSUInteger num = [[dict objectForKey:@"value"] integerValue];
+                
+                Value *newValue = [NSEntityDescription insertNewObjectForEntityForName:@"Value" inManagedObjectContext:[CoreDataHelper managedContext]];
+                newValue.marketPrice = [dict objectForKey:@"value"];
+                newValue.date = [NSDate date];
+                [self.connection addNewValueObject:newValue];
+                
+//                [temp addObject:[NSNumber numberWithInteger:num]];
+//                NSLog(@"Faux: %@", [NSNumber numberWithInteger:num]);
+            }
+            
+            [CoreDataHelper saveContext];
+            
+            NSMutableArray *temp = [NSMutableArray new];
+            NSArray *orderedArray = [self.connection.values array];
 
-        NSArray *array = [ValueController jobValue:[ValueController careerSearch:self.connection]];
+            for (int j = (int)orderedArray.count - 6; j < orderedArray.count; j++) {
+                Value *value = [self.connection.values objectAtIndex:j];
+                [temp addObject:value.marketPrice];
+                
+            }
+            
+            self.data = [NSArray arrayWithObjects:[temp copy], self.fauxData, nil];
+
+        } else {
+            NSMutableArray *temp = [NSMutableArray new];
+            NSArray *orderedArray = [self.connection.values array];
+            
+            for (int j = (int)orderedArray.count - 6; j < orderedArray.count; j++) {
+                Value *value = [self.connection.values objectAtIndex:j];
+                [temp addObject:value.marketPrice];
+                
+            }
+            
+            self.data = [NSArray arrayWithObjects:[temp copy], self.fauxData, nil];
+            
+            
+            currentValue = [self.connection.values lastObject];
+//            self.data = @[
+//                          @[@60, @100, @60, @20, @60, @80],
+//                          @[@20, @60, @40, @140, @80, @120]
+//                          ];
+
+            NSNumberFormatter *formatter = [NSNumberFormatter new];
+            [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+            valueLabel.text = [NSString stringWithFormat:@"$%@", [formatter stringFromNumber:currentValue.marketPrice]];
+        }
+        
+        
+
 //        NSLog(@"Value: $%ld", (long)[array[0] integerValue]);
         
 //        NSLog(@"Historical Values: %@", [ValueController generateBackValues:array[0]]);
         
-        NSMutableArray *temp = [NSMutableArray new];
         
-        for (NSDictionary *dict in [ValueController generateBackValues:array[0]]) {
-            NSUInteger num = [[dict objectForKey:@"value"] integerValue];
-            [temp addObject:[NSNumber numberWithInteger:num]];
-            NSLog(@"Faux: %@", [NSNumber numberWithInteger:num]);
-        }
-        
-        self.data = [NSArray arrayWithObjects:[temp copy], self.fauxData, nil];
         
 //        NSLog(@"Faux: %@", [ValueController generateBackValues:array[0]]);
         
-        NSNumberFormatter *formatter = [NSNumberFormatter new];
-        [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
-        valueLabel.text = [NSString stringWithFormat:@"$%@", [formatter stringFromNumber:array[0]]];
+        
 //        [NetworkController checkProfileText:job.title];
         
               
@@ -119,8 +156,8 @@
     
     [self setProfileImage];
     
-    NSNumberFormatter *formatter = [NSNumberFormatter new];
-    [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+//    NSNumberFormatter *formatter = [NSNumberFormatter new];
+//    [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
 //    valueLabel.text = [NSString stringWithFormat:@"$%@", [formatter stringFromNumber:currentValue.marketPrice]];
 
     

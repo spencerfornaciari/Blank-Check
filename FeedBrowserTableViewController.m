@@ -47,17 +47,6 @@
         [self loadCoreData];
     }
     
-//    float startingPoint = 50000;
-//    
-//    for (int i = 0; i < 5; i++) {
-//        float change = [self randomFloatBetween:.25 and:1.75];
-//        NSLog(@"Change: %f", change);
-//        startingPoint = startingPoint * (1 - (change/100));
-//        NSLog(@"Floating %i: %f", i, startingPoint);
-//    }
-//    
-//    NSLog(@"Random: %f", [self randomFloatBetween:.25 and:1.75]);
-    
 //    [SocialHelper sendInvitationToUserID:self.worker];
 //    } else {
 //        if (self.downloadingUserData == FALSE) { //Need to check if DB exists

@@ -330,8 +330,6 @@
         [backValuesArray addObject:changeDictionary];
     }
     
-
-    
     NSArray *reversedArray = [[backValuesArray reverseObjectEnumerator] allObjects];
     
     return reversedArray;

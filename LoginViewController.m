@@ -49,6 +49,7 @@
 
 -(void)newOAuth
 {
+    
     NSString *string = [[NetworkController sharedController] beginOAuthAccess];
     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
         NSURL *url = [NSURL URLWithString:string];

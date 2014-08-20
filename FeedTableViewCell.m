@@ -30,25 +30,28 @@
     
     //Set Value
     NSArray *jobArray = [self.connection.jobs allObjects];
-    Job *job = jobArray[0];
+//    Job *job = jobArray[0];
 //    NSArray *array = [NetworkController checkProfileText:job.title];
     
     //Generating Values
-    NSArray *array = [ValueController jobValue:[ValueController careerSearch:self.connection]];
-    NSLog(@"Value: $%ld", (long)[array[0] integerValue]);
-    
-    NSNumberFormatter *formatter = [NSNumberFormatter new];
-    [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
-    NSString *valueString = [NSString stringWithFormat:@"$%@", [formatter stringFromNumber:array[0]]];
+//    NSArray *array = [ValueController jobValue:[ValueController careerSearch:self.connection]];
+//    NSLog(@"Value: $%ld", (long)[array[0] integerValue]);
+//    
+//    NSNumberFormatter *formatter = [NSNumberFormatter new];
+//    [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+//    NSString *valueString = [NSString stringWithFormat:@"$%@", [formatter stringFromNumber:array[0]]];
     //End Generating values
     
-    Value *currentValue = [connection.values lastObject];
+    if (connection.values.count == 0) {
+        self.scoreLabel.text = @"Click to see the value!";
+    } else {
+        Value *currentValue = [connection.values lastObject];
+        
+        NSNumberFormatter *formatter = [NSNumberFormatter new];
+        [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+        self.scoreLabel.text = [NSString stringWithFormat:@"$%@", [formatter stringFromNumber:currentValue.marketPrice]];
+    }
     
-//    self.scoreLabel.text = [NSString stringWithFormat:@"%@", array[0]];
-    
-    self.scoreLabel.text = valueString;//[NSString stringWithFormat:@"$%@", [formatter stringFromNumber:currentValue.marketPrice]];
-    
-//    NSLog(@"%@", connection.smallImageURL);
     
     NSURL *url = [NSURL URLWithString:connection.smallImageURL];
     //Set Profile Image
