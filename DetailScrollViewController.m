@@ -62,7 +62,7 @@
         NSString *firstLetter = [self.connection.lastName substringWithRange:NSMakeRange(0, 1)];
         userNameLabel.text = [NSString stringWithFormat:@"%@ %@.", self.connection.firstName, firstLetter];
         
-        if (self.connection.values.count == 0) {
+        if (self.connection.values.count > 0) {
             NSArray *array = [ValueController jobValue:[ValueController careerSearch:self.connection]];
             
             
@@ -82,6 +82,7 @@
             
             NSMutableArray *temp = [NSMutableArray new];
             NSArray *orderedArray = [self.connection.values array];
+//            int count = self.connection.values.count;
 
             for (int j = (int)orderedArray.count - 6; j < orderedArray.count; j++) {
                 Value *value = [self.connection.values objectAtIndex:j];
@@ -92,23 +93,12 @@
             self.data = [NSArray arrayWithObjects:[temp copy], self.fauxData, nil];
 
         } else {
-            NSMutableArray *temp = [NSMutableArray new];
-            NSArray *orderedArray = [self.connection.values array];
-            
-            for (int j = (int)orderedArray.count - 6; j < orderedArray.count; j++) {
-                Value *value = [self.connection.values objectAtIndex:j];
-                [temp addObject:value.marketPrice];
-                
-            }
-            
-            self.data = [NSArray arrayWithObjects:[temp copy], self.fauxData, nil];
-            
-            
             currentValue = [self.connection.values lastObject];
-//            self.data = @[
-//                          @[@60, @100, @60, @20, @60, @80],
-//                          @[@20, @60, @40, @140, @80, @120]
-//                          ];
+            self.data = @[
+                          @[@60, @100, @60, @20, @60, @80],
+                          @[@20, @60, @40, @140, @80, @120]
+                          ];
+//            self.data = [NSArray arrayWithObjects:[temp copy], self.fauxData, nil];
 
             NSNumberFormatter *formatter = [NSNumberFormatter new];
             [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
@@ -138,28 +128,57 @@
     if ([self.detail isKindOfClass:[Worker class]]) {
         self.worker = (Worker *)self.detail;
         
-        self.data = @[
-                      @[@60, @100, @60, @20, @60, @80],
-                      @[@20, @60, @40, @140, @80, @120]
-                      ];
-//
         self.title = @"My Profile";
-        
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"menu"] style:UIBarButtonItemStylePlain target:self action:nil];
         
         NSString *firstLetter = [self.worker.lastName substringWithRange:NSMakeRange(0, 1)];
         userNameLabel.text = [NSString stringWithFormat:@"%@ %@.", self.worker.firstName, firstLetter];
+
         
-        currentValue = [self.worker.values lastObject];
-        
+        if (self.worker.values.count > 0) {
+            NSArray *array = [ValueController jobValue:[ValueController careerSearch:self.worker]];
+            
+            
+            for (NSDictionary *dict in [ValueController generateBackValues:array[0]]) {
+                //                NSUInteger num = [[dict objectForKey:@"value"] integerValue];
+                
+                Value *newValue = [NSEntityDescription insertNewObjectForEntityForName:@"Value" inManagedObjectContext:[CoreDataHelper managedContext]];
+                newValue.marketPrice = [dict objectForKey:@"value"];
+                newValue.date = [NSDate date];
+                [self.worker addNewValueObject:newValue];
+                
+                //                [temp addObject:[NSNumber numberWithInteger:num]];
+                //                NSLog(@"Faux: %@", [NSNumber numberWithInteger:num]);
+            }
+            
+            [CoreDataHelper saveContext];
+            
+            NSMutableArray *temp = [NSMutableArray new];
+            NSArray *orderedArray = [self.worker.values array];
+            //            int count = self.connection.values.count;
+            
+            for (int j = (int)orderedArray.count - 6; j < orderedArray.count; j++) {
+                Value *value = [self.worker.values objectAtIndex:j];
+                [temp addObject:value.marketPrice];
+                
+            }
+            
+            self.data = [NSArray arrayWithObjects:[temp copy], self.fauxData, nil];
+            
+        } else {
+            currentValue = [self.worker.values lastObject];
+            self.data = @[
+                          @[@60, @100, @60, @20, @60, @80],
+                          @[@20, @60, @40, @140, @80, @120]
+                          ];
+            //            self.data = [NSArray arrayWithObjects:[temp copy], self.fauxData, nil];
+            
+            NSNumberFormatter *formatter = [NSNumberFormatter new];
+            [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+            valueLabel.text = [NSString stringWithFormat:@"$%@", [formatter stringFromNumber:currentValue.marketPrice]];
+        }
     }
     
     [self setProfileImage];
-    
-//    NSNumberFormatter *formatter = [NSNumberFormatter new];
-//    [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
-//    valueLabel.text = [NSString stringWithFormat:@"$%@", [formatter stringFromNumber:currentValue.marketPrice]];
-
     
     scrollView.delegate = self;
     [scrollView setScrollEnabled:YES];
@@ -201,7 +220,6 @@
 }
 
 -(void)setProfileImage {
-
 
     
     if ([self.detail isKindOfClass:[Connection class]]) {
@@ -325,8 +343,31 @@
     
     [self.graph draw];
     
+    float finalNum;// = 0.0;
+    if ([self.detail isKindOfClass:[Connection class]]) {
+        Value *newValue = [self.connection.values lastObject];
+        Value *oldValue = [self.connection.values objectAtIndex:self.connection.values.count - 2];
+        
+        finalNum = [newValue.marketPrice floatValue] - [oldValue.marketPrice floatValue];
+    }
+    
+//    if ([self.detail isKindOfClass:[Worker class]]) {
+//        Value *newValue = [self.worker.values lastObject];
+//        Value *oldValue = [self.worker.values objectAtIndex:self.connection.values.count - 2];
+//        
+//        finalNum = [newValue.marketPrice floatValue] - [oldValue.marketPrice floatValue];
+//    }
+//    
     UILabel *newLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.graph.frame.size.width - 150, self.graph.frame.size.height - 70, 80, 50)];
-    newLabel.text = @"-$50,000";
+    
+    if (finalNum > 0) {
+        newLabel.text = [NSString stringWithFormat:@"+$%.0f", finalNum];
+        newLabel.backgroundColor = [UIColor colorWithRed:0/255.0 green:153.0/255.0 blue:0/255.0 alpha:1];
+    } else {
+        newLabel.text = [NSString stringWithFormat:@"-$%.0f", fabs(finalNum)];
+        newLabel.backgroundColor = [UIColor redColor];
+    }
+    
     newLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:22.0];
     [newLabel sizeToFit];
     
@@ -334,7 +375,7 @@
     newLabel.frame = newRect;
     
     newLabel.textColor = [UIColor whiteColor];
-    newLabel.backgroundColor = [UIColor redColor];
+    
     [self.graph addSubview:newLabel];
 }
 

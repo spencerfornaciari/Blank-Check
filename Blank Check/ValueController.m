@@ -239,7 +239,6 @@
         NSArray *jobsArray = [worker.jobs allObjects];
         
         for (Job *job in jobsArray) {
-            //            NSLog(@"Job Title: %@", job.title);
             NSPredicate *careerPredicate = [NSPredicate predicateWithFormat:@"%@ CONTAINS[cd] SELF", job.title];
             NSArray *filtered = [careerArray filteredArrayUsingPredicate:careerPredicate];
             

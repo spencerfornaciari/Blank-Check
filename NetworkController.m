@@ -8,6 +8,7 @@
 
 #import "NetworkController.h"
 #import "AppDelegate.h"
+#import "ValueController.h"
 
 #define LINKEDIN_OAUTH_URL @"https://www.linkedin.com/uas/oauth2/authorization?response_type=code"
 #define LINKEDIN_TOKEN_URL @"https://www.linkedin.com/uas/oauth2/accessToken?grant_type=authorization_code"
@@ -238,8 +239,6 @@
 -(void)parseUserData:(NSData *)data {
     
     Worker *newWorker = [NSEntityDescription insertNewObjectForEntityForName:@"Worker" inManagedObjectContext:[CoreDataHelper managedContext]];
-
-    Value *newValue = [NSEntityDescription insertNewObjectForEntityForName:@"Value" inManagedObjectContext:[CoreDataHelper managedContext]];
     
     NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data
                                                                options:NSJSONReadingMutableLeaves
@@ -299,10 +298,16 @@
     }];
     [downloadSmall resume];
     
-    newValue.marketPrice = @1000000;
-    newValue.date = [NSDate date];
     
-    [newWorker addNewValueObject:newValue];
+    NSArray *jobValueArray = [ValueController jobValue:[ValueController careerSearch:newWorker]];
+
+    for (NSDictionary *dict in [ValueController generateBackValues:jobValueArray[0]]) {
+        
+        Value *newValue = [NSEntityDescription insertNewObjectForEntityForName:@"Value" inManagedObjectContext:[CoreDataHelper managedContext]];
+        newValue.marketPrice = [dict objectForKey:@"value"];
+        newValue.date = [NSDate date];
+        [newWorker addNewValueObject:newValue];
+    }
     
     //Working on parsing current positions
     NSArray *positionArray = [dictionary valueForKeyPath:@"threeCurrentPositions.values"];
