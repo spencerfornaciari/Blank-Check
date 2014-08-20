@@ -174,6 +174,7 @@
         self.title = @"My Profile";
         self.navigationItem.rightBarButtonItem = nil;
 
+        self.workerView.detail = self.worker;
         self.workerView.view.frame = self.topViewController.view.frame;
         [self.topViewController.view removeFromSuperview];
         self.topViewController = self.workerView;

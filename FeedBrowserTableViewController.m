@@ -47,6 +47,9 @@
         [self loadCoreData];
     }
     
+
+
+    
 //    [SocialHelper sendInvitationToUserID:self.worker];
 //    } else {
 //        if (self.downloadingUserData == FALSE) { //Need to check if DB exists

@@ -343,7 +343,10 @@
 +(NSArray *)generateBackValues:(NSNumber *)value {
     NSMutableArray *backValuesArray = [NSMutableArray new];
     
-    float startingPoint = [value floatValue];
+    //Add some random offset
+    int random = (arc4random_uniform(10000) + 1) - 5000;
+
+    float startingPoint = ([value floatValue] + (float)random);
     
     NSDictionary *change = @{@"value":[NSNumber numberWithFloat:startingPoint],
                              @"change":[NSNumber numberWithFloat:0.0]};

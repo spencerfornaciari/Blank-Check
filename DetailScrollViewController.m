@@ -135,22 +135,22 @@
 
         
         if (self.worker.values.count > 0) {
-            NSArray *array = [ValueController jobValue:[ValueController careerSearch:self.worker]];
-            
-            
-            for (NSDictionary *dict in [ValueController generateBackValues:array[0]]) {
-                //                NSUInteger num = [[dict objectForKey:@"value"] integerValue];
-                
-                Value *newValue = [NSEntityDescription insertNewObjectForEntityForName:@"Value" inManagedObjectContext:[CoreDataHelper managedContext]];
-                newValue.marketPrice = [dict objectForKey:@"value"];
-                newValue.date = [NSDate date];
-                [self.worker addNewValueObject:newValue];
-                
-                //                [temp addObject:[NSNumber numberWithInteger:num]];
-                //                NSLog(@"Faux: %@", [NSNumber numberWithInteger:num]);
-            }
-            
-            [CoreDataHelper saveContext];
+//            NSArray *array = [ValueController jobValue:[ValueController careerSearch:self.worker]];
+//            
+//            
+//            for (NSDictionary *dict in [ValueController generateBackValues:array[0]]) {
+//                //                NSUInteger num = [[dict objectForKey:@"value"] integerValue];
+//                
+//                Value *newValue = [NSEntityDescription insertNewObjectForEntityForName:@"Value" inManagedObjectContext:[CoreDataHelper managedContext]];
+//                newValue.marketPrice = [dict objectForKey:@"value"];
+//                newValue.date = [NSDate date];
+//                [self.worker addNewValueObject:newValue];
+//                
+//                //                [temp addObject:[NSNumber numberWithInteger:num]];
+//                //                NSLog(@"Faux: %@", [NSNumber numberWithInteger:num]);
+//            }
+//            
+//            [CoreDataHelper saveContext];
             
             NSMutableArray *temp = [NSMutableArray new];
             NSArray *orderedArray = [self.worker.values array];
@@ -159,7 +159,7 @@
             for (int j = (int)orderedArray.count - 6; j < orderedArray.count; j++) {
                 Value *value = [self.worker.values objectAtIndex:j];
                 [temp addObject:value.marketPrice];
-                
+                NSLog(@"Value%i: %@", j, value.marketPrice);
             }
             
             self.data = [NSArray arrayWithObjects:[temp copy], self.fauxData, nil];
@@ -320,20 +320,7 @@
 //}
 
 - (void)setupGraph {
-    
-//    for (Value *value in self.connection.values) {
-//        [array addObject:value.marketPrice];
-//    }
-//    self.data = @[
-//                  @[@20, @60, @40, @140, @80, @120]
-//                  @[@60, @100, @60, @20, @60, @80],
-//                  @[@40, @160, @100, @40, @110, @100],
-//                  @[@80, @120, @140, @100, @0, @40]
-//                  ];
 
-    
-//    self.data = self.fauxData;
-    
     self.labels = @[@"01/12", @"07/12", @"01/13", @"07/13", @"01/14", @"07/14"];
     
     self.graph.dataSource = self;
@@ -343,7 +330,7 @@
     
     [self.graph draw];
     
-    float finalNum;// = 0.0;
+    float finalNum = 0.0;
     if ([self.detail isKindOfClass:[Connection class]]) {
         Value *newValue = [self.connection.values lastObject];
         Value *oldValue = [self.connection.values objectAtIndex:self.connection.values.count - 2];
@@ -356,8 +343,9 @@
 //        Value *oldValue = [self.worker.values objectAtIndex:self.connection.values.count - 2];
 //        
 //        finalNum = [newValue.marketPrice floatValue] - [oldValue.marketPrice floatValue];
+//        
 //    }
-//    
+
     UILabel *newLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.graph.frame.size.width - 150, self.graph.frame.size.height - 70, 80, 50)];
     
     if (finalNum > 0) {
