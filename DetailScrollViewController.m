@@ -91,6 +91,13 @@
             }
             
             self.data = [NSArray arrayWithObjects:[temp copy], self.fauxData, nil];
+            
+            currentValue = [self.connection.values lastObject];
+            
+            NSNumberFormatter *formatter = [NSNumberFormatter new];
+            [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+            valueLabel.text = [NSString stringWithFormat:@"$%@", [formatter stringFromNumber:currentValue.marketPrice]];
+
 
         } else {
             currentValue = [self.connection.values lastObject];
@@ -122,7 +129,7 @@
 //        for (Job *job in self.connection.jobs) {
 //           [NetworkController checkProfileText:job.title];
 //        }
-        
+        [self setupGraph];
     }
     
     if ([self.detail isKindOfClass:[Worker class]]) {
@@ -176,6 +183,7 @@
             [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
             valueLabel.text = [NSString stringWithFormat:@"$%@", [formatter stringFromNumber:currentValue.marketPrice]];
         }
+        [self setupGraph];
     }
     
     [self setProfileImage];
@@ -183,7 +191,7 @@
     scrollView.delegate = self;
     [scrollView setScrollEnabled:YES];
     
-    [self setupGraph];
+    
 
     self.frameHeight = 1390;
     
@@ -338,13 +346,14 @@
         finalNum = [newValue.marketPrice floatValue] - [oldValue.marketPrice floatValue];
     }
     
-//    if ([self.detail isKindOfClass:[Worker class]]) {
-//        Value *newValue = [self.worker.values lastObject];
-//        Value *oldValue = [self.worker.values objectAtIndex:self.connection.values.count - 2];
-//        
-//        finalNum = [newValue.marketPrice floatValue] - [oldValue.marketPrice floatValue];
-//        
-//    }
+    if ([self.detail isKindOfClass:[Worker class]]) {
+        
+        Value *newValue = [self.worker.values lastObject];
+        Value *oldValue = [self.worker.values objectAtIndex:self.worker.values.count - 2];
+
+        finalNum = [newValue.marketPrice floatValue] - [oldValue.marketPrice floatValue];
+        
+    }
 
     UILabel *newLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.graph.frame.size.width - 150, self.graph.frame.size.height - 70, 80, 50)];
     

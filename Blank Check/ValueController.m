@@ -344,7 +344,8 @@
     NSMutableArray *backValuesArray = [NSMutableArray new];
     
     //Add some random offset
-    int random = (arc4random_uniform(10000) + 1) - 5000;
+    float percentage = [value floatValue] * .05;
+    int random = (arc4random_uniform((int)percentage) + 1) - (int)(percentage / 2);
 
     float startingPoint = ([value floatValue] + (float)random);
     
