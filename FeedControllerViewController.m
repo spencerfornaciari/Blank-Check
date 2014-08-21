@@ -32,16 +32,6 @@
     
     self.networkController = [(AppDelegate *)[[UIApplication sharedApplication] delegate] networkController];
     
-//    self.one = [self.networkController loadCurrentUserData];
-    
-    
-    
-//    [self.networkController sendInvitationToUserID:self.one.gamerID];
-//    NSArray *array = [self.networkController commonConnectionsWithUser:@"mXtsRDLoyK"];
-//    NSLog(@"%@", array);
-//    NSLog(@"Count: %lu", (unsigned long)array.count);
-    
-    
     self.blankCheckCollectionView.delegate = self;
     self.blankCheckCollectionView.dataSource = self;
     // Do any additional setup after loading the view.

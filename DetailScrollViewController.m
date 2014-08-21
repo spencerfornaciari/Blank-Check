@@ -59,6 +59,46 @@
     if ([self.detail isKindOfClass:[Connection class]]) {
         self.connection = (Connection *)self.detail;
         
+        NSArray *words = [self.connection.location componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+        
+        
+        NSString *location = @"";
+        if (words.count > 1) {
+            for (NSString *string in words) {
+                if ([string isEqualToString:@"Greater"]) {
+                    
+                } else if ([string isEqualToString:@"Area"]) {
+                    
+                } else {
+                    if ([location isEqualToString:@""]) {
+                        location = string;
+                    } else {
+                        location = [location stringByAppendingString:[NSString stringWithFormat:@" %@", string]];
+                    }
+                }
+            }
+        } else {
+            location = words[0];
+        }
+
+        
+        NSLog(@"Parsed Location: %@", location);
+        
+        CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+        
+        
+        [geocoder geocodeAddressString:location
+                     completionHandler:^(NSArray* placemarks, NSError* error){
+                         for (CLPlacemark* aPlacemark in placemarks)
+                         {
+                             // Process the placemark.
+                             NSLog(@"State: %@", aPlacemark.administrativeArea);
+//                             NSString *string = [aPlacemark.addressDictionary objectForKey:kABPersonAddressZIPKey];
+                             NSLog(@"Zip Code: %@", aPlacemark.addressDictionary);
+                             
+                         }
+                     }];
+        
         NSString *firstLetter = [self.connection.lastName substringWithRange:NSMakeRange(0, 1)];
         userNameLabel.text = [NSString stringWithFormat:@"%@ %@.", self.connection.firstName, firstLetter];
         

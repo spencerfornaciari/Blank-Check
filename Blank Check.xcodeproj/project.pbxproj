@@ -12,6 +12,7 @@
 		890129B51986BEA600D9874A /* Worker.m in Sources */ = {isa = PBXBuildFile; fileRef = 890129B41986BEA600D9874A /* Worker.m */; };
 		890129B81986BEA700D9874A /* Insight.m in Sources */ = {isa = PBXBuildFile; fileRef = 890129B71986BEA700D9874A /* Insight.m */; };
 		890129BB1986BEA700D9874A /* Connection.m in Sources */ = {isa = PBXBuildFile; fileRef = 890129BA1986BEA700D9874A /* Connection.m */; };
+		891A7FFD19A651F9000106C9 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 891A7FFC19A651F9000106C9 /* CoreLocation.framework */; };
 		891B94631948C84600BEAEC9 /* FeedControllerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 891B94621948C84600BEAEC9 /* FeedControllerViewController.m */; };
 		891B94661948C9FF00BEAEC9 /* BlankCheckViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 891B94651948C9FF00BEAEC9 /* BlankCheckViewCell.m */; };
 		89287EA719817DD600382C81 /* SideTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89287EA619817DD600382C81 /* SideTableViewController.m */; };
@@ -109,6 +110,7 @@
 		890129B71986BEA700D9874A /* Insight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Insight.m; sourceTree = "<group>"; };
 		890129B91986BEA700D9874A /* Connection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Connection.h; sourceTree = "<group>"; };
 		890129BA1986BEA700D9874A /* Connection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Connection.m; sourceTree = "<group>"; };
+		891A7FFC19A651F9000106C9 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		891B94611948C84600BEAEC9 /* FeedControllerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedControllerViewController.h; path = ../FeedControllerViewController.h; sourceTree = "<group>"; };
 		891B94621948C84600BEAEC9 /* FeedControllerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedControllerViewController.m; path = ../FeedControllerViewController.m; sourceTree = "<group>"; };
 		891B94641948C9FF00BEAEC9 /* BlankCheckViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BlankCheckViewCell.h; path = ../BlankCheckViewCell.h; sourceTree = "<group>"; };
@@ -232,6 +234,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				891A7FFD19A651F9000106C9 /* CoreLocation.framework in Frameworks */,
 				89B6E4DD1986CD0600BB413E /* libsqlite3.0.dylib in Frameworks */,
 				89B6E4751986C8BC00BB413E /* AdSupport.framework in Frameworks */,
 				89B6E4741986C8AA00BB413E /* libz.dylib in Frameworks */,
@@ -341,6 +344,7 @@
 		89C973AD192564AF00EC6004 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				891A7FFC19A651F9000106C9 /* CoreLocation.framework */,
 				89B6E4DC1986CD0600BB413E /* libsqlite3.0.dylib */,
 				8937E7651976FE98004BA64D /* libz.dylib */,
 				8937E7631976FE89004BA64D /* CoreData.framework */,
