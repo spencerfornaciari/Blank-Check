@@ -59,45 +59,9 @@
     if ([self.detail isKindOfClass:[Connection class]]) {
         self.connection = (Connection *)self.detail;
         
-        NSArray *words = [self.connection.location componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+        NSLog(@"Location: %@", self.connection.location);
         
-        
-        NSString *location = @"";
-        if (words.count > 1) {
-            for (NSString *string in words) {
-                if ([string isEqualToString:@"Greater"]) {
-                    
-                } else if ([string isEqualToString:@"Area"]) {
-                    
-                } else {
-                    if ([location isEqualToString:@""]) {
-                        location = string;
-                    } else {
-                        location = [location stringByAppendingString:[NSString stringWithFormat:@" %@", string]];
-                    }
-                }
-            }
-        } else {
-            location = words[0];
-        }
-
-        
-        NSLog(@"Parsed Location: %@", location);
-        
-        CLGeocoder *geocoder = [[CLGeocoder alloc] init];
-        
-        
-        [geocoder geocodeAddressString:location
-                     completionHandler:^(NSArray* placemarks, NSError* error){
-                         for (CLPlacemark* aPlacemark in placemarks)
-                         {
-                             // Process the placemark.
-                             NSLog(@"State: %@", aPlacemark.administrativeArea);
-//                             NSString *string = [aPlacemark.addressDictionary objectForKey:kABPersonAddressZIPKey];
-                             NSLog(@"Zip Code: %@", aPlacemark.addressDictionary);
-                             
-                         }
-                     }];
+        [self getLocationData:self.connection.location];
         
         NSString *firstLetter = [self.connection.lastName substringWithRange:NSMakeRange(0, 1)];
         userNameLabel.text = [NSString stringWithFormat:@"%@ %@.", self.connection.firstName, firstLetter];
@@ -170,6 +134,7 @@
 //           [NetworkController checkProfileText:job.title];
 //        }
         [self setupGraph];
+        
     }
     
     if ([self.detail isKindOfClass:[Worker class]]) {
@@ -606,6 +571,7 @@
 
 -(void)loadUserInfo {
     self.userInfoView = [[UserInfoView alloc] initWithFrame:CGRectMake(0, 600, 320, 170) andUser:self.connection];
+    
     [scrollView addSubview:self.userInfoView];
     
 
@@ -866,6 +832,158 @@
     }
 }
 
+-(void)getLocationData:(NSString *)locationString {
+    
+    NSArray *words = [locationString componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    
+    NSString *location = @"";
+    if (words.count > 1) {
+        for (NSString *string in words) {
+            if ([string isEqualToString:@"Greater"]) {
+                
+            } else if ([string isEqualToString:@"Area"] || [string isEqualToString:@"Area,"]) {
+                
+            } else if ([string isEqualToString:@"Bay"] || [string isEqualToString:@"Bay,"]) {
+                
+            } else {
+                if ([location isEqualToString:@""]) {
+                    location = string;
+                } else {
+                    location = [location stringByAppendingString:[NSString stringWithFormat:@" %@", string]];
+                }
+            }
+        }
+    } else {
+        location = words[0];
+    }
+    
+    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+    
+    
+    [geocoder geocodeAddressString:location
+                 completionHandler:^(NSArray* placemarks, NSError* error){
+                     NSLog(@"Placemarks Count %lu", (unsigned long)placemarks.count);
+                     
+                     for (CLPlacemark* placemark in placemarks)
+                     {
+                         // Process the placemark.
+                         NSLog(@"Zip Code: %@", placemark.addressDictionary);
+                         
+//                         NSLog(@"Long: %f, Lat: %f", placemark.location.coordinate.longitude, placemark.location.coordinate.latitude);
+                         if (placemarks.count > 0) {
+                             NSString *city;
+                             if (placemark.locality) {
+                                 city = placemark.locality;
+                             } else {
+                                 city = @"";
+                             }
+                             
+                             NSString *county;
+                             if (placemark.subAdministrativeArea) {
+                                 county = placemark.subAdministrativeArea;
+                             } else {
+                                 county = @"";
+                             }
+                             
+                             NSString *state;
+                             if (placemark.administrativeArea) {
+                                 state = placemark.administrativeArea;
+                             } else {
+                                 state = @"";
+                             }
+                             
+                             NSString *country;
+                             if (placemark.country) {
+                                 country = placemark.country;
+                             } else {
+                                 country = @"";
+                             }
+                             
+                             NSNumber *longitude = [NSNumber numberWithDouble:placemark.location.coordinate.longitude];
+                             NSNumber *latitude = [NSNumber numberWithDouble:placemark.location.coordinate.latitude];
+                             
+                             if ([placemark.country isEqualToString:@"United States"]) {
+                                 NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration ephemeralSessionConfiguration];
+                                 NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfig];
+                                 
+                                 NSString *searchCity = [city stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
+                                 
+                                 NSString *urlString = [NSString stringWithFormat:@"http://zipcodedistanceapi.redline13.com/rest/6knGX9OxcRNCScYsEnMcIoPZRJv66Itc2QT00HxczlOryNUcbGpT4eSWXo236wg9/city-zips.json/%@/%@", searchCity, placemark.administrativeArea];
+                                 
+                                 NSLog(@"%@", urlString);
+                                 
+                                 NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                     
+                                     NSNumber *zipNumber;
+                                     if (!error) {
+                                         NSDictionary *zipDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+                                         NSArray *array = [zipDictionary objectForKey:@"zip_codes"];
+                                         
+                                         NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+                                         [formatter setNumberStyle:NSNumberFormatterNoStyle];
+                                         zipNumber = [formatter numberFromString:array[0]];
+                                     } else {
+                                         zipNumber = @0;
+                                     }
+                                     
+//                                     NSDictionary *zipDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+//                                     NSArray *array = [zipDictionary objectForKey:@"zip_codes"];
+//                                     
+//                                     NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+//                                     [formatter setNumberStyle:NSNumberFormatterNoStyle];
+//                                     NSNumber *zipNumber = [formatter numberFromString:array[0]];
+                                     
+//                                     NSLog(@"Number: %@", [zipNumber stringValue]);
+//                                     
+//                                     if (zipNumber) {
+//                                         
+//                                     } else {
+//                                         zipNumber = @0;
+//                                     }
+                                     
+                                     
+                                     NSDictionary *locationDictionary = @{
+                                                            @"domestic":@1,
+                                                            @"city":city,
+                                                            @"county":county,
+                                                            @"state":state,
+                                                            @"country":country,
+                                                            @"zipCode":zipNumber,
+                                                            @"longitude":longitude,
+                                                            @"latitude":latitude
+                                                            };
+                                     
+                                     
+                                     
+                                     
+                                     NSLog(@"Domestic: %@", locationDictionary);
+                                     
+                                 }];
+                                 
+                                 [dataTask resume];
+                             } else {
+                                 
+                                 NSDictionary *locationDictionary = @{
+                                                        @"domestic":@0,
+                                                        @"city":city,
+                                                        @"county":county,
+                                                        @"state":state,
+                                                        @"country":country,
+                                                        @"longitude":longitude,
+                                                        @"latitude":latitude
+                                                        };
+                                 
+                                 NSLog(@"Foreign: %@", locationDictionary);
+                                 
+                                 
+                             }
+
+                         }
+                         
+                     }
+                 }];
+
+}
 
 
 

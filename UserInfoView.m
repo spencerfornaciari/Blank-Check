@@ -27,18 +27,24 @@
         
         if ([sender isKindOfClass:[Connection class]]) {
             Connection *connection = (Connection *)sender;
-            NSArray *array = [connection.jobs allObjects];
-            Job *job = array[0];
-        
-            NSNumber *jobExists = [self isJobInSet:job.name andConnection:connection];
-            float num = ceil([jobExists integerValue] *.3);
             
-            if (num > 0) {
-                self.workExperienceLabel.text = [NSString stringWithFormat:@"Work Exp: Top %.0f%%", num];
+            NSArray *array = [connection.jobs allObjects];
+            
+            if (array.count > 0) {
+                Job *job = array[0];
+                
+                NSNumber *jobExists = [self isJobInSet:job.name andConnection:connection];
+                float num = ceil([jobExists integerValue] *.3);
+                
+                if (num > 0) {
+                    self.workExperienceLabel.text = [NSString stringWithFormat:@"Work Exp: Top %.0f%%", num];
+                } else {
+                    self.workExperienceLabel.text = [NSString stringWithFormat:@"Work Exp: Unranked"];
+                }
             } else {
                 self.workExperienceLabel.text = [NSString stringWithFormat:@"Work Exp: Unranked"];
             }
-            
+
         } else {
             self.workExperienceLabel.text = [NSString stringWithFormat:@"Work Exp: Top 10%%"];
         }
