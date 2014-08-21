@@ -17,6 +17,7 @@
 #import "Value.h"
 #import "Recommendation.h"
 #import "Insight.h"
+#import "LocationController.h"
 
 @protocol NetworkControllerDelegate <NSObject>
 

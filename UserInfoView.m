@@ -28,7 +28,7 @@
         if ([sender isKindOfClass:[Connection class]]) {
             Connection *connection = (Connection *)sender;
             
-            NSArray *array = [connection.jobs allObjects];
+            NSArray *array = [connection.jobs array];
             
             if (array.count > 0) {
                 Job *job = array[0];
@@ -79,7 +79,7 @@
 
 -(NSNumber *)isJobInSet:(NSString *)companyName andConnection:(Connection *)connection {
     NSNumber *finalNumber;
-    NSArray *array = [connection.jobs allObjects];
+    NSArray *array = [connection.jobs array];
     
     NSDictionary *jobDictionary = @{@"Google": @1,
                                     @"SAS": @2,

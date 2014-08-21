@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5064" systemVersion="13E28" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Connection" representedClassName="Connection" syncable="YES">
+        <attribute name="city" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="country" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="county" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="distance" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="headline" optional="YES" attributeType="String" syncable="YES"/>
@@ -13,13 +16,15 @@
         <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="linkedinURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="location" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="locationAvailable" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="numConnections" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="numRecommenders" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="smallImageLocation" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="smallImageURL" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="zipCode" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="state" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="zipCode" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <relationship name="insights" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Insight" inverseName="connection" inverseEntity="Insight" syncable="YES"/>
-        <relationship name="jobs" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Job" inverseName="connection" inverseEntity="Job" syncable="YES"/>
+        <relationship name="jobs" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Job" inverseName="connection" inverseEntity="Job" syncable="YES"/>
         <relationship name="languages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Language" inverseName="connection" inverseEntity="Language" syncable="YES"/>
         <relationship name="notes" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Note" inverseName="connection" inverseEntity="Note" syncable="YES"/>
         <relationship name="recommendations" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Recommendation" inverseName="connection" inverseEntity="Recommendation" syncable="YES"/>
@@ -91,6 +96,9 @@
         <relationship name="worker" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Worker" inverseName="values" inverseEntity="Worker" syncable="YES"/>
     </entity>
     <entity name="Worker" representedClassName="Worker" syncable="YES">
+        <attribute name="city" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="country" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="county" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="emailAddress" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="headline" optional="YES" attributeType="String" syncable="YES"/>
@@ -106,10 +114,11 @@
         <attribute name="numRecommenders" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="smallImageLocation" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="smallImageURL" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="zipCode" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="state" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="zipCode" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <relationship name="connections" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Connection" inverseName="worker" inverseEntity="Connection" syncable="YES"/>
         <relationship name="insights" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Insight" inverseName="worker" inverseEntity="Insight" syncable="YES"/>
-        <relationship name="jobs" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Job" inverseName="worker" inverseEntity="Job" syncable="YES"/>
+        <relationship name="jobs" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Job" inverseName="worker" inverseEntity="Job" syncable="YES"/>
         <relationship name="languages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Language" inverseName="worker" inverseEntity="Language" syncable="YES"/>
         <relationship name="notes" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Note" inverseName="worker" inverseEntity="Note" syncable="YES"/>
         <relationship name="recommendations" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Recommendation" inverseName="worker" inverseEntity="Recommendation" syncable="YES"/>
@@ -117,7 +126,7 @@
         <relationship name="values" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Value" inverseName="worker" inverseEntity="Value" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Connection" positionX="-4277" positionY="-40" width="128" height="418"/>
+        <element name="Connection" positionX="-4277" positionY="-40" width="128" height="495"/>
         <element name="Insight" positionX="-3951" positionY="-871" width="128" height="178"/>
         <element name="Job" positionX="-3944" positionY="-441" width="128" height="195"/>
         <element name="Language" positionX="-3944" positionY="-175" width="128" height="120"/>
@@ -125,6 +134,6 @@
         <element name="Recommendation" positionX="-3996" positionY="180" width="128" height="165"/>
         <element name="School" positionX="-3906" positionY="-21" width="128" height="165"/>
         <element name="Value" positionX="-4097" positionY="-450" width="128" height="118"/>
-        <element name="Worker" positionX="-4284" positionY="-535" width="128" height="403"/>
+        <element name="Worker" positionX="-4284" positionY="-535" width="128" height="463"/>
     </elements>
 </model>

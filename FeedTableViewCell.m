@@ -8,6 +8,7 @@
 
 #import "FeedTableViewCell.h"
 #import "ValueController.h"
+#import "LocationController.h"
 
 @implementation FeedTableViewCell
 
@@ -70,6 +71,13 @@
     self.profileImage.contentMode = UIViewContentModeScaleAspectFit;
     self.profileImage.layer.cornerRadius = 35.f;
     self.profileImage.layer.masksToBounds = TRUE;
+    
+    if ([self.connection.locationAvailable isEqual:@0]) {
+        [LocationController getLocationData:self.connection];
+        self.connection.locationAvailable = @1;
+    }
+    
+    [CoreDataHelper saveContext];
 }
 
 

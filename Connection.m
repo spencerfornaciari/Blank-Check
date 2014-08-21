@@ -2,7 +2,7 @@
 //  Connection.m
 //  Blank Check
 //
-//  Created by Spencer Fornaciari on 7/28/14.
+//  Created by Spencer Fornaciari on 8/21/14.
 //  Copyright (c) 2014 Blank Check Labs. All rights reserved.
 //
 
@@ -36,14 +36,19 @@
 @dynamic smallImageLocation;
 @dynamic smallImageURL;
 @dynamic zipCode;
+@dynamic city;
+@dynamic state;
+@dynamic county;
+@dynamic country;
+@dynamic locationAvailable;
+@dynamic insights;
 @dynamic jobs;
 @dynamic languages;
+@dynamic notes;
+@dynamic recommendations;
 @dynamic schools;
 @dynamic values;
 @dynamic worker;
-@dynamic insights;
-@dynamic notes;
-@dynamic recommendations;
 
 - (void)addNewValueObject:(Value *)value {
     NSMutableOrderedSet* tempSet = [NSMutableOrderedSet orderedSetWithOrderedSet:self.values];
@@ -67,6 +72,12 @@
     NSMutableOrderedSet* tempSet = [NSMutableOrderedSet orderedSetWithOrderedSet:self.recommendations];
     [tempSet addObject:value];
     self.recommendations = tempSet;
+}
+
+- (void)addNewJobObject:(Job *)value {
+    NSMutableOrderedSet* tempSet = [NSMutableOrderedSet orderedSetWithOrderedSet:self.jobs];
+    [tempSet addObject:value];
+    self.jobs = tempSet;
 }
 
 @end

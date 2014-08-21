@@ -2,7 +2,7 @@
 //  Worker.h
 //  Blank Check
 //
-//  Created by Spencer Fornaciari on 7/28/14.
+//  Created by Spencer Fornaciari on 8/21/14.
 //  Copyright (c) 2014 Blank Check Labs. All rights reserved.
 //
 
@@ -29,14 +29,18 @@
 @property (nonatomic, retain) NSString * smallImageLocation;
 @property (nonatomic, retain) NSString * smallImageURL;
 @property (nonatomic, retain) NSNumber * zipCode;
+@property (nonatomic, retain) NSString * city;
+@property (nonatomic, retain) NSString * state;
+@property (nonatomic, retain) NSString * country;
+@property (nonatomic, retain) NSString * county;
 @property (nonatomic, retain) NSSet *connections;
-@property (nonatomic, retain) NSSet *jobs;
-@property (nonatomic, retain) NSSet *languages;
-@property (nonatomic, retain) NSSet *schools;
-@property (nonatomic, retain) NSOrderedSet *values;
 @property (nonatomic, retain) NSOrderedSet *insights;
+@property (nonatomic, retain) NSOrderedSet *jobs;
+@property (nonatomic, retain) NSSet *languages;
 @property (nonatomic, retain) NSOrderedSet *notes;
 @property (nonatomic, retain) NSOrderedSet *recommendations;
+@property (nonatomic, retain) NSSet *schools;
+@property (nonatomic, retain) NSOrderedSet *values;
 @end
 
 @interface Worker (CoreDataGeneratedAccessors)
@@ -46,31 +50,6 @@
 - (void)addConnections:(NSSet *)values;
 - (void)removeConnections:(NSSet *)values;
 
-- (void)addJobsObject:(Job *)value;
-- (void)removeJobsObject:(Job *)value;
-- (void)addJobs:(NSSet *)values;
-- (void)removeJobs:(NSSet *)values;
-
-- (void)addLanguagesObject:(Language *)value;
-- (void)removeLanguagesObject:(Language *)value;
-- (void)addLanguages:(NSSet *)values;
-- (void)removeLanguages:(NSSet *)values;
-
-- (void)addSchoolsObject:(School *)value;
-- (void)removeSchoolsObject:(School *)value;
-- (void)addSchools:(NSSet *)values;
-- (void)removeSchools:(NSSet *)values;
-
-- (void)insertObject:(Value *)value inValuesAtIndex:(NSUInteger)idx;
-- (void)removeObjectFromValuesAtIndex:(NSUInteger)idx;
-- (void)insertValues:(NSArray *)value atIndexes:(NSIndexSet *)indexes;
-- (void)removeValuesAtIndexes:(NSIndexSet *)indexes;
-- (void)replaceObjectInValuesAtIndex:(NSUInteger)idx withObject:(Value *)value;
-- (void)replaceValuesAtIndexes:(NSIndexSet *)indexes withValues:(NSArray *)values;
-- (void)addValuesObject:(Value *)value;
-- (void)removeValuesObject:(Value *)value;
-- (void)addValues:(NSOrderedSet *)values;
-- (void)removeValues:(NSOrderedSet *)values;
 - (void)insertObject:(Insight *)value inInsightsAtIndex:(NSUInteger)idx;
 - (void)removeObjectFromInsightsAtIndex:(NSUInteger)idx;
 - (void)insertInsights:(NSArray *)value atIndexes:(NSIndexSet *)indexes;
@@ -81,6 +60,21 @@
 - (void)removeInsightsObject:(Insight *)value;
 - (void)addInsights:(NSOrderedSet *)values;
 - (void)removeInsights:(NSOrderedSet *)values;
+- (void)insertObject:(Job *)value inJobsAtIndex:(NSUInteger)idx;
+- (void)removeObjectFromJobsAtIndex:(NSUInteger)idx;
+- (void)insertJobs:(NSArray *)value atIndexes:(NSIndexSet *)indexes;
+- (void)removeJobsAtIndexes:(NSIndexSet *)indexes;
+- (void)replaceObjectInJobsAtIndex:(NSUInteger)idx withObject:(Job *)value;
+- (void)replaceJobsAtIndexes:(NSIndexSet *)indexes withJobs:(NSArray *)values;
+- (void)addJobsObject:(Job *)value;
+- (void)removeJobsObject:(Job *)value;
+- (void)addJobs:(NSOrderedSet *)values;
+- (void)removeJobs:(NSOrderedSet *)values;
+- (void)addLanguagesObject:(Language *)value;
+- (void)removeLanguagesObject:(Language *)value;
+- (void)addLanguages:(NSSet *)values;
+- (void)removeLanguages:(NSSet *)values;
+
 - (void)insertObject:(Note *)value inNotesAtIndex:(NSUInteger)idx;
 - (void)removeObjectFromNotesAtIndex:(NSUInteger)idx;
 - (void)insertNotes:(NSArray *)value atIndexes:(NSIndexSet *)indexes;
@@ -101,10 +95,26 @@
 - (void)removeRecommendationsObject:(Recommendation *)value;
 - (void)addRecommendations:(NSOrderedSet *)values;
 - (void)removeRecommendations:(NSOrderedSet *)values;
+- (void)addSchoolsObject:(School *)value;
+- (void)removeSchoolsObject:(School *)value;
+- (void)addSchools:(NSSet *)values;
+- (void)removeSchools:(NSSet *)values;
+
+- (void)insertObject:(Value *)value inValuesAtIndex:(NSUInteger)idx;
+- (void)removeObjectFromValuesAtIndex:(NSUInteger)idx;
+- (void)insertValues:(NSArray *)value atIndexes:(NSIndexSet *)indexes;
+- (void)removeValuesAtIndexes:(NSIndexSet *)indexes;
+- (void)replaceObjectInValuesAtIndex:(NSUInteger)idx withObject:(Value *)value;
+- (void)replaceValuesAtIndexes:(NSIndexSet *)indexes withValues:(NSArray *)values;
+- (void)addValuesObject:(Value *)value;
+- (void)removeValuesObject:(Value *)value;
+- (void)addValues:(NSOrderedSet *)values;
+- (void)removeValues:(NSOrderedSet *)values;
 
 //My methods
 - (void)addNewValueObject:(Value *)value;
 - (void)addNewInsightObject:(Insight *)value;
 - (void)addNewNoteObject:(Note *)value;
 - (void)addNewRecommendationObject:(Recommendation *)value;
+- (void)addNewJobObject:(Job *)value;
 @end

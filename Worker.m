@@ -2,7 +2,7 @@
 //  Worker.m
 //  Blank Check
 //
-//  Created by Spencer Fornaciari on 7/28/14.
+//  Created by Spencer Fornaciari on 8/21/14.
 //  Copyright (c) 2014 Blank Check Labs. All rights reserved.
 //
 
@@ -35,14 +35,18 @@
 @dynamic smallImageLocation;
 @dynamic smallImageURL;
 @dynamic zipCode;
+@dynamic city;
+@dynamic state;
+@dynamic country;
+@dynamic county;
 @dynamic connections;
+@dynamic insights;
 @dynamic jobs;
 @dynamic languages;
-@dynamic schools;
-@dynamic values;
-@dynamic insights;
 @dynamic notes;
 @dynamic recommendations;
+@dynamic schools;
+@dynamic values;
 
 - (void)addNewValueObject:(Value *)value {
     NSMutableOrderedSet* tempSet = [NSMutableOrderedSet orderedSetWithOrderedSet:self.values];
@@ -67,5 +71,12 @@
     [tempSet addObject:value];
     self.recommendations = tempSet;
 }
+
+- (void)addNewJobObject:(Job *)value {
+    NSMutableOrderedSet* tempSet = [NSMutableOrderedSet orderedSetWithOrderedSet:self.jobs];
+    [tempSet addObject:value];
+    self.jobs = tempSet;
+}
+
 
 @end

@@ -88,7 +88,7 @@
         } else if ([self.scopeString isEqualToString:@"Title"]) {
             cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", connection.firstName, connection.lastName];
           
-            NSArray *jobArray = [connection.jobs allObjects];
+            NSArray *jobArray = [connection.jobs array];
             NSPredicate *jobTitlePredicate = [NSPredicate predicateWithFormat:@"title CONTAINS[cd] %@", self.searchString];
             NSArray *titleArray = [jobArray filteredArrayUsingPredicate:jobTitlePredicate];
 

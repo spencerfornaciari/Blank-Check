@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <CoreLocation/CoreLocation.h>
 #import <GraphKit.h>
 #import "SocialHelper.h"
 #import "NetworkController.h"

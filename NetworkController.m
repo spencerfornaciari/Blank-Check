@@ -333,7 +333,25 @@
         newPosition.monthsInCurrentJob = [NSNumber numberWithFloat:(employmentLength / 60 / 60 / 24 / 365) * 12];
         newPosition.idNumber = [positionDictionary valueForKeyPath:@"company.id"];
   
-        [newWorker addJobsObject:newPosition];
+        [newWorker addNewJobObject:newPosition];
+    }
+    
+    if (newWorker.jobs.count > 0) {
+        NSArray *array = [ValueController jobValue:[ValueController careerSearch:newWorker]];
+        
+        for (NSDictionary *dict in [ValueController generateBackValues:array[0]]) {
+            Value *newValue = [NSEntityDescription insertNewObjectForEntityForName:@"Value" inManagedObjectContext:[CoreDataHelper managedContext]];
+            newValue.marketPrice = [dict objectForKey:@"value"];
+            newValue.date = [NSDate date];
+            [newWorker addNewValueObject:newValue];
+        }
+    } else {
+        for (int i = 0; i < 6; i++) {
+            Value *newValue = [NSEntityDescription insertNewObjectForEntityForName:@"Value" inManagedObjectContext:[CoreDataHelper managedContext]];
+            newValue.marketPrice = @0;
+            newValue.date = [NSDate date];
+            [newWorker addNewValueObject:newValue];
+        }
     }
     
     //Parsing Educational Institutions
@@ -390,6 +408,7 @@
     
 
     [CoreDataHelper saveContext];
+    [LocationController getLocationData:newWorker];
     [self grabUserConnections:newWorker inContext:[CoreDataHelper managedContext] atRange:0];
     
     //Parsing Connection info
@@ -483,8 +502,28 @@
                     //Conversion from seconds to months
                     newJob.monthsInCurrentJob = [NSNumber numberWithFloat:(employmentLength / 60 / 60 / 24 / 365) * 12];
                     
-                    [newConnection addJobsObject:newJob];
+                    [newConnection addNewJobObject:newJob];
                 }
+                
+                if (newConnection.jobs.count > 0) {
+                    NSArray *array = [ValueController jobValue:[ValueController careerSearch:newConnection]];
+                    
+                    for (NSDictionary *dict in [ValueController generateBackValues:array[0]]) {
+                        Value *newValue = [NSEntityDescription insertNewObjectForEntityForName:@"Value" inManagedObjectContext:[CoreDataHelper managedContext]];
+                        newValue.marketPrice = [dict objectForKey:@"value"];
+                        newValue.date = [NSDate date];
+                        [newConnection addNewValueObject:newValue];
+                    }
+                } else {
+                    for (int i = 0; i < 6; i++) {
+                        Value *newValue = [NSEntityDescription insertNewObjectForEntityForName:@"Value" inManagedObjectContext:[CoreDataHelper managedContext]];
+                        newValue.marketPrice = @0;
+                        newValue.date = [NSDate date];
+                        [newConnection addNewValueObject:newValue];
+                    }
+                }
+                
+                newConnection.locationAvailable = @0;
                 
                 //Generating default value
 //                Value *newValue = [NSEntityDescription insertNewObjectForEntityForName:@"Value" inManagedObjectContext:[CoreDataHelper managedContext]];
@@ -499,7 +538,6 @@
         }
         
         NSLog(@"Worker New Connections: %li", (long)worker.connections.count);
-
         
         [CoreDataHelper saveContext];
         

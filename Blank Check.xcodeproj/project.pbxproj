@@ -9,9 +9,7 @@
 /* Begin PBXBuildFile section */
 		4F6ABBBCFE2E42399BFFEFC8 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D88B6EE341E4BB49404DDD2 /* libPods.a */; };
 		890129AF1986BE3300D9874A /* Note.m in Sources */ = {isa = PBXBuildFile; fileRef = 890129AE1986BE3300D9874A /* Note.m */; };
-		890129B51986BEA600D9874A /* Worker.m in Sources */ = {isa = PBXBuildFile; fileRef = 890129B41986BEA600D9874A /* Worker.m */; };
 		890129B81986BEA700D9874A /* Insight.m in Sources */ = {isa = PBXBuildFile; fileRef = 890129B71986BEA700D9874A /* Insight.m */; };
-		890129BB1986BEA700D9874A /* Connection.m in Sources */ = {isa = PBXBuildFile; fileRef = 890129BA1986BEA700D9874A /* Connection.m */; };
 		891A7FFD19A651F9000106C9 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 891A7FFC19A651F9000106C9 /* CoreLocation.framework */; };
 		891B94631948C84600BEAEC9 /* FeedControllerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 891B94621948C84600BEAEC9 /* FeedControllerViewController.m */; };
 		891B94661948C9FF00BEAEC9 /* BlankCheckViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 891B94651948C9FF00BEAEC9 /* BlankCheckViewCell.m */; };
@@ -75,6 +73,9 @@
 		89F1F8F31970889F00ECC1B3 /* HockeySDK.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 89F1F8F01970889F00ECC1B3 /* HockeySDK.xcconfig */; };
 		89F1F8F41970889F00ECC1B3 /* HockeySDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 89F1F8F11970889F00ECC1B3 /* HockeySDKResources.bundle */; };
 		89F8AE0C1977147600FF37D1 /* libFlurry_5.2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 89F8AE0B1977147600FF37D1 /* libFlurry_5.2.0.a */; };
+		89FEC8C419A67C4F00964585 /* LocationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89FEC8C319A67C4F00964585 /* LocationController.m */; };
+		89FEC8CA19A67DF500964585 /* Worker.m in Sources */ = {isa = PBXBuildFile; fileRef = 89FEC8C919A67DF500964585 /* Worker.m */; };
+		89FEC8CD19A6924800964585 /* Connection.m in Sources */ = {isa = PBXBuildFile; fileRef = 89FEC8CC19A6924800964585 /* Connection.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -104,12 +105,8 @@
 /* Begin PBXFileReference section */
 		890129AD1986BE3300D9874A /* Note.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Note.h; sourceTree = "<group>"; };
 		890129AE1986BE3300D9874A /* Note.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Note.m; sourceTree = "<group>"; };
-		890129B31986BEA600D9874A /* Worker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Worker.h; sourceTree = "<group>"; };
-		890129B41986BEA600D9874A /* Worker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Worker.m; sourceTree = "<group>"; };
 		890129B61986BEA700D9874A /* Insight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Insight.h; sourceTree = "<group>"; };
 		890129B71986BEA700D9874A /* Insight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Insight.m; sourceTree = "<group>"; };
-		890129B91986BEA700D9874A /* Connection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Connection.h; sourceTree = "<group>"; };
-		890129BA1986BEA700D9874A /* Connection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Connection.m; sourceTree = "<group>"; };
 		891A7FFC19A651F9000106C9 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		891B94611948C84600BEAEC9 /* FeedControllerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedControllerViewController.h; path = ../FeedControllerViewController.h; sourceTree = "<group>"; };
 		891B94621948C84600BEAEC9 /* FeedControllerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedControllerViewController.m; path = ../FeedControllerViewController.m; sourceTree = "<group>"; };
@@ -225,6 +222,12 @@
 		89F1F8F11970889F00ECC1B3 /* HockeySDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = HockeySDKResources.bundle; sourceTree = "<group>"; };
 		89F8AE0A1977147600FF37D1 /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
 		89F8AE0B1977147600FF37D1 /* libFlurry_5.2.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry_5.2.0.a; sourceTree = "<group>"; };
+		89FEC8C219A67C4F00964585 /* LocationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationController.h; sourceTree = "<group>"; };
+		89FEC8C319A67C4F00964585 /* LocationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationController.m; sourceTree = "<group>"; };
+		89FEC8C819A67DF500964585 /* Worker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Worker.h; sourceTree = "<group>"; };
+		89FEC8C919A67DF500964585 /* Worker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Worker.m; sourceTree = "<group>"; };
+		89FEC8CB19A6924800964585 /* Connection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Connection.h; sourceTree = "<group>"; };
+		89FEC8CC19A6924800964585 /* Connection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Connection.m; sourceTree = "<group>"; };
 		8D88B6EE341E4BB49404DDD2 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF0FF877FE3843E6B32D913D /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -291,14 +294,14 @@
 				89B571F4198059F3006FBF14 /* Job.m */,
 				890129AD1986BE3300D9874A /* Note.h */,
 				890129AE1986BE3300D9874A /* Note.m */,
-				890129B31986BEA600D9874A /* Worker.h */,
-				890129B41986BEA600D9874A /* Worker.m */,
-				890129B91986BEA700D9874A /* Connection.h */,
-				890129BA1986BEA700D9874A /* Connection.m */,
 				890129B61986BEA700D9874A /* Insight.h */,
 				890129B71986BEA700D9874A /* Insight.m */,
 				8945706019881FE00082D462 /* Recommendation.h */,
 				8945706119881FE00082D462 /* Recommendation.m */,
+				89FEC8C819A67DF500964585 /* Worker.h */,
+				89FEC8C919A67DF500964585 /* Worker.m */,
+				89FEC8CB19A6924800964585 /* Connection.h */,
+				89FEC8CC19A6924800964585 /* Connection.m */,
 			);
 			name = "Core Data";
 			sourceTree = "<group>";
@@ -472,6 +475,8 @@
 				898A7D6319A1925D00AED48B /* PresetSearchResultsTableViewController.m */,
 				896DB15D19A3B5FA00731649 /* ValueController.h */,
 				896DB15E19A3B5FA00731649 /* ValueController.m */,
+				89FEC8C219A67C4F00964585 /* LocationController.h */,
+				89FEC8C319A67C4F00964585 /* LocationController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -672,6 +677,7 @@
 				89287EA719817DD600382C81 /* SideTableViewController.m in Sources */,
 				89779E13196B12F600AC81CA /* LoadingView.m in Sources */,
 				897F02351958E8D000A770A6 /* LoginViewController.m in Sources */,
+				89FEC8CD19A6924800964585 /* Connection.m in Sources */,
 				89779DF619648ABC00AC81CA /* TimelineView.m in Sources */,
 				89571BAD199ACFE600475614 /* SocialHelper.m in Sources */,
 				89779E1C196C588C00AC81CA /* TimelineEvent.m in Sources */,
@@ -680,12 +686,13 @@
 				89C973EB192565D800EC6004 /* Constants.m in Sources */,
 				89C973E81925650C00EC6004 /* NetworkController.m in Sources */,
 				895AF665195235FD00B20DA6 /* FeedTableViewCell.m in Sources */,
-				890129BB1986BEA700D9874A /* Connection.m in Sources */,
 				898A7D6419A1925D00AED48B /* PresetSearchResultsTableViewController.m in Sources */,
 				896DB15F19A3B5FA00731649 /* ValueController.m in Sources */,
+				89FEC8CA19A67DF500964585 /* Worker.m in Sources */,
 				890129B81986BEA700D9874A /* Insight.m in Sources */,
 				89B571F2198059F3006FBF14 /* School.m in Sources */,
 				8971C736197F0E390024D3A1 /* ProblemView.m in Sources */,
+				89FEC8C419A67C4F00964585 /* LocationController.m in Sources */,
 				895AF662195235A700B20DA6 /* FeedBrowserTableViewController.m in Sources */,
 				89779E0A1965DCF700AC81CA /* SearchViewController.m in Sources */,
 				89C973C8192564AF00EC6004 /* ViewController.m in Sources */,
@@ -700,7 +707,6 @@
 				8978FBCB193E562600BF0921 /* PresetSearchViewController.m in Sources */,
 				89B571EC198059F3006FBF14 /* Language.m in Sources */,
 				89C973BB192564AF00EC6004 /* main.m in Sources */,
-				890129B51986BEA600D9874A /* Worker.m in Sources */,
 				891B94631948C84600BEAEC9 /* FeedControllerViewController.m in Sources */,
 				899616B619461E3100C75B99 /* PresetViewController.m in Sources */,
 				897F02321958A4B200A770A6 /* DetailScrollViewController.m in Sources */,

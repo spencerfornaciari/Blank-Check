@@ -205,7 +205,7 @@
     
     if ([sender isKindOfClass:[Connection class]]) {
         Connection *connection = (Connection *)sender;
-        NSArray *jobsArray = [connection.jobs allObjects];
+        NSArray *jobsArray = [connection.jobs array];
         
         for (Job *job in jobsArray) {
 //            NSLog(@"Job Title: %@", job.title);
@@ -236,7 +236,7 @@
     
     if ([sender isKindOfClass:[Worker class]]) {
         Worker *worker = (Worker *)sender;
-        NSArray *jobsArray = [worker.jobs allObjects];
+        NSArray *jobsArray = [worker.jobs array];
         
         for (Job *job in jobsArray) {
             NSPredicate *careerPredicate = [NSPredicate predicateWithFormat:@"%@ CONTAINS[cd] SELF", job.title];
