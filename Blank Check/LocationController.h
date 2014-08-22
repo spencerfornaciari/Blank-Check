@@ -15,5 +15,6 @@
 @interface LocationController : NSObject
 
 +(void)getLocationData:(id)sender;
++(void)getZipCode:(id)sender;
 
 @end

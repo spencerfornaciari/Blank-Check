@@ -23,8 +23,7 @@
         words = [worker.location componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
 
     }
-    
-    
+
     NSString *location = @"";
     if (words.count > 1) {
         for (NSString *string in words) {
@@ -110,7 +109,7 @@
     
 }
 
--(void)getZipCode:(id)sender {
++(void)getZipCode:(id)sender {
     Connection *connection;
     Worker *worker;
     NSString *country, *city, *state;
@@ -132,7 +131,7 @@
     
     NSString *searchCity = [city stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
     
-    NSString *urlString = [NSString stringWithFormat:@"http://zipcodedistanceapi.redline13.com/rest/6knGX9OxcRNCScYsEnMcIoPZRJv66Itc2QT00HxczlOryNUcbGpT4eSWXo236wg9/city-zips.json/%@/%@", searchCity, state];
+    NSString *urlString = [NSString stringWithFormat:@"http://zipcodedistanceapi.redline13.com/rest/BrFNgZAFZIeKeXCizoFOWAqAO9FjrTO2kuPBtqht8vensQF2flQcVhMKrs3SmSVG/city-zips.json/%@/%@", searchCity, state];
     
     //        NSLog(@"%@", urlString);
     
@@ -152,11 +151,11 @@
         
         if ([sender isKindOfClass:[Connection class]]) {
             connection.zipCode = zipNumber;
-            [CoreDataHelper saveContext];
+//            [CoreDataHelper saveContext];
             
         } else {
             worker.zipCode = zipNumber;
-            [CoreDataHelper saveContext];
+//            [CoreDataHelper saveContext];
         }
         
     }];

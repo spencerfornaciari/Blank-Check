@@ -409,6 +409,7 @@
 
     [CoreDataHelper saveContext];
     [LocationController getLocationData:newWorker];
+    [LocationController getZipCode:newWorker];
     [self grabUserConnections:newWorker inContext:[CoreDataHelper managedContext] atRange:0];
     
     //Parsing Connection info
@@ -522,6 +523,9 @@
                         [newConnection addNewValueObject:newValue];
                     }
                 }
+                
+//                [LocationController getLocationData:newConnection];
+
                 
                 newConnection.locationAvailable = @0;
                 

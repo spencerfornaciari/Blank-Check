@@ -59,11 +59,14 @@
     
     if ([self.detail isKindOfClass:[Connection class]]) {
         self.connection = (Connection *)self.detail;
-        if ([self.connection.locationAvailable isEqual:@0]) {
-            [LocationController getLocationData:self.connection];
-            self.connection.locationAvailable = @1;
-            [CoreDataHelper saveContext];
-        }
+
+        [LocationController getZipCode:self.connection];
+//        if ([self.connection.locationAvailable isEqual:@0]) {
+////            [LocationController getLocationData:self.connection];
+//            [LocationController getZipCode:self.connection];
+//            self.connection.locationAvailable = @1;
+//            [CoreDataHelper saveContext];
+//        }
         
         NSLog(@"Location: %@", self.connection.location);
         
