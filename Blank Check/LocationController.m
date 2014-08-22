@@ -88,105 +88,80 @@
                                  country = @"";
                              }
                              
-//                             NSNumber *longitude = [NSNumber numberWithDouble:placemark.location.coordinate.longitude];
-//                             NSNumber *latitude = [NSNumber numberWithDouble:placemark.location.coordinate.latitude];
-                             
-                             if ([placemark.country isEqualToString:@"United States"]) {
-                                 NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration ephemeralSessionConfiguration];
-                                 NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfig];
+                             if ([sender isKindOfClass:[Connection class]]) {
+                                 connection.city = city;
+                                 connection.state = state;
+                                 connection.county = county;
+                                 connection.country = country;
+                                 [CoreDataHelper saveContext];
                                  
-                                 NSString *searchCity = [city stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
-                                 
-                                 NSString *urlString = [NSString stringWithFormat:@"http://zipcodedistanceapi.redline13.com/rest/6knGX9OxcRNCScYsEnMcIoPZRJv66Itc2QT00HxczlOryNUcbGpT4eSWXo236wg9/city-zips.json/%@/%@", searchCity, placemark.administrativeArea];
-                                 
-                                 NSLog(@"%@", urlString);
-                                 
-                                 NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                                     
-                                     NSNumber *zipNumber;
-                                     if (!error) {
-                                         NSDictionary *zipDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
-                                         NSArray *array = [zipDictionary objectForKey:@"zip_codes"];
-                                         
-                                         NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
-                                         [formatter setNumberStyle:NSNumberFormatterNoStyle];
-                                         zipNumber = [formatter numberFromString:array[0]];
-                                     } else {
-                                         zipNumber = @0;
-                                     }
-                                     
-//                                     if ([sender isKindOfClass:[Connection class]]) {
-//                                         connection
-//                                     }
-                                     if ([sender isKindOfClass:[Connection class]]) {
-                                         connection.city = city;
-                                         connection.state = state;
-                                         connection.county = county;
-                                         connection.country = country;
-                                         connection.zipCode = zipNumber;
-                                         [CoreDataHelper saveContext];
-
-                                     } else {
-                                         worker.city = city;
-                                         worker.state = state;
-                                         worker.county = county;
-                                         worker.country = country;
-                                         worker.zipCode = zipNumber;
-                                         [CoreDataHelper saveContext];
-                                     }
-                                     
-//                                     NSDictionary *locationDictionary = @{
-//                                                                          @"domestic":@1,
-//                                                                          @"city":city,
-//                                                                          @"county":county,
-//                                                                          @"state":state,
-//                                                                          @"country":country,
-//                                                                          @"zipCode":zipNumber,
-//                                                                          @"longitude":longitude,
-//                                                                          @"latitude":latitude
-//                                                                          };
-//                                     NSLog(@"Domestic: %@", locationDictionary);
-                                     
-                                 }];
-                                 
-                                 [dataTask resume];
                              } else {
-                                 
-                                 if ([sender isKindOfClass:[Connection class]]) {
-                                     connection.city = city;
-                                     connection.state = state;
-                                     connection.county = county;
-                                     connection.country = country;
-                                     [CoreDataHelper saveContext];
-
-                                 } else {
-                                     worker.city = city;
-                                     worker.state = state;
-                                     worker.county = county;
-                                     worker.country = country;
-                                     [CoreDataHelper saveContext];
-
-                                 }
-                                 
-//                                 NSDictionary *locationDictionary = @{
-//                                                                      @"domestic":@0,
-//                                                                      @"city":city,
-//                                                                      @"county":county,
-//                                                                      @"state":state,
-//                                                                      @"country":country,
-//                                                                      @"longitude":longitude,
-//                                                                      @"latitude":latitude
-//                                                                      };
-//                                 NSLog(@"Foreign: %@", locationDictionary);
-                                 
-                                 
+                                 worker.city = city;
+                                 worker.state = state;
+                                 worker.county = county;
+                                 worker.country = country;
+                                 [CoreDataHelper saveContext];
                              }
-                             
+
                          }
                          
                      }
                  }];
     
+}
+
+-(void)getZipCode:(id)sender {
+    Connection *connection;
+    Worker *worker;
+    NSString *country, *city, *state;
+    
+    if ([sender isKindOfClass:[Connection class]]) {
+        connection = (Connection *)sender;
+        country = connection.country;
+        city = connection.city;
+        state = connection.state;
+    } else {
+        worker = (Worker *)sender;
+        country = worker.country;
+        city = worker.city;
+        state = worker.state;
+    }
+
+    NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration ephemeralSessionConfiguration];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfig];
+    
+    NSString *searchCity = [city stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
+    
+    NSString *urlString = [NSString stringWithFormat:@"http://zipcodedistanceapi.redline13.com/rest/6knGX9OxcRNCScYsEnMcIoPZRJv66Itc2QT00HxczlOryNUcbGpT4eSWXo236wg9/city-zips.json/%@/%@", searchCity, state];
+    
+    //        NSLog(@"%@", urlString);
+    
+    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        
+        NSNumber *zipNumber;
+        if (!error) {
+            NSDictionary *zipDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+            NSArray *array = [zipDictionary objectForKey:@"zip_codes"];
+            
+            NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+            [formatter setNumberStyle:NSNumberFormatterNoStyle];
+            zipNumber = [formatter numberFromString:array[0]];
+        } else {
+            zipNumber = @0;
+        }
+        
+        if ([sender isKindOfClass:[Connection class]]) {
+            connection.zipCode = zipNumber;
+            [CoreDataHelper saveContext];
+            
+        } else {
+            worker.zipCode = zipNumber;
+            [CoreDataHelper saveContext];
+        }
+        
+    }];
+    
+    [dataTask resume];
 }
 
 @end
