@@ -60,7 +60,7 @@
     if ([self.detail isKindOfClass:[Connection class]]) {
         self.connection = (Connection *)self.detail;
 
-        [LocationController getZipCode:self.connection];
+//        [LocationController getZipCode:self.connection];
 //        if ([self.connection.locationAvailable isEqual:@0]) {
 ////            [LocationController getLocationData:self.connection];
 //            [LocationController getZipCode:self.connection];
@@ -98,6 +98,8 @@
                 
             }
             
+            
+            
             self.data = [NSArray arrayWithObjects:[temp copy], self.fauxData, nil];
             
             currentValue = [self.connection.values lastObject];
@@ -119,9 +121,17 @@
                 
             }
             
-            self.data = [NSArray arrayWithObjects:[temp copy], self.fauxData, nil];
-            
             currentValue = [self.connection.values lastObject];
+            Value *tempValue = temp[0];
+            
+            NSNumber *topNumber = [NSNumber numberWithInt:(int)([currentValue.marketPrice floatValue] * 1.1)];
+            NSArray *topArray = @[topNumber, topNumber, topNumber, topNumber, topNumber, topNumber];
+            
+//            NSNumber *bottomNumber = [NSNumber numberWithInt:(int)([tempValue.marketPrice floatValue] * 0.9)];
+//            
+//            NSArray *bottomArray = @[bottomNumber, bottomNumber, bottomNumber, bottomNumber, bottomNumber, bottomNumber];
+            
+            self.data = [NSArray arrayWithObjects:[temp copy], self.fauxData, topArray, bottomArray, nil];
             
             NSNumberFormatter *formatter = [NSNumberFormatter new];
             [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
@@ -200,6 +210,8 @@
         } else {
             currentValue = [self.worker.values lastObject];
             self.data = @[
+                          @[@60, @100, @60, @20, @60, @80],
+                          @[@60, @100, @60, @20, @60, @80],
                           @[@60, @100, @60, @20, @60, @80],
                           @[@20, @60, @40, @140, @80, @120]
                           ];
@@ -734,10 +746,10 @@
 
 - (UIColor *)colorForLineAtIndex:(NSInteger)index {
     id colors = @[
-//                  [UIColor gk_turquoiseColor],
+                  [UIColor gk_turquoiseColor],
                   [UIColor gk_peterRiverColor],
-                  [UIColor gk_alizarinColor]
-//                  [UIColor gk_sunflowerColor]
+                  [UIColor gk_alizarinColor],
+                  [UIColor gk_sunflowerColor]
                   ];
     return [colors objectAtIndex:index];
 }
