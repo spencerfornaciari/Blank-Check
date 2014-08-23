@@ -46,11 +46,6 @@
 -(void)grabUserConnections:(Worker *)worker inContext:(NSManagedObjectContext *)context atRange:(NSInteger)range;
 -(NSArray *)commonConnectionsWithUser:(NSString *)userID;
 
-//Textalytics API Calls
-+(NSArray *)checkProfileText:(NSString *)string;
--(void)listDictionaries;
--(void)readDictionaryWithName:(NSString *)name;
-
 +(NSString *)documentsDirectoryPath;
 
 @end
