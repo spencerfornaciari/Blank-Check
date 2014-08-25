@@ -42,7 +42,6 @@
     [super viewDidLoad];
     self.title = @"Blank Check Labs";
     
-    self.fauxData = @[@50000, @50000, @50000, @50000, @50000, @50000];
     
 //    self.data = @[
 //                  @[@20, @60, @40, @140, @80, @120]
@@ -122,14 +121,20 @@
             }
             
             currentValue = [self.connection.values lastObject];
-            Value *tempValue = temp[0];
+            NSNumber *tempNumber = temp[0];
             
-            NSNumber *topNumber = [NSNumber numberWithInt:(int)([currentValue.marketPrice floatValue] * 1.1)];
+            
+            
+            NSNumber *topNumber = [NSNumber numberWithInt:(int)([currentValue.marketPrice floatValue] * 1.01)];
             NSArray *topArray = @[topNumber, topNumber, topNumber, topNumber, topNumber, topNumber];
             
-//            NSNumber *bottomNumber = [NSNumber numberWithInt:(int)([tempValue.marketPrice floatValue] * 0.9)];
-//            
-//            NSArray *bottomArray = @[bottomNumber, bottomNumber, bottomNumber, bottomNumber, bottomNumber, bottomNumber];
+            NSNumber *bottomNumber = [NSNumber numberWithInt:(int)([tempNumber floatValue] * 0.99)];
+//
+            NSArray *bottomArray = @[bottomNumber, bottomNumber, bottomNumber, bottomNumber, bottomNumber, bottomNumber];
+            
+            NSNumber *middleValue = [NSNumber numberWithInt:(int)(([[temp firstObject] floatValue] + [[temp lastObject] floatValue]) / 2)];
+            
+            self.fauxData = @[middleValue, middleValue, middleValue, middleValue, middleValue, middleValue];
             
             self.data = [NSArray arrayWithObjects:[temp copy], self.fauxData, topArray, bottomArray, nil];
             
@@ -748,8 +753,10 @@
     id colors = @[
                   [UIColor gk_turquoiseColor],
                   [UIColor gk_peterRiverColor],
-                  [UIColor gk_alizarinColor],
-                  [UIColor gk_sunflowerColor]
+                  [UIColor clearColor],
+                  [UIColor clearColor]
+//                  [UIColor gk_alizarinColor],
+//                  [UIColor gk_sunflowerColor]
                   ];
     return [colors objectAtIndex:index];
 }
