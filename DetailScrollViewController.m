@@ -128,18 +128,16 @@
             
             fraction = 100.0 * floor(((fraction * .01)/100.0)+0.5);
             
-            float topValue = [currentValue.marketPrice floatValue];// * 1.01;
-
-//            topValue = 1000.0 * floor((topValue/1000.0)+0.5);
+            float topValue = [currentValue.marketPrice floatValue] + fraction;// * 1.01;
+            topValue = 100.0 * floor((topValue/100.0)+0.5);
             
-            NSNumber *topNumber = [NSNumber numberWithInt:(int)(topValue + fraction)];
+            NSNumber *topNumber = [NSNumber numberWithInt:(int)(topValue)];
             NSArray *topArray = @[topNumber, topNumber, topNumber, topNumber, topNumber, topNumber];
             
-            float bottomValue = [tempNumber floatValue];// * 0.99;
-            
-//            bottomValue = 1000.0 * floor((bottomValue/1000.0)+0.5);
+            float bottomValue = [tempNumber floatValue] - fraction;
+            bottomValue = 100.0 * floor((bottomValue/100.0)+0.5);
 
-            NSNumber *bottomNumber = [NSNumber numberWithInt:(int)(bottomValue - fraction)];
+            NSNumber *bottomNumber = [NSNumber numberWithInt:(int)(bottomValue)];
             NSArray *bottomArray = @[bottomNumber, bottomNumber, bottomNumber, bottomNumber, bottomNumber, bottomNumber];
             
             NSNumber *middleValue = [NSNumber numberWithInt:(int)(([[temp firstObject] floatValue] + [[temp lastObject] floatValue]) / 2)];
