@@ -19,8 +19,9 @@
 
 @interface DetailScrollViewController ()
 
-@property (nonatomic) UIView *overView, *expertInsightsView, *timelineView, *expertAppraisalView;
+@property (nonatomic) UIView *overView, *expertInsightsView, *timelineView, *expertAppraisalView, *legendView;
 @property (nonatomic) UserInfoView *userInfoView;
+@property (nonatomic) ButtonMenuView *buttonMenu;
 
 @property (nonatomic) IBOutlet GKLineGraph *graph;
 @property (nonatomic, strong) NSArray *data, *fauxData;
@@ -236,14 +237,19 @@
     
     
 
-    self.frameHeight = 1390;
+    [self loadGraphLegend];
+    [self addButtonMenu];
     
     [self loadUserInfo];
     [self loadExpertInsights];
     [self loadTimeLine];
     [self loadExpertAppraisal];
     
-    [self addButtonMenu];
+//    self.frameHeight = 1590;
+    self.frameHeight = self.expertAppraisalView.frame.origin.y + self.expertAppraisalView.frame.size.height;
+;
+
+    
 
 //    [self setProfileImage:self.detail];
     
@@ -272,7 +278,6 @@
 
 -(void)setProfileImage {
 
-    
     if ([self.detail isKindOfClass:[Connection class]]) {
         self.fileExists = [[NSFileManager defaultManager] fileExistsAtPath:self.connection.imageLocation];
 
@@ -430,79 +435,66 @@
 }
 */
 
+#pragma mark - Graph Legend
+
+-(void)loadGraphLegend {
+    NSLog(@"Graph: %@", NSStringFromCGRect(self.graph.frame));
+    
+    self.legendView = [[UIView alloc] initWithFrame:CGRectMake(0, self.graph.frame.origin.y + self.graph.frame.size.height, 320, 36)];
+//    self.legendView.layer.borderWidth = 1.0;
+//    self.legendView.layer.borderColor = [UIColor blackColor].CGColor;
+    [scrollView addSubview:self.legendView];
+    
+    
+    
+    UILabel *userLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.legendView.frame.size.height / 2, 100, 20)];
+    
+    if ([self.detail isKindOfClass:[Connection class]]) {
+        Connection *connection = (Connection *)self.detail;
+        userLabel.text = [NSString stringWithFormat:@"%@", connection.firstName];
+    } else {
+        Worker *worker = (Worker *)self.detail;
+        userLabel.text = [NSString stringWithFormat:@"%@", worker.firstName];
+    }
+    
+    [userLabel sizeToFit];
+    int startingPoint = (int)((scrollView.frame.size.width - 138 - 55 - userLabel.frame.size.width) / 2);
+    
+    userLabel.frame = CGRectMake(startingPoint, userLabel.frame.origin.y, userLabel.frame.size.width, 21);
+    NSLog(@"User: %f", userLabel.frame.size.width);
+    [self.legendView addSubview:userLabel];
+    
+    UIView *userLineView = [[UIView alloc] initWithFrame:CGRectMake(userLabel.frame.origin.x + userLabel.frame.size.width + 15, (self.legendView.frame.size.height / 2) + 8, 40, 3)];
+    userLineView.backgroundColor = [UIColor gk_turquoiseColor];
+    [self.legendView addSubview:userLineView];
+    
+    UILabel *averageLabel = [[UILabel alloc] initWithFrame:CGRectMake(userLineView.frame.origin.x + userLineView.frame.size.width + 20, self.legendView.frame.size.height / 2, 63, 21)];
+    averageLabel.text = @"Average";
+    
+    [self.legendView addSubview:averageLabel];
+    
+    UIView *averageLineView = [[UIView alloc] initWithFrame:CGRectMake((averageLabel.frame.origin.x + averageLabel.frame.size.width) + 15, (self.legendView.frame.size.height / 2) + 8, 40, 3)];
+    
+    averageLineView.backgroundColor = [UIColor gk_peterRiverColor];
+    [self.legendView addSubview:averageLineView];
+
+}
+
 #pragma mark - Button creation/actions
 
 -(void)addButtonMenu {
-    
-    UIButton *followButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    followButton.frame = CGRectMake(20, 500, 56, 56);
-    [followButton setImage:[UIImage imageNamed:@"follow"] forState:UIControlStateNormal];
-    [followButton addTarget:self action:@selector(followAction) forControlEvents:UIControlEventTouchUpInside];
-    followButton.layer.borderWidth = 1.0;
-    followButton.layer.borderColor = [UIColor blackColor].CGColor;
-    [scrollView addSubview:followButton];
-    
-    UILabel *followLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 561, 56, 21)];
-    followLabel.text = @"Follow";
-    followLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:11.0];
-    followLabel.textAlignment = NSTextAlignmentCenter;
-    [scrollView addSubview:followLabel];
-    
-    UIButton *outButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    outButton.frame = CGRectMake(76, 500, 56, 56);
-    [outButton setImage:[UIImage imageNamed:@"out"] forState:UIControlStateNormal];
-    [outButton addTarget:self action:@selector(outAction) forControlEvents:UIControlEventTouchUpInside];
-    outButton.layer.borderWidth = 1.0;
-    outButton.layer.borderColor = [UIColor blackColor].CGColor;
-    [scrollView addSubview:outButton];
-    
-    UILabel *outLabel = [[UILabel alloc] initWithFrame:CGRectMake(76, 561, 56, 21)];
-    outLabel.text = @"X-Out";
-    outLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:11.0];
-    outLabel.textAlignment = NSTextAlignmentCenter;
-    [scrollView addSubview:outLabel];
-    
-    UIButton *noteButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    noteButton.frame = CGRectMake(132, 500, 56, 56);
-    [noteButton setImage:[UIImage imageNamed:@"note"] forState:UIControlStateNormal];
-    [noteButton addTarget:self action:@selector(noteAction) forControlEvents:UIControlEventTouchUpInside];
-    noteButton.layer.borderWidth = 1.0;
-    noteButton.layer.borderColor = [UIColor blackColor].CGColor;
-    [scrollView addSubview:noteButton];
-    
-    UILabel *noteLabel = [[UILabel alloc] initWithFrame:CGRectMake(132, 561, 56, 21)];
-    noteLabel.text = @"Note";
-    noteLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:11.0];
-    noteLabel.textAlignment = NSTextAlignmentCenter;
-    [scrollView addSubview:noteLabel];
-    
-    UIButton *shareButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    shareButton.frame = CGRectMake(188, 500, 56, 56);
-    [shareButton setImage:[UIImage imageNamed:@"share"] forState:UIControlStateNormal];
-    [shareButton addTarget:self action:@selector(shareAction) forControlEvents:UIControlEventTouchUpInside];
-    shareButton.layer.borderWidth = 1.0;
-    shareButton.layer.borderColor = [UIColor blackColor].CGColor;
-    [scrollView addSubview:shareButton];
-    
-    UILabel *shareLabel = [[UILabel alloc] initWithFrame:CGRectMake(188, 561, 56, 21)];
-    shareLabel.text = @"Share";
-    shareLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:11.0];
-    shareLabel.textAlignment = NSTextAlignmentCenter;
-    [scrollView addSubview:shareLabel];
-    
-    UIButton *findSimilarButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    findSimilarButton.frame = CGRectMake(244, 500, 56, 56);
-    [findSimilarButton setImage:[UIImage imageNamed:@"findSimilar"] forState:UIControlStateNormal];
-    [findSimilarButton addTarget:self action:@selector(findSimilarAction) forControlEvents:UIControlEventTouchUpInside];
-    findSimilarButton.layer.borderWidth = 1.0;
-    findSimilarButton.layer.borderColor = [UIColor blackColor].CGColor;
-    [scrollView addSubview:findSimilarButton];
-    
-    UILabel *findSimilarLabel = [[UILabel alloc] initWithFrame:CGRectMake(244, 561, 60, 21)];
-    findSimilarLabel.text = @"Find Similar";
-    findSimilarLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:11.0];
-    findSimilarLabel.textAlignment = NSTextAlignmentCenter;
-    [scrollView addSubview:findSimilarLabel];
+    self.buttonMenu = [[ButtonMenuView alloc] initWithFrame:CGRectMake(20, (self.legendView.frame.origin.y + self.legendView.frame.size.height) + 20, 280, 82)];
+    [scrollView addSubview:self.buttonMenu];
+
+    [self.buttonMenu.followButton addTarget:self action:@selector(followAction) forControlEvents:UIControlEventTouchUpInside];
+
+    [self.buttonMenu.outButton addTarget:self action:@selector(outAction) forControlEvents:UIControlEventTouchUpInside];
+
+    [self.buttonMenu.noteButton addTarget:self action:@selector(noteAction) forControlEvents:UIControlEventTouchUpInside];
+
+    [self.buttonMenu.shareButton addTarget:self action:@selector(shareAction) forControlEvents:UIControlEventTouchUpInside];
+
+    [self.buttonMenu.findSimilarButton addTarget:self action:@selector(findSimilarAction) forControlEvents:UIControlEventTouchUpInside];
 }
 
 #pragma mark - Button Actions
@@ -608,8 +600,9 @@
 }
 
 -(void)loadUserInfo {
-    self.userInfoView = [[UserInfoView alloc] initWithFrame:CGRectMake(0, 600, 320, 170) andUser:self.connection];
-    
+//    self.userInfoView = [[UserInfoView alloc] initWithFrame:CGRectMake(0, 600, 320, 170) andUser:self.connection];
+    self.userInfoView = [[UserInfoView alloc] initWithFrame:CGRectMake(0, (self.buttonMenu.frame.origin.y + self.buttonMenu.frame.size.height) + 10, 320, 170) andUser:self.connection];
+//    self.legendView.frame.origin.y + self.legendView.frame.size.height
     [scrollView addSubview:self.userInfoView];
     
 

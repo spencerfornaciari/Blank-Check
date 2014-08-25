@@ -15,6 +15,7 @@
 #import "UserInfoView.h"
 #import "TimelineView.h"
 #import "Connection.h"
+#import "ButtonMenuView.h"
 
 @interface DetailScrollViewController : UIViewController <UIScrollViewDelegate, UIActionSheetDelegate, NSURLSessionDelegate, NSURLSessionDownloadDelegate, UITextFieldDelegate, UIAlertViewDelegate, GKLineGraphDataSource> {
     IBOutlet UIScrollView *scrollView;

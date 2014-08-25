@@ -78,6 +78,7 @@
 		89FEC8CD19A6924800964585 /* Connection.m in Sources */ = {isa = PBXBuildFile; fileRef = 89FEC8CC19A6924800964585 /* Connection.m */; };
 		89FEC91419A9415800964585 /* OldController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89FEC91319A9415800964585 /* OldController.m */; };
 		89FEC91719AB9E0D00964585 /* NSURLSessionHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 89FEC91619AB9E0D00964585 /* NSURLSessionHelper.m */; };
+		89FEC91A19ABA5E800964585 /* ButtonMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89FEC91919ABA5E800964585 /* ButtonMenuView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -234,6 +235,8 @@
 		89FEC91319A9415800964585 /* OldController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OldController.m; sourceTree = "<group>"; };
 		89FEC91519AB9E0D00964585 /* NSURLSessionHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSURLSessionHelper.h; sourceTree = "<group>"; };
 		89FEC91619AB9E0D00964585 /* NSURLSessionHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSURLSessionHelper.m; sourceTree = "<group>"; };
+		89FEC91819ABA5E800964585 /* ButtonMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ButtonMenuView.h; sourceTree = "<group>"; };
+		89FEC91919ABA5E800964585 /* ButtonMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ButtonMenuView.m; sourceTree = "<group>"; };
 		8D88B6EE341E4BB49404DDD2 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF0FF877FE3843E6B32D913D /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -440,6 +443,8 @@
 				8971C735197F0E390024D3A1 /* ProblemView.m */,
 				89571BB1199BE71200475614 /* NoteTableViewCell.h */,
 				89571BB2199BE71200475614 /* NoteTableViewCell.m */,
+				89FEC91819ABA5E800964585 /* ButtonMenuView.h */,
+				89FEC91919ABA5E800964585 /* ButtonMenuView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -696,6 +701,7 @@
 				89C973EB192565D800EC6004 /* Constants.m in Sources */,
 				89C973E81925650C00EC6004 /* NetworkController.m in Sources */,
 				895AF665195235FD00B20DA6 /* FeedTableViewCell.m in Sources */,
+				89FEC91A19ABA5E800964585 /* ButtonMenuView.m in Sources */,
 				898A7D6419A1925D00AED48B /* PresetSearchResultsTableViewController.m in Sources */,
 				896DB15F19A3B5FA00731649 /* ValueController.m in Sources */,
 				89FEC8CA19A67DF500964585 /* Worker.m in Sources */,
