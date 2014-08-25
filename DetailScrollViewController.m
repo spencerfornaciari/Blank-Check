@@ -124,13 +124,18 @@
             currentValue = [self.connection.values lastObject];
             NSNumber *tempNumber = temp[0];
             
+            float topValue = [currentValue.marketPrice floatValue] * 1.01;
+
+            topValue = 1000.0 * floor((topValue/1000.0)+0.5);
             
-            
-            NSNumber *topNumber = [NSNumber numberWithInt:(int)([currentValue.marketPrice floatValue] * 1.01)];
+            NSNumber *topNumber = [NSNumber numberWithInt:(int)(topValue)];
             NSArray *topArray = @[topNumber, topNumber, topNumber, topNumber, topNumber, topNumber];
             
-            NSNumber *bottomNumber = [NSNumber numberWithInt:(int)([tempNumber floatValue] * 0.99)];
-//
+            float bottomValue = [tempNumber floatValue] * 0.99;
+            
+            bottomValue = 1000.0 * floor((bottomValue/1000.0)+0.5);
+
+            NSNumber *bottomNumber = [NSNumber numberWithInt:(int)bottomValue];
             NSArray *bottomArray = @[bottomNumber, bottomNumber, bottomNumber, bottomNumber, bottomNumber, bottomNumber];
             
             NSNumber *middleValue = [NSNumber numberWithInt:(int)(([[temp firstObject] floatValue] + [[temp lastObject] floatValue]) / 2)];
