@@ -30,7 +30,7 @@
     [super viewDidLoad];
     self.title = @"Blank Check Labs";
     
-    self.networkController = [(AppDelegate *)[[UIApplication sharedApplication] delegate] networkController];
+//    self.networkController = [(AppDelegate *)[[UIApplication sharedApplication] delegate] networkController];
     
     self.blankCheckCollectionView.delegate = self;
     self.blankCheckCollectionView.dataSource = self;

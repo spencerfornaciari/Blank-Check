@@ -77,6 +77,7 @@
 		89FEC8CA19A67DF500964585 /* Worker.m in Sources */ = {isa = PBXBuildFile; fileRef = 89FEC8C919A67DF500964585 /* Worker.m */; };
 		89FEC8CD19A6924800964585 /* Connection.m in Sources */ = {isa = PBXBuildFile; fileRef = 89FEC8CC19A6924800964585 /* Connection.m */; };
 		89FEC91419A9415800964585 /* OldController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89FEC91319A9415800964585 /* OldController.m */; };
+		89FEC91719AB9E0D00964585 /* NSURLSessionHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 89FEC91619AB9E0D00964585 /* NSURLSessionHelper.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -231,6 +232,8 @@
 		89FEC8CC19A6924800964585 /* Connection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Connection.m; sourceTree = "<group>"; };
 		89FEC91219A9415800964585 /* OldController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OldController.h; sourceTree = "<group>"; };
 		89FEC91319A9415800964585 /* OldController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OldController.m; sourceTree = "<group>"; };
+		89FEC91519AB9E0D00964585 /* NSURLSessionHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSURLSessionHelper.h; sourceTree = "<group>"; };
+		89FEC91619AB9E0D00964585 /* NSURLSessionHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSURLSessionHelper.m; sourceTree = "<group>"; };
 		8D88B6EE341E4BB49404DDD2 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF0FF877FE3843E6B32D913D /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -482,6 +485,8 @@
 				89FEC8C319A67C4F00964585 /* LocationController.m */,
 				89FEC91219A9415800964585 /* OldController.h */,
 				89FEC91319A9415800964585 /* OldController.m */,
+				89FEC91519AB9E0D00964585 /* NSURLSessionHelper.h */,
+				89FEC91619AB9E0D00964585 /* NSURLSessionHelper.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -709,6 +714,7 @@
 				89571BB3199BE71200475614 /* NoteTableViewCell.m in Sources */,
 				891B94661948C9FF00BEAEC9 /* BlankCheckViewCell.m in Sources */,
 				89B571EF198059F3006FBF14 /* Value.m in Sources */,
+				89FEC91719AB9E0D00964585 /* NSURLSessionHelper.m in Sources */,
 				8978FBCB193E562600BF0921 /* PresetSearchViewController.m in Sources */,
 				89B571EC198059F3006FBF14 /* Language.m in Sources */,
 				89C973BB192564AF00EC6004 /* main.m in Sources */,

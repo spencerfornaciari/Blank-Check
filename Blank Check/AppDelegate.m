@@ -26,6 +26,9 @@
     //Social Account Store
     self.accounts = [ACAccountStore new];
     
+    NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration ephemeralSessionConfiguration];
+    self.session = [NSURLSession sessionWithConfiguration:sessionConfig];
+    
     //Hockey App Setup
     [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"a5e62e01653d9a9607b8f5d5dd48f65a"];
     [[BITHockeyManager sharedHockeyManager] startManager];

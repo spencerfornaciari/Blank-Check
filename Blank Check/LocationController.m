@@ -126,8 +126,8 @@
         state = worker.state;
     }
 
-    NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration ephemeralSessionConfiguration];
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfig];
+//    NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration ephemeralSessionConfiguration];
+//    NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfig];
     
     NSString *searchCity = [city stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
     
@@ -135,7 +135,7 @@
     
     //        NSLog(@"%@", urlString);
     
-    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+    NSURLSessionDataTask *dataTask = [[NSURLSessionHelper getNSURLSession] dataTaskWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         
         NSNumber *zipNumber;
         if (!error) {

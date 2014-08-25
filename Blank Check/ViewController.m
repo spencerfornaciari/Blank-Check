@@ -32,7 +32,7 @@
     self.tokenBOOL = FALSE;
     self.haveRunJSON = FALSE;
     
-    self.controller = [(AppDelegate *)[[UIApplication sharedApplication] delegate] networkController];
+//    self.controller = [(AppDelegate *)[[UIApplication sharedApplication] delegate] networkController];
     
     if (TEST_UPDATE) {
         NSLog(@"Updating Token");

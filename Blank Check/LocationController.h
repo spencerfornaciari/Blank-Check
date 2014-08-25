@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 #import "CoreDataHelper.h"
+#import "NSURLSessionHelper.h"
 #import "Worker.h"
 #import "Connection.h"
 

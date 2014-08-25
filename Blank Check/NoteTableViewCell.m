@@ -42,8 +42,6 @@
     
     self.noteLabel.frame = CGRectMake(self.noteLabel.frame.origin.x, self.noteLabel.frame.origin.y, 304, cell.size.height);
     
-    
-//    [self.noteLabel sizeToFit];
 }
 
 @end
