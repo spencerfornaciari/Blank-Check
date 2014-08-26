@@ -33,7 +33,9 @@
         
         self.outButton = [UIButton buttonWithType:UIButtonTypeCustom];
         self.outButton.frame = CGRectMake(56, 0, 56, 56);
-        [self.outButton setImage:[UIImage imageNamed:@"out"] forState:UIControlStateNormal];
+        [self.outButton setImage:[UIImage imageNamed:@"remove"] forState:UIControlStateNormal];
+        [self.outButton setImageEdgeInsets:UIEdgeInsetsMake(14, 14, 14, 14)];
+
 //        [self.outButton addTarget:self action:@selector(outAction) forControlEvents:UIControlEventTouchUpInside];
         self.outButton.layer.borderWidth = 1.0;
         self.outButton.layer.borderColor = [UIColor blackColor].CGColor;
@@ -47,7 +49,8 @@
         
         self.noteButton = [UIButton buttonWithType:UIButtonTypeCustom];
         self.noteButton.frame = CGRectMake(112, 0, 56, 56);
-        [self.noteButton setImage:[UIImage imageNamed:@"note"] forState:UIControlStateNormal];
+        [self.noteButton setImage:[UIImage imageNamed:@"notes"] forState:UIControlStateNormal];
+        [self.noteButton setImageEdgeInsets:UIEdgeInsetsMake(12, 12, 12, 12)];
 //        [self.noteButton addTarget:self action:@selector(noteAction) forControlEvents:UIControlEventTouchUpInside];
         self.noteButton.layer.borderWidth = 1.0;
         self.noteButton.layer.borderColor = [UIColor blackColor].CGColor;
@@ -62,6 +65,8 @@
         self.shareButton = [UIButton buttonWithType:UIButtonTypeCustom];
         self.shareButton.frame = CGRectMake(168, 0, 56, 56);
         [self.shareButton setImage:[UIImage imageNamed:@"share"] forState:UIControlStateNormal];
+        [self.shareButton setImageEdgeInsets:UIEdgeInsetsMake(10, 10, 12, 10)];
+
 //        [self.shareButton addTarget:self action:@selector(shareAction) forControlEvents:UIControlEventTouchUpInside];
         self.shareButton.layer.borderWidth = 1.0;
         self.shareButton.layer.borderColor = [UIColor blackColor].CGColor;
@@ -75,7 +80,8 @@
         
         self.findSimilarButton = [UIButton buttonWithType:UIButtonTypeCustom];
         self.findSimilarButton.frame = CGRectMake(224, 0, 56, 56);
-        [self.findSimilarButton setImage:[UIImage imageNamed:@"findSimilar"] forState:UIControlStateNormal];
+        [self.findSimilarButton setImage:[UIImage imageNamed:@"similar"] forState:UIControlStateNormal];
+        [self.findSimilarButton setImageEdgeInsets:UIEdgeInsetsMake(8, 8, 8, 8)];
 //        [self.findSimilarButton addTarget:self action:@selector(findSimilarAction) forControlEvents:UIControlEventTouchUpInside];
         self.findSimilarButton.layer.borderWidth = 1.0;
         self.findSimilarButton.layer.borderColor = [UIColor blackColor].CGColor;

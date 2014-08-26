@@ -221,19 +221,46 @@
             self.data = [NSArray arrayWithObjects:[temp copy], self.fauxData, nil];
             
         } else {
+            
+            NSMutableArray *temp = [NSMutableArray new];
+            NSArray *orderedArray = [self.worker.values array];
+            
+            for (int j = (int)orderedArray.count - 6; j < orderedArray.count; j++) {
+                Value *value = [self.worker.values objectAtIndex:j];
+                [temp addObject:value.marketPrice];
+                
+            }
+            
             currentValue = [self.worker.values lastObject];
-            self.data = @[
-                          @[@60, @100, @60, @20, @60, @80],
-                          @[@60, @100, @60, @20, @60, @80],
-                          @[@60, @100, @60, @20, @60, @80],
-                          @[@20, @60, @40, @140, @80, @120]
-                          ];
-            //            self.data = [NSArray arrayWithObjects:[temp copy], self.fauxData, nil];
+            NSNumber *tempNumber = temp[0];
+            
+            float fraction = [currentValue.marketPrice floatValue];
+            
+            fraction = 100.0 * floor(((fraction * .01)/100.0)+0.5);
+            
+            float topValue = [currentValue.marketPrice floatValue] + fraction;// * 1.01;
+            topValue = 100.0 * floor((topValue/100.0)+0.5);
+            
+            NSNumber *topNumber = [NSNumber numberWithInt:(int)(topValue)];
+            NSArray *topArray = @[topNumber, topNumber, topNumber, topNumber, topNumber, topNumber];
+            
+            float bottomValue = [tempNumber floatValue] - fraction;
+            bottomValue = 100.0 * floor((bottomValue/100.0)+0.5);
+            
+            NSNumber *bottomNumber = [NSNumber numberWithInt:(int)(bottomValue)];
+            NSArray *bottomArray = @[bottomNumber, bottomNumber, bottomNumber, bottomNumber, bottomNumber, bottomNumber];
+            
+            NSNumber *middleValue = [NSNumber numberWithInt:(int)(([[temp firstObject] floatValue] + [[temp lastObject] floatValue]) / 2)];
+            
+            self.fauxData = @[middleValue, middleValue, middleValue, middleValue, middleValue, middleValue];
+            
+            self.data = [NSArray arrayWithObjects:[temp copy], self.fauxData, topArray, bottomArray, nil];
             
             NSNumberFormatter *formatter = [NSNumberFormatter new];
             [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
             valueLabel.text = [NSString stringWithFormat:@"$%@", [formatter stringFromNumber:currentValue.marketPrice]];
         }
+        
         [self setupGraph];
     }
     
@@ -242,8 +269,6 @@
     scrollView.delegate = self;
     [scrollView setScrollEnabled:YES];
     
-    
-
     [self loadGraphLegend];
     [self addButtonMenu];
     
