@@ -47,7 +47,7 @@
         [self loadCoreData];
     }
     
-
+    NSLog(@"String: %@", [self removeCharactersFromString:@"Chief of Staff, Strategy & Partnerships - Microsoft Online Services Division"]);
 
     
 //    [SocialHelper sendInvitationToUserID:self.worker];
@@ -291,8 +291,35 @@
 }
                        
 -(NSString *)documentsDirectoryPath
-    {
+{
         NSURL *documentsURL = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
         return [documentsURL path];
+}
+
+-(NSString *)removeCharactersFromString:(NSString *)string {
+    NSCharacterSet *trim = [NSCharacterSet characterSetWithCharactersInString:@"()/\\|-,&"];
+    string = [[string componentsSeparatedByCharactersInSet:trim] componentsJoinedByString:@""];
+    
+    NSArray *words = [string componentsSeparatedByString:@" "];
+    
+    NSString *finalString = @"";
+    for (NSString *word in words) {
+        if ([word isEqualToString:@"the"]) {
+            
+        } else if ([word isEqualToString:@"and"]) {
+            
+        } else if ([word isEqualToString:@"of"]) {
+            
+        } else {
+            if ([finalString isEqualToString:@""]) {
+                finalString = word;
+            } else {
+                finalString = [finalString stringByAppendingString:[NSString stringWithFormat:@" %@", word]];
+            }
+        }
     }
+    
+    return  finalString;
+}
+
 @end

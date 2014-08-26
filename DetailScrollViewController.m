@@ -43,11 +43,6 @@
     [super viewDidLoad];
     self.title = @"Blank Check Labs";
     
-    
-//    self.data = @[
-//                  @[@20, @60, @40, @140, @80, @120]
-//                  ];
-    
     self.profileImage = [[UIImageView alloc] initWithFrame:CGRectMake(20, 80, 120, 120)];
     self.profileImage.layer.cornerRadius = 60.f;
     self.profileImage.layer.masksToBounds = TRUE;
@@ -122,20 +117,42 @@
             }
             
             currentValue = [self.connection.values lastObject];
-            NSNumber *tempNumber = temp[0];
+//            NSNumber *tempNumber = temp[0];
             
-            float fraction = [currentValue.marketPrice floatValue];
+//            float fraction = [currentValue.marketPrice floatValue];
+//            fraction = 100.0 * floor(((fraction * .01)/100.0)+0.5);
             
-            fraction = 100.0 * floor(((fraction * .01)/100.0)+0.5);
+            float topValue = [currentValue.marketPrice floatValue];// + fraction;// * 1.01;
+            float rounded = ceil((topValue/1000.0)+0.5);
+            topValue = 1000.0 * rounded;
             
-            float topValue = [currentValue.marketPrice floatValue] + fraction;// * 1.01;
-            topValue = 100.0 * floor((topValue/100.0)+0.5);
+            float bottomValue;
+            if ([currentValue.marketPrice integerValue] < 75000) {
+                float difference = topValue - [currentValue.marketPrice floatValue];
+                
+                if (difference > 750) {
+                    
+                } else {
+                    topValue += 1000;
+                    
+                }
+                bottomValue = topValue - 5000;
+            } else {
+                float difference = topValue - [currentValue.marketPrice floatValue];
+
+                if (difference > 2000) {
+                    topValue += 1000;
+                } else {
+                    topValue += 2000;
+                }
+                bottomValue = topValue - 10000;
+            }
+            
+//            float bottomValue = [tempNumber floatValue] - fraction;
+//            bottomValue = 100.0 * floor((bottomValue/100.0)+0.5);
             
             NSNumber *topNumber = [NSNumber numberWithInt:(int)(topValue)];
             NSArray *topArray = @[topNumber, topNumber, topNumber, topNumber, topNumber, topNumber];
-            
-            float bottomValue = [tempNumber floatValue] - fraction;
-            bottomValue = 100.0 * floor((bottomValue/100.0)+0.5);
 
             NSNumber *bottomNumber = [NSNumber numberWithInt:(int)(bottomValue)];
             NSArray *bottomArray = @[bottomNumber, bottomNumber, bottomNumber, bottomNumber, bottomNumber, bottomNumber];
@@ -234,18 +251,40 @@
             currentValue = [self.worker.values lastObject];
             NSNumber *tempNumber = temp[0];
             
-            float fraction = [currentValue.marketPrice floatValue];
+//            float fraction = [currentValue.marketPrice floatValue];
+//            
+//            fraction = 100.0 * floor(((fraction * .01)/100.0)+0.5);
             
-            fraction = 100.0 * floor(((fraction * .01)/100.0)+0.5);
+            float topValue = [currentValue.marketPrice floatValue];// + fraction;// * 1.01;
+            float rounded = ceil((topValue/1000.0)+0.5);
+            topValue = 1000.0 * rounded;
             
-            float topValue = [currentValue.marketPrice floatValue] + fraction;// * 1.01;
-            topValue = 100.0 * floor((topValue/100.0)+0.5);
+            float bottomValue;
+            if ([currentValue.marketPrice integerValue] < 75000) {
+                float difference = topValue - [currentValue.marketPrice floatValue];
+                
+                if (difference > 750) {
+                    
+                } else {
+                    topValue += 1000;
+                    
+                }
+                bottomValue = topValue - 5000;
+                
+            } else {
+                float difference = topValue - [currentValue.marketPrice floatValue];
+                
+                if (difference > 2000) {
+                    topValue += 1000;
+                } else {
+                    topValue += 2000;
+                }
+                bottomValue = topValue - 10000;
+            }
+
             
             NSNumber *topNumber = [NSNumber numberWithInt:(int)(topValue)];
             NSArray *topArray = @[topNumber, topNumber, topNumber, topNumber, topNumber, topNumber];
-            
-            float bottomValue = [tempNumber floatValue] - fraction;
-            bottomValue = 100.0 * floor((bottomValue/100.0)+0.5);
             
             NSNumber *bottomNumber = [NSNumber numberWithInt:(int)(bottomValue)];
             NSArray *bottomArray = @[bottomNumber, bottomNumber, bottomNumber, bottomNumber, bottomNumber, bottomNumber];
