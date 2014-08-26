@@ -78,13 +78,10 @@
         Connection *connection = [self.searchResultsArray objectAtIndex:indexPath.row];
         
         if ([self.scopeString isEqualToString:@"Name"]) {
-//            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
-//                                    reuseIdentifier:@"Cell"];
-//            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-//            cell.selectionStyle = UITableViewCellSelectionStyleDefault;
             cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", connection.firstName, connection.lastName];
-//            cell.detailTextLabel.text = NSString
-//
+            
+            Job *job = [connection.jobs firstObject];
+            cell.detailTextLabel.text = job.title;
         } else if ([self.scopeString isEqualToString:@"Title"]) {
             cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", connection.firstName, connection.lastName];
           
