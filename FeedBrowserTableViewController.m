@@ -47,7 +47,7 @@
         [self loadCoreData];
     }
     
-    NSLog(@"String: %@", [self removeCharactersFromString:@"Chief of Staff, Strategy & Partnerships - Microsoft Online Services Division"]);
+    NSLog(@"String: %@", [self removeCharactersFromString:@"Chief of Staff, Strategy and Partnerships - Microsoft Online Services Division"]);
 
     
 //    [SocialHelper sendInvitationToUserID:self.worker];

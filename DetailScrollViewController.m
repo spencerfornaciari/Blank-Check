@@ -282,7 +282,6 @@
                 bottomValue = topValue - 10000;
             }
 
-            
             NSNumber *topNumber = [NSNumber numberWithInt:(int)(topValue)];
             NSArray *topArray = @[topNumber, topNumber, topNumber, topNumber, topNumber, topNumber];
             

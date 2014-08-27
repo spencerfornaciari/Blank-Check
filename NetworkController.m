@@ -354,6 +354,18 @@
         }
     }
     
+    //Add Insight
+    Insight *model = [NSEntityDescription insertNewObjectForEntityForName:@"Insight" inManagedObjectContext:[CoreDataHelper managedContext]];
+
+    model.firstName = @"Johnny";
+    model.lastName = @"Appleseed";
+    model.position = @"Expert";
+    model.location = @"Cupertino, CA";
+    model.comments = @"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
+    model.company = @"Apple, Inc.";
+
+    [newWorker addNewInsightObject:model];
+    
     //Parsing Educational Institutions
     NSArray *educationArray = [dictionary valueForKeyPath:@"educations.values"];
     
