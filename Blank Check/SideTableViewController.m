@@ -220,34 +220,21 @@
         [self menuAction];
     }
     if (indexPath.row == 3) {
-        NSLog(@"Report a Problem");
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Report a Problem" message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"General Feedback", @"Flag an Inaccurate Listing", @"Something is Not Working", nil];
+        alertView.tag = 0;
         
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Report a Problem" message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"General Feedback", @"Flag an Inaccurate Listing", @"Something is Not Working", nil];//[[UIAlertView alloc] initWithFrame:frame];
         [alertView show];
-        
-//        int size = (self.view.frame.size.height - 110);
-//
-//        self.problemView = [[ProblemView alloc] initWithFrame:CGRectMake(20, 20, self.view.frame.size.width - 40, size)];
-//        [self.problemView.closeButton addTarget:self action:@selector(closeAction:) forControlEvents:UIControlEventTouchUpInside];
-//        
-//        [self.tableView addSubview:self.problemView];
     }
     if (indexPath.row == 4) {
-        NSLog(@"Terms & Policies");
-        
-        NSString *terms = @"Disclaimer\nBlank Check Labs (“BCL”) does not guarantee or warrant that the data provided herein is accurate, complete, or current and shall not be liable to you for any loss or injury arising out of or caused in whole or in part by the acts, errors or omissions of BCL, whether negligent or otherwise, in procuring, compiling, gathering, formatting, interpreting, reporting, communicating or delivering the information contained in this mobile application. BCL does not undertake any obligation to update, modify, revise or reorganize the information provided herein, or to notify you or any third party should the information be updated, modified, revised or reorganized. In no event shall BCL be liable to you or any third party for any direct, indirect, incidental, consequential or special damages whether foreseeable or unforeseeable and however caused, even if BCL is advised of the possibility of such damages.\n\nIntellectual Property and Restrictions on Use\nAll materials and resources on this website (the “Resources”), including but not limited to information, documents, products, logos, graphics, sounds, images, software and services, are protected by copyright or other intellectual property laws. Except as stated herein, none of the Resources on this website may be copied, reproduced, distributed, republished, downloaded, displayed, posted or transmitted in any form or by any means, including but not limited to electronic, mechanical, photocopying, recording, or other means, without the prior express written permission of BCL. Users may not modify, copy, distribute, transmit, display, publish, sell, license, create derivative works or otherwise use any information available on this website for any public or commercial purpose. You must have written permission from BCL to distribute copies of the information. Unauthorized use of the Resources may violate copyright, trademark and other intellectual property laws. BCL, the BCL logo, and/or other BCL products referenced herein are trademarks of BCL, and may be registered in certain jurisdictions. All other product names, company names, marks, logos, and symbols may be the trademarks of their respective owners."
-        
-        ;
-//        NSLog(@"String length: %li", terms.length);
-//        
-//        
+        //Creating Terms & Conditions attributed string
+        NSString *terms = @"Disclaimer\nBlank Check Labs (“BCL”) does not guarantee or warrant that the data provided herein is accurate, complete, or current and shall not be liable to you for any loss or injury arising out of or caused in whole or in part by the acts, errors or omissions of BCL, whether negligent or otherwise, in procuring, compiling, gathering, formatting, interpreting, reporting, communicating or delivering the information contained in this mobile application. BCL does not undertake any obligation to update, modify, revise or reorganize the information provided herein, or to notify you or any third party should the information be updated, modified, revised or reorganized. In no event shall BCL be liable to you or any third party for any direct, indirect, incidental, consequential or special damages whether foreseeable or unforeseeable and however caused, even if BCL is advised of the possibility of such damages.\n\nIntellectual Property and Restrictions on Use\nAll materials and resources on this website (the “Resources”), including but not limited to information, documents, products, logos, graphics, sounds, images, software and services, are protected by copyright or other intellectual property laws. Except as stated herein, none of the Resources on this website may be copied, reproduced, distributed, republished, downloaded, displayed, posted or transmitted in any form or by any means, including but not limited to electronic, mechanical, photocopying, recording, or other means, without the prior express written permission of BCL. Users may not modify, copy, distribute, transmit, display, publish, sell, license, create derivative works or otherwise use any information available on this website for any public or commercial purpose. You must have written permission from BCL to distribute copies of the information. Unauthorized use of the Resources may violate copyright, trademark and other intellectual property laws. BCL, the BCL logo, and/or other BCL products referenced herein are trademarks of BCL, and may be registered in certain jurisdictions. All other product names, company names, marks, logos, and symbols may be the trademarks of their respective owners.";
+
         NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:terms];
         
         NSRange firstRegularRange = NSMakeRange(10, 916);
         NSRange secondRegularRange = NSMakeRange(964, 1225);// 2180 //955 //910 //9
         NSRange firstBoldRange = NSMakeRange(0, 10);
         NSRange secondBoldRange = NSMakeRange(917, 47);
-//        NSRange secondBoldRange = NSMakeRange(200, 209); // 4 characters, starting at index 22
         
         [string beginEditing];
         
@@ -279,58 +266,35 @@
                        value:[UIColor blackColor]
                        range:secondBoldRange];
         
-//        [string addAttribute:NSFontAttributeName
-//                       value:[UIFont fontWithName:@"HelveticaNeue-Medium" size:16.0]
-//                       range:secondBoldRange];
-//        [string addAttribute:NSForegroundColorAttributeName
-//                       value:[UIColor blackColor]
-//                       range:secondBoldRange];
-        
         [string endEditing];
         
-//        NSAttributedString *string = [[NSAttributedString alloc] initWithString:@"Stringy"];
-
+        //Delcaring UIAlertView
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Terms & Policies"
                                                             message:nil
                                                            delegate:self
                                                   cancelButtonTitle:@"Done"
                                                   otherButtonTitles:nil];
-//        alertView.alertViewStyle = UIAlertViewStyleDefault;
+        alertView.tag = 1;
         
-        UITextView *textView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, 260, 00)];
-        textView.scrollEnabled = NO;
+        //Setting UIView with Terms & Conditions String
+        UIView *myView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 260, 360)];
+        myView.userInteractionEnabled = TRUE;
+        
+        UITextView *textView = [[UITextView alloc] initWithFrame:myView.frame];
         textView.attributedText = string;
         textView.editable = NO;
         textView.backgroundColor = [UIColor clearColor];
-        [textView sizeToFit];
         textView.scrollEnabled = YES;
+        textView.showsVerticalScrollIndicator = YES;
+        [myView addSubview:textView];
         
-//        UIView *viewer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 260, 300)];
-////        viewer.backgroundColor = [UIColor yellowColor];
-//        
-//        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 260, 300)];
-//        label.attributedText = string;
-////        [label sizeToFit];
-//        label.numberOfLines = 0;
-//        
-//        [viewer addSubview:label];
+        [alertView setValue:myView forKey:@"accessoryView"];
         
-        
-        
-        
-//        UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 260, 60)];
-//        v.backgroundColor = [UIColor yellowColor];
-        [alertView setValue:textView forKey:@"accessoryView"];
-
-        
-//        UITextField *textField = [alertView textFieldAtIndex:0];
-//        textField.delegate = self;
-//        textField.text = terms;
         [alertView show];
     }
     if (indexPath.row == 5) {
-        NSLog(@"Help");
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Help" message:@"Help message will go here." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Alternate Button 1", @"Alertnate Button 2", nil];
+        alertView.tag = 2;
         [alertView show];
     }
     if (indexPath.row == 6) {
@@ -345,15 +309,15 @@
     [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
-//-(void)willPresentAlertView:(UIAlertView *)alertView {
-//        UILabel *title = [alertView valueForKey:@"_titleLabel"];
-//        title.font = [UIFont fontWithName:@"Arial" size:18];
-//        [title setTextColor:[UIColor whiteColor]];
-//         
-//        UILabel *body = [alertView valueForKey:@"_bodyTextLabel"];
-//        body.font = [UIFont fontWithName:@"Arial" size:15];
-//        [body setTextColor:[UIColor whiteColor]];
-//}
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (alertView.tag == 0) {
+        NSLog(@"Problem");
+    } else if (alertView.tag == 1) {
+        NSLog(@"Terms");
+    } else {
+        NSLog(@"Help");
+    }
+}
 
 -(IBAction)closeAction:(id)sender {
     

@@ -10,7 +10,7 @@
 #import "FeedBrowserTableViewController.h"
 #import "DetailScrollViewController.h"
 
-@interface SideTableViewController : UITableViewController <UIGestureRecognizerDelegate, FeedBrowserTableViewControllerDelegate, UIActionSheetDelegate, UIAlertViewDelegate>
+@interface SideTableViewController : UITableViewController <UIGestureRecognizerDelegate, FeedBrowserTableViewControllerDelegate, UIActionSheetDelegate, UIAlertViewDelegate, UITextFieldDelegate>
 @property (strong, nonatomic) IBOutlet UITableViewCell *userCell;
 @property (strong, nonatomic) IBOutlet UITableViewCell *logoutCell;
 
