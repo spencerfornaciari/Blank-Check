@@ -10,6 +10,8 @@
 
 @interface ValueController : NSObject
 
++(NSString *)industrySearch:(id)sender;
+
 +(NSString *)careerSearch:(id)sender;
 
 +(NSArray *)jobValue:(NSString *)title;

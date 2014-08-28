@@ -38,6 +38,8 @@
 
 @implementation DetailScrollViewController
 
+
+//Setup the view based on whether it is a connection or the user
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -49,9 +51,6 @@
     
     Value *currentValue;
     
-    NSLog(@"%@", self.worker.firstName);
-    NSLog(@"%@", self.detail);
-    
     if ([self.detail isKindOfClass:[Connection class]]) {
         self.connection = (Connection *)self.detail;
 
@@ -62,8 +61,6 @@
 //            self.connection.locationAvailable = @1;
 //            [CoreDataHelper saveContext];
 //        }
-        
-        NSLog(@"Location: %@", self.connection.location);
         
 //        [LocationController getLocationData:self.connection.location];
         
@@ -85,15 +82,12 @@
             
             NSMutableArray *temp = [NSMutableArray new];
             NSArray *orderedArray = [self.connection.values array];
-//            int count = self.connection.values.count;
 
             for (int j = (int)orderedArray.count - 6; j < orderedArray.count; j++) {
                 Value *value = [self.connection.values objectAtIndex:j];
                 [temp addObject:value.marketPrice];
                 
             }
-            
-            
             
             self.data = [NSArray arrayWithObjects:[temp copy], self.fauxData, nil];
             
@@ -117,12 +111,8 @@
             }
             
             currentValue = [self.connection.values lastObject];
-//            NSNumber *tempNumber = temp[0];
             
-//            float fraction = [currentValue.marketPrice floatValue];
-//            fraction = 100.0 * floor(((fraction * .01)/100.0)+0.5);
-            
-            float topValue = [currentValue.marketPrice floatValue];// + fraction;// * 1.01;
+            float topValue = [currentValue.marketPrice floatValue];
             float rounded = ceil((topValue/1000.0)+0.5);
             topValue = 1000.0 * rounded;
             
@@ -166,35 +156,8 @@
             NSNumberFormatter *formatter = [NSNumberFormatter new];
             [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
             valueLabel.text = [NSString stringWithFormat:@"$%@", [formatter stringFromNumber:currentValue.marketPrice]];
-//            currentValue = [self.connection.values lastObject];
-//            self.data = @[
-//                          @[@60, @100, @60, @20, @60, @80],
-//                          @[@20, @60, @40, @140, @80, @120]
-//                          ];
-//            self.data = [NSArray arrayWithObjects:[temp copy], self.fauxData, nil];
-//
-//            NSNumberFormatter *formatter = [NSNumberFormatter new];
-//            [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
-//            valueLabel.text = [NSString stringWithFormat:@"$%@", [formatter stringFromNumber:currentValue.marketPrice]];
         }
         
-        
-
-//        NSLog(@"Value: $%ld", (long)[array[0] integerValue]);
-        
-//        NSLog(@"Historical Values: %@", [ValueController generateBackValues:array[0]]);
-        
-        
-        
-//        NSLog(@"Faux: %@", [ValueController generateBackValues:array[0]]);
-        
-        
-//        [NetworkController checkProfileText:job.title];
-        
-              
-//        for (Job *job in self.connection.jobs) {
-//           [NetworkController checkProfileText:job.title];
-//        }
         [self setupGraph];
         
     }
@@ -317,33 +280,7 @@
     
 //    self.frameHeight = 1590;
     self.frameHeight = self.expertAppraisalView.frame.origin.y + self.expertAppraisalView.frame.size.height;
-;
 
-    
-
-//    [self setProfileImage:self.detail];
-    
-
-//    [profileImage setNeedsDisplay];
-    
-    //    userNameLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:20.0];
-//    Value *value = [[self.connection valueForKey:@"values"] lastObject];
-//    NSLog(@"Value: %@", [self.connection valueForKey:@"values"]);
-    
-//    for (Value *value in self.connection.values) {
-//        if (!currentValue) {
-//            currentValue = value;
-//        }
-//        
-//        if (value.date >= currentValue.date) {
-//            currentValue = value;
-//        }
-//    }
-    
-
-//    valueLabel.text = [NSString stringWithFormat:@"$%@", value.marketPrice];
-//    valueLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:17.0];
-    
 }
 
 -(void)setProfileImage {
@@ -697,7 +634,6 @@
 }
 
 -(void)loadExpertInsights {
-    
     self.expertInsightsView = [[UIView alloc] initWithFrame:CGRectMake(0, self.userInfoView.frame.origin.y + self.userInfoView.frame.size.height, 320, 280)];
     [scrollView addSubview:self.expertInsightsView];
     
@@ -706,12 +642,15 @@
     expertLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0];
     [self.expertInsightsView addSubview:expertLabel];
     
-    Insight *model = self.connection.insights[0];
-//    
+    Insight *model;
+    if ([self.detail isKindOfClass:[Connection class]]) {
+        model = self.connection.insights[0];
+    } else {
+        model = self.worker.insights[0];
+    }
+    
     ExpertInsightView *expert = [[ExpertInsightView alloc] initWithFrame:CGRectMake(0, 40, 320, 240) andExpertInsight:model];
     [self.expertInsightsView addSubview:expert];
-    
-    
 }
 
 -(void)loadTimeLine {

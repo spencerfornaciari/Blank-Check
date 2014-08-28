@@ -277,7 +277,7 @@
         alertView.tag = 1;
         
         //Setting UIView with Terms & Conditions String
-        UIView *myView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 260, 360)];
+        UIView *myView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 260, self.view.frame.size.height - 180)];
         myView.userInteractionEnabled = TRUE;
         
         UITextView *textView = [[UITextView alloc] initWithFrame:myView.frame];
