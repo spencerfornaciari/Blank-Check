@@ -7,7 +7,6 @@
 //
 
 #import "DetailScrollViewController.h"
-#import "SocialController.h"
 #import "UIColor+BlankCheckColors.h"
 #import "AppDelegate.h"
 #import "ProblemView.h"
@@ -194,13 +193,8 @@
             }
             
             currentValue = [self.worker.values lastObject];
-            NSNumber *tempNumber = temp[0];
             
-//            float fraction = [currentValue.marketPrice floatValue];
-//            
-//            fraction = 100.0 * floor(((fraction * .01)/100.0)+0.5);
-            
-            float topValue = [currentValue.marketPrice floatValue];// + fraction;// * 1.01;
+            float topValue = [currentValue.marketPrice floatValue];
             float rounded = ceil((topValue/1000.0)+0.5);
             topValue = 1000.0 * rounded;
             

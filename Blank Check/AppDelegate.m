@@ -58,6 +58,7 @@
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main_iPhone"
                                                              bundle: nil];
     
+    
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"dataExists"]) {
         UINavigationController *viewController = [mainStoryboard instantiateViewControllerWithIdentifier: @"sideView"];
         self.window.rootViewController = viewController;

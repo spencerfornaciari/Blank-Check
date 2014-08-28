@@ -19,6 +19,7 @@
     NSString *authorizationCode;
 }
 
+//Create Network Controller singleton
 + (NetworkController *)sharedController
 {
     static dispatch_once_t pred;
@@ -30,6 +31,7 @@
     return shared;
 }
 
+//Request authorization code from LinkedIn
 -(NSString *)beginOAuthAccess
 {
     
@@ -46,14 +48,12 @@
     return authorizationURL;
 }
 
-
+//Convert response URL from LinkedIn into authorization code
 -(NSString *)convertURLToCode:(NSURL *)url
 {
     NSString *query = [url query];
     NSArray *components = [query componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"=&"]];
     NSMutableArray *mutComponents = [components mutableCopy];
-    
-//    NSLog(@"Components: %@", mutComponents);
     
     if ([mutComponents[0]  isEqual: @"code"]) {
         [mutComponents removeObjectAtIndex:0];
@@ -65,6 +65,7 @@
     return nil;
 }
 
+//Respond to the URL LinkedIn returned to request an authorization token
 -(void)handleCallbackURL:(NSString *)code
 {
     //Generating data for token extension
@@ -73,14 +74,11 @@
     
     NSString *urlString = [NSString stringWithFormat:@"%@%@", LINKEDIN_TOKEN_URL, token];
 
-    //Generating the NSMutableURLRequest with the base LinkedIN URL with token extension in the HTTP Body
-//    NSURL *url = [NSURL URLWithString:LINKEDIN_TOKEN_URL];
     NSURL *url = [NSURL URLWithString:urlString];
     NSLog(@"URL: %@", url);
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     [request setHTTPMethod:@"POST"];
     [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-//    [request setHTTPBody:[token dataUsingEncoding:NSUTF8StringEncoding]];
     [request setValue:@"json" forHTTPHeaderField:@"x-li-format"]; // per Linkedin API: https://developer.linkedin.com/documents/api-requests-json
     
     NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
@@ -101,8 +99,11 @@
         [[NSUserDefaults standardUserDefaults] synchronize];
         
         @try {
-            [self loadUserData];
-            NSLog(@"Try");
+            if ([[NSUserDefaults standardUserDefaults] boolForKey:@"dataExists"]) {
+                
+            } else {
+                [self loadUserData];
+            }
         }
         @catch (NSException *exception) {
             NSLog(@"Exception");
@@ -111,7 +112,11 @@
                 NSLog(@"Not ready to grab data");
             }
             
-            [self loadUserData];
+            if ([[NSUserDefaults standardUserDefaults] boolForKey:@"dataExists"]) {
+                
+            } else {
+                [self loadUserData];
+            }
         }
         @finally {
             NSLog(@"Testing");
@@ -119,27 +124,11 @@
         
     }];
     
-//    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-//        
-//        NSString *tokenResponse = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
-//        
-//        NSLog(@"Token Response: %@", tokenResponse);
-//        
-//        NSDictionary *jsonObject=[NSJSONSerialization
-//                                  JSONObjectWithData:data
-//                                  options:NSJSONReadingMutableContainers
-//                                  error:nil];
-//        self.accessToken = [jsonObject objectForKey:@"access_token"];
-//
-//        [[NSUserDefaults standardUserDefaults] setObject:self.accessToken forKey:@"accessToken"];
-//        [[NSUserDefaults standardUserDefaults] synchronize];
-//        [self loadUserData];
-//    }];
-    
     [dataTask resume];
     
 }
 
+//Checks to see if the LinkedIn token that has been received is still current
 -(BOOL)checkTokenIsCurrent
 {
     
@@ -169,8 +158,7 @@
     }
 }
 
-//-(BOOL)checkTokenIsCurrentWithCallback::(BOOL (^)(void))callback
-
+//Checks to see if the LinkedIn token is still current, but returns a callback
 -(void)checkTokenIsCurrentWithCallback:(void (^)(BOOL finished))completion
 {
     NSString *accessURL = [NSString stringWithFormat:@"%@%@&format=json", @"https://api.linkedin.com/v1/people/~:(id,first-name,last-name,industry,headline,location:(name),num-connections,picture-url,email-address,last-modified-timestamp,interests,languages,skills,certifications,three-current-positions,public-profile-url,educations,num-recommenders,recommendations-received)?oauth2_access_token=", [[NSUserDefaults standardUserDefaults] stringForKey:@"accessToken"]];
@@ -194,15 +182,12 @@
     }];
     
     [dataTask resume];
-    
-//    NSData *data = [NSData dataWithContentsOfURL:url];
-//    
-//    NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-//
+
 }
 
 #pragma mark - Load current user data
 
+//After O-Auth Token is received this grabs the data from the user's profile
 -(void)loadUserData {
 //    NSString *accessToken = [[NSUserDefaults standardUserDefaults] stringForKey:@"accessToken"];
 //    
@@ -236,6 +221,7 @@
 
 }
 
+//Parses the data from the user's profile and enters it into the SQL-lite database
 -(void)parseUserData:(NSData *)data {
     
     Worker *newWorker = [NSEntityDescription insertNewObjectForEntityForName:@"Worker" inManagedObjectContext:[CoreDataHelper managedContext]];
@@ -428,22 +414,16 @@
 //    [self grabUserConnections:newWorker inContext:[CoreDataHelper managedContext] atRange:0];
 }
 
+//Grabs the user's connection's and enters those into the database
 -(void)grabUserConnections:(Worker *)worker inContext:(NSManagedObjectContext *)context atRange:(NSInteger)range {
     NSString *accessToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"accessToken"];
     
     NSString *connectionAccess = [NSString stringWithFormat:@"%@%@&format=json&start=%ld&count=200", @"https://api.linkedin.com/v1/people/~/connections:(id,first-name,last-name,num-connections,num-connections-capped,positions,public-profile-url,headline,industry,location,pictureUrl,picture-urls::(original))?oauth2_access_token=", accessToken, (long)range];
     
-    NSLog(@"Worker Name: %@ %@", worker.firstName, worker.lastName);
-
-    
-//    NSString *connectionAccess = [NSString stringWithFormat:@"%@%@&format=json", @"https://api.linkedin.com/v1/people/~/connections:(id,first-name,last-name,num-connections,num-connections-capped,positions,public-profile-url,headline,industry,location,pictureUrl,picture-urls::(original))?oauth2_access_token=", accessToken];
-    
     NSURL *connectionURL = [NSURL URLWithString:connectionAccess];
     
     NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfig];
-    
-//    [NSURLSession sessionWithConfiguration:sessionConfig delegate:self delegateQueue:nil];
     
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:[NSURLRequest requestWithURL:connectionURL]completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         
@@ -563,6 +543,7 @@
     return [documentsURL path];
 }
 
+//Checks to see which LinkedinUsers you have in common with another connection
 -(NSArray *)commonConnectionsWithUser:(NSString *)userID
 {
     

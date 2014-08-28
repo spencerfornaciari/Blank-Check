@@ -70,6 +70,7 @@
     }
 }
 
+//Generates the cell information based on the scope that has been selected
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
@@ -107,23 +108,7 @@
     return cell;
 }
 
-//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//   
-//    if (tableView == self.searchDisplayController.searchResultsTableView) {
-//        NSLog(@"Did select");
-//        [self performSegueWithIdentifier:@"detailedView" sender:self];
-////        [self performSegueWithIdentifier: @"detailedView" sender: self];
-//        NSIndexPath *indexPath = [self.searchDisplayController.searchResultsTableView indexPathForSelectedRow];
-//        self.selectedConnection =  (Connection *)self.searchResultsArray[indexPath.row];
-//        //
-////        DetailScrollViewController *detailedView = segue.destinationViewController;
-////        detailedView.gamer = gamer;
-//    } else {
-////       self.selectedConnection = (Connection *)self.connectionsArray[indexPath.row];
-//    }
-//}
-//
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"detailedView"]) {
         NSLog(@"Prepare segue");
@@ -146,6 +131,7 @@
     }
 }
 
+//Filters connections list based on the criteria from the selected scope
 - (void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope
 {
     self.scopeString = scope;
@@ -177,6 +163,8 @@
 }
 
 #pragma mark - UISearchDisplayController delegate methods
+
+//Displaying search controller when user selects it
 -(BOOL)searchDisplayController:(UISearchDisplayController *)controller
 shouldReloadTableForSearchString:(NSString *)searchString
 {
@@ -198,11 +186,11 @@ shouldReloadTableForSearchString:(NSString *)searchString
     searchBar.text = self.searchString;
 }
  
-
+//Loads the preset search controller on top when the user first enters the search window
 -(void)loadOverview {
     self.controller = [self.storyboard instantiateViewControllerWithIdentifier:@"presetSearch"];
     [self addChildViewController:self.controller];
-    self.controller.view.frame = CGRectMake(0, 108, 320, 480);
+    self.controller.view.frame = CGRectMake(0, 108, 320, self.view.frame.size.height - 90);
     [self.view addSubview:self.controller.view];
     [self.controller didMoveToParentViewController:self];
 }

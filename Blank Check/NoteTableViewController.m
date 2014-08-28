@@ -19,9 +19,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.worker = [CoreDataHelper currentUser];
-    
-    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 60, 0); //values passed are - top, left, bottom, right
+    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 60, 0);
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -65,8 +63,6 @@
     // Configure the cell...
     [cell setCell:self.noteArray[indexPath.row]];
     
-//    [cell setClipsToBounds:YES];
-
     return cell;
 }
 

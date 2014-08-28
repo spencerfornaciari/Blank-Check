@@ -47,19 +47,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.menuOpen = FALSE;
-    
-//    self.tableView.contentInset = UIEdgeInsetsMake(50, 0, 0, 0); //values passed are - top, left, bottom, right
+    self.title = @"Blank Check Labs";
 
+    self.menuOpen = FALSE;
     
     self.menuButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"menu"] style:UIBarButtonItemStylePlain target:self action:@selector(menuAction)];
     self.navigationItem.leftBarButtonItem = self.menuButton;
-//    [NetworkController sharedController].delegate = self;
-    
-//    [[NetworkController sharedController] loadUserData];
-    
-    self.title = @"Blank Check Labs";
-//    self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 0)];
+
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 
     //Remove cell seperate from last cell
@@ -76,23 +70,12 @@
     [self.mainViewController didMoveToParentViewController:self];
     
     self.topViewController = self.mainViewController;
-//    [self setupPanGesture];
-    
     
     //Worker Profile
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"dataExists"]) {
         self.worker = [CoreDataHelper currentUser];
         self.workerView = [self.storyboard instantiateViewControllerWithIdentifier:@"profileView"];
         self.workerView.detail = self.worker;
-
-//        self.profileController = [[UINavigationController alloc] initWithRootViewController:self.workerView];
-        
-//        UIBarButtonItem *menuButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"menu"]
-//                                                                       style:UIBarButtonItemStylePlain
-//                                                                      target:self
-//                                                                      action:@selector(openMenu)];
-//        
-//        self.profileController.navigationItem.leftBarButtonItem = menuButton;
         
         [self addChildViewController:self.workerView];
         self.workerView.view.frame = self.view.frame;
@@ -104,9 +87,6 @@
         [self addChildViewController:self.noteController];
         self.noteController.view.frame = self.view.frame;
         [self.noteController didMoveToParentViewController:self];
-        
-//        NSLog(@"Worker: %@ %@", self.worker.firstName, self.worker.lastName);
-//        NSLog(@"W Count: %lu", (unsigned long)self.worker.connections.count);
     }
    
    
@@ -167,10 +147,10 @@
     return 7;
 }
 
+//Instantiate the static cells in the side menu
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row == 0) {
-        NSLog(@"My profile");
         self.title = @"My Profile";
         self.navigationItem.rightBarButtonItem = nil;
 
@@ -179,7 +159,6 @@
         [self.topViewController.view removeFromSuperview];
         self.topViewController = self.workerView;
         [self.view addSubview:self.workerView.view];
-//        [self setupPanGesture];
         [self menuAction];
 
     }
@@ -192,30 +171,18 @@
         [self.topViewController.view removeFromSuperview];
         self.topViewController = self.mainViewController;
         [self.view addSubview:self.mainViewController.view];
-//        [self setupPanGesture];
-        
         [self menuAction];
 
     }
     
-//    if (indexPath.row == 2) {
-//        NSLog(@"Messages");
-//    }
-//    if (indexPath.row == 3) {
-//        NSLog(@"Notifications");
-//    }
-    
     if (indexPath.row == 2) {
-        NSLog(@"Notes");
         self.title = @"My Notes";
-        
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Sort" style:UIBarButtonItemStylePlain target:self action:@selector(sortButtonAction)];
         
         self.noteController.view.frame = self.topViewController.view.frame;
         [self.topViewController.view removeFromSuperview];
         self.topViewController = self.noteController;
         [self.view addSubview:self.noteController.view];
-//        [self setupPanGesture];
         
         [self menuAction];
     }
@@ -226,7 +193,7 @@
         [alertView show];
     }
     if (indexPath.row == 4) {
-        //Creating Terms & Conditions attributed string
+        //Creating Terms & Conditions string
         NSString *terms = @"Disclaimer\nBlank Check Labs (“BCL”) does not guarantee or warrant that the data provided herein is accurate, complete, or current and shall not be liable to you for any loss or injury arising out of or caused in whole or in part by the acts, errors or omissions of BCL, whether negligent or otherwise, in procuring, compiling, gathering, formatting, interpreting, reporting, communicating or delivering the information contained in this mobile application. BCL does not undertake any obligation to update, modify, revise or reorganize the information provided herein, or to notify you or any third party should the information be updated, modified, revised or reorganized. In no event shall BCL be liable to you or any third party for any direct, indirect, incidental, consequential or special damages whether foreseeable or unforeseeable and however caused, even if BCL is advised of the possibility of such damages.\n\nIntellectual Property and Restrictions on Use\nAll materials and resources on this website (the “Resources”), including but not limited to information, documents, products, logos, graphics, sounds, images, software and services, are protected by copyright or other intellectual property laws. Except as stated herein, none of the Resources on this website may be copied, reproduced, distributed, republished, downloaded, displayed, posted or transmitted in any form or by any means, including but not limited to electronic, mechanical, photocopying, recording, or other means, without the prior express written permission of BCL. Users may not modify, copy, distribute, transmit, display, publish, sell, license, create derivative works or otherwise use any information available on this website for any public or commercial purpose. You must have written permission from BCL to distribute copies of the information. Unauthorized use of the Resources may violate copyright, trademark and other intellectual property laws. BCL, the BCL logo, and/or other BCL products referenced herein are trademarks of BCL, and may be registered in certain jurisdictions. All other product names, company names, marks, logos, and symbols may be the trademarks of their respective owners.";
 
         NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:terms];
@@ -297,18 +264,22 @@
         alertView.tag = 2;
         [alertView show];
     }
+    
+    //Logout process
     if (indexPath.row == 6) {
-        NSLog(@"Logout");
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"accessToken"];
         [[NSUserDefaults standardUserDefaults] synchronize];
         
-        LoginViewController *loginView = [LoginViewController new];
+        UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main_iPhone"
+                                                                 bundle: nil];
+        LoginViewController *loginView = [mainStoryboard instantiateViewControllerWithIdentifier: @"loginView"];
         [self presentViewController:loginView animated:YES completion:nil];
     }
     
     [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
+//Responding to actions from within Problems, Terms, and Help menus
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (alertView.tag == 0) {
         NSLog(@"Problem");
@@ -372,6 +343,7 @@
     
 }
 
+//Method for opening the side menu
 - (void)openMenu
 {
     self.title = @"Blank Check Labs";
@@ -383,14 +355,14 @@
     }];
 }
 
+//Method for closing the side menu
 - (void)closeMenu
 {
     [UIView animateWithDuration:.4 animations:
      ^{
-         //self.repoViewController.view.frame = CGRectMake(self.repoViewController.view.frame.origin.x, self.self.repoViewController.view.frame.origin.y, self.repoViewController.view.frame.size.width, self.repoViewController.view.frame.size.height);
-         
          self.topViewController.view.frame = self.view.frame;
      } completion:^(BOOL finished) {
+         
      }];
 }
 
@@ -417,55 +389,6 @@
 }
 
 
-/*
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
-    // Configure the cell...
-    
-    return cell;
-}
-*/
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
 -(void)updateUser {
     self.worker = [CoreDataHelper currentUser];
     UIImage *image = [UIImage imageWithContentsOfFile:self.worker.imageLocation];
@@ -482,14 +405,7 @@
     }];
 }
 
-
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
-}
-
+//Creating the actions for the notes database, sorting the table
 #pragma mark - Note Action Sheet
 
 -(void)sortButtonAction {
