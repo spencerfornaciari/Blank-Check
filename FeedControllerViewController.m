@@ -8,7 +8,6 @@
 
 #import <Social/Social.h>
 #import "FeedControllerViewController.h"
-#import "SocialController.h"
 #import "NetworkController.h"
 #import "BlankCheckViewCell.h"
 

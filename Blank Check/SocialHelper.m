@@ -9,12 +9,14 @@
 
 @implementation SocialHelper
 
+//Returns the social accounts available
 +(ACAccountStore *)accessAccountStore {
     ACAccountStore *accounts = [(AppDelegate *)[[UIApplication sharedApplication] delegate] accounts];
 
     return accounts;
 }
 
+//Checks to see if there is a twitter account available
 +(BOOL)checkTwitterAccount {
     ACAccountType *twitterType = [[SocialHelper accessAccountStore] accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
     NSArray *twitterAccounts = [[SocialHelper accessAccountStore] accountsWithAccountType:twitterType];
@@ -26,6 +28,7 @@
     }
 }
 
+//Returns the available twitter account
 +(ACAccount *)twitterAccount {
     ACAccountType *twitterType = [[SocialHelper accessAccountStore] accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
     NSArray *twitterAccounts = [[SocialHelper accessAccountStore] accountsWithAccountType:twitterType];
@@ -33,6 +36,7 @@
     return [twitterAccounts lastObject];
 }
 
+//Requests permission to access twitter account
 +(ACAccount *)accessTwitterAccount {
     ACAccountType *twitterType = [[SocialHelper accessAccountStore] accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
     
@@ -59,6 +63,7 @@
     return twitterAccount;
 }
 
+//Post message on twitter
 +(void)sendTwitterPost:(id)sender {
     Worker *worker;
     Connection *connection;
@@ -140,6 +145,7 @@
                                     completion:accountStoreHandler];
 }
 
+//Check if a facebook account is available
 +(BOOL)checkFacebookAccount {
     ACAccountType *facebookType = [[SocialHelper accessAccountStore] accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierFacebook];
     NSArray *facebookAccounts = [[SocialHelper accessAccountStore] accountsWithAccountType:facebookType];
@@ -151,6 +157,7 @@
     }
 }
 
+//Returns the facebook account
 +(ACAccount *)facebookAccount {
     ACAccountType *facebookType = [[SocialHelper accessAccountStore] accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierFacebook];
     NSArray *facebookAccounts = [[SocialHelper accessAccountStore] accountsWithAccountType:facebookType];
@@ -158,6 +165,7 @@
     return [facebookAccounts lastObject];
 }
 
+//Requests access of the facebook account
 +(ACAccount *)accessFacebookAccount {
     ACAccountType *facebookType = [[SocialHelper accessAccountStore] accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierFacebook];
     
@@ -190,6 +198,7 @@
     return facebookAccount;
 }
 
+//Sends a post to facebook
 +(void)sendFacebookPost:(id)sender {
     Worker *worker;
     Connection *connection;
@@ -241,6 +250,7 @@
     }];
 }
 
+//Share post on LinkedIn
 +(void)shareOnLinkedin:(id)sender {
     Worker *worker;
     Connection *connection;
@@ -314,6 +324,7 @@
 
 }
 
+//Send an invitation to connection to use Blank Check on LinkedIn
 +(void)sendInvitationToUserID:(id)sender
 {
     Worker *worker;
@@ -360,8 +371,6 @@
         body = [NSString stringWithFormat:@"Hi %@,\nI'd like to connect with you on Blank Check Labs. \n%@", connection.firstName, linkURL];
     }
     
-//    NSDictionary *itemContent = @{@"invitation-request":@{@"connect-type":@"friend"}};
-    
     NSDictionary *messageDictionary = @{@"subject":subject,
                                         @"body":body,
                                         @"recipients":recipients};
@@ -388,7 +397,5 @@
     
     [uploadTask resume];
 }
-
-
 
 @end
