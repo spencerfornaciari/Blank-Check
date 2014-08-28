@@ -259,10 +259,13 @@
     [self loadExpertInsights];
     [self loadTimeLine];
     [self loadExpertAppraisal];
-    
-//    self.frameHeight = 1590;
-    self.frameHeight = self.expertAppraisalView.frame.origin.y + self.expertAppraisalView.frame.size.height;
 
+    //Set frame size
+    if ([self.detail isKindOfClass:[Connection class]]) {
+        self.frameHeight = (self.expertAppraisalView.frame.origin.y + self.expertAppraisalView.frame.size.height) - 40;
+    } else {
+        self.frameHeight = (self.expertAppraisalView.frame.origin.y + self.expertAppraisalView.frame.size.height) + 20;
+    }
 }
 
 -(void)setProfileImage {
@@ -347,11 +350,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-//-(void)scrollViewDidScroll:(UIScrollView *)scrollView
-//{
-//    
-//}
-
+//Setting up a line-graph using GraphKit
 - (void)setupGraph {
 
     self.labels = @[@"01/12", @"07/12", @"01/13", @"07/13", @"01/14", @"07/14"];
@@ -576,31 +575,10 @@
     [self.overView addSubview:inviteButton];
 }
 
+//Load User/Connection ranking for job and education
 -(void)loadUserInfo {
-//    self.userInfoView = [[UserInfoView alloc] initWithFrame:CGRectMake(0, 600, 320, 170) andUser:self.connection];
     self.userInfoView = [[UserInfoView alloc] initWithFrame:CGRectMake(0, (self.buttonMenu.frame.origin.y + self.buttonMenu.frame.size.height) + 10, 320, 170) andUser:self.connection];
-//    self.legendView.frame.origin.y + self.legendView.frame.size.height
     [scrollView addSubview:self.userInfoView];
-    
-
-    
-//    UILabel *userInfoLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 128, 21)];
-//    userInfoLabel.text = @"USER INFO";
-//    userInfoLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0];
-//    userInfoLabel.textColor = [UIColor blackColor];
-//    [userInfoView addSubview:userInfoLabel];
-//    
-//    UILabel *workExperienceLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, userInfoView.frame.origin.y + 29, 128, 21)];
-//    workExperienceLabel.text = [NSString stringWithFormat:@"Work Exp: Top 10%%"];
-//    workExperienceLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:17.0];
-//    workExperienceLabel.textColor = [UIColor blackColor];
-//    [userInfoView addSubview:workExperienceLabel];
-//    
-//    UILabel *educationLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, workExperienceLabel.frame.origin.y + 29, 128, 21)];
-//    educationLabel.text = [NSString stringWithFormat:@"Education Exp: Top 5%%"];
-//    educationLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:17.0];
-//    educationLabel.textColor = [UIColor blackColor];
-//    [userInfoView addSubview:educationLabel];
 }
 
 -(void)loadExpertInsights {
@@ -668,19 +646,7 @@
     
     TimelineView *timelineView2 = [[TimelineView alloc] initWithFrame:CGRectMake(0, 90, 320, 30) andTimelineEvent:event2];
     [self.timelineView addSubview:timelineView2];
-    
-    
-//    TimelineView *timelineView = [[TimelineView alloc] initWithFrame:CGRectMake(0, self.expertInsightsView.frame.origin.y + self.expertInsightsView.frame.size.height, 320, 320)];
-//    [scrollView addSubview:timelineView];
-    
-//    UILabel *expertLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 206, 21)];
-//    expertLabel.text = @"EXPERT INSIGHTS";
-//    expertLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0];
-//    expertLabel.textColor = [UIColor blackColor];
-//    [expertInsightsView addSubview:expertLabel];
-    
-//    TimelineView *timeline = [[TimelineView alloc] initWithFrame:CGRectMake(0, 0, 320, 320)];
-//    [self.timelineView addSubview:timeline];
+
 }
 
 -(void)loadExpertAppraisal {
@@ -712,7 +678,7 @@
 }
 
 -(void)linkedInAction {
-    
+    NSLog(@"LinkedIn Action");
 }
 
 #pragma mark - GKLineGraphDataSource
@@ -727,8 +693,6 @@
                   [UIColor gk_peterRiverColor],
                   [UIColor clearColor],
                   [UIColor clearColor]
-//                  [UIColor gk_alizarinColor],
-//                  [UIColor gk_sunflowerColor]
                   ];
     return [colors objectAtIndex:index];
 }
@@ -747,47 +711,26 @@
 
 #pragma mark - Social share
 
+//Handle social share based on selected network
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     
     switch (buttonIndex) {
         case 0:
         {
-            NSLog(@"LinkedIn");
             [SocialHelper shareOnLinkedin:self.detail];
-//            [SocialController shareOnLinkedin:self.connection];;
-            //            [socialController shareOnFacebook:<#(Gamer *)#>]
-            
-        }    //            SLComposeViewController *viewController = [SocialController shareOnFacebook:gamer];
+        }
             break;
             
         case 1:
         {
-            NSLog(@"Twitter");
-//            SLComposeViewController *twitterViewController = [SocialController shareOnTwitter:self.connection];
-//            
-//            if (twitterViewController) {
-//                [self presentViewController:twitterViewController animated:YES completion:nil];
-//            } else {
-//                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"No Twitter Account Available" message:@"Please enable Twitter to do this" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
-//                [alertView show];
-//            }
             [SocialHelper sendTwitterPost:self.detail];
         }
             break;
             
         case 2:
         {
-            NSLog(@"Facebook");
             [SocialHelper sendFacebookPost:self.detail];
-//            SLComposeViewController *facebookViewController = [SocialController shareOnFacebook:self.connection];
-//            //
-//            if (facebookViewController) {
-//                [self presentViewController:facebookViewController animated:YES completion:nil];
-//            } else {
-//                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"No Facebook Account Available" message:@"Please enable Facebook to do this" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
-//                [alertView show];
-//            }
         }
             break;
     }
@@ -824,6 +767,8 @@
 }
 
 #pragma mark - Alertview methods
+
+//Handle note entry and save to the database
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 0) {
         
@@ -839,8 +784,6 @@
         [[CoreDataHelper currentUser] addNewNoteObject:note];
         
         [CoreDataHelper saveContext];
-        
-        NSLog(@"Note: %@", noteText.text);
     }
 }
 
