@@ -10,6 +10,7 @@
 
 @implementation LocationController
 
+//Get more detailed location data based on Linkedin location string
 +(void)getLocationData:(id)sender {
     Connection *connection;
     Worker *worker;
@@ -109,6 +110,7 @@
     
 }
 
+//Get zipcode information in the US based on geocoded location data
 +(void)getZipCode:(id)sender {
     Connection *connection;
     Worker *worker;
@@ -151,11 +153,11 @@
         
         if ([sender isKindOfClass:[Connection class]]) {
             connection.zipCode = zipNumber;
-//            [CoreDataHelper saveContext];
+            [CoreDataHelper saveContext];
             
         } else {
             worker.zipCode = zipNumber;
-//            [CoreDataHelper saveContext];
+            [CoreDataHelper saveContext];
         }
         
     }];

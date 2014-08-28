@@ -34,7 +34,7 @@
 		897F02351958E8D000A770A6 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 897F02341958E8D000A770A6 /* LoginViewController.m */; };
 		898A7D6419A1925D00AED48B /* PresetSearchResultsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 898A7D6319A1925D00AED48B /* PresetSearchResultsTableViewController.m */; };
 		899616B619461E3100C75B99 /* PresetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 899616B519461E3100C75B99 /* PresetViewController.m */; };
-		899616B919464DF600C75B99 /* LanguageProcessing.m in Sources */ = {isa = PBXBuildFile; fileRef = 899616B819464DF600C75B99 /* LanguageProcessing.m */; };
+		899616B919464DF600C75B99 /* LanguageProcessingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 899616B819464DF600C75B99 /* LanguageProcessingController.m */; };
 		89A143901940E65700FDEC4F /* UIColor+BlankCheckColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A1438F1940E65700FDEC4F /* UIColor+BlankCheckColors.m */; };
 		89B571EC198059F3006FBF14 /* Language.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B571EB198059F3006FBF14 /* Language.m */; };
 		89B571EF198059F3006FBF14 /* Value.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B571EE198059F3006FBF14 /* Value.m */; };
@@ -52,7 +52,6 @@
 		89C973BF192564AF00EC6004 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C973BE192564AF00EC6004 /* AppDelegate.m */; };
 		89C973C2192564AF00EC6004 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89C973C0192564AF00EC6004 /* Main_iPhone.storyboard */; };
 		89C973C5192564AF00EC6004 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89C973C3192564AF00EC6004 /* Main_iPad.storyboard */; };
-		89C973C8192564AF00EC6004 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C973C7192564AF00EC6004 /* ViewController.m */; };
 		89C973CA192564AF00EC6004 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 89C973C9192564AF00EC6004 /* Images.xcassets */; };
 		89C973D2192564AF00EC6004 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89C973AE192564AF00EC6004 /* Foundation.framework */; };
 		89C973D3192564AF00EC6004 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89C973B2192564AF00EC6004 /* UIKit.framework */; };
@@ -155,8 +154,8 @@
 		898A7D6319A1925D00AED48B /* PresetSearchResultsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PresetSearchResultsTableViewController.m; sourceTree = "<group>"; };
 		899616B419461E3100C75B99 /* PresetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PresetViewController.h; path = ../PresetViewController.h; sourceTree = "<group>"; };
 		899616B519461E3100C75B99 /* PresetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PresetViewController.m; path = ../PresetViewController.m; sourceTree = "<group>"; };
-		899616B719464DF600C75B99 /* LanguageProcessing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LanguageProcessing.h; path = ../LanguageProcessing.h; sourceTree = "<group>"; };
-		899616B819464DF600C75B99 /* LanguageProcessing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LanguageProcessing.m; path = ../LanguageProcessing.m; sourceTree = "<group>"; };
+		899616B719464DF600C75B99 /* LanguageProcessingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LanguageProcessingController.h; path = ../LanguageProcessingController.h; sourceTree = "<group>"; };
+		899616B819464DF600C75B99 /* LanguageProcessingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LanguageProcessingController.m; path = ../LanguageProcessingController.m; sourceTree = "<group>"; };
 		89A1438E1940E65700FDEC4F /* UIColor+BlankCheckColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIColor+BlankCheckColors.h"; path = "../UIColor+BlankCheckColors.h"; sourceTree = "<group>"; };
 		89A1438F1940E65700FDEC4F /* UIColor+BlankCheckColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIColor+BlankCheckColors.m"; path = "../UIColor+BlankCheckColors.m"; sourceTree = "<group>"; };
 		89B571EA198059F3006FBF14 /* Language.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Language.h; sourceTree = "<group>"; };
@@ -191,8 +190,6 @@
 		89C973BE192564AF00EC6004 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		89C973C1192564AF00EC6004 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
 		89C973C4192564AF00EC6004 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
-		89C973C6192564AF00EC6004 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		89C973C7192564AF00EC6004 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		89C973C9192564AF00EC6004 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		89C973CF192564AF00EC6004 /* Blank CheckTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Blank CheckTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		89C973D8192564AF00EC6004 /* Blank CheckTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Blank CheckTests-Info.plist"; sourceTree = "<group>"; };
@@ -433,6 +430,8 @@
 		89C973F11925797B00EC6004 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				899616B719464DF600C75B99 /* LanguageProcessingController.h */,
+				899616B819464DF600C75B99 /* LanguageProcessingController.m */,
 				89571BAB199ACFE600475614 /* SocialHelper.h */,
 				89571BAC199ACFE600475614 /* SocialHelper.m */,
 				89779E081965DCF700AC81CA /* SearchViewController.h */,
@@ -447,8 +446,6 @@
 				899616B519461E3100C75B99 /* PresetViewController.m */,
 				8978FBC9193E562600BF0921 /* PresetSearchViewController.h */,
 				8978FBCA193E562600BF0921 /* PresetSearchViewController.m */,
-				89C973C6192564AF00EC6004 /* ViewController.h */,
-				89C973C7192564AF00EC6004 /* ViewController.m */,
 				89C973E61925650C00EC6004 /* NetworkController.h */,
 				89C973E71925650C00EC6004 /* NetworkController.m */,
 				8971C71C197D85600024D3A1 /* CoreDataHelper.h */,
@@ -477,8 +474,6 @@
 				89D417A7197858D300A0CA4F /* BlankCheck.xcdatamodeld */,
 				89C973E9192565D800EC6004 /* Constants.h */,
 				89C973EA192565D800EC6004 /* Constants.m */,
-				899616B719464DF600C75B99 /* LanguageProcessing.h */,
-				899616B819464DF600C75B99 /* LanguageProcessing.m */,
 				89A1438E1940E65700FDEC4F /* UIColor+BlankCheckColors.h */,
 				89A1438F1940E65700FDEC4F /* UIColor+BlankCheckColors.m */,
 			);
@@ -677,7 +672,6 @@
 				89FEC8C419A67C4F00964585 /* LocationController.m in Sources */,
 				895AF662195235A700B20DA6 /* FeedBrowserTableViewController.m in Sources */,
 				89779E0A1965DCF700AC81CA /* SearchViewController.m in Sources */,
-				89C973C8192564AF00EC6004 /* ViewController.m in Sources */,
 				89A143901940E65700FDEC4F /* UIColor+BlankCheckColors.m in Sources */,
 				89C973BF192564AF00EC6004 /* AppDelegate.m in Sources */,
 				89D24ACF198AA7870042967E /* PauseViewController.m in Sources */,
@@ -693,7 +687,7 @@
 				897F02321958A4B200A770A6 /* DetailScrollViewController.m in Sources */,
 				8971C71E197D85600024D3A1 /* CoreDataHelper.m in Sources */,
 				89B571F5198059F3006FBF14 /* Job.m in Sources */,
-				899616B919464DF600C75B99 /* LanguageProcessing.m in Sources */,
+				899616B919464DF600C75B99 /* LanguageProcessingController.m in Sources */,
 				89779DF319648AAC00AC81CA /* UserInfoView.m in Sources */,
 				89571BB0199BE5E200475614 /* NoteTableViewController.m in Sources */,
 			);

@@ -6,10 +6,11 @@
 //  Copyright (c) 2014 Blank Check Labs. All rights reserved.
 //
 
-#import "LanguageProcessing.h"
+#import "LanguageProcessingController.h"
 
-@implementation LanguageProcessing
+@implementation LanguageProcessingController
 
+//Basic work in experimenting with language processing
 +(NSDictionary *)processWord:(NSString *)string{
     NSDictionary *dictionary = [NSDictionary new];
     
@@ -48,5 +49,33 @@
     
     return dictionary;
 }
+
+//Removes misc characters from string to normalize
++(NSString *)removeCharactersFromString:(NSString *)string {
+    NSCharacterSet *trim = [NSCharacterSet characterSetWithCharactersInString:@"()/\\|-,&"];
+    string = [[string componentsSeparatedByCharactersInSet:trim] componentsJoinedByString:@""];
+    
+    NSArray *words = [string componentsSeparatedByString:@" "];
+    
+    NSString *finalString = @"";
+    for (NSString *word in words) {
+        if ([word isEqualToString:@"the"]) {
+            
+        } else if ([word isEqualToString:@"and"]) {
+            
+        } else if ([word isEqualToString:@"of"]) {
+            
+        } else {
+            if ([finalString isEqualToString:@""]) {
+                finalString = word;
+            } else {
+                finalString = [finalString stringByAppendingString:[NSString stringWithFormat:@" %@", word]];
+            }
+        }
+    }
+    
+    return  finalString;
+}
+
 
 @end

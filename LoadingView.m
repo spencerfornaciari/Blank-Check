@@ -20,6 +20,7 @@
     return self;
 }
 
+//Loading view while information Linkedin downloads
 -(void)configureView{
     
     self.backgroundColor = [UIColor blackColor];

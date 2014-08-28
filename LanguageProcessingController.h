@@ -8,8 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-@interface LanguageProcessing : NSObject
+@interface LanguageProcessingController : NSObject
 
 +(NSDictionary *)processWord:(NSString *)string;
+
++(NSString *)removeCharactersFromString:(NSString *)string;
 
 @end
