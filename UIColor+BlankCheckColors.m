@@ -10,6 +10,7 @@
 
 @implementation UIColor (BlankCheckColors)
 
+//The variuous colors from the Blank Check colors scheme
 +(UIColor *)blankCheckBlue{
     float red = 68.0/255.0;
     float green = 116.0/255.0;

@@ -72,7 +72,6 @@
 		89FEC8C419A67C4F00964585 /* LocationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89FEC8C319A67C4F00964585 /* LocationController.m */; };
 		89FEC8CA19A67DF500964585 /* Worker.m in Sources */ = {isa = PBXBuildFile; fileRef = 89FEC8C919A67DF500964585 /* Worker.m */; };
 		89FEC8CD19A6924800964585 /* Connection.m in Sources */ = {isa = PBXBuildFile; fileRef = 89FEC8CC19A6924800964585 /* Connection.m */; };
-		89FEC91419A9415800964585 /* OldController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89FEC91319A9415800964585 /* OldController.m */; };
 		89FEC91719AB9E0D00964585 /* NSURLSessionHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 89FEC91619AB9E0D00964585 /* NSURLSessionHelper.m */; };
 		89FEC91A19ABA5E800964585 /* ButtonMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89FEC91919ABA5E800964585 /* ButtonMenuView.m */; };
 /* End PBXBuildFile section */
@@ -219,8 +218,6 @@
 		89FEC8C919A67DF500964585 /* Worker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Worker.m; sourceTree = "<group>"; };
 		89FEC8CB19A6924800964585 /* Connection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Connection.h; sourceTree = "<group>"; };
 		89FEC8CC19A6924800964585 /* Connection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Connection.m; sourceTree = "<group>"; };
-		89FEC91219A9415800964585 /* OldController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OldController.h; sourceTree = "<group>"; };
-		89FEC91319A9415800964585 /* OldController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OldController.m; sourceTree = "<group>"; };
 		89FEC91519AB9E0D00964585 /* NSURLSessionHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSURLSessionHelper.h; sourceTree = "<group>"; };
 		89FEC91619AB9E0D00964585 /* NSURLSessionHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSURLSessionHelper.m; sourceTree = "<group>"; };
 		89FEC91819ABA5E800964585 /* ButtonMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ButtonMenuView.h; sourceTree = "<group>"; };
@@ -468,8 +465,6 @@
 				896DB15E19A3B5FA00731649 /* ValueController.m */,
 				89FEC8C219A67C4F00964585 /* LocationController.h */,
 				89FEC8C319A67C4F00964585 /* LocationController.m */,
-				89FEC91219A9415800964585 /* OldController.h */,
-				89FEC91319A9415800964585 /* OldController.m */,
 				89FEC91519AB9E0D00964585 /* NSURLSessionHelper.h */,
 				89FEC91619AB9E0D00964585 /* NSURLSessionHelper.m */,
 			);
@@ -699,7 +694,6 @@
 				8971C71E197D85600024D3A1 /* CoreDataHelper.m in Sources */,
 				89B571F5198059F3006FBF14 /* Job.m in Sources */,
 				899616B919464DF600C75B99 /* LanguageProcessing.m in Sources */,
-				89FEC91419A9415800964585 /* OldController.m in Sources */,
 				89779DF319648AAC00AC81CA /* UserInfoView.m in Sources */,
 				89571BB0199BE5E200475614 /* NoteTableViewController.m in Sources */,
 			);

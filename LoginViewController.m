@@ -47,9 +47,9 @@
     // Dispose of any resources that can be recreated.
 }
 
+//Starts a new login process, in a webview
 -(void)newOAuth
 {
-    
     NSString *string = [[NetworkController sharedController] beginOAuthAccess];
     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
         NSURL *url = [NSURL URLWithString:string];
@@ -59,6 +59,7 @@
     }];
 }
 
+//Handles the web calls during O-Auth process, getting authorization string, access token, then moving on.
 -(void)webViewDidFinishLoad:(UIWebView *)webView{
     NSLog(@"didFinish: %@; stillLoading:%@", [[webView request]URL],
           (webView.loading?@"NO":@"YES"));
@@ -76,14 +77,11 @@
         
         if (self.authorizationString && self.tokenBOOL == FALSE) {
             [[NetworkController sharedController] handleCallbackURL:self.authorizationString];
-//            [self.networkController handleCallbackURL:self.authorizationString];
             NSLog(@"Auth: %@", self.authorizationString);
             NSLog(@"Token: %@", [[NSUserDefaults standardUserDefaults] stringForKey:@"accessToken"]);
             self.tokenBOOL = TRUE;
         }
         
-        
-        // Rethink logic here
         if (self.tokenBOOL == TRUE) {
             UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
             SideTableViewController *viewController = [mainStoryboard instantiateViewControllerWithIdentifier: @"sideView"];
@@ -91,35 +89,7 @@
         }
     }
     
-
-    //    if ([[NSUserDefaults standardUserDefaults] stringForKey:@"accessToken"]) {
-    //        NSString *string = [NSString stringWithFormat:@"https://api.linkedin.com/v1/people/~?oauth2_access_token=%@&%@", [[NSUserDefaults standardUserDefaults] stringForKey:@"accessToken"], @"format=json"];
-    //        NSLog(@"String: %@", string);
-    
-    //    }
-    
-    //    NSLog(@"Default Access Token: %@", [[NSUserDefaults standardUserDefaults] stringForKey:@"accessToken"]);
-    //    NSLog(@"TOKEN: %@", url);
-    //    if ([self.controller convertURLToCode:currentURL]) {
-    //        NSString *url = [self.controller handleCallbackURL:string];
-    //        NSLog(@"TOKEN: %@", url);
-    //    }
-    
 }
-
-//- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-//    NSLog(@"Loading: %@", [request URL]);
-//    return YES;
-//}
-//
-//
-//
-//
-//
-//- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
-//    NSLog(@"didFail: %@; stillLoading:%@", [[webView request]URL],
-//          (webView.loading?@"NO":@"YES"));
-//}
 
 /*
 #pragma mark - Navigation

@@ -17,6 +17,7 @@
     return appDelegate.managedObjectContext;
 }
 
+//Returns the current user of the database
 +(Worker *)currentUser {
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Worker" inManagedObjectContext:[CoreDataHelper managedContext]];
     NSFetchRequest *request = [NSFetchRequest new];
@@ -30,6 +31,7 @@
     return worker;
 }
 
+//Saves the current context of the database
 +(void)saveContext {
     NSError *error = nil;
     if (! [[CoreDataHelper managedContext] save:&error]) {
@@ -40,6 +42,7 @@
     }
 }
 
+//Fetchs the connections of the current user
 +(NSArray *)fetchUserConnections {
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Worker" inManagedObjectContext:[CoreDataHelper managedContext]];
     NSFetchRequest *request = [NSFetchRequest new];

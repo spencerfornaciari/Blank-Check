@@ -10,6 +10,7 @@
 
 @implementation Constants
 
+//Linkedin API Keys
 NSString * const kLINKEDIN_API_KEY = @"7586usec2zya46";
 NSString * const kLINKEDIN_SECRET_KEY = @"EwwwT9dMYjVgPIX5";
 NSString * const kLINKEDIN_STATE = @"haT0kE7omp5Ye";
