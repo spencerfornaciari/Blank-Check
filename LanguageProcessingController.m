@@ -14,7 +14,7 @@
 +(NSDictionary *)processWord:(NSString *)string{
     NSDictionary *dictionary = [NSDictionary new];
     
-    NSString *newString = @"NBA coaching sources have told ESPN.com's Marc Stein that the Cleveland Cavaliers' recent pitch to Kentucky coach John Calipari was actually a 10-year offer worth nearly $80 million and included the role of coach and team president.";
+    NSString *newString = @"NBA coaching sources have told ESPN.com's Marc Stein that the Cleveland Cavaliers' recent pitch to Kentucky coach John Calipari was actually a 10-year offer worth nearly $80 million and included the role of coach and team president. NBA coaching sources have told ESPN.com's Marc Stein that the Cleveland Cavaliers' recent pitch to Kentucky coach John Calipari was actually a 10-year offer worth nearly $80 million and included the role of coach and team president.";
     
     NSInteger options = NSLinguisticTaggerOmitWhitespace | NSLinguisticTaggerOmitPunctuation | NSLinguisticTaggerJoinNames;
     NSLinguisticTagger *wordTagger = [[NSLinguisticTagger alloc] initWithTagSchemes:@[NSLinguisticTagSchemeLanguage, NSLinguisticTagSchemeLemma, NSLinguisticTagSchemeNameTypeOrLexicalClass]
@@ -35,6 +35,7 @@
             }
 //            [self.delegate receiveWord:@{@"token": token,@"postag": tag, @"lemma": lemma, @"position":  @(tokenPosition), @"sentence": @(sentenceCounter)}];
             tokenPosition++;
+            
         }];
         sentenceCounter++;
         if (currentSentence.location + currentSentence.length == [newString length]) {

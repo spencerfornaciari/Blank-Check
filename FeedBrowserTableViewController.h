@@ -15,6 +15,7 @@
 #import "LoadingView.h"
 #import "Worker.h"
 #import "Job.h"
+#import "LanguageProcessingController.h"
 
 
 @protocol FeedBrowserTableViewControllerDelegate <NSObject>

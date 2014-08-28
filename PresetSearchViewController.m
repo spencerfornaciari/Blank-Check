@@ -128,38 +128,8 @@
             preset.results = [[CoreDataHelper fetchUserConnections] filteredArrayUsingPredicate:locationPredicate];
             preset.title = self.listArray[indexPath.row];
         }
-        
-        
 
-        
-//                preset.pageTitle = self.listArray[indexPath.row];
-//        preset.category = @"Person";
     }
-//    if (self.searchSegmentController.selectedSegmentIndex == 0) {
-//        
-//    } else if (self.searchSegmentController.selectedSegmentIndex == 1) {
-//        NSLog(@"Segment Controller #2");
-//        NSIndexPath *indexPath = [self.presetTableView indexPathForSelectedRow];
-//        [NetworkController checkProfileText:self.titleArray[indexPath.row]];
-//    } else {
-////        if ([segue.identifier isEqualToString:@"presetView"]) {
-////            NSIndexPath *indexPath = [self.presetTableView indexPathForSelectedRow];
-////            PresetViewController *preset = segue.destinationViewController;
-////            preset.pageTitle = self.listArray[indexPath.row];
-////            preset.category = @"Person";
-////        }
-//        NSIndexPath *indexPath = [self.presetTableView indexPathForSelectedRow];
-//        
-//        NSPredicate *locationPredicate = [NSPredicate predicateWithFormat:@"location CONTAINS[cd] %@", self.listArray[indexPath.row]];
-//        
-//        
-////        PresetSearchResultsTableViewController *preset = segue.destinationViewController;
-//        NSArray *array = [[CoreDataHelper fetchUserConnections] filteredArrayUsingPredicate:locationPredicate];;
-//        
-//        NSLog(@"Segment Controller #3: %lu", (long)array.count);
-//
-//    }
-    
 }
 
 

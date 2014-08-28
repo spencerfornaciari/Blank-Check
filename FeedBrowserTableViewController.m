@@ -14,7 +14,6 @@
 @property (nonatomic) Worker *worker;
 @property (nonatomic) NSArray *feedArray;
 
-
 @property (nonatomic) NSOperationQueue *operationQueue;
 @property (nonatomic) AppDelegate *appDelegate;
 
@@ -42,21 +41,8 @@
         [self loadCoreData];
     }
 
-    
-//    [SocialHelper sendInvitationToUserID:self.worker];
-//    } else {
-//        if (self.downloadingUserData == FALSE) { //Need to check if DB exists
-//            [self.operationQueue addOperationWithBlock:^{
-//
-////                [[NetworkController sharedController] loadUserData];
-//
-//            }];
-//        }
-//
-//    }
+//    [LanguageProcessingController processWord:nil];
 }
-
-
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
