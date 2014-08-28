@@ -72,7 +72,6 @@
 		89F1F8F21970889F00ECC1B3 /* HockeySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89F1F8EE1970889F00ECC1B3 /* HockeySDK.framework */; };
 		89F1F8F31970889F00ECC1B3 /* HockeySDK.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 89F1F8F01970889F00ECC1B3 /* HockeySDK.xcconfig */; };
 		89F1F8F41970889F00ECC1B3 /* HockeySDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 89F1F8F11970889F00ECC1B3 /* HockeySDKResources.bundle */; };
-		89F8AE0C1977147600FF37D1 /* libFlurry_5.2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 89F8AE0B1977147600FF37D1 /* libFlurry_5.2.0.a */; };
 		89FEC8C419A67C4F00964585 /* LocationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89FEC8C319A67C4F00964585 /* LocationController.m */; };
 		89FEC8CA19A67DF500964585 /* Worker.m in Sources */ = {isa = PBXBuildFile; fileRef = 89FEC8C919A67DF500964585 /* Worker.m */; };
 		89FEC8CD19A6924800964585 /* Connection.m in Sources */ = {isa = PBXBuildFile; fileRef = 89FEC8CC19A6924800964585 /* Connection.m */; };
@@ -223,8 +222,6 @@
 		89F1F8EE1970889F00ECC1B3 /* HockeySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = HockeySDK.framework; sourceTree = "<group>"; };
 		89F1F8F01970889F00ECC1B3 /* HockeySDK.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = HockeySDK.xcconfig; sourceTree = "<group>"; };
 		89F1F8F11970889F00ECC1B3 /* HockeySDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = HockeySDKResources.bundle; sourceTree = "<group>"; };
-		89F8AE0A1977147600FF37D1 /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
-		89F8AE0B1977147600FF37D1 /* libFlurry_5.2.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry_5.2.0.a; sourceTree = "<group>"; };
 		89FEC8C219A67C4F00964585 /* LocationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationController.h; sourceTree = "<group>"; };
 		89FEC8C319A67C4F00964585 /* LocationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationController.m; sourceTree = "<group>"; };
 		89FEC8C819A67DF500964585 /* Worker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Worker.h; sourceTree = "<group>"; };
@@ -261,7 +258,6 @@
 				89C973B3192564AF00EC6004 /* UIKit.framework in Frameworks */,
 				89C973AF192564AF00EC6004 /* Foundation.framework in Frameworks */,
 				4F6ABBBCFE2E42399BFFEFC8 /* libPods.a in Frameworks */,
-				89F8AE0C1977147600FF37D1 /* libFlurry_5.2.0.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -378,7 +374,6 @@
 			isa = PBXGroup;
 			children = (
 				89B6E4DE1986CD1600BB413E /* Google Analytics Library */,
-				89F8AE091977147600FF37D1 /* Flurry */,
 				8910F3201937AD1300955812 /* Model */,
 				89C973F21925797F00EC6004 /* Misc */,
 				89C973F11925797B00EC6004 /* Controller */,
@@ -526,15 +521,6 @@
 				89F1F8F11970889F00ECC1B3 /* HockeySDKResources.bundle */,
 			);
 			path = Resources;
-			sourceTree = "<group>";
-		};
-		89F8AE091977147600FF37D1 /* Flurry */ = {
-			isa = PBXGroup;
-			children = (
-				89F8AE0A1977147600FF37D1 /* Flurry.h */,
-				89F8AE0B1977147600FF37D1 /* libFlurry_5.2.0.a */,
-			);
-			path = Flurry;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -9,7 +9,6 @@
 #import "DetailScrollViewController.h"
 #import "SocialController.h"
 #import "UIColor+BlankCheckColors.h"
-#import "Flurry.h"
 #import "AppDelegate.h"
 #import "ProblemView.h"
 #import "Insight.h"
@@ -171,26 +170,9 @@
         userNameLabel.text = [NSString stringWithFormat:@"%@ %@.", self.worker.firstName, firstLetter];
         
         if (self.worker.values.count == 0) {
-//            NSArray *array = [ValueController jobValue:[ValueController careerSearch:self.worker]];
-//            
-//            
-//            for (NSDictionary *dict in [ValueController generateBackValues:array[0]]) {
-//                //                NSUInteger num = [[dict objectForKey:@"value"] integerValue];
-//                
-//                Value *newValue = [NSEntityDescription insertNewObjectForEntityForName:@"Value" inManagedObjectContext:[CoreDataHelper managedContext]];
-//                newValue.marketPrice = [dict objectForKey:@"value"];
-//                newValue.date = [NSDate date];
-//                [self.worker addNewValueObject:newValue];
-//                
-//                //                [temp addObject:[NSNumber numberWithInteger:num]];
-//                //                NSLog(@"Faux: %@", [NSNumber numberWithInteger:num]);
-//            }
-//            
-//            [CoreDataHelper saveContext];
             
             NSMutableArray *temp = [NSMutableArray new];
             NSArray *orderedArray = [self.worker.values array];
-            //            int count = self.connection.values.count;
             
             for (int j = (int)orderedArray.count - 6; j < orderedArray.count; j++) {
                 Value *value = [self.worker.values objectAtIndex:j];
@@ -332,12 +314,6 @@
     [super viewWillAppear:animated];
         
     if ([self.detail isKindOfClass:[Connection class]]) {
-        NSDictionary *articleParams = [NSDictionary dictionaryWithObjectsAndKeys:
-                                       @"John Q", @"Author",
-                                       [NSString stringWithFormat:@"%@ %@", self.connection.firstName, self.connection.lastName], @"Detailed_Info",
-                                       nil];
-        
-        [Flurry logEvent:@"Detailed_View" withParameters:articleParams timed:YES];
         
         if ([self.connection.invitationSent integerValue] == 1) {
             [scrollView setContentSize:CGSizeMake(self.view.frame.size.width, self.frameHeight)];
@@ -355,12 +331,6 @@
     }
     
     if ([self.detail isKindOfClass:[Worker class]]) {
-        NSDictionary *articleParams = [NSDictionary dictionaryWithObjectsAndKeys:
-                                       @"John Q", @"Author",
-                                       [NSString stringWithFormat:@"%@ %@", self.worker.firstName, self.worker.lastName], @"Detailed_Info",
-                                       nil];
-        
-        [Flurry logEvent:@"Detailed_View" withParameters:articleParams timed:YES];
         
         [scrollView setContentSize:CGSizeMake(self.view.frame.size.width, self.frameHeight)];
         

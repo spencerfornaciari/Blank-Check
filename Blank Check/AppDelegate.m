@@ -10,7 +10,6 @@
 #import "SideTableViewController.h"
 #import "LoginViewController.h"
 #import <HockeySDK/HockeySDK.h>
-#import "Flurry.h"
 #import "GAI.h"
 
 @implementation AppDelegate
@@ -34,11 +33,6 @@
     [[BITHockeyManager sharedHockeyManager] startManager];
     [[BITHockeyManager sharedHockeyManager].authenticator
      authenticateInstallation];
-    
-    [Flurry setCrashReportingEnabled:YES];
-    
-    // Replace YOUR_API_KEY with the api key in the downloaded package
-    [Flurry startSession:@"PK5YRTZRCPKZSTWSDHJ5"];
     
     //Google Analytics Setup
 //     Optional: automatically send uncaught exceptions to Google Analytics.

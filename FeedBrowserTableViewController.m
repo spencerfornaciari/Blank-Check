@@ -37,12 +37,7 @@
     
     self.operationQueue = [(AppDelegate *)[[UIApplication sharedApplication] delegate] blankQueue];
     [NetworkController sharedController].delegate = self;
-//    [[NetworkController sharedController] loadUserData];
-
-//    NSURL *storeURL = [[NSURL URLWithString:[self documentsDirectoryPath]] URLByAppendingPathComponent:@"CoreData.sqlite"];
-//    NSFileManager *fileManager = [NSFileManager defaultManager];
-    
-//    
+  
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"dataExists"]) {
         [self loadCoreData];
     }

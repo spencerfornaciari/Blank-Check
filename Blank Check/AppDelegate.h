@@ -14,7 +14,6 @@
 @interface AppDelegate : UIResponder <UIApplicationDelegate, NSURLSessionDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-//@property (strong, nonatomic) NetworkController *networkController;
 @property (strong, nonatomic) NSOperationQueue *blankQueue;
 
 @property (nonatomic, strong, readonly) NSManagedObjectContext *managedObjectContext;
