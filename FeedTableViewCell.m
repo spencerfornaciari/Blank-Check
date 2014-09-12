@@ -77,7 +77,7 @@
 //        self.connection.locationAvailable = @1;
 //    }
     
-    [CoreDataHelper saveContext];
+//    [CoreDataHelper saveContext];
 }
 
 

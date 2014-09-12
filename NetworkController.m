@@ -407,7 +407,7 @@
 
     [CoreDataHelper saveContext];
     [LocationController getLocationData:newWorker];
-    [LocationController getZipCode:newWorker];
+//    [LocationController getZipCode:newWorker];
     [self grabUserConnections:newWorker inContext:[CoreDataHelper managedContext] atRange:0];
     
     //Parsing Connection info

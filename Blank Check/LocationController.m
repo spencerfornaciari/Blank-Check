@@ -153,11 +153,11 @@
         
         if ([sender isKindOfClass:[Connection class]]) {
             connection.zipCode = zipNumber;
-            [CoreDataHelper saveContext];
+//            [CoreDataHelper saveContext];
             
         } else {
             worker.zipCode = zipNumber;
-            [CoreDataHelper saveContext];
+//            [CoreDataHelper saveContext];
         }
         
     }];

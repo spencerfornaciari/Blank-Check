@@ -347,6 +347,10 @@
 - (void)openMenu
 {
     self.title = @"Blank Check Labs";
+    
+    [self updateUser];
+    [self.tableView reloadData];
+    
     [UIView animateWithDuration:.4 animations:^{
         self.topViewController.view.frame = CGRectMake(self.view.frame.size.width, self.topViewController.view.frame.origin.y, self.topViewController.view.frame.size.width, self.topViewController.view.frame.size.height);
     } completion:^(BOOL finished) {

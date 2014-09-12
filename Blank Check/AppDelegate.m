@@ -10,7 +10,6 @@
 #import "SideTableViewController.h"
 #import "LoginViewController.h"
 #import <HockeySDK/HockeySDK.h>
-#import "GAI.h"
 
 @implementation AppDelegate
 
@@ -58,28 +57,34 @@
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main_iPhone"
                                                              bundle: nil];
     
-    
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"dataExists"]) {
-        UINavigationController *viewController = [mainStoryboard instantiateViewControllerWithIdentifier: @"sideView"];
-        self.window.rootViewController = viewController;
-    } else {
-        BOOL tokenIsCurrent;
-        if (![[NSUserDefaults standardUserDefaults] stringForKey:@"accessToken"]) {
-            NSLog(@"No Token");
-            tokenIsCurrent = FALSE;
-        } else {
-            NSLog(@"Token available");
-            tokenIsCurrent = [[NetworkController sharedController] checkTokenIsCurrent];
-        }
-        
-        if (!tokenIsCurrent) {
-            LoginViewController *viewController = [mainStoryboard instantiateViewControllerWithIdentifier: @"loginView"];
+    if ([[NSUserDefaults standardUserDefaults] stringForKey:@"accessToken"]) {
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"dataExists"]) {
+            UINavigationController *viewController = [mainStoryboard instantiateViewControllerWithIdentifier: @"sideView"];
             self.window.rootViewController = viewController;
         } else {
-        
+            BOOL tokenIsCurrent;
+            if (![[NSUserDefaults standardUserDefaults] stringForKey:@"accessToken"]) {
+                NSLog(@"No Token");
+                tokenIsCurrent = FALSE;
+            } else {
+                NSLog(@"Token available");
+                tokenIsCurrent = [[NetworkController sharedController] checkTokenIsCurrent];
+            }
+            
+            if (!tokenIsCurrent) {
+                LoginViewController *viewController = [mainStoryboard instantiateViewControllerWithIdentifier: @"loginView"];
+                self.window.rootViewController = viewController;
+            } else {
+                
+            }
+            
         }
- 
+    } else {
+        LoginViewController *viewController = [mainStoryboard instantiateViewControllerWithIdentifier: @"loginView"];
+        self.window.rootViewController = viewController;
     }
+    
+    
     
     
 //        [[NetworkController sharedController] checkTokenIsCurrentWithCallback:^(BOOL finished) {
